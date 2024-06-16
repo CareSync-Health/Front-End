@@ -7,6 +7,7 @@ import Login from './Landing Page/Auth/Patient/Login'
 import Signup from './Landing Page/Auth/Patient/Signup'
 import Login2 from './Landing Page/Auth/Doctor/Login'
 import Signup2 from './Landing Page/Auth/Doctor/Signup'
+import Contact from './Landing Page/Contact/Contact'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={ <Homepage/> } />
+        <Route path='contact' element={ <Contact/> } />
         <Route path='user' element={ <UserPage/> } />
         <Route path='patientAuth' element={ <Login/> } />
         <Route path='patientSignup' element={ <Signup/> } />
