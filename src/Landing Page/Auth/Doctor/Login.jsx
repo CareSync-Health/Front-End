@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Login = () => {
   return (
-    <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='h-[100vh] px-[50px] py-[40px]'>
+    <div style={{ backgroundImage: `url(${img})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='h-[100vh] px-[50px] py-[40px]'>
         <div className='flex justify-between gap-[10rem]'>
             <div className='mt-[2rem]'>
                 <h1 className='text-[rgba(255,255,255,1)] text-[24px] leading-[34px] font-[700]'>CareSync: The fastest way to recruit research participants</h1>
