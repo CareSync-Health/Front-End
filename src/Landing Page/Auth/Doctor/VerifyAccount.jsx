@@ -1,56 +1,115 @@
-import React, { useState } from 'react'
-import logo from '../../../assets/logo.png'
-import { Link } from 'react-router-dom'
-import img from '../../../assets/verifyImg.png'
+import React, { useState, useEffect } from 'react';
+import logo from '../../../assets/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
+import img from '../../../assets/verifyImg.png';
 
 const VerifyAccount = () => {
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const [otp, setOtp] = useState(new Array(6).fill(""))
+  useEffect(() => {
+    setIsButtonDisabled(otp.some(val => val === ""));
+  }, [otp]);
 
   function handleChange(e, index) {
+    const value = e.target.value;
 
-    if(isNaN(e.target.value)) return false
-
-    setOtp([...otp.map((data, indx) => (indx === index? e.target.value:data))])
-
-
-    if(e.target.value && e.target.nextSibling) {
-      e.target.nextSibling.focus()
+    // Handle backspace
+    if (e.nativeEvent.inputType === 'deleteContentBackward' && !value) {
+      if (index > 0) {
+        e.target.previousSibling.focus();
+      }
+      setOtp([...otp.map((data, indx) => (indx === index ? "" : data))]);
+      return;
     }
 
+    if (isNaN(value)) return false;
+
+    setOtp([...otp.map((data, indx) => (indx === index ? value : data))]);
+
+    if (value && e.target.nextSibling) {
+      e.target.nextSibling.focus();
+    }
+  }
+
+  function handlePaste(e) {
+    const value = e.clipboardData.getData("text");
+
+    if (isNaN(value)) return false;
+
+    const updatedValue = value.toString().split("").slice(0, otp.length);
+    setOtp(updatedValue);
+
+    const focusedInput = e.target.parentNode.querySelector("input:focus");
+    if (focusedInput) {
+      focusedInput.blur();
+    }
+
+    // Automatically redirect after pasting OTP code
+    if (updatedValue.length === otp.length && updatedValue.every(val => val !== "")) {
+      setIsLoading(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 2000); // Simulate a 2-second loading delay
+    }
+  }
+
+  function handleSubmit() {
+    setIsLoading(true);
+    setTimeout(() => {
+      // alert(otp.join(""));
+      navigate('/'); // Replace with your designated page route
+    }, 2000); // Simulate a 2-second loading delay
   }
 
   return (
-    <div className='bg-[#E2F3F5] w-[100%] pb-[1.1rem] lg:px-[20px]'>
-        <img src={logo} className='lg:w-[253px] xs:w-[200px]' />
-        <div className='lg:px-[50px] xs:px-[15px] lg:flex gap-[8rem]'>
-          <div className='lg:w-[50%]'>
-            <h1 className='text-[#000] text-[40px] font-semibold font-Poppins '>Enter the code</h1>
-            <p className='text-[rgba(0,0,0,5)] text-[18px] font-light font-Poppins text-start leading-[24px] mt-[1.5rem]'>Enter the OTP code that was sent to your email, be careful not to share the code with anyone.</p>
-            <div className='w-[70%] my-[20px] flex gap-[10px] mt-[2rem]'>
-              {
-                otp.map((data, i) => {
-                    return <input 
-                            key={i} 
-                            type='text' 
-                            className='lg:w-[55px] xs:w-[48px] px-[10px] py-[10px] bg-[#eeee] rounded-[8px] outline-none text-center border-[1px] border-solid border-[#818181] focus:border-2 focus:border-[#818181] focus:border-solid text-[#000] text-[20px] font-semibold font-Poppins'
-                            value={data} 
-                            onChange={(e) => handleChange(e, i)}
-                            maxLength={1}
-                          />
-                })
-              }
-            </div>
+    <div className='bg-[#E2F3F5] w-full pb-4 lg:px-5'>
+      <img src={logo} className='lg:w-[253px] xs:w-[200px]' />
+      <div className='lg:px-12 xs:px-4 lg:flex gap-32'>
+        <div className='lg:w-1/2'>
+          <h1 className='text-black text-4xl font-semibold font-Poppins'>Enter the code</h1>
+          <p className='text-black opacity-50 text-lg font-light font-Poppins text-start leading-6 mt-6'>Enter the OTP code that was sent to your email, be careful not to share the code with anyone.</p>
+          <div className='w-[70%] my-5 flex gap-2.5 mt-8'>
+            {
+              otp.map((data, i) => {
+                return <input
+                  key={i}
+                  type='text'
+                  className='lg:w-14 xs:w-12 px-2.5 py-2.5 bg-gray-200 rounded-lg outline-none text-center border border-solid border-gray-500 focus:border-2 focus:border-gray-500 text-black text-xl font-semibold font-Poppins'
+                  value={data}
+                  onChange={(e) => handleChange(e, i)}
+                  maxLength={1}
+                  onPaste={(e) => handlePaste(e)}
+                />
+              })
+            }
+          </div>
 
-            <button type='submit' onClick={() => alert(otp.join(""))} className='bg-[#22D1EE] lg:w-[380px] xs:w-[350px] py-[13px] rounded-[8px] text-[16px] font-semibold font-Poppins text-[#fff] text-center lg:mt-[8rem] xs:mt-[11.95rem]'>Verify Email</button>
-            <p className='text-[#000] text-[16px] font-normal font-Poppins mt-[1.5rem] lg:ms-[4rem] xs:ms-[3rem]'>Already have an account? <Link to='' className='text-[#22D1EE]'>Login</Link></p>
-          </div>
-          <div className='lg:w-[50%] lg:mt-[-3rem] lg:flex xs:hidden'>
-              <img src={img} className='' />
-          </div>
+          {isLoading ? (
+            <div className='lg:w-[380px] xs:w-[350px] py-[13px] rounded-[8px] text-[16px] font-semibold font-Poppins text-center lg:mt-32 xs:mt-48'>
+              <div className="inline-block w-8 h-8 border-4 border-[#22D1EE] border-t-transparent border-solid rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <button 
+              type='submit' 
+              onClick={handleSubmit} 
+              className={`bg-[#22D1EE] lg:w-[380px] xs:w-[350px] py-[13px] rounded-[8px] text-[16px] font-semibold font-Poppins text-[#fff] text-center lg:mt-[8rem] xs:mt-[11.95rem] ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isButtonDisabled}
+            >
+              Verify Email
+            </button>
+          )}
+          
+          <p className='text-black text-lg font-normal font-Poppins mt-6 lg:ml-16 xs:ml-12'>Already have an account? <Link to='' className='text-[#22D1EE]'>Login</Link></p>
         </div>
+        <div className='lg:w-1/2 lg:mt-[-3rem] lg:flex xs:hidden'>
+          <img src={img} className='' />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default VerifyAccount
+export default VerifyAccount;

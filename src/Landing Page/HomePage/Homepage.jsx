@@ -12,6 +12,8 @@ import img2 from '../../assets/Rectangle 7.png'
 import { FaStar } from "react-icons/fa6";
 import point from '../../assets/Bulleted point.png'
 import highlight from '../../assets/highlight.png'
+import testimonial from '../../assets/testimonial.png'
+import Footer from '../Footer'
 
 const Homepage = () => {
   return (
@@ -145,6 +147,19 @@ const Homepage = () => {
                 </div>
             </div>
         </div>
+
+        <div className='flex items-center gap-[10rem] px-[80px] mt-[8rem]'>
+            <div className='w-[50%]'>
+                <h1 className='text-[#000] text-[45px] font-bold font-Inter text-start'>Happy Customers​</h1>
+                <p className='text-[#000] text-[18px] font-light font-Inter leading-[28px] mt-[1rem]'>Our commitment to providing convenient and reliable healthcare services through our user-friendly platform has earned us the trust and loyalty of our valuable customers.</p>
+                <button className='w-[325px] py-[10px] px-[10px] text-center rounded-[4px] bg-[#17B978] text-[17px] text-[#fff] font-semibold font-Inter mt-[2rem]'>View All Testimonials</button>
+            </div>
+            <div className='w-[50%]'>
+                <img src={testimonial} />
+            </div>
+        </div>
+
+        <Footer/>
         
     </div>
   )

@@ -30,17 +30,6 @@ export default {
         Inter: ['Inter', 'sans-serif'],
         Poppins: ['Poppins', 'sans-serif']
       },
-      // fontFamily: {
-      //   sans: ['Gilroy', 'sans-serif']
-      // },
-      colors: {
-        green: {
-          600: "#00AABC"
-        }
-      },
-      spacing: {
-        18: "4.5rem",
-      }
     },
   },
   plugins: [],
