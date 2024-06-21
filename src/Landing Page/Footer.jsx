@@ -5,6 +5,7 @@ import facebook from '../assets/facebookI.png'
 import twitter from '../assets/twitter.png'
 import instagram from '../assets/instagram.png'
 import linkedin from '../assets/LinkedIn.png'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -31,15 +32,15 @@ const Footer = () => {
             <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'>Terms & Conditions</h2>
             <h3 className='text-[#fff] text-[22px] font-Inter font-bold mt-[3rem]'>FOLLOW US</h3>
             <div className='flex items-center gap-[1.5rem] mt-[1.5rem]'>
-                <img src={facebook} className='w-[27px]' />
-                <img src={twitter} className='w-[27px]' />
-                <img src={linkedin} className='w-[27px]' />
-                <img src={instagram} className='w-[27px]' />
+                <Link to='' target='_blank'><img src={facebook} className='w-[27px]' /></Link>
+                <Link to='https://x.com/_CareSync' target='_blank'><img src={twitter} className='w-[27px]' /></Link>
+                <Link to=''><img src={linkedin} className='w-[27px]' /></Link>
+                <Link to='https://www.instagram.com/caresync_health?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==' target='_blank'><img src={instagram} className='w-[27px]' /></Link>
             </div>
         </div>
         <div>
-            <h3 className='text-[#fff] text-[16px] font-Poppins font-normal'>About-Us</h3>
-            <h3 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'>Contact-Us</h3>
+            <h3 className='text-[#fff] text-[16px] font-Poppins font-normal'><Link to='/about'>About-Us</Link></h3>
+            <h3 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'><Link to='/contact'>Contact-Us</Link></h3>
         </div>
        </div>
        <hr className='w-full h-[1px] bg-[#fff] mt-[4rem]' />
