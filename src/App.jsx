@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import ErrorBoundary from './Components/ErrorBoundary.jsx';
 
 const Homepage = lazy(() => import('./Landing Page/HomePage/Homepage'))
+const About = lazy(() => import('./Landing Page/About/About'))
 const UserPage = lazy(() => import('./Landing Page/Auth/UserPage'))
 const Login = lazy(() => import('./Landing Page/Auth/Patient/Login'))
 const Signup = lazy(() => import('./Landing Page/Auth/Patient/Signup'))
@@ -38,6 +39,7 @@ function App() {
           >
             <Routes>
               <Route path='/' element={ <Homepage/> } />
+              <Route path='about' element={ <About /> } />
               <Route path='contact' element={ <Contact/> } />
               <Route path='user' element={ <UserPage/> } />
               <Route path='patientAuth' element={ <Login/> } />

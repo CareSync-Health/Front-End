@@ -28,7 +28,10 @@ export default {
       fontFamily: {
         Roboto: ['Roboto', 'sans-serif'],
         Inter: ['Inter', 'sans-serif'],
-        Poppins: ['Poppins', 'sans-serif']
+        Poppins: ['Poppins', 'sans-serif'],
+        Almarai: ['Almarai', 'sans-serif'],
+        Yesteryear: ['Yesteryear', 'cursive'],
+        Volkhov: ['Volkhov', 'serif']
       },
     },
   },
