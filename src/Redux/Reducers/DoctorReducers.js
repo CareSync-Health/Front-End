@@ -5,7 +5,7 @@ export const doctorAuthReducer = (state = {}, action) => {
 		case types.DOCTOR_AUTH_REQUEST:
 			return { loading: true }
 		case types.DOCTOR_AUTH_SUCCESS:
-			return { loading: false, DOCTORDetail: action.payload }
+			return { loading: false, doctorDetail: action.payload }
 		case types.DOCTOR_AUTH_FAIL:
 			return { loading: false, error: action.payload }
 		case types.DOCTOR_AUTH_LOGOUT:
