@@ -39,7 +39,7 @@ const Signup = () => {
                     <input onChange={(e)=> setEmail(e.target.value)} type="email" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600]'>Password</label><br/>
                     <input onChange={(e)=> setPassword(e.target.value)} type="password" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px]' required />
-                    <button onClick={submitHandler} type='submit' className='bg-[#17B978] w-[150px] py-[10px] rounded-[8px] px-[10px] text-center text-[#fff] font-[500] ms-[9rem] mt-[1.5rem]'>Sign Up</button>
+                    <button type='submit' className='bg-[#17B978] w-[150px] py-[10px] rounded-[8px] px-[10px] text-center text-[#fff] font-[500] ms-[9rem] mt-[1.5rem]'>Sign Up</button>
                     <center>
                         <div className="flex gap-8 mt-5">
                             <hr className="w-2/5 mt-3" />
