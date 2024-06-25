@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
 const Signup = () => {
-    const [astName, setLastName] = useState()
+    const [LastName, setLastName] = useState()
     const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
