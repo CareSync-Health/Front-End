@@ -34,7 +34,7 @@ const Signup = () => {
             </div>
             <div className='shadow-xl bg-[#fff] w-[518px] px-[20px] py-[15px] rounded-[8px]'>
                 <h1 className='text-[30px] leading-[39.99px] font-[700] text-center'>Sign Up</h1>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={submitHandler(e)}>
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>First Name</label><br/>
                     <input onChange={(e)=> setFirstName(e.target.value)}  type="text" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>Last Name</label><br/>
