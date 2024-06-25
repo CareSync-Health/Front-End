@@ -34,7 +34,7 @@ const Signup = () => {
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>First Name</label><br/>
                     <input onChange={(e)=> setFirstName(e.target.value)}  type="text" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>Last Name</label><br/>
-                    <input  type="text" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
+                    <input onChange={(e)=> setLastName(e.target.value)} type="text" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>Email</label><br/>
                     <input type="email" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600]'>Password</label><br/>
