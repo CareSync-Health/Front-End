@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import img from '../../../assets/Rectangle 35.png'
 import img2 from '../../../assets/google.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
 import { useDispatch } from 'react-redux'
 import { doctor_register } from '../../../Redux/Actions/DoctorActions'
