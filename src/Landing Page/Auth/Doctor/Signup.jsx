@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import img from '../../../assets/Rectangle 35.png'
 import img2 from '../../../assets/google.png'
 import { Link } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
 const Signup = () => {
-    const [lastN]
+    const [astName, setLastName] = useState()
     const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
