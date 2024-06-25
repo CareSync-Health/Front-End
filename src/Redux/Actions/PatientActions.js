@@ -10,7 +10,7 @@ export const patient_register = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.PATIENT_AUTH_REQUEST })
 
-		const { data } = await axios.post(`${url}/PATIENT/`, body)
+		const { data } = await axios.post(`${url}/client/`, body)
 		if (data.status === 'ok') {
 			dispatch({ type: types.PATIENT_AUTH_SUCCESS, payload: data.data })
 			toast.success(data.message, {
