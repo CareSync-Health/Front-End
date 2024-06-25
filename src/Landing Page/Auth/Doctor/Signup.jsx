@@ -22,7 +22,7 @@ const Signup = () => {
             email,
             password
         }
-        dispatch(doctor_register(body))
+        dispatch(doctor_register(body, navigate))
     }
     return (
         <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='px-[50px] py-[40px]'>
