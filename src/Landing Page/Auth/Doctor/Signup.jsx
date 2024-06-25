@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
 
 const Signup = () => {
+    
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='px-[50px] py-[40px]'>
         <div className='flex justify-between gap-[10rem]'>
