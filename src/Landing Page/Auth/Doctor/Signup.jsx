@@ -8,7 +8,7 @@ import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
 const Signup = () => {
     const [Lastname, setLastName] = useState()
-    const [Lastname, setLastName] = useState()
+    const [Firstname, setLastName] = useState()
     const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
