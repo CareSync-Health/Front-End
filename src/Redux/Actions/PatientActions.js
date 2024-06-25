@@ -16,7 +16,7 @@ export const patient_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			})
-			navigate('/');
+			navigate('/about');
 		}
 	} catch (error) {
 		const message = error.response
