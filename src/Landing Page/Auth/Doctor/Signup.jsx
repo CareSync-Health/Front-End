@@ -15,7 +15,10 @@ const Signup = () => {
     const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
-
+            firstname,
+            lastname,
+            email,
+            p
         }
         dispatch(doctor_register(body))
     }
