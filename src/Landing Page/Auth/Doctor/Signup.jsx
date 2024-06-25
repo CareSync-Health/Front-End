@@ -3,14 +3,16 @@ import img from '../../../assets/Rectangle 35.png'
 import img2 from '../../../assets/google.png'
 import { Link } from 'react-router-dom'
 import logo from '../../../assets/logo.png'
+import { useDispatch } from 'react-redux'
+import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
 const Signup = () => {
-    
+    const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
 
         }
-        dispatch
+        dispatch(doctor_register())
     }
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='px-[50px] py-[40px]'>
