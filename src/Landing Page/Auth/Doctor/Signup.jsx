@@ -6,7 +6,7 @@ import logo from '../../../assets/logo.png'
 
 const Signup = () => {
     const submitHandler = ()=>{
-        
+        const
     }
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='px-[50px] py-[40px]'>
