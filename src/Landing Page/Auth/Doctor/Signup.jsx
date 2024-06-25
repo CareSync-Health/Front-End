@@ -6,7 +6,8 @@ import logo from '../../../assets/logo.png'
 import { useDispatch } from 'react-redux'
 import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
-const Signup = () => {
+const Signup = (e) => {
+    e.pre
     const [lastname, setLastName] = useState();
     const [firstname, setFirstName] = useState();
     const [email, setEmail] = useState();
@@ -18,7 +19,7 @@ const Signup = () => {
             firstname,
             lastname,
             email,
-            p
+            password
         }
         dispatch(doctor_register(body))
     }
