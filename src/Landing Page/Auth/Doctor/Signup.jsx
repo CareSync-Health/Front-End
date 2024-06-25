@@ -10,9 +10,9 @@ const Signup = () => {
     const dispatch = useDispatch()
     const submitHandler = ()=>{
         const body = {
-
+            
         }
-        dispatch(doctor_register())
+        dispatch(doctor_register(body))
     }
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='px-[50px] py-[40px]'>
