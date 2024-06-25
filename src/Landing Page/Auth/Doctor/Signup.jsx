@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux'
 import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 
 const Signup = () => {
-    const [lastName, setLastName] = useState();
-    const [firstName, setFirstName] = useState();
+    const [lastname, setLastName] = useState();
+    const [firstname, setFirstName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
