@@ -9,7 +9,7 @@ import { doctor_register } from '../../../Redux/Actions/DoctorActions'
 const Signup = () => {
     const [lastName, setLastName] = useState();
     const [firstName, setFirstName] = useState();
-    const [Lastname, setLastName] = useState()
+    const [email, setEmail] = useState()
     const [Lastname, setLastName] = useState()
 
     const dispatch = useDispatch()
