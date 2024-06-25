@@ -36,9 +36,9 @@ const Signup = () => {
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>Last Name</label><br/>
                     <input onChange={(e)=> setLastName(e.target.value)} type="text" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600] mt-3'>Email</label><br/>
-                    <input type="email" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
+                    <input onChange={(e)=> setEmail(e.target.value)} type="email" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                     <label className='text-[#000] text-[17px] font-[600]'>Password</label><br/>
-                    <input type="password" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px]' required />
+                    <input onChange={(e)=> setPassword(e.target.value)} type="password" className='w-[456px] px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px]' required />
                     <button type='submit' className='bg-[#17B978] w-[150px] py-[10px] rounded-[8px] px-[10px] text-center text-[#fff] font-[500] ms-[9rem] mt-[1.5rem]'>Sign Up</button>
                     <center>
                         <div className="flex gap-8 mt-5">
