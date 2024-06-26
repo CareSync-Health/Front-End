@@ -19,7 +19,7 @@ const Contact = () => {
           <p className='text-2xl font-semibold mt-12 mb-5'>Send Us Mail</p>
           <a href="" className='text-xl underline underline-offset-[5px]'>caresync@healthcare.com</a>
           <p className='text-2xl font-semibold mt-12 mb-5'>Find the Studio</p>
-          <MapContainer center={[6.5965, 3.3421]} zoom={13} className='w-full h-96'>
+          <MapContainer attributionControl={false} center={[6.5965, 3.3421]} zoom={13} className='w-full h-96'>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
