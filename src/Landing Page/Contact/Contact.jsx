@@ -5,14 +5,16 @@ import Footer from '../Footer'
 const Contact = () => {
   return (
     <>
-      <Navbar/>
+      <div className='shadow'>
+        <Navbar />
+      </div>
       <main className='max-w-7xl w-full'>
         <section className='w-1/2 px-12'>
           <h1 className='text-6xl font-bold'>Have Questions?</h1>
         </section>
         <section></section>
       </main>
-      <Footer/>
+      <Footer />
     </>
   )
 }
