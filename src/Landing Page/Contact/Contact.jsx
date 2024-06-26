@@ -20,8 +20,7 @@ const Contact = () => {
           <a href="" className='text-xl underline underline-offset-[5px]'>caresync@healthcare.com</a>
           <p className='text-2xl font-semibold mt-12 mb-5'>Find the Studio</p>
           <MapContainer attributionControl={false} center={[6.5965, 3.3421]} zoom={13} className='w-full h-96'>
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
             <Marker position={[6.5965, 3.3421]}>
               <Popup>
                 Na here i dey!!
