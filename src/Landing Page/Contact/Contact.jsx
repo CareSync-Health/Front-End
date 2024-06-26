@@ -28,7 +28,6 @@ const Contact = () => {
                 Na here i dey!!
               </Popup>
             </Marker>
-            <ZoomControl position="topright" />
           </MapContainer>
         </section>
         <section></section>
