@@ -8,7 +8,7 @@ const Contact = () => {
   function MinimapControl({ position, zoom }) {
     const parentMap = useMap()
     const mapZoom = zoom || 0
-  
+
     // Memoize the minimap so it's not affected by position changes
     const minimap = useMemo(
       () => (
@@ -27,15 +27,15 @@ const Contact = () => {
       ),
       [],
     )
-    
-  const positionClass =
-  (position && POSITION_CLASSES[position]) || POSITION_CLASSES.topright
-return (
-  <div className={positionClass}>
-    <div className="leaflet-control leaflet-bar">{minimap}</div>
-  </div>
-)
-}
+
+    const positionClass =
+      (position && POSITION_CLASSES[position]) || POSITION_CLASSES.topright
+    return (
+      <div className={positionClass}>
+        <div className="leaflet-control leaflet-bar">{minimap}</div>
+      </div>
+    )
+  }
   return (
     <>
       <div className='shadow-lg shadow-[grey]'>
