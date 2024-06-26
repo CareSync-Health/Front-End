@@ -23,6 +23,7 @@ const MinimapControl = () => {
   
   return null;
 };
+
 const Contact = () => {
   return (
     <>
