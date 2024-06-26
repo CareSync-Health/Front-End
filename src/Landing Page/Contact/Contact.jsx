@@ -31,7 +31,7 @@ const Contact = () => {
             <input type="text" className='text-2xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey]' placeholder='Name' />
             <input type="text" className='text-2xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Email Address' />
             <input type="text" className='text-2xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Subject' />
-            <textarea type="text" className='mtext-2xl outline-0 min-h-36 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Your Message' />
+            <textarea type="text" className='text-2xl outline-0 min-h-36 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Your Message' />
           </div>
         </section>
       </main>
