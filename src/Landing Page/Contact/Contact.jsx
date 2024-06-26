@@ -14,6 +14,7 @@ const Contact = () => {
           <p className='mt-12 text-xl'>Please feel free to call or email us,<br/>or use our contact form to get in touch with us.<br/>We look forward to hearing from you!</p>
           <p className='text-2xl font-semibold mt-12 mb-5'>Emergency? Call Us:</p>
           <a href="" className='text-xl'>+123 45 678 910</a>
+          <p className=''>Send Us Mail</p>
         </section>
         <section></section>
       </main>
