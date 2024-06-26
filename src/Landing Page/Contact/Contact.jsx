@@ -25,7 +25,7 @@ const Contact = () => {
             />
             <Marker position={[6.5965, 3.3421]}>
               <Popup>
-                N
+                Na here i dey!!
               </Popup>
             </Marker>
           </MapContainer>
