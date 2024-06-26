@@ -7,9 +7,9 @@ import 'leaflet/dist/leaflet.css';
 const Contact = () => {
   return (
     <>
-      <div className='shadow-lg shadow-[grey]'>
+      {/* <div className='shadow-lg shadow-[grey]'>
         <Navbar />
-      </div>
+      </div> */}
       <main className='max-w-7xl w-full mt-12 flex flex-wrap items-center'>
         <section className='md:w-1/2 w-full md:px-12'>
           <h1 className='text-6xl font-bold'>Have Questions?</h1>
