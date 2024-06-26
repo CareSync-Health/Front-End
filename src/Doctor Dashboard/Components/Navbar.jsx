@@ -45,7 +45,6 @@ const Navbar = ({ messageCount, notificationCount }) => {
             </span>
             )}
           </div>
-          
             <div className='flex items-center relative'>
               <img src={Notification} className='w-25' alt='Notification' />
               {notificationCount != null && (
