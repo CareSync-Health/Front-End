@@ -6,8 +6,8 @@ const Contact = () => {
   return (
     <>
       <Navbar/>
-      <main className=' max-w-7xl w-screen bg-black h-2'>
-        <section></section>
+      <main className='max-w-7xl w-full bg-black h-2'>
+        <section className='w-1/2'></section>
         <section></section>
       </main>
       <Footer/>
