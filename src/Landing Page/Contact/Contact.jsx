@@ -27,7 +27,9 @@ const Contact = () => {
           </MapContainer>
         </section>
         <section className='w-1/2 px-12 mt-8 md:mt-0'>
-          <div className='px-10 bg-[#E2F3F5] h-6'></div>
+          <div className='px-10 bg-[#E2F3F5]'>
+            
+          </div>
         </section>
       </main>
       {/* <Footer /> */}
