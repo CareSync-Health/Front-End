@@ -11,7 +11,7 @@ const Contact = () => {
         <Navbar />
       </div> */}
       <main className='max-w-7xl w-full mt-12 flex flex-wrap items-center'>
-        <section className='md:w-1/2 w-full md:px-12 px-6'>
+        <section className='lg:w-1/2 w-full lg:px-12 px-6'>
           <h1 className='text-6xl font-bold'>Have Questions?</h1>
           <p className='mt-12 text-xl'>Please feel free to call or email us,<br />or use our contact form to get in touch with us.<br />We look forward to hearing from you!</p>
           <p className='text-2xl font-semibold mt-12 mb-5'>Emergency? Call Us:</p>
@@ -26,8 +26,8 @@ const Contact = () => {
             </Marker>
           </MapContainer>
         </section>
-        <section className='md:w-1/2 w-full md:px-12 px-6 mt-8 md:mt-0'>
-          <div className='bg-[#E2F3F5] md:px-20 px-5 pt-12 pb-9 shadow-xl'>
+        <section className='lg:w-1/2 w-full lg:px-12 px-6 mt-8 lg:mt-0'>
+          <div className='bg-[#E2F3F5] lg:px-20 px-5 pt-12 pb-9 shadow-xl'>
             <input type="text" className='text-xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey]' placeholder='Name' />
             <input type="text" className='text-xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Email Address' />
             <input type="text" className='text-xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Subject' />
