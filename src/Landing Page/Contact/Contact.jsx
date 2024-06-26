@@ -27,7 +27,7 @@ const Contact = () => {
           </MapContainer>
         </section>
         <section className='w-1/2 px-12 mt-8 md:mt-0'>
-          <div className='bg-[#E2F3F5]'>
+          <div className='bg-[#E2F3F5] px-'>
             <input type="text" className='text-2xl font-[100] px-5 py-3 rounded-md border w-full border-[grey]' placeholder='Name' />
           </div>
         </section>
