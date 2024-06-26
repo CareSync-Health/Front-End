@@ -2,7 +2,8 @@ import React from 'react'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+// import 'leaflet/dist/leaflet.css';
+import './leaflet-minimap.css';
 import 'leaflet-minimap/dist/Control.MiniMap.css';
 import L from 'leaflet';
 import 'leaflet-minimap';
