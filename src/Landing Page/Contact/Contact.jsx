@@ -6,7 +6,9 @@ const Contact = () => {
   return (
     <>
       <Navbar/>
-      
+      <section>
+        
+      </section>
       <Footer/>
     </>
   )
