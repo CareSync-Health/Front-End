@@ -28,7 +28,7 @@ const Contact = () => {
         </section>
         <section className='w-1/2 px-12 mt-8 md:mt-0'>
           <div className='px-10 bg-[#E2F3F5]'>
-            <input type="text" className='text-3xl font-thin' />
+            <input type="text" className='text-3xl font-light' />
           </div>
         </section>
       </main>
