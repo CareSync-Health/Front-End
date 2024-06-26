@@ -11,9 +11,7 @@ const Contact = () => {
       <main className='max-w-7xl w-full mt-12'>
         <section className='w-1/2 px-12'>
           <h1 className='text-6xl font-bold'>Have Questions?</h1>
-          <p>Please feel free to call or email us,
-            or use our contact form to get in touch with us.
-            We look forward to hearing from you!</p>
+          <p>Please feel free to call or email us, or use our contact form to get in touch with us. We look forward to hearing from you!</p>
         </section>
         <section></section>
       </main>
