@@ -5,7 +5,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Contact = () => {
-  
   return (
     <>
       <div className='shadow-lg shadow-[grey]'>
@@ -29,7 +28,6 @@ const Contact = () => {
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
-            <MinimapControl position="topright" />
           </MapContainer>
         </section>
         <section></section>
