@@ -8,7 +8,7 @@ const PatientPages = () => {
         <Sidebar/>
       <div className='w-full'>
         <Navbar messageCount={5} notificationCount={12}/>
-        <div className=''>
+        <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
           <div className='px-[30px]'>
 
