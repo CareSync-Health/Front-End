@@ -32,7 +32,7 @@ const Contact = () => {
             <input type="text" className='text-xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Email Address' />
             <input type="text" className='text-xl outline-0 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Subject' />
             <textarea type="text" className='text-xl outline-0 min-h-36 font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Your Message' />
-            <button className='bg-[#22D1EE] m-auto w-[80%]'>Send Message</button>
+            <button className='bg-[#22D1EE] ml-auto w-[80%]'>Send Message</button>
           </div>
         </section>
       </main>
