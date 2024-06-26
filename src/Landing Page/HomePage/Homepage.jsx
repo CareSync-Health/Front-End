@@ -22,7 +22,7 @@ const Homepage = () => {
         <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='w-[100%] h-[100vh] px-[70px] pt-[50px]'>
             <h1 className='text-[#fff] text-[55px] font-[400] w-[450px] leading-[70.31px]'>Healthcare made easy with one app.</h1>
             <p className='text-[#fff] text-[18px] font-[400] w-[595px] mt-8'>Stay on top of your health with CareSync – the all-in-one app for scheduling appointments, viewing medical records, and receiving medication reminders.</p>
-            <button className='bg-[#22D1EE] w-[190px] px-[20px] py-[9px] rounded-[8px] mt-8'><Link to='' className='text-[#E2F3F5] text-[18px] leading-[20.43px] text-center font-[400]'>Learn More</Link></button>
+            <button className='bg-[#22D1EE] w-[190px] px-[20px] py-[9px] rounded-[8px] mt-8'><Link to='/about' className='text-[#E2F3F5] text-[18px] leading-[20.43px] text-center font-[400]'>Learn More</Link></button>
         </div>
 
         <div style={{ backgroundImage: `url(${union})`, backgroundRepeat: 'no-repeat',  backgroundSize: 'cover' }} className='w-[100%] px-[100px] mt-[5rem]'>
@@ -50,7 +50,7 @@ const Homepage = () => {
                     <div className='mt-[13rem]'>
                         <p className='text-[#fff] leading-[55px] text-[30px] font-[500]'>Try not to have a record?</p>
                         <p className='text-[#fff] text-[19px] leading-[30px] font-[500] w-[396px]'>Join now or access administrations as a visitor.</p>
-                        <button className='bg-[#17B978] w-[325px] px-[20px] py-[10px] rounded-[8px] mt-8'><Link to='' className='text-[#E2F3F5] text-[18px] leading-[20.43px] text-center font-[400]'>Get Started</Link></button>
+                        <button className='bg-[#17B978] w-[325px] px-[20px] py-[10px] rounded-[8px] mt-8'><Link to='/user' className='text-[#E2F3F5] text-[18px] leading-[20.43px] text-center font-[400]'>Get Started</Link></button>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@ const Homepage = () => {
             <div className='w-[50%]'>
                 <h1 className='text-[#000] text-[45px] font-bold font-Inter text-start'>Happy Customers​</h1>
                 <p className='text-[#000] text-[18px] font-light font-Inter leading-[28px] mt-[1rem]'>Our commitment to providing convenient and reliable healthcare services through our user-friendly platform has earned us the trust and loyalty of our valuable customers.</p>
-                <button className='w-[325px] py-[10px] px-[10px] text-center rounded-[4px] bg-[#17B978] text-[17px] text-[#fff] font-semibold font-Inter mt-[2rem]'>View All Testimonials</button>
+                <button className='w-[325px] py-[10px] px-[10px] text-center rounded-[4px] bg-[#17B978] text-[17px] text-[#fff] font-semibold font-Inter mt-[2rem]'><Link to='/about'>View All Testimonials</Link></button>
             </div>
             <div className='w-[50%]'>
                 <img src={testimonial} />
