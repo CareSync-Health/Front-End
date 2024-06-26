@@ -28,6 +28,7 @@ const Contact = () => {
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
+            <MinimapControl position="topright" />
           </MapContainer>
         </section>
         <section></section>
