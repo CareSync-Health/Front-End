@@ -30,7 +30,7 @@ const Contact = () => {
             </Marker>
           </MapContainer>
         </section>
-        <section></section>
+        <section className=''></section>
       </main>
       <Footer />
     </>
