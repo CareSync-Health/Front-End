@@ -38,17 +38,22 @@ const Navbar = ({ messageCount, notificationCount }) => {
         </div>
         <div className='flex items-center gap-[2rem]'>
         <div className='flex items-center relative'>
-            <img src={Notification} className='w-25' alt='Notification' />
+            <img src={MessageIcon} className='w-25' alt='Notification' />
+            {messageCount != null && (
             <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full w-[25px] h-[25px] text-[12px] text-white font-Inter pt-[5px] font-bold leading-[12px] text-center absolute left-[15px] -top-4'>
                 {formatNumber(messageCount)}
             </span>
+            )}
           </div>
-         <div className='flex items-center relative'>
-            <img src={Notification} className='w-25' alt='Notification' />
-            <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full w-[25px] h-[25px] text-[12px] text-white font-Inter pt-[5px] font-bold leading-[12px] text-center absolute left-[15px] -top-4'>
+          
+            <div className='flex items-center relative'>
+              <img src={Notification} className='w-25' alt='Notification' />
+              {notificationCount != null && (
+                <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full w-[25px] h-[25px] text-[12px] text-white font-Inter pt-[5px] font-bold leading-[12px] text-center absolute left-[15px] -top-4'>
                 {formatNumber(notificationCount)}
-            </span>
-          </div>
+              </span>
+                )}
+            </div>
           <img src={avatar} className='w-[40px]' />
         </div>
       </div>
