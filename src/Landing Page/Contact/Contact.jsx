@@ -15,7 +15,7 @@ const Contact = () => {
           <p className='text-2xl font-semibold mt-12 mb-5'>Emergency? Call Us:</p>
           <a href="" className='text-xl'>+123 45 678 910</a>
           <p className='text-2xl font-semibold mt-12 mb-5'>Send Us Mail</p>
-          <a href="" className=''></a>
+          <a href="" className=''>caresync@healthcare.com</a>
         </section>
         <section></section>
       </main>
