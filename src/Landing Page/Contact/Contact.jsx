@@ -22,9 +22,7 @@ const Contact = () => {
           <MapContainer attributionControl={false} center={[6.5965, 3.3421]} zoom={13} className='w-full h-96'>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
             <Marker position={[6.5965, 3.3421]}>
-              <Popup>
-                Na here i dey!!
-              </Popup>
+              <Popup>Na here i dey!!</Popup>
             </Marker>
           </MapContainer>
         </section>
