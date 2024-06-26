@@ -16,6 +16,7 @@ const Contact = () => {
           <a href="" className='text-xl'>+123 45 678 910</a>
           <p className='text-2xl font-semibold mt-12 mb-5'>Send Us Mail</p>
           <a href="" className='text-xl underline underline-offset-[5px]'>caresync@healthcare.com</a>
+          <p className='text-2xl font-semibold mt-12 mb-5'></p>
         </section>
         <section></section>
       </main>
