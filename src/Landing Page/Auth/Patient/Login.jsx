@@ -1,35 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 // import img1 from "../../../assets/images/Illustration.png";
 import img2 from "../../../assets/google.png";
 import img3 from "../../../assets/facebook.png";
-import Group from '../../../assets/Group.png'
+import Group from '../../../assets/Group.png';
 import { FaEnvelope, FaKey, FaGoogle, FaFacebook } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { patient_login } from "../../../Redux/Actions/PatientActions";
 
 const Login = () => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const body = {
+      email,
+      password
+    };
+
+    dispatch(patient_login(body, navigate));
+  };
+
   return (    
     <div className="bg-[#E2F3F5] h-[100vh]">
       <div className="w-[100%] m-auto pt-5">
-        <div className="flex gap-40 ms-16">
+        <div className="lg:flex gap-40 lg:ms-16">
           <div className="mt-8">
             <img src={Group} alt="patientLogin-img" />
           </div>
-          <div className="shadow-2xl bg-[#f5f5f5] px-16 py-7">
+          <div className="shadow-2xl bg-[#f5f5f5] lg:px-16 xs:px-[15px] py-7 lg:mt-0 xs:mt-[5rem]">
             <h4 className="text-start font-semibold font-Roboto">
               Welcome to <br />{" "}
               <span className="text-4xl text-[#22D1EE]">CareSync</span>
             </h4>
-            <form className="mt-8">
+            <form className="mt-8" onSubmit={submitHandler}>
               <center>
-                <div className="flex gap-2 shadow-lg bg-white w-[100%] px-[130px] py-[11px] rounded-[8px] font-Roboto">
+                <div className="flex gap-2 shadow-lg bg-white w-[100%] lg:px-[130px] xs:px-[78px] py-[11px] rounded-[8px] font-Roboto">
                   <img src={img2} alt="google-icon" className="w-6" />
                   {/* <FaGoogle/> */}
-                  <h6>Login with Google</h6>
+                  <h6 className='text-[18px] font-medium font-Inter'>Login with Google</h6>
                 </div>
-                <div className="flex gap-2 bg-white shadow-lg mt-4 w-[100%] px-[130px] py-[11px] rounded-[8px] font-Roboto">
+                <div className="flex gap-2 bg-white shadow-lg mt-4 w-[100%] lg:px-[130px] xs:px-[69px] py-[11px] rounded-[8px] font-Roboto">
                   <img src={img3} alt="google-icon" className="w-5" />
                   {/* <FaFacebook/> */}
-                  <h6>Login with Facebook</h6>
+                  <h6 className='text-[18px] font-medium font-Inter'>Login with Facebook</h6>
                 </div>
               </center>
               <center>
@@ -50,6 +69,7 @@ const Login = () => {
                     name="name"
                     required
                     className="ms-[-5%] w-[150%] px-[55px] py-[10px] rounded-[8px] outline-none"
+                    value={email} onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="mt-4 flex">
@@ -62,6 +82,7 @@ const Login = () => {
                     name="password"
                     required
                     className="ms-[-5%] w-[150%] px-[55px] py-[10px] rounded-[8px] outline-none"
+                    value={password} onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
               </div>

@@ -15,6 +15,12 @@ const Contact = lazy(() => import('./Landing Page/Contact/Contact'))
 const VerifyAccount = lazy(() => import('./Landing Page/Auth/Patient/VerifyAccount'))
 const VerifyAccount2 = lazy(() => import('./Landing Page/Auth/Doctor/VerifyAccount'))
 
+// DOCTOR DASHBOARD
+const DoctorDashboard = lazy(() => import('./Doctor Dashboard/DoctorDashboard'))
+const DoctorAppointment = lazy(() => import('./Doctor Dashboard/DoctorAppointment'))
+const DoctorPages = lazy(() => import('./Doctor Dashboard/DoctorPages'))
+const DoctorPatientPages = lazy(() => import('./Doctor Dashboard/PatientPages'))
+
 
 function App() {
 
@@ -38,7 +44,8 @@ function App() {
             }
           >
             <Routes>
-              <Route path='/' element={ <Homepage/> } />
+              {/* LANDING PAGE */}
+              <Route path='/landingpage' element={ <Homepage/> } />
               <Route path='about' element={ <About /> } />
               <Route path='contact' element={ <Contact/> } />
               <Route path='user' element={ <UserPage/> } />
@@ -48,6 +55,12 @@ function App() {
               <Route path='doctorSignup' element={ <Signup2/> } />
               <Route path='verify_account_patient' element={ <VerifyAccount/> } />
               <Route path='verify_account_doctor' element={ <VerifyAccount2/> } />
+
+              {/* DOCTOR DASHBOARD */}
+              <Route path='/' element={ <DoctorDashboard/> } />
+              <Route path='doctor_appointment' element={ <DoctorAppointment /> } />
+              <Route path='doctor_pages' element={ <DoctorPages /> } />
+              <Route path='doctor_patient_page' element={ <DoctorPatientPages/> } />
             </Routes>
           </Suspense>
       </ErrorBoundary>

@@ -14,3 +14,18 @@ export const patientAuthReducer = (state = {}, action) => {
 			return state
 	}
 }
+
+export const patientSigninReducer = (state = {}, action) => {
+	switch (action.type) {
+		case types.PATIENT_SIGNIN_REQUEST:
+			return { loading: true }
+		case types.PATIENT_SIGNIN_SUCCESS:
+			return { loading: false, patientDetail: action.payload }
+		case types.PATIENT_SIGNIN_FAIL:
+			return { loading: false, error: action.payload }
+		case types.PATIENT_SIGNIN_LOGOUT:
+			return {}
+		default:
+			return state
+	}
+}
