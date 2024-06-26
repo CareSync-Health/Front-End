@@ -30,7 +30,7 @@ const Contact = () => {
           <div className='px-10 bg-[#E2F3F5] h-6'></div>
         </section>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
