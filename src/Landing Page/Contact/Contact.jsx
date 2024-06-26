@@ -1,10 +1,32 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
-import { MapContainer, TileLayer, Marker, Popup, MinimapControl } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Contact = () => {
+  function MinimapControl({ position, zoom }) {
+    const parentMap = useMap()
+    const mapZoom = zoom || 0
+  
+    // Memoize the minimap so it's not affected by position changes
+    const minimap = useMemo(
+      () => (
+        <MapContainer
+          style={{ height: 80, width: 80 }}
+          center={parentMap.getCenter()}
+          zoom={mapZoom}
+          dragging={false}
+          doubleClickZoom={false}
+          scrollWheelZoom={false}
+          attributionControl={false}
+          zoomControl={false}>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <MinimapBounds parentMap={parentMap} zoom={mapZoom} />
+        </MapContainer>
+      ),
+      [],
+    )
   return (
     <>
       <div className='shadow-lg shadow-[grey]'>
