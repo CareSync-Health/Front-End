@@ -20,9 +20,9 @@ const Contact = () => {
           <a href="" className='text-xl underline underline-offset-[5px]'>caresync@healthcare.com</a>
           <p className='text-2xl font-semibold mt-12 mb-5'>Find the Studio</p>
           <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "100vh", width: "100%" }}>
-            {/* <TileLayer
+            <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            /> */}
+            />
             <Marker position={[51.505, -0.09]}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
