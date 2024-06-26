@@ -1,9 +1,28 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-minimap/dist/Control.MiniMap.css';
+import L from 'leaflet';
+import 'leaflet-minimap';
 
+const MinimapControl = () => {
+  const map = useMap();
+  
+  useEffect(() => {
+    const osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const osmAttrib = 'Map data © OpenStreetMap contributors';
+    const osm = new L.TileLayer(osmUrl, { minZoom: 0, maxZoom: 13, attribution: osmAttrib });
+    const miniMap = new L.Control.MiniMap(osm, { toggleDisplay: true }).addTo(map);
+    
+    return () => {
+      map.removeControl(miniMap);
+    };
+  }, [map]);
+  
+  return null;
+};
 const Contact = () => {
   return (
     <>
