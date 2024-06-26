@@ -13,7 +13,7 @@ const Contact = () => {
           <h1 className='text-6xl font-bold'>Have Questions?</h1>
           <p className='mt-12 text-xl'>Please feel free to call or email us,<br/>or use our contact form to get in touch with us.<br/>We look forward to hearing from you!</p>
           <p className='text-2xl font-semibold mt-12 mb-5'>Emergency? Call Us:</p>
-          <a href="" className='text-xl font-m'>+123 45 678 910</a>
+          <a href="" className='text-xl font'>+123 45 678 910</a>
         </section>
         <section></section>
       </main>
