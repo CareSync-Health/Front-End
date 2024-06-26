@@ -8,7 +8,7 @@ const Contact = () => {
       <Navbar/>
       <main className='max-w-7xl w-full'>
         <section className='w-1/2'>
-          <h1>Have Questions?</h1>
+          <h1 className=''>Have Questions?</h1>
         </section>
         <section></section>
       </main>
