@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <>
       <Navbar/>
-      <main className=' max-w-2xl '>
+      <main className=' max-w-2xl bg-black h-2'>
         <section></section>
         <section></section>
       </main>
