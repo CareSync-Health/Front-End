@@ -30,6 +30,7 @@ const Contact = () => {
           <div className='bg-[#E2F3F5] px-20 pt-12 pb-9 shadow-xl'>
             <input type="text" className='text-2xl font-[100] px-5 py-3 rounded-md border w-full border-[grey]' placeholder='Name' />
             <input type="text" className='text-2xl font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Email Address' />
+            <input type="text" className='text-2xl font-[100] px-5 py-3 rounded-md border w-full border-[grey] mt-7' placeholder='Subject' />
             <input type="text" className='text-2xl font-[100] px-5 py-3 rounded-md border w-full border-[grey]' placeholder='Name' />
           </div>
         </section>
