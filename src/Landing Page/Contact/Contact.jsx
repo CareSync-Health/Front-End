@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, MinimapControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const Contact = () => {
