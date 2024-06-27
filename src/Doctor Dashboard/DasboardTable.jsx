@@ -46,17 +46,16 @@ const DashboardTable = () => {
 
     return (
         <div>
-        {filteredAppointments.length > 0 ? (
-            <div className="bg-[#fff] w-[95%] rounded-[10px] pt-[1.5rem] mt-[3rem] ms-[2rem] mb-[3rem]">
+            <div className="bg-[#fff] w-[95%] rounded-[10px] pt-[1.5rem] mt-[3rem] lg:ms-[2rem] xs:ms-[0.6rem] mb-[3rem]">
         <div className="overflow-x-auto">
             <div className='flex items-center justify-between pr-[1rem]'>
-                <h1 className="text-[#25282B] text-[20px] font-bold font-Inter leading-[26px] ms-[1rem]">Appointment Activity</h1>
+                <h1 className="text-[#25282B] lg:text-[20px] xs:text-[16px] font-bold font-Inter leading-[26px] ms-[1rem]">Appointment Activity</h1>
                 <input 
                     type="text" 
                     placeholder="Search..." 
                     value={searchQuery} 
                     onChange={handleSearch} 
-                    className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium w-[30%]"
+                    className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium lg:w-[30%] xs:w-[40%]"
                 />
             </div>
                     <table className="min-w-full shadow-md overflow-hidden mt-[1rem]">
@@ -97,7 +96,7 @@ const DashboardTable = () => {
                             ))}
                         </tbody>
                     </table>
-                    <div className="flex justify-end gap-[1rem] items-center mt-4 px-5 pb-[10px]">
+                    <div className="flex lg:justify-end xs:justify-start gap-[1rem] items-center mt-4 px-5 pb-[10px]">
                         <button
                             onClick={handlePreviousPage}
                             disabled={currentPage === 1}
@@ -118,7 +117,6 @@ const DashboardTable = () => {
                     </div>
         </div>
         </div>
-        ) : null}
     </div>
     );
 };
