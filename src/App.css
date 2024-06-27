@@ -10,3 +10,9 @@
     #3EF59E) 1;
 }
 
+input { 
+    outline: none !important;
+}
+input:focus {
+    outline: none !important;
+}
