@@ -84,7 +84,7 @@ const Sidebar = () => {
 
 
             {/* SMALL SCREEN SIDEBAR */}
-            <div className='lg:hidden fixed flex justify-between items-center shadow-2xl bottom-0 bg-white w-full h-[65px] px-5 py-2'>
+            <div className='lg:hidden fixed flex justify-between items-center z-50 insert-0 shadow-2xl bottom-0 bg-white w-full h-[65px] px-5 py-2'>
                 {Menus.slice(0, 4).map((menu, index) => (
                     <li
                         key={index}
