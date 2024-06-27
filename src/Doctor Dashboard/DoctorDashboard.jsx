@@ -29,7 +29,7 @@ const DoctorDashboard = () => {
             <Sidebar />
             <div className='flex-1 h-[99.9vh] overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <Navbar messageCount={5} notificationCount={12} />
-                <div className='px-[30px]'>
+                <div className='px-[30px] mb-[3rem]'>
                     <div className='flex items-center mt-[1rem] gap-[2rem]'>
                         <div className='bg-white w-[250px] h-[88px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
                             <img src={firstaid} alt="first aid" />
@@ -73,7 +73,7 @@ const DoctorDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-[#fff] w-[95%] rounded-[10px] pt-[1.5rem] mt-[3rem] ms-[2rem] mb-[2rem]">
+                <div >
                     <DashboardTable/>
                 </div>
             </div>

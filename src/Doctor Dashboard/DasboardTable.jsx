@@ -16,8 +16,7 @@ const DashboardTable = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(5);
     const [searchQuery, setSearchQuery] = useState('');
-    const totalPages = Math.ceil(appointments.length / itemsPerPage);
-
+    
     const handleNextPage = () => {
         setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
     };
@@ -43,9 +42,12 @@ const DashboardTable = () => {
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredAppointments.slice(indexOfFirstItem, indexOfLastItem);
-    const currentTotalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
 
     return (
+        <div>
+        {filteredAppointments.length > 0 ? (
+            <div className="bg-[#fff] w-[95%] rounded-[10px] pt-[1.5rem] mt-[3rem] ms-[2rem] mb-[3rem]">
         <div className="overflow-x-auto">
             <div className='flex items-center justify-between pr-[1rem]'>
                 <h1 className="text-[#25282B] text-[20px] font-bold font-Inter leading-[26px] ms-[1rem]">Appointment Activity</h1>
@@ -57,64 +59,67 @@ const DashboardTable = () => {
                     className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium w-[30%]"
                 />
             </div>
-            <table className="min-w-full shadow-md overflow-hidden mt-[1rem]">
-                <thead className="bg-[#E8E8E8] text-white">
-                    <tr>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Name</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Email</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Date</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Visit Time</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Doctor</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Condition</th>
-                        <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Actions</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                    {currentItems.map((appointment, index) => (
-                        <tr key={index}>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px] flex items-center gap-[10px]">
-                                <img src={avatar} className="w-[32px]" alt="avatar" />
-                                {appointment.name}
-                            </td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.email}</td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.date}</td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.visitTime}</td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.doctor}</td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.condition}</td>
-                            <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">
-                                <div className="flex items-center space-x-4">
-                                    <button className="text-[#A0A4A8] text-[15px]">
-                                        <FaPencilAlt className="h-5" aria-hidden="true" />
-                                    </button>
-                                    <button className="text-[#FF6760] text-[15px]">
-                                        <FaTrashAlt className="h-5" aria-hidden="true" />
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="flex justify-end gap-[1rem] items-center mt-4 px-5 pb-[10px]">
-                <button
-                    onClick={handlePreviousPage}
-                    disabled={currentPage === 1}
-                    className={`px-3 py-1 rounded-md text-[13px] font-medium font-Inter leading-[20px] text-center ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#22D1EE] text-white hover:bg-[#22cfeeb2]'}`}
-                >
-                    Previous
-                </button>
-                <span className="text-[#52575C] text-[13px] font-normal font-Inter">
-                    Page {currentPage} of {totalPages}
-                </span>
-                <button
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                    className={`px-2 py-1 rounded-md text-[13px] font-medium font-Inter leading-[20px] ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#22D1EE] text-white hover:bg-[#22cfeeb2]'}`}
-                >
-                    Next
-                </button>
-            </div>
+                    <table className="min-w-full shadow-md overflow-hidden mt-[1rem]">
+                        <thead className="bg-[#E8E8E8] text-white">
+                            <tr>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Name</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Email</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Date</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Visit Time</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Doctor</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Condition</th>
+                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {currentItems.map((appointment, index) => (
+                                <tr key={index}>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px] flex items-center gap-[10px]">
+                                        <img src={avatar} className="w-[32px]" alt="avatar" />
+                                        {appointment.name}
+                                    </td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.email}</td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.date}</td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.visitTime}</td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.doctor}</td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{appointment.condition}</td>
+                                    <td className="py-2 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">
+                                        <div className="flex items-center space-x-4">
+                                            <button className="text-[#A0A4A8] text-[15px]">
+                                                <FaPencilAlt className="h-5" aria-hidden="true" />
+                                            </button>
+                                            <button className="text-[#FF6760] text-[15px]">
+                                                <FaTrashAlt className="h-5" aria-hidden="true" />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className="flex justify-end gap-[1rem] items-center mt-4 px-5 pb-[10px]">
+                        <button
+                            onClick={handlePreviousPage}
+                            disabled={currentPage === 1}
+                            className={`px-3 py-1 rounded-md text-[13px] font-medium font-Inter leading-[20px] text-center ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#22D1EE] text-white hover:bg-[#22cfeeb2]'}`}
+                        >
+                            Previous
+                        </button>
+                        <span className="text-[#52575C] text-[13px] font-normal font-Inter">
+                            Page {currentPage} of {totalPages}
+                        </span>
+                        <button
+                            onClick={handleNextPage}
+                            disabled={currentPage === totalPages}
+                            className={`px-2 py-1 rounded-md text-[13px] font-medium font-Inter leading-[20px] ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#22D1EE] text-white hover:bg-[#22cfeeb2]'}`}
+                        >
+                            Next
+                        </button>
+                    </div>
         </div>
+        </div>
+        ) : null}
+    </div>
     );
 };
 
