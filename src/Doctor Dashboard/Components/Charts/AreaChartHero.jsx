@@ -39,7 +39,7 @@ const AreaChartHero = () => {
         data={chartData}
         index="date"
         categories={[`Patients ${new Date().getFullYear() - 1}`, `Patients ${new Date().getFullYear()}`]}
-        colors={['blue', 'yellow']}
+        colors={['yellow', 'blue']}
         valueFormatter={dataFormatter}
         yAxisWidth={58}
         onValueChange={(v) => console.log(v)}

@@ -13,7 +13,7 @@ const DoctorDashboard = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className='flex-1 h-screen overflow-y-auto bg-[#E2F3F5]'>
+            <div className='flex-1 h-[99.9vh] overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <Navbar messageCount={5} notificationCount={12} />
                 <div className='px-[30px]'>
                     <div className='flex items-center mt-[1rem] gap-[2rem]'>
