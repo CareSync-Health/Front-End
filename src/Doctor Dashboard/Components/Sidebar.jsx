@@ -106,7 +106,7 @@ const Sidebar = () => {
                 </li>
             </div>
             {showMore && (
-                <div className='lg:hidden fixed inset-0 bg-white z-50 shadow-md h-[90vh]'>
+                <div className='lg:hidden fixed inset-0 bg-white z-50 shadow-md h-[80vh]'>
                     <div className='flex flex-col justify-center items-center h-full'>
                         {Menus.slice(4).map((menu, index) => (
                             <li
