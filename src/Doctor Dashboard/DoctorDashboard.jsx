@@ -14,7 +14,7 @@ const DoctorDashboard = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className='flex-1 lg:h-[99.9vh] xs:h-[91vh] overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+            <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <Navbar messageCount={5} notificationCount={12} />
                 <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                     <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>
