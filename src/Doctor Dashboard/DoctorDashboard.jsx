@@ -8,8 +8,22 @@ import bank from '../assets/bank.png';
 import AreaChartHero from './Components/Charts/AreaChartHero';
 import LineChartHero from './Components/Charts/LineChartHero';
 import LineChartHero2 from './Components/Charts/LineChartHero2';
+import DashboardTable from './DasboardTable';
 
 const DoctorDashboard = () => {
+
+//   const products = [
+//     {
+//       id: 1,
+//       name: 'First Aid',
+//       email: 'jephthahndukwe@gmail.com',
+//       date: '10/10/2024',
+//       visitTime: '09:15-09:45am',
+//       doctor: 'Dr. Jacob Jones',
+//       condition: "Mumps Stage II"
+//     }
+//   ]
+
     return (
         <div className='flex'>
             <Sidebar />
@@ -59,9 +73,15 @@ const DoctorDashboard = () => {
                         </div>
                     </div>
                 </div>
+                <div className="bg-[#fff] w-[95%] rounded-[10px] pt-[1.5rem] mt-[3rem] ms-[2rem] mb-[2rem]">
+                    <DashboardTable/>
+                </div>
             </div>
         </div>
     );
 };
 
 export default DoctorDashboard;
+
+
+
