@@ -404,7 +404,7 @@ const DoctorAppointment = () => {
                   </svg>
                 </a>
               </div>
-              <div className='bg-[]'>
+              <div className='bg-[#17B978]'>
                 <img src={doc} alt="" />
               </div>
             </section>
