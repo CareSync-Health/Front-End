@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from './Components/Sidebar'
 import Navbar from './Components/Navbar'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import avatar from '../assets/avatar.png';
 
 const DoctorAppointment = () => {
+  const [page, setPage] = useState(1)
+  
   return (
     <div className='flex'>
       <Sidebar />
