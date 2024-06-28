@@ -11,7 +11,7 @@ const Chatbot = () => {
   return (
     <div>
       <div 
-        className='w-[46px] text-[24px] py-[10px] text-center px-[11px] text-white bg-[#17B978] rounded-[100px] fixed lg:right-[3rem] xs:right-[2rem] lg:bottom-[2rem] xs:bottom-[5rem] z-50 cursor-pointer'
+        className='w-[46px] text-[24px] py-[10px] text-center px-[11px] text-white bg-[#17B978] rounded-[100px] cursor-pointer'
         onClick={toggleChat}
       >
         <FaUserDoctor />
