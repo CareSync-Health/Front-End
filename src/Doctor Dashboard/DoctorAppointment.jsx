@@ -14,7 +14,7 @@ const DoctorAppointment = () => {
       date: "10/10/2020",
       time: "09:15-09:45am",
       doctor: "Dr. Jacob Jones",
-      condition: ""
+      condition: "Mumps Stage II"
     }
   ]
   return (
@@ -45,7 +45,7 @@ const DoctorAppointment = () => {
                     <td className='px-5 py-2 align-middle'></td>
                     <td className='px-5 py-2 align-middle'></td>
                     <td className='px-5 py-2 align-middle'></td>
-                    <td className='px-5 py-2 align-middle'>Mumps Stage II</td>
+                    <td className='px-5 py-2 align-middle'></td>
                     <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
                     <td className='px-5 py-2 align-middle'><a href=""><FaTrashAlt className="h-5 text-red-400" aria-hidden="true" /></a></td>
                   </tr>
