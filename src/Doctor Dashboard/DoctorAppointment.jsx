@@ -8,7 +8,8 @@ const DoctorAppointment = () => {
   const [page, setPage] = useState(1)
   const details = [
     {
-      image: avatar
+      image: avatar,
+      
     }
   ]
   return (
