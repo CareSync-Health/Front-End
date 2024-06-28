@@ -9,6 +9,9 @@ const DoctorAppointment = () => {
   const details = [
     {
       image: avatar,
+      name: "",
+      email: "",
+      date: "",
       
     }
   ]
