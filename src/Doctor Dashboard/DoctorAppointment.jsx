@@ -40,6 +40,7 @@ const DoctorAppointment = () => {
             <section className='bg-white shadow-md rounded-md w-full mt-5 overflow-auto'>
               <table className='w-full text-left text-xs'>
                 <thead className=''>
+                  <
                   <tr className='border-b'>
                     <th className='font-medium px-5 py-4 align-middle'>Name</th>
                     <th className='font-medium px-5 py-4 align-middle'>Email</th>
