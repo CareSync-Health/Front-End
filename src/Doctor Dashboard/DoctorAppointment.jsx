@@ -34,7 +34,7 @@ const DoctorAppointment = () => {
                     </td>
                     <td className='p-3 align-middle'>lesie.alexander@example.com</td>
                     <td className='p-3 align-middle'>10/10/2020</td>
-                    <td className='p-3 align-middle'>09:15-09:35am</td>
+                    <td className='p-3 align-middle'>09:15-09:45am</td>
                     <td className='p-3 align-middle'>Dr. Jacob Jones</td>
                     <td className='p-3 align-middle'>Mumps Stage II</td>
                     <td className='p-3 align-middle'><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
