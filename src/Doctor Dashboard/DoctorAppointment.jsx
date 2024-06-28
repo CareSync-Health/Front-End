@@ -30,6 +30,7 @@ const DoctorAppointment = () => {
                       <img src="" alt="" />
                       Leslie Alexander
                     </td>
+                    <td>lesie.alexander@example.com</td>
                     <td></td>
                   </tr>
                 </tbody>
