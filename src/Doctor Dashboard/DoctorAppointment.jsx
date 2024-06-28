@@ -405,7 +405,7 @@ const DoctorAppointment = () => {
                 </a>
               </div>
             </section>
-            <div className='bg-[#17B978] w-fit rounded-full p-5 float-end'>
+            <div className='bg-[#17B978] w-fit rounded-full p-5 float-end -mt-20'>
               <img src={doc} alt="" />
             </div>
           </div>
