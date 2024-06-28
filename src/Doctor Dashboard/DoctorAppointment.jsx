@@ -17,13 +17,13 @@ const DoctorAppointment = () => {
             <div className='bg-white rounded-xl w-full'>
               <table className='w-full text-left text-xs'>
                 <thead>
-                  <tr className='border-b'>
-                    <th className='font-medium p-4'>Name</th>
-                    <th className='font-medium p-4'>Email</th>
-                    <th className='font-medium p-4'>Date</th>
-                    <th className='font-medium p-4'>Visit Time</th>
-                    <th className='font-medium p-4'>Doctor</th>
-                    <th className='font-medium p-4'>Conditions</th>
+                  <tr className='border-b p-4'>
+                    <th className='font-medium'>Name</th>
+                    <th className='font-medium'>Email</th>
+                    <th className='font-medium'>Date</th>
+                    <th className='font-medium'>Visit Time</th>
+                    <th className='font-medium'>Doctor</th>
+                    <th className='font-medium'>Conditions</th>
                   </tr>
                 </thead>
                 <tbody>
