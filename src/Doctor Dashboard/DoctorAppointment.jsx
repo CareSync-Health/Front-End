@@ -20,6 +20,7 @@ const DoctorAppointment = () => {
                     <th>Email</th>
                     <th>Date</th>
                     <th>Visit Time</th>
+                    <th>Doctor</th>
                     <th></th>
                   </tr>
                 </thead>
