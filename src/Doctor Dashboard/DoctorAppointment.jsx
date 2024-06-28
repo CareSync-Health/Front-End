@@ -29,7 +29,7 @@ const DoctorAppointment = () => {
                 <tbody>
                   <tr>
                     <td className='flex'>
-                      <img className='w-10' src={avatar} alt="" />
+                      <img className='w-8' src={avatar} alt="" />
                       Leslie Alexander
                     </td>
                     <td>lesie.alexander@example.com</td>
