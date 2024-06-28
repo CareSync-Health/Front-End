@@ -39,7 +39,7 @@ const DoctorAppointment = () => {
                   </tr>
                 </tbody>
               </table>
-              <div></div>
+              <div className='p-5'></div>
             </section>
           </div>
         </div>
