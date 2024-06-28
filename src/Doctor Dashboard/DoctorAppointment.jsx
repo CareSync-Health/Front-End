@@ -35,7 +35,7 @@ const DoctorAppointment = () => {
                     <td>09:15-09:45am</td>
                     <td>Dr. Jacob Jones</td>
                     <td>Mumps Stage II</td>
-                    <td><a href=""></a></td>
+                    <td><a href=""><img src="" alt="" /></a></td>
                   </tr>
                 </tbody>
               </table>
