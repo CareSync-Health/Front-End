@@ -404,10 +404,10 @@ const DoctorAppointment = () => {
                   </svg>
                 </a>
               </div>
-              <div className='bg-[#17B978] w-fit rounded-full p-5 float-end'>
-                <img src={doc} alt="" />
-              </div>
             </section>
+            <div className='bg-[#17B978] w-fit rounded-full p-5 float-end'>
+              <img src={doc} alt="" />
+            </div>
           </div>
         </div>
       </div>
