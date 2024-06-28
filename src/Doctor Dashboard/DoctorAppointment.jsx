@@ -32,13 +32,13 @@ const DoctorAppointment = () => {
                       <img className='w-8' src={avatar} alt="" />
                       Leslie Alexander
                     </td>
-                    <td>lesie.alexander@example.com</td>
-                    <td>10/10/2020</td>
-                    <td>09:15-09:45am</td>
-                    <td>Dr. Jacob Jones</td>
-                    <td>Mumps Stage II</td>
-                    <td><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
-                    <td className='p-4 align-middle'><a href=""><FaTrashAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td className='p-4 align-middle'>lesie.alexander@example.com</td>
+                    <td className='p-4 align-middle'>10/10/2020</td>
+                    <td className='p-4 align-middle'>09:15-09:45am</td>
+                    <td className='p-4 align-middle'>Dr. Jacob Jones</td>
+                    <td className='p-4 align-middle'>Mumps Stage II</td>
+                    <td className='p-4 align-middle'><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td className='p-4 align-middle' className='p-4 align-middle'><a href=""><FaTrashAlt className="h-5" aria-hidden="true" /></a></td>
                   </tr>
                 </tbody>
               </table>
