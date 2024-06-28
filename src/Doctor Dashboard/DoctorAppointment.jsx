@@ -17,7 +17,7 @@ const DoctorAppointment = () => {
             <div className='bg-white rounded-xl w-full'>
               <table className='w-full text-left text-xs'>
                 <thead>
-                  <tr className='border-b p-4'>
+                  <tr className='border-b p-4 block'>
                     <th className='font-medium'>Name</th>
                     <th className='font-medium'>Email</th>
                     <th className='font-medium'>Date</th>
