@@ -41,8 +41,8 @@ const DoctorAppointment = () => {
                 <tbody>
                   {details.map((det, index) => (
                     <tr className='border-b'>
-                      <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={det.image} alt="" /></td>
-                      <td className='px-5 py-2 align-middle'></td>
+                      <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={det.image} alt="" />{det.name}</td>
+                      <td className='px-5 py-2 align-middle'>{det.email}</td>
                       <td className='px-5 py-2 align-middle'></td>
                       <td className='px-5 py-2 align-middle'></td>
                       <td className='px-5 py-2 align-middle'></td>
