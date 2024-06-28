@@ -116,7 +116,8 @@ module.exports = {
         Poppins: ['Poppins', 'sans-serif'],
         Almarai: ['Almarai', 'sans-serif'],
         Yesteryear: ['Yesteryear', 'cursive'],
-        Volkhov: ['Volkhov', 'serif']
+        Volkhov: ['Volkhov', 'serif'],
+        Nunito: ['Nunito', 'sans-serif']
       },
       fontSize: {
         "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
