@@ -12,6 +12,7 @@ const DoctorAppointment = () => {
       name: "",
       email: "",
       date: "",
+      time: "",
       
     }
   ]
