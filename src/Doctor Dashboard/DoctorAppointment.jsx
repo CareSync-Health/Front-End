@@ -51,7 +51,7 @@ const DoctorAppointment = () => {
                   {details.map((det, index) => (
                     <tr className='border-b'>
                       <td className='py-2 px-5 align-middle word'><span className='flex gap-4 items-center'><img className='w-8' src={det.image} alt="" />{det.name}</span></td>
-                      <td style={{wordBreak:""}} className='px-5 py-2 align-middle'>{det.email}</td>
+                      <td style={{wordBreak:"keep-all"}} className='px-5 py-2 align-middle'>{det.email}</td>
                       <td className='px-5 py-2 align-middle'>{det.date}</td>
                       <td className='px-5 py-2 align-middle'>{det.time}</td>
                       <td className='px-5 py-2 align-middle'>{det.doctor}</td>
