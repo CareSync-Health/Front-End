@@ -12,7 +12,7 @@ const DoctorAppointment = () => {
       name: "Leslie Alexander",
       email: "lesie.alexander@example.com",
       date: "10/10/2020",
-      time: "",
+      time: "09:15-09:45am",
       doctor: "",
       condition: ""
     }
@@ -43,7 +43,7 @@ const DoctorAppointment = () => {
                     <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={avatar} alt="" /></td>
                     <td className='px-5 py-2 align-middle'></td>
                     <td className='px-5 py-2 align-middle'></td>
-                    <td className='px-5 py-2 align-middle'>09:15-09:45am</td>
+                    <td className='px-5 py-2 align-middle'></td>
                     <td className='px-5 py-2 align-middle'>Dr. Jacob Jones</td>
                     <td className='px-5 py-2 align-middle'>Mumps Stage II</td>
                     <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
