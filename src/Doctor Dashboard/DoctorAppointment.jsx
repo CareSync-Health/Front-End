@@ -39,6 +39,7 @@ const DoctorAppointment = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  {details.map(())}
                   <tr className='border-b'>
                     <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={avatar} alt="" /></td>
                     <td className='px-5 py-2 align-middle'></td>
