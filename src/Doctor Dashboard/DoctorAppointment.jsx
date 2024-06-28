@@ -18,6 +18,7 @@ const DoctorAppointment = () => {
                   <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Date</th>
                     <th></th>
                   </tr>
                 </thead>
