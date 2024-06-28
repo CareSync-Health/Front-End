@@ -13,7 +13,8 @@ const DoctorAppointment = () => {
       email: "",
       date: "",
       time: "",
-      
+      doctor: "",
+      condition: ""
     }
   ]
   return (
