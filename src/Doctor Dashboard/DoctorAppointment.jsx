@@ -24,6 +24,96 @@ const DoctorAppointment = () => {
       time: "09:15-09:45am",
       doctor: "Dr. Jacob Jones",
       condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
+    },
+    {
+      image: avatar,
+      name: "Leslie Alexander",
+      email: "lesie.alexander@example.com",
+      date: "10/10/2020",
+      time: "09:15-09:45am",
+      doctor: "Dr. Jacob Jones",
+      condition: "Mumps Stage II"
     }
   ]
   return (
