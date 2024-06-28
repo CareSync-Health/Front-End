@@ -49,7 +49,7 @@ const DoctorAppointment = () => {
                     </g>
                   </svg>
                 </a>
-                {Array.from({ length: 5 }).map((num, index)=>(
+                {Array.from({ length: 5 }).map((num, index, arr)=>(
                   <a key={index} onClick={()=> setPage(index + 1)} className={`cursor-pointer text-xs leading-none p-[0.45rem] rounded-md ${page === index + 1 ? "text-white bg-[#17B978]" : "text-black border"}`}><span className='leading-none min-w-3 inline-block text-center'>{index + 1}</span></a>
                 ))}
                 <a className='border p-[0.45rem] rounded-md'>
