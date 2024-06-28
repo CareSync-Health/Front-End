@@ -15,7 +15,7 @@ const DoctorAppointment = () => {
           <div className='px-[30px]'>
             <h1 className='text-4xl font-semibold mt-5'>Appointments</h1>
             <div className='bg-white rounded-xl w-full'>
-              <table className='w-full text-left'>
+              <table className='w-full text-left text-sm'>
                 <thead>
                   <tr>
                     <th className=''>Name</th>
