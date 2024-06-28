@@ -50,14 +50,14 @@ const DoctorAppointment = () => {
                 <tbody>
                   {details.map((det, index) => (
                     <tr key={index} className='border-b'>
-                      <td className='py-2 px-5 align-middle'><span className='flex w-max gap-4 items-center'><img className='w-8' src={det.image} alt="" />{det.name}</span></td>
-                      <td className='px-5 py-2 align-middle'>{det.email}</td>
-                      <td className='px-5 py-2 align-middle'>{det.date}</td>
-                      <td className='px-5 py-2 align-middle whitespace-nowrap'>{det.time}</td>
-                      <td className='px-5 py-2 align-middle'>{det.doctor}</td>
-                      <td className='px-5 py-2 align-middle'>{det.condition}</td>
-                      <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
-                      <td className='px-5 py-2 align-middle'><a href=""><FaTrashAlt className="h-5 text-red-400" aria-hidden="true" /></a></td>
+                      <td className='py-2 px-5 align-middle whitespace-nowrap'><span className='flex w-max gap-4 items-center'><img className='w-8' src={det.image} alt="" />{det.name}</span></td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'>{det.email}</td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'>{det.date}</td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap whitespace-nowrap'>{det.time}</td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'>{det.doctor}</td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'>{det.condition}</td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
+                      <td className='px-5 py-2 align-middle whitespace-nowrap'><a href=""><FaTrashAlt className="h-5 text-red-400" aria-hidden="true" /></a></td>
                     </tr>
                   ))}
                 </tbody>
