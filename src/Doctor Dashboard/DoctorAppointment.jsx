@@ -10,7 +10,7 @@ const DoctorAppointment = () => {
     {
       image: avatar,
       name: "Leslie Alexander",
-      email: "",
+      email: "lesie.alexander@example.com",
       date: "",
       time: "",
       doctor: "",
