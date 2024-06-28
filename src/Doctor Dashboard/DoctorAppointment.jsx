@@ -9,7 +9,7 @@ const DoctorAppointment = () => {
   const details = [
     {
       image: avatar,
-      name: "",
+      name: "Leslie Alexander",
       email: "",
       date: "",
       time: "",
@@ -40,7 +40,7 @@ const DoctorAppointment = () => {
                 </thead>
                 <tbody>
                   <tr className='border-b'>
-                    <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={avatar} alt="" />Leslie Alexander</td>
+                    <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={avatar} alt="" /></td>
                     <td className='px-5 py-2 align-middle'>lesie.alexander@example.com</td>
                     <td className='px-5 py-2 align-middle'>10/10/2020</td>
                     <td className='px-5 py-2 align-middle'>09:15-09:45am</td>
