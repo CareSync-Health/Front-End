@@ -43,10 +43,10 @@ const DoctorAppointment = () => {
                     <tr className='border-b'>
                       <td className='flex gap-4 align-middle items-center py-2 px-5'><img className='w-8' src={det.image} alt="" />{det.name}</td>
                       <td className='px-5 py-2 align-middle'>{det.email}</td>
-                      <td className='px-5 py-2 align-middle'></td>
-                      <td className='px-5 py-2 align-middle'></td>
-                      <td className='px-5 py-2 align-middle'></td>
-                      <td className='px-5 py-2 align-middle'></td>
+                      <td className='px-5 py-2 align-middle'>{det.date}</td>
+                      <td className='px-5 py-2 align-middle'>{det.time}</td>
+                      <td className='px-5 py-2 align-middle'>{det.doctor}</td>
+                      <td className='px-5 py-2 align-middle'>{det.condition}</td>
                       <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
                       <td className='px-5 py-2 align-middle'><a href=""><FaTrashAlt className="h-5 text-red-400" aria-hidden="true" /></a></td>
                     </tr>
