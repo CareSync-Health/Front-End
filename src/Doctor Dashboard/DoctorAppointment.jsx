@@ -45,7 +45,7 @@ const DoctorAppointment = () => {
                 <a className={`border p-[0.45rem] rounded-md ${page > 1 ? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.7">
-                      <path d="M9.71199 2.93311L4.91199 7.73311L9.71199 12.5331L11.088 11.1731L7.64799 7.73311L11.088 4.29311L9.71199 2.93311Z" fill={`${page > 1 ? "cursor-pointer" : "cursor-not-allowed"}`} />
+                      <path d="M9.71199 2.93311L4.91199 7.73311L9.71199 12.5331L11.088 11.1731L7.64799 7.73311L11.088 4.29311L9.71199 2.93311Z" fill={`${page > 1 ? "#E8E8E8" : "cursor-not-allowed"}`} />
                     </g>
                   </svg>
                 </a>
