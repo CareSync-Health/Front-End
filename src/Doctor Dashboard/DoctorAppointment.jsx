@@ -47,6 +47,7 @@ const DoctorAppointment = () => {
                     </g>
                   </svg>
                 </a>
+                {Array.from({length: 5})}
                 <a href="" className='border text-xs leading-none p-[0.45rem] rounded-md'><span className='leading-none w-3 inline-block text-center'>1</span></a>
                 <a href="" className='border p-[0.45rem] rounded-md'>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
