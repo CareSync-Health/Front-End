@@ -11,7 +11,7 @@ const DoctorAppointment = () => {
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 - i get coconut head 💀*/}
           <div className='px-[30px]'>
-            <h1 className='text-2xl font-semibold'>Appointments</h1>
+            <h1 className='text-3xl font-semibold'>Appointments</h1>
           </div>
         </div>
       </div>
