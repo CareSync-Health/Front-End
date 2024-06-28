@@ -54,7 +54,7 @@ const DoctorAppointment = () => {
                 ))}
                 <a className='border p-[0.45rem] rounded-md'>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.288 12.5331L11.088 7.73311L6.288 2.93311L4.928 4.29311L8.352 7.73311L4.912 11.1731L6.288 12.5331Z" fill={`${page === arr.length() ? "#A6FFF2" : "#E8E8E8"}`} />
+                    <path d="M6.288 12.5331L11.088 7.73311L6.288 2.93311L4.928 4.29311L8.352 7.73311L4.912 11.1731L6.288 12.5331Z" fill={`${page ===  ? "#A6FFF2" : "#E8E8E8"}`} />
                   </svg>
                 </a>
               </div>
