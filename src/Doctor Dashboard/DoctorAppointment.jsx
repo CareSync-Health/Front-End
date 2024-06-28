@@ -40,7 +40,9 @@ const DoctorAppointment = () => {
                 </tbody>
               </table>
               <div className='p-5'>
-                <a href="">{"<"}</a>
+                <a href="">
+                  
+                </a>
               </div>
             </section>
           </div>
