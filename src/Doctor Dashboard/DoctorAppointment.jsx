@@ -27,6 +27,7 @@ const DoctorAppointment = () => {
       condition: "Mumps Stage II"
     }
   ]
+  
   return (
     <div className='flex'>
       <Sidebar />
