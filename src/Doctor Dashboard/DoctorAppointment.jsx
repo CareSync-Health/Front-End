@@ -64,6 +64,7 @@ const DoctorAppointment = () => {
                   ))}
                 </tbody>
               </table>
+            </section>
               <div className='p-5 flex gap-1'>
                 <a onClick={() => page > 1 ? setPage(page - 1) : ""} className={`border p-[0.45rem] rounded-md ${page > 1 ? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +82,6 @@ const DoctorAppointment = () => {
                   </svg>
                 </a>
               </div>
-            </section>
             <div className='bg-[#17B978] w-fit rounded-full p-4 float-end -mt-12'>
               <img src={doc} alt="" />
             </div>
