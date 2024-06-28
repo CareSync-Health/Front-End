@@ -22,12 +22,14 @@ const DoctorAppointment = () => {
                     <th>Visit Time</th>
                     <th>Doctor</th>
                     <th>Conditions</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td></td>
+                    <td>
+                      <img src="" alt="" />
+                      
+                    </td>
                   </tr>
                 </tbody>
               </table>
