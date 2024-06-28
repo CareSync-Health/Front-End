@@ -20,10 +20,10 @@ const DoctorAppointment = () => {
                   <tr>
                     <th className=''>Name</th>
                     <th className='font-medium'>Email</th>
-                    <th>Date</th>
-                    <th>Visit Time</th>
-                    <th>Doctor</th>
-                    <th>Conditions</th>
+                    <th className='font-medium'>Date</th>
+                    <th className='font-medium'>Visit Time</th>
+                    <th className='font-medium'>Doctor</th>
+                    <th className='font-medium'>Conditions</th>
                   </tr>
                 </thead>
                 <tbody>
