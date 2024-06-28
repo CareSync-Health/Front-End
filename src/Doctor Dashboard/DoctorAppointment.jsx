@@ -32,13 +32,13 @@ const DoctorAppointment = () => {
                       <img className='w-8' src={avatar} alt="" />
                       Leslie Alexander
                     </td>
-                    <td className='px-5 py-2 align-middle'>lesie.alexander@example.com</td>
-                    <td className='px-5 py-2 align-middle'>10/10/2020</td>
-                    <td className='px-5 py-2 align-middle'>09:15-09:45am</td>
-                    <td className='px-5 py-2 align-middle'>Dr. Jacob Jones</td>
-                    <td className='px-5 py-2 align-middle'>Mumps Stage II</td>
-                    <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
-                    <td className='px-5 py-2 align-middle' className='p-4 align-middle'><a href=""><FaTrashAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td className='px-5 py- align-middle'>lesie.alexander@example.com</td>
+                    <td className='px-5 py- align-middle'>10/10/2020</td>
+                    <td className='px-5 py- align-middle'>09:15-09:45am</td>
+                    <td className='px-5 py- align-middle'>Dr. Jacob Jones</td>
+                    <td className='px-5 py- align-middle'>Mumps Stage II</td>
+                    <td className='px-5 py- align-middle'><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td className='px-5 py- align-middle' className='p-4 align-middle'><a href=""><FaTrashAlt className="h-5" aria-hidden="true" /></a></td>
                   </tr>
                 </tbody>
               </table>
