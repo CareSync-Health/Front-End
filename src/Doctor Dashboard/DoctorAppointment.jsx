@@ -405,7 +405,7 @@ const DoctorAppointment = () => {
                 </a>
               </div>
               <div>
-                <img src={} alt="" />
+                <img src={doc} alt="" />
               </div>
             </section>
           </div>
