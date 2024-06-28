@@ -39,7 +39,7 @@ const DoctorAppointment = () => {
                   </tr>
                 </tbody>
               </table>
-              <div className='p-5'>
+              <div className='p-5 flex'>
                 <a href="" className='border p-3 bg-black'>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.7">
