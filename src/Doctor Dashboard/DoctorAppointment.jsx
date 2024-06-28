@@ -19,11 +19,11 @@ const DoctorAppointment = () => {
                 <thead className=''>
                   <tr className='border-b'>
                     <th className='font-medium p-4 align-middle'>Name</th>
-                    <th className='font-medium p-4 align-middle'>Email</th>
-                    <th className='font-medium p-4 align-middle'>Date</th>
-                    <th className='font-medium p-4 align-middle'>Visit Time</th>
-                    <th className='font-medium p-4 align-middle'>Doctor</th>
-                    <th className='font-medium p-4 align-middle'>Conditions</th>
+                    <th className='font-medium align-middle'>Email</th>
+                    <th className='font-medium align-middle'>Date</th>
+                    <th className='font-medium align-middle'>Visit Time</th>
+                    <th className='font-medium align-middle'>Doctor</th>
+                    <th className='font-medium align-middle'>Conditions</th>
                   </tr>
                 </thead>
                 <tbody>
