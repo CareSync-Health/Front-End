@@ -29,7 +29,7 @@ const DoctorAppointment = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <img src="" alt="" />
+                      <img src={avatar} alt="" />
                       Leslie Alexander
                     </td>
                     <td>lesie.alexander@example.com</td>
