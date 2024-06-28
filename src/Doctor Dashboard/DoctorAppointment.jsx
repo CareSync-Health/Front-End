@@ -35,7 +35,7 @@ const DoctorAppointment = () => {
                     <td className='px-5 py-2 align-middle'>Dr. Jacob Jones</td>
                     <td className='px-5 py-2 align-middle'>Mumps Stage II</td>
                     <td className='px-5 py-2 align-middle'><a href=""><FaPencilAlt className="h-5 text-gray-400" aria-hidden="true" /></a></td>
-                    <td className='px-5 py-2 align-middle'><a href=""><FaTrashAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td className='px-5 py-2 align-middle'><a href=""><FaTrashAlt className="h-5 text-orange-600" aria-hidden="true" /></a></td>
                   </tr>
                 </tbody>
               </table>
