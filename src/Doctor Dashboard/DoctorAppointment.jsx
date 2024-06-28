@@ -28,8 +28,9 @@ const DoctorAppointment = () => {
                   <tr>
                     <td>
                       <img src="" alt="" />
-                      
+                      Leslie Alexander
                     </td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
