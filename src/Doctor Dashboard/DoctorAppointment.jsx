@@ -28,7 +28,7 @@ const DoctorAppointment = () => {
                 </thead>
                 <tbody>
                   <tr className='border-b'>
-                    <td className='flex gap-4 align-middle items-center py-2 px-5'>
+                    <td className='flex gap-4 align-middle items-center py-3 px-5'>
                       <img className='w-8' src={avatar} alt="" />
                       Leslie Alexander
                     </td>
