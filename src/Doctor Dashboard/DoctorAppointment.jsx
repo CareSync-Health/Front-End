@@ -18,7 +18,7 @@ const DoctorAppointment = () => {
               <table className='w-full text-left text-xs'>
                 <thead>
                   <tr className=''>
-                    <th className='font-medium p-4'>Name</th>
+                    <th className='font-medium p-4 border-b'>Name</th>
                     <th className='font-medium'>Email</th>
                     <th className='font-medium'>Date</th>
                     <th className='font-medium'>Visit Time</th>
