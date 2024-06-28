@@ -35,7 +35,7 @@ const DoctorAppointment = () => {
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 - i get coconut head 💀*/}
           <div className='px-[30px]'>
             <h1 className='text-4xl font-semibold mt-5'>Appointments</h1>
-            <section className='bg-white rounded-md w-full mt-5'>
+            <section className='bg-white rounded-md w-full mt-5 over'>
               <table className='w-full text-left text-xs'>
                 <thead className=''>
                   <tr className='border-b'>
