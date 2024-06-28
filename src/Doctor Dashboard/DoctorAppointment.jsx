@@ -1,6 +1,8 @@
 import React from 'react'
 import Sidebar from './Components/Sidebar'
 import Navbar from './Components/Navbar'
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import avatar from '../assets/avatar.png';
 
 const DoctorAppointment = () => {
   return (
