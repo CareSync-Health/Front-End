@@ -6,7 +6,11 @@ import avatar from '../assets/avatar.png';
 
 const DoctorAppointment = () => {
   const [page, setPage] = useState(1)
-
+  const details = [
+    {
+      image: avatar
+    }
+  ]
   return (
     <div className='flex'>
       <Sidebar />
