@@ -4,7 +4,6 @@ import Navbar from './Components/Navbar'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import avatar from '../assets/avatar.png';
 import doc from '../assets/doctor 2.svg';
-import { FaCartShopping } from 'react-icons/fa6';
 
 const DoctorAppointment = () => {
   const [page, setPage] = useState(1)
@@ -41,7 +40,6 @@ const DoctorAppointment = () => {
             <section className='bg-white shadow-md rounded-md w-full mt-5 overflow-auto'>
               <table className='w-full text-left text-xs'>
                 <thead className=''>
-                  <FaCartShopping/>
                   <tr className='border-b'>
                     <th className='font-medium px-5 py-4 align-middle'>Name</th>
                     <th className='font-medium px-5 py-4 align-middle'>Email</th>
