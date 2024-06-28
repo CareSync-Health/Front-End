@@ -33,6 +33,7 @@ const DoctorAppointment = () => {
                     <td>lesie.alexander@example.com</td>
                     <td>10/10/2020</td>
                     <td>09:15-09:45am</td>
+                    <td>Dr. Jacob Jones</td>
                     <td></td>
                   </tr>
                 </tbody>
