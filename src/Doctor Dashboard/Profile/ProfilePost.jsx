@@ -229,7 +229,7 @@ const ProfilePost = () => {
                 ))}
               </div>
             </div>
-            <div className='bg-[#fff] lg:w-[260px] xs:mt-[2rem] lg:mt-0  h-[333px] rounded-[10px] px-[20px] py-[20px] mt-[2rem] overflow-x-hidden overflow-y-hidden'>
+            <div className='bg-[#fff] lg:w-[260px] mt-[2rem] h-[333px] rounded-[10px] px-[20px] py-[20px] overflow-x-hidden overflow-y-hidden'>
                 <h1 className='text-[#22D1EE] text-[18px] font-bold font-Nunito'>Active</h1>
                 <div>
                 {Active.map((active, index) => (

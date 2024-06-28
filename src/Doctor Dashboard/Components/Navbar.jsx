@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { BsSearch } from 'react-icons/bs'
 import MessageIcon from '../../assets/Icons/messageIcon.svg'
 import Notification from '../../assets/Icons/notification.svg'
 import avatar from '../../assets/avatar.png'
 import { Link } from 'react-router-dom'
+import Chatbot from './Chatbot'
 
 
 function formatNumber(number) {
@@ -27,6 +28,24 @@ function formatNumber(number) {
 
 
 const Navbar = ({ messageCount, notificationCount }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    if (input.trim()) {
+      setMessages([...messages, { text: input, sender: 'user' }]);
+      setInput('');
+    }
+  };
 
   return (
     <div className='bg-[#E2F3F5] lg:px-[30px] xs:px-[10px] shadow-lg py-[20px]'>
@@ -58,6 +77,7 @@ const Navbar = ({ messageCount, notificationCount }) => {
             <img src={avatar} className='lg:w-[40px] xs:w-[30px]' />
           </Link>
         </div>
+        <Chatbot/>
       </div>
     </div>
   )
