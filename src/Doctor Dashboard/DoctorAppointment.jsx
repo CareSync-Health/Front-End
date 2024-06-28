@@ -37,7 +37,8 @@ const DoctorAppointment = () => {
                     <td>09:15-09:45am</td>
                     <td>Dr. Jacob Jones</td>
                     <td>Mumps Stage II</td>
-                    <td><a href=""><img src="" alt="" /></a></td>
+                    <td><a href=""><FaPencilAlt className="h-5" aria-hidden="true" /></a></td>
+                    <td><a href=""></a></td>
                   </tr>
                 </tbody>
               </table>
