@@ -18,28 +18,28 @@ const DoctorDashboard = () => {
                 <Navbar messageCount={5} notificationCount={12} />
                 <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                     <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>
-                        <div className='bg-white lg:w-[250px] xs:w-[169px] lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
+                        <div className='bg-white lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
                             <img className='lg:w-[40px] xs:w-[30px]' src={firstaid} alt="first aid" />
                             <div>
                                 <h1 className='text-[#25282B] xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>Appointments</h1>
                                 <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>213</h2>
                             </div>
                         </div>
-                        <div className='bg-white lg:w-[250px] xs:w-[169px] lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
+                        <div className='bg-white lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
                             <img className='lg:w-[40px] xs:w-[30px]' src={crutch} alt="crutch" />
                             <div>
                                 <h1 className='text-[#25282B] xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>New Patients</h1>
                                 <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>104</h2>
                             </div>
                         </div>
-                        <div className='bg-white lg:w-[250px] xs:w-[169px] lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
+                        <div className='bg-white lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
                             <img className='lg:w-[40px] xs:w-[30px]' src={operationtheater} alt="operation theater" />
                             <div>
                                 <h1 className='text-[#25282B] xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>Operations</h1>
                                 <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>24</h2>
                             </div>
                         </div>
-                        <div className='bg-white lg:w-[250px] xs:w-[169px] lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
+                        <div className='bg-white lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
                             <img className='lg:w-[40px] xs:w-[30px]' src={bank} alt="bank" />
                             <div>
                                 <h1 className='text-[#25282B] xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>Your Earnings</h1>
