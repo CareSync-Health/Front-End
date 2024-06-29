@@ -13,11 +13,12 @@ const Payment = () => {
         <Navbar messageCount={5} notificationCount={12}/>
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
+          
           <div className='lg:px-[30px] xs:px-[10px] mt-[1rem]'>
             <h2 className='text-[#25282B] text-[40px] font-bold font-Lato'>Earnings</h2>
             <hr className='w-full h-[1.5px] bg-[#C7C7C7] mt-[1rem]'/>
             <h3 className='text-[#000] text-[14px] font-bold font-Lato mt-[2rem]'>Available Funds</h3>
-            <div className='mt-[2rem] flex flex-wrap justify-between items-center'>
+            <div className='mt-[2rem] flex flex-wrap justify-between items-center lg:ms-0 xs:ms-[1rem]'>
                 <div className='border-[1px] border-solid border-[#C7C7C7] w-[315px]  rounded-[10px] p-[15px]'>
                     <h2 className='text-[#000] text-[14px] font-Lato font-medium leading-[20px]'>Balance available for use</h2>
                     <h2 className='text-[#000] text-[32px] font-Inter font-bold mt-[0.5rem]'>$0.00</h2>
