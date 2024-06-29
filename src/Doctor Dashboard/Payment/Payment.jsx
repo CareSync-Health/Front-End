@@ -13,7 +13,7 @@ const Payment = () => {
         <Navbar messageCount={5} notificationCount={12}/>
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
-          <div className='px-[30px] mt-[1rem]'>
+          <div className='lg:px-[30px] xs:px-[10px] mt-[1rem]'>
             <h2 className='text-[#25282B] text-[40px] font-bold font-Lato'>Earnings</h2>
             <hr className='w-full h-[1.5px] bg-[#C7C7C7] mt-[1rem]'/>
             <h3 className='text-[#000] text-[14px] font-bold font-Lato mt-[2rem]'>Available Funds</h3>

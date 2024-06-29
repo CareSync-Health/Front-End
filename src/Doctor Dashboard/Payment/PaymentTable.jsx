@@ -48,14 +48,13 @@ const PaymentTable = () => {
         <div>
             <div className="bg-[#fff] w-full rounded-[10px] pt-[1.5rem] mt-[5rem] mb-[3rem]">
         <div className="overflow-x-auto">
-            <div className='flex items-center justify-between pr-[1rem]'>
-                <h1 className="text-[#25282B] lg:text-[20px] xs:text-[16px] font-bold font-Inter leading-[26px] ms-[1rem]">Appointment Activity</h1>
+            <div className='lg:px-[20px] xs:px-[10px]'>
                 <input 
                     type="text" 
                     placeholder="Search..." 
                     value={searchQuery} 
                     onChange={handleSearch} 
-                    className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium lg:w-[30%] xs:w-[40%]"
+                    className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium lg:w-[40%] xs:w-[95%]"
                 />
             </div>
                     <table className="min-w-full shadow-md overflow-hidden mt-[1rem]">
