@@ -21,6 +21,7 @@ const DoctorAppointment = lazy(() => import('./Doctor Dashboard/DoctorAppointmen
 const DoctorPages = lazy(() => import('./Doctor Dashboard/DoctorPages'))
 const DoctorPatientPages = lazy(() => import('./Doctor Dashboard/PatientPages'))
 const DoctorProfile = lazy(() => import('./Doctor Dashboard/Profile/DcotorProfile'))
+const DoctorPayment = lazy(() => import('./Doctor Dashboard/Payment/Payment'))
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
               <Route path='doctor_pages' element={ <DoctorPages /> } />
               <Route path='doctor_patient_page' element={ <DoctorPatientPages/> } />
               <Route path='doctor_profile' element={ <DoctorProfile /> } />
+              <Route path='payment_way' element={ <DoctorPayment/> } />
             </Routes>
           </Suspense>
       </ErrorBoundary>
