@@ -6,6 +6,7 @@ const rootReducer = combineReducers({
     patientAuth: patientAuthReducer,
     patientSignin: patientSigninReducer,
     doctorAuth: doctorAuthReducer,
-    doctorSignin: doctorSigninReducer
+    doctorSignin: doctorSigninReducer,
 })
+
 export {rootReducer}

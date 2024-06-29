@@ -82,9 +82,9 @@ const DoctorAppointment = () => {
                 </a>
               </div>
             </section>
-            <div className='bg-[#17B978] w-fit rounded-full p-4 float-end -mt-12'>
+            {/* <div className='bg-[#17B978] w-fit rounded-full p-4 float-end -mt-12'>
               <img src={doc} alt="" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
