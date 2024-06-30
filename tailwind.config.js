@@ -8,6 +8,28 @@ module.exports = {
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      xml: "412px",
+      // => @media (min-width: 412px) { ... }
+
+      xs: '360px',
+      // => @media (min-width: 350px) { ... }
+
+      sm: '640px',
+      // => @media (min-width: 640px) { ... }
+
+      md: '768px',
+      // => @media (min-width: 768px) { ... }
+
+      lg: '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      xl: '1280px',
+      // => @media (min-width: 1280px) { ... }
+
+      "2xl": '1536px',
+      // => @media (min-width: 1536px) { ... }
+    },
     transparent: "transparent",
     current: "currentColor",
     extend: {
@@ -94,7 +116,8 @@ module.exports = {
         Poppins: ['Poppins', 'sans-serif'],
         Almarai: ['Almarai', 'sans-serif'],
         Yesteryear: ['Yesteryear', 'cursive'],
-        Volkhov: ['Volkhov', 'serif']
+        Volkhov: ['Volkhov', 'serif'],
+        Nunito: ['Nunito', 'sans-serif']
       },
       fontSize: {
         "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
