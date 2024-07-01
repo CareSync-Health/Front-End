@@ -30,17 +30,17 @@ const DoctorPages = () => {
         <Navbar messageCount={5} notificationCount={12}/>
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
-          <div className='px-[30px]'>
-          <div className='flex items-center mt-[2rem] gap-[5rem] ml-[1rem]'>
+          <div className='lg:px-[30px] xs:px-[10px]'>
+          <div className='flex items-center flex-wrap mt-[2rem] lg:gap-[5rem] xs:gap-[1rem]'>
 
-            <div className='bg-white w-[200px] h-[88px] rounded-[10px] px-[15px] flex items-center justify-start gap-[0.5rem]'>
+            <div className='bg-white lg:w-[200px] xs:w-full py-[15px] rounded-[10px] px-[15px] flex items-center justify-start gap-[0.5rem]'>
               <img src={crutch} />
               <div>
                 <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>All Patients</h1>
                 <h2 className='text-[#22D1EE] text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
               </div>
             </div>
-            <div className='bg-white w-[145px] h-[88px] rounded-[12px] px-[15px] flex items-center justify-center gap-[1rem]'>
+            <div className='bg-white lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem]'>
               <div>
                 <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>Online</h1>
                 <div className="flex gap-[0.5rem] mr[3rem]">
@@ -49,7 +49,7 @@ const DoctorPages = () => {
                 </div>
               </div>
             </div>
-            <div className='bg-white w-[145px] h-[88px] rounded-[12px] px-[15px] flex items-center justify-center gap-[1rem]'>
+            <div className='bg-white lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem]'>
               <div>
                 <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>Offline</h1>
                 <div className="flex gap-[0.5rem] mr[3rem]">
@@ -64,9 +64,12 @@ const DoctorPages = () => {
             </div>
           </div>
           <div>
-          <section className='bg-white shadow-md rounded-md w-full mt-5 overflow-auto'>
-              <table className='w-full text-left text-xs'>
-                <thead className=''>
+            <div className='mt-[5rem]'>
+              <h1 className='text-[32px] text-[#000] font-bold font-Lato'>Doctors</h1>
+            </div>
+          <section className='bg-white shadow-md rounded-md lg:w-full mt-[1.5rem] overflow-auto mb-[3rem]'>
+              <table className='lg:w-full text-left text-[14px]'>
+                <thead className='bg-[#E8E8E8]'>
                   <tr className='border-b'>
                     <th className='font-medium px-5 py-4 align-middle'>Name</th>
                     <th className='font-medium px-5 py-4 align-middle'>Email</th>

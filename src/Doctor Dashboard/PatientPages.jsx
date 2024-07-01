@@ -95,7 +95,7 @@ const PatientPages = () => {
           </div>
           <div className='bg-white lg:w-[90%] xs:w-[95%] lg:ms-[4rem] xs:ms-[0.5rem] mt-[3rem] rounded-[10px] mb-[3rem]'>
             <table className=" w-full table-auto">
-              <thead className='bg-gray-50 border-b-2 border-gray-200'>
+              <thead className='bg-[#E8E8E8] border-b-2 border-gray-200'>
                 <tr>
                   <th className='px-4 py-3 text-sm font-semibold tracking-wide text-left'>Patient Name</th>
                   <th className='px-4 py-3 text-sm font-semibold tracking-wide text-left'>Email</th>
