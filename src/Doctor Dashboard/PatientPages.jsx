@@ -18,6 +18,8 @@ const PatientPages = () => {
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
           
+          {/*FILTER BOX */}
+
           <div className='px-[50px] '>
           <div className=' bg-white w-[190px] h-[40px] rounded-[9px] px-[50px] ml-[77%] mt-[20px] '>
   
@@ -26,6 +28,9 @@ const PatientPages = () => {
     <RiArrowDropDownLine />
   </div>
 </div>
+ {/*ENDS HERE */}
+
+  {/*DOCTOR'S STATS */}
 
           <div className='flex items-center mt-[2rem] gap-[5rem] ml-[1rem]'>
             <div className='bg-white w-[250px] h-[88px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]'>
@@ -59,16 +64,16 @@ const PatientPages = () => {
 
             <div className='bg-[#F8DEBD] w-[145px] h-[88px] rounded-[12px] px-[15px] flex items-center justify-center gap-[1rem]'>
   
-  <div>
-    <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-center'>Currently attending to</h1>
-    <div className="flex items-center justify-center gap-[0.5rem] ">
-    <h2 className='text-[#000] text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
-    <BsFillHeartPulseFill  className='mt-[8px] fill-red-500' />
-    </div>
-  </div>
-</div>
+                <div>
+               <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-center'>Currently attending to</h1>
+             <div className="flex items-center justify-center gap-[0.5rem] ">
+            <h2 className='text-[#000] text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
+              <BsFillHeartPulseFill  className='mt-[8px] fill-red-500' />
+                    </div>
+                </div>
+           </div>
 
-<div className='bg-[#D0FBFF] w-[145px] h-[88px] rounded-[12px] px-[15px] flex items-center justify-center gap-[1rem]'>
+          <div className='bg-[#D0FBFF] w-[145px] h-[88px] rounded-[12px] px-[15px] flex items-center justify-center gap-[1rem]'>
   
               <div>
                 <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>Offline</h1>
@@ -83,6 +88,10 @@ const PatientPages = () => {
 
             
           </div>
+
+           {/*ENDS HERE */}
+
+            {/*TABLE PART */}
             
           </div>
           <div className='mt-[3rem] ml-[1.9rem]'>
@@ -123,6 +132,7 @@ const PatientPages = () => {
   </tbody>
 </table>
    <button className= 'bg-[#17B978] w-[60px] h-[60px] rounded-full ml-[72rem] mt-[1rem] fixed'><FaUserDoctor className='ml-[1.4rem]' /></button>
+    {/*ENDS HERE */}
           </div>
        
         </div>
