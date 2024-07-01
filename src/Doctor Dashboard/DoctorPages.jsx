@@ -4,9 +4,9 @@ import Navbar from './Components/Navbar'
 
 const DoctorPages = () => {
   return (
-    <div className='flex bg-[#E2F3F5]'>
+    <div className='flex'>
         <Sidebar/>
-      <div className='w-full'>
+      <div className='flex-1 lg:h-[99.9vh]  xs:h-[85vh]  overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <Navbar messageCount={5} notificationCount={12}/>
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
