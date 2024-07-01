@@ -9,10 +9,3 @@
     border-image: linear-gradient(#58E3F5,
     #3EF59E) 1;
 }
-
-input { 
-    outline: none !important;
-}
-input:focus {
-    outline: none !important;
-}
