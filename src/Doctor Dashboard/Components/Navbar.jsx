@@ -73,7 +73,7 @@ const Navbar = ({ messageCount, notificationCount }) => {
               </span>
                 )}
             </div>
-          <Link to='doctor_profile'>
+          <Link to='/doctor_profile'>
             <img src={avatar} className='lg:w-[40px] xs:w-[30px]' />
           </Link>
         </div>
@@ -81,7 +81,7 @@ const Navbar = ({ messageCount, notificationCount }) => {
           <Chatbot/>
         </div>
       </div>
-    </div>
+  </div>
   )
 }
 

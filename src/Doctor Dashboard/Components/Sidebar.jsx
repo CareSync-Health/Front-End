@@ -29,7 +29,7 @@ const Sidebar = () => {
             { title: "Doctors", Link: '/doctor_pages', icon: <img src={doctor} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
             { title: "Patients", Link: '/doctor_patient_page', icon: <img src={patient} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
             { title: "Payments", Link: '/payment_way', icon: <img src={payment} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
-            { title: "Settings", spacing: true, icon: <img src={setting} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
+            { title: "Settings", Link: '/doctor_settings/general_setting', spacing: true, icon: <img src={setting} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
             { title: "Help", icon: <img src={help} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
             { title: "Logout", icon: <img src={logout} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
      ];

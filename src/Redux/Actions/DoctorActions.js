@@ -17,7 +17,7 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			})
-			navigate('/about');
+			navigate('/doctor_dashboard');
 		} else {
             throw new Error(data.message);
         }
@@ -45,7 +45,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 		toast.success(data.message, {
 		  position: 'top-right',
 		});
-		navigate('/about');
+		navigate('/doctor_dashboard');
 	  } else {
 		throw new Error(data.message);
 	  }
