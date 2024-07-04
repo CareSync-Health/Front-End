@@ -83,7 +83,7 @@ const LineChartHero2 = () => {
 
   return (
     <div>
-      <h3 className="text-[#25282B] text-[19px] font-Inter font-bold text-start">
+      <h3 className="text-[19px] font-Inter font-bold text-start">
         Total Income: {dataFormatter(totalIncome)}
       </h3>
         <LineChart

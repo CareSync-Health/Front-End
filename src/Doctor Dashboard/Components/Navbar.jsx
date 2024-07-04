@@ -5,6 +5,7 @@ import Notification from '../../assets/Icons/notification.svg'
 import avatar from '../../assets/avatar.png'
 import { Link } from 'react-router-dom'
 import Chatbot from './Chatbot'
+import { useTheme } from './ThemeContext'
 
 
 function formatNumber(number) {
@@ -28,6 +29,8 @@ function formatNumber(number) {
 
 
 const Navbar = ({ messageCount, notificationCount }) => {
+  const { theme, appearance } = useTheme();
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -48,12 +51,12 @@ const Navbar = ({ messageCount, notificationCount }) => {
   };
 
   return (
-    <div className='bg-[#E2F3F5] lg:px-[30px] xs:px-[10px] shadow-lg py-[20px]'>
+    <div className={`lg:px-[30px] xs:px-[10px] shadow-lg py-[20px] ${theme === 'dark' ? 'bg-gray-800 text-white' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : 'text-gray-800'}`}>
       <div className='flex justify-between items-center'>
         <div>
-          <div className='flex items-center rounded-[100px] bg-white px-4 py-2'>
+          <div className={`flex items-center rounded-[100px] px-4 py-2 ${theme === 'dark' ? 'bg-transparent border border-white text-white' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'}`}>
             <BsSearch className='text-[#A0A4A8] text-lg block float-left cursor-pointer mr-2' />
-            <input type={'text'} placeholder='Search' className='text-[13px] font-Inter leading-[16px] text-start font-normal bg-transparent lg:w-[350px] xs:w-[150px] text-[#A0A4A8] rounded-md focus:outline-none border-none' />
+            <input type={'text'} placeholder='Search' className='text-[13px] font-Inter leading-[16px] text-start font-normal bg-transparent lg:w-[350px] xs:w-[150px] rounded-md focus:outline-none border-none' />
           </div>
         </div>
         <div className='flex items-center lg:gap-[2rem] xs:gap-[1rem]'>

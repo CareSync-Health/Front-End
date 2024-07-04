@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import avatar from '../../assets/avatar.png';
+import { useTheme } from '../Components/ThemeContext';
 
 const PaymentTable = () => {
+    const { theme, appearance } = useTheme()
+
     const Payments = [
         { date: "John Doe", activity: "john.doe@example.com", description: "2024-06-27", from: "10:00 AM", order: "Dr. Smith", amount: "Flu", status: 'Pending' },
         { date: "Jane Smith", activity: "jane.smith@example.com", description: "2024-06-28", from: "11:30 AM", order: "Dr. Adams", amount: "Allergies", status: 'Paid' },
@@ -46,7 +49,7 @@ const PaymentTable = () => {
 
     return (
         <div>
-            <div className="bg-[#fff] w-full rounded-[10px] pt-[1.5rem] mt-[5rem] mb-[3rem]">
+            <div className={`w-full rounded-[10px] pt-[1.5rem] mt-[5rem] mb-[3rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
         <div className="overflow-x-auto">
             <div className='lg:px-[20px] xs:px-[10px]'>
                 <input 
@@ -54,31 +57,31 @@ const PaymentTable = () => {
                     placeholder="Search..." 
                     value={searchQuery} 
                     onChange={handleSearch} 
-                    className="border py-2 px-4 rounded-[100px] text-[13px] font-Inter font-medium lg:w-[40%] xs:w-[95%]"
+                    className={`border py-2 px-4 rounded-[100px] text-[13px] outline-none font-Inter font-medium lg:w-[40%] xs:w-[95%] ${theme === 'dark' ? "bg-gray-800" : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'}`}
                 />
             </div>
                     <table className="min-w-full shadow-md overflow-hidden mt-[1rem]">
-                        <thead className="bg-[#E8E8E8] text-white">
+                        <thead className={`${theme === 'dark' ? 'bg-gray-700' : theme === 'light' ? 'bg-[#E8E8E8]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                             <tr>
-                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Date</th>
-                                <th className="text-left py-5 px-5 w-[20%] text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Activity</th>
-                                <th className="text-left py-5 px-5 w-[20%] text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Description</th>
-                                <th className="text-left py-5 px-5 w-[20%] text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">From</th>
-                                <th className="text-left py-5 px-5 w-[20%] text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Order</th>
-                                <th className="text-left py-5 px-5 w-[20%] text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Amount</th>
-                                <th className="text-left py-5 px-5 text-[#25282B] text-[14px] font-bold font-Inter leading-[20px]">Status</th>
+                                <th className="text-left py-5 px-5 text-[14px] font-bold font-Inter leading-[20px]">Date</th>
+                                <th className="text-left py-5 px-5 w-[20%] text-[14px] font-bold font-Inter leading-[20px]">Activity</th>
+                                <th className="text-left py-5 px-5 w-[20%] text-[14px] font-bold font-Inter leading-[20px]">Description</th>
+                                <th className="text-left py-5 px-5 w-[20%] text-[14px] font-bold font-Inter leading-[20px]">From</th>
+                                <th className="text-left py-5 px-5 w-[20%] text-[14px] font-bold font-Inter leading-[20px]">Order</th>
+                                <th className="text-left py-5 px-5 w-[20%] text-[14px] font-bold font-Inter leading-[20px]">Amount</th>
+                                <th className="text-left py-5 px-5 text-[14px] font-bold font-Inter leading-[20px]">Status</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                             {currentItems.map((payments, index) => (
                                 <tr key={index}>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.date}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.activity}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.description}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.from}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.order}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.amount}</td>
-                                    <td className="py-4 px-5 text-[14px] text-[#52575C] font-Inter font-normal leading-[20px]">{payments.status}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.date}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.activity}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.description}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.from}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.order}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.amount}</td>
+                                    <td className="py-4 px-5 text-[14px] font-Inter font-normal leading-[20px]">{payments.status}</td>
                                 </tr>
                             ))}
                         </tbody>

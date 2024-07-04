@@ -1,8 +1,10 @@
-import React, { Suspense, lazy } from 'react'
+import React, { useState, Suspense, lazy } from 'react'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from './Components/ErrorBoundary.jsx';
+import { ThemeProvider } from './Doctor Dashboard/Components/ThemeContext.jsx';
+import { useTranslation } from 'react-i18next';
 
 const Homepage = lazy(() => import('./Landing Page/HomePage/Homepage'))
 const About = lazy(() => import('./Landing Page/About/About'))
@@ -26,9 +28,9 @@ const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage
 
 
 function App() {
-
   return (
-    <>
+    <div>
+      <ThemeProvider>
     <Router>
       <ErrorBoundary>
           <Suspense 
@@ -60,19 +62,20 @@ function App() {
               <Route path='verify_account_doctor' element={ <VerifyAccount2/> } />
 
               {/* DOCTOR DASHBOARD */}
-              <Route path='/' element={ <DoctorDashboard/> } />
-              <Route path='doctor_appointment' element={ <DoctorAppointment /> } />
-              <Route path='doctor_pages' element={ <DoctorPages /> } />
-              <Route path='doctor_patient_page' element={ <DoctorPatientPages/> } />
-              <Route path='doctor_profile' element={ <DoctorProfile /> } />
-              <Route path='payment_way' element={ <DoctorPayment/> } />
-              <Route path='doctor_settings/*' element={ <DoctorSetting/> } />
+                <Route path='/' element={ <DoctorDashboard/> } />
+                <Route path='doctor_appointment' element={ <DoctorAppointment /> } />
+                <Route path='doctor_pages' element={ <DoctorPages /> } />
+                <Route path='doctor_patient_page' element={ <DoctorPatientPages/> } />
+                <Route path='doctor_profile' element={ <DoctorProfile /> } />
+                <Route path='payment_way' element={ <DoctorPayment/> } />
+                <Route path='doctor_settings/*' element={ <DoctorSetting/> } />
             </Routes>
           </Suspense>
       </ErrorBoundary>
     </Router>
     <Toaster />
-    </>
+    </ThemeProvider>
+    </div>
   )
 }
 

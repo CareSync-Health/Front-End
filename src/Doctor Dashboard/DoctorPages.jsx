@@ -5,8 +5,10 @@ import { RiMessage3Line, RiArrowDropDownLine } from 'react-icons/ri';
 import { BiUpArrowAlt, BiDownArrowAlt } from "react-icons/bi";
 import avatar from '../assets/avatar.png';
 import crutch from '../assets/crutch.png'
+import { useTheme } from './Components/ThemeContext';
 
 const DoctorPages = () => {
+  const { theme, appearance } = useTheme();
   const [page, setPage] = useState(1)
   const details = [
     {
@@ -24,52 +26,52 @@ const DoctorPages = () => {
   ]
 
   return (
-    <div className='flex'>
+    <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
         <Sidebar/>
-      <div className='flex-1 lg:h-[99.9vh]  xs:h-[85vh]  overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+      <div className='flex-1 lg:h-[99.9vh]  xs:h-[85vh]  overflow-y-auto' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <Navbar messageCount={5} notificationCount={12}/>
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
           <div className='lg:px-[30px] xs:px-[10px]'>
           <div className='flex items-center flex-wrap mt-[2rem] lg:gap-[5rem] xs:gap-[1rem]'>
 
-            <div className='bg-white lg:w-[200px] xs:w-full py-[15px] rounded-[10px] px-[15px] flex items-center justify-start gap-[0.5rem]'>
+            <div className={`lg:w-[200px] xs:w-full py-[15px] rounded-[10px] px-[15px] flex items-center justify-start gap-[0.5rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-white' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <img src={crutch} />
               <div>
-                <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>All Patients</h1>
+                <h1 className='text-[14px] font-Inter font-bold leading-[20px] text-start'>All Patients</h1>
                 <h2 className='text-[#22D1EE] text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
               </div>
             </div>
-            <div className='bg-white lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem]'>
+            <div className={`lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-white' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <div>
-                <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>Online</h1>
+                <h1 className='text-[14px] font-Inter font-bold leading-[20px] text-start'>Online</h1>
                 <div className="flex gap-[0.5rem] mr[3rem]">
-                <h2 className='text-[#000] text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
+                <h2 className='text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
                 <BiUpArrowAlt className='mt-[8px] fill-green-500' />
                 </div>
               </div>
             </div>
-            <div className='bg-white lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem]'>
+            <div className={`lg:w-[145px] xs:w-full py-[15px] rounded-[12px] px-[15px] flex lg:items-center lg:justify-center lg:gap-[1rem] xs:gap-[2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-white' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <div>
-                <h1 className='text-[#25282B] text-[14px] font-Inter font-bold leading-[20px] text-start'>Offline</h1>
+                <h1 className='text-[14px] font-Inter font-bold leading-[20px] text-start'>Offline</h1>
                 <div className="flex gap-[0.5rem] mr[3rem]">
-                <h2 className='text-[#000] text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
+                <h2 className='text-[20px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>0</h2>
                 <BiDownArrowAlt className='mt-[8px] fill-red-500' />
                 </div>
               </div>
             </div>
-            <div className='bg-white  rounded-[12px] flex items-center justify-center w-[150px] h-[40px]'>
-              <h1 className='text-[#17B978] text-[14px] font-Inter font-bold leading-[20px] text-justify'>Filter Patient</h1>
+            <div className={`rounded-[12px] flex items-center justify-center w-[150px] h-[40px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? '' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+              <h1 className='text-[14px] font-Inter font-bold leading-[20px] text-justify'>Filter Patient</h1>
               <RiArrowDropDownLine />
             </div>
           </div>
           <div>
             <div className='mt-[5rem]'>
-              <h1 className='text-[32px] text-[#000] font-bold font-Lato'>Doctors</h1>
+              <h1 className='text-[32px] font-bold font-Lato'>Doctors</h1>
             </div>
-          <section className='bg-white shadow-md rounded-md lg:w-full mt-[1.5rem] overflow-auto mb-[3rem]'>
+          <section className={`shadow-md rounded-md lg:w-full mt-[1.5rem] overflow-auto mb-[3rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <table className='lg:w-full text-left text-[14px]'>
-                <thead className='bg-[#E8E8E8]'>
+                <thead className={`${theme === 'dark' ? 'bg-gray-700' : theme === 'light' ? 'bg-[#E8E8E8]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                   <tr className='border-b'>
                     <th className='font-medium px-5 py-4 align-middle'>Name</th>
                     <th className='font-medium px-5 py-4 align-middle'>Email</th>
@@ -95,7 +97,7 @@ const DoctorPages = () => {
                   </svg>
                 </a>
                 {Array.from({ length: 5 }).map((num, index) => (
-                  <a key={index} onClick={() => setPage(index + 1)} className={`cursor-pointer text-xs leading-none p-[0.45rem] rounded-md ${page === index + 1 ? "text-white bg-[#17B978]" : "text-black border"}`}><span className='leading-none min-w-3 inline-block text-center'>{index + 1}</span></a>
+                  <a key={index} onClick={() => setPage(index + 1)} className={`cursor-pointer text-xs leading-none p-[0.45rem] rounded-md ${page === index + 1 ? "text-white bg-[#17B978]" : "border"}`}><span className='leading-none min-w-3 inline-block text-center'>{index + 1}</span></a>
                 ))}
                 <a onClick={() => page < 5 ? setPage(page + 1) : ""} className={`border p-[0.45rem] rounded-md ${page < 5 ? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
