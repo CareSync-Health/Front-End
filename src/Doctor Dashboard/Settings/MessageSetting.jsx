@@ -1,9 +1,12 @@
 import React from 'react'
+import { useTheme } from '../Components/ThemeContext'
 
 const MessageSetting = () => {
+  const { theme, appearance } = useTheme();
+
   return (
     <div>
-         <div className='lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#E2F3F5] mt-5' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+         <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
             Message Setting
         </div>
     </div>
