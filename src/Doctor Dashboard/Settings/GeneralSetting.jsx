@@ -7,7 +7,6 @@ import theme3 from '../../assets/theme3.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '@i18n/i18n';  // Use the alias to import i18n
 
-
 const Circle = ({ id, selected, onClick, bgColor, markColor }) => {
   return (
     <div
@@ -99,18 +98,17 @@ const GeneralSetting = () => {
 
   return (
     <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-      <div className="p-4 pt-[3rem]">
+      <div className="pt-[3rem]">
         <div>
-          <h1 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('language')}
-          </h1>
-          <select onChange={handleChange} value={i18n.language} className={`outline-none lg:w-[20%] xs:w-[70%] py-[8px] px-[10px] mt-2 ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[rgba(0,0,0,0.5)]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : theme === 'light' ? 'text-white' : 'text-gray-800'}`}>
+          <h1 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('language')}</h1>
+          <select onChange={handleChange} value={i18n.language} className={`outline-none w-full sm:w-[50%] md:w-[30%] lg:w-[20%] py-[8px] px-[10px] mt-2 ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[rgba(0,0,0,0.5)]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : theme === 'light' ? 'text-white' : 'text-gray-800'}`}>
             <option value="en">English</option>
             <option value="fr">Français</option>
           </select>
         </div>
         <div>
           <h2 className='text-[25px] font-medium font-Inter leading-[46px] mt-5'>{i18n.t('Appearance')}</h2>
-          <div className="flex space-x-8 mt-5">
+          <div className="flex flex-wrap space-x-8 mt-5">
             {circles.map((circle) => (
               <Circle
                 key={circle.id}
@@ -125,12 +123,12 @@ const GeneralSetting = () => {
         </div>
         <div className='mt-[3rem]'>
           <h2 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('Theme')}</h2>
-          <div className='flex flex-wrap items-center gap-[3rem] mt-5'>
+          <div className='flex flex-wrap items-center gap-8 mt-5'>
             {images.map((image) => (
               <div
                 key={image.id}
                 onClick={() => handleImageClick(image.id)}
-                className={`relative lg:w-[25%] cursor-pointer `}
+                className={`relative w-full sm:w-[40%] md:w-[30%] lg:w-[25%] cursor-pointer`}
               >
                 <img src={image.src} alt={`Theme ${image.id}`} className='w-full' />
                 <h1 className='text-[18px] font-medium font-Inter leading-[46px] text-center'>{i18n.t(`${image.name}`)}</h1>

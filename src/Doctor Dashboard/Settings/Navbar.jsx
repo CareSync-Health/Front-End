@@ -8,7 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
 
-  const linkClasses = 'text-[19px] font-medium font-Inter pb-1';
+  const linkClasses = 'lg:text-[19px] xs:text-[13.5px] font-medium font-Inter pb-1';
   const activeClass = `border-b-2 ${appearance === 'green' ? 'border-[#17B978]' : appearance === 'blue' ? 'border-[#22D1EE]' : appearance === 'accent' ? 'border-[#A6FFF2]' : theme === 'dark' ? 'border-white' : 'border-black'}`;
 
   const handleLinkClick = (path) => {
@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className={`flex items-center gap-[6rem] mt-8 ${theme === 'dark' ? '' : theme === 'light' ? '' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+    <div className={`flex items-center xs:gap-[1rem] lg:gap-[6rem] mt-8 ${theme === 'dark' ? '' : theme === 'light' ? '' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
       <NavLink
         to='general_setting'
         className={({ isActive }) =>
