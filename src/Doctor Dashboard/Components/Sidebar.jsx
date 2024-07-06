@@ -89,7 +89,8 @@ const Sidebar = () => {
                                     <span className={`text-4xl block float-left lg:ms-[15px] xs:ms-[5px]`}>
                                         {menu.icon ? menu.icon : <RiDashboardFill />}
                                     </span>
-                                    <span className={`font-medium flex-1 duration-200 ms-[20px] text-[14px] ${!open && 'hidden'}`}>
+                                    {!open && 'hidden'}
+                                    <span className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>
                                         {menu.title}
                                     </span>
                                 </li>
