@@ -1,0 +1,5 @@
+{
+  "welcome": "Bienvenue",
+  "description": "C'est un exemple d'utilisation d'i18next pour l'internationalisation.",
+  "language": "Langue"
+}

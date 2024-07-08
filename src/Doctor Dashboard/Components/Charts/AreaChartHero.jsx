@@ -33,7 +33,7 @@ const AreaChartHero = () => {
 
   return (
     <div>
-      <h2 className="text-[20px] font-bold font-Inter mr-4 g-[5rem] text-[#25282B] ms-[0.6rem]">Hospital Survey</h2>
+      <h2 className="text-[20px] font-bold font-Inter mr-4 g-[5rem] ms-[0.6rem]">Hospital Survey</h2>
       <AreaChart
         className="h-80"
         data={chartData}

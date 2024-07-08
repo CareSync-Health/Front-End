@@ -1,9 +1,12 @@
 import React from 'react'
+import { useTheme } from '../Components/ThemeContext'
 
 const SecuritySetting = () => {
+  const { theme, appearance } =  useTheme();
+
   return (
     <div>
-         <div className='lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#E2F3F5] mt-5' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+         <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
           <div className='mt-[2rem]'>
             <h1 className='text-[#25282B] text-[2rem] font-Inter font-bold leading-[10px]'>Authorization</h1>
             <h2 className='mt-[3rem] text-[#25282B] text-[2rem] font-Inter font-medium leading-[3rem]'>Information for login in to your Caresync account <br /> Regularly change your password if you suspect it may have been compromised</h2>

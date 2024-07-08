@@ -4,8 +4,10 @@ import Navbar from './Components/Navbar'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 import avatar from '../assets/avatar.png';
 import doc from '../assets/doctor 2.svg';
+import { useTheme } from './Components/ThemeContext';
 
 const DoctorAppointment = () => {
+  const { theme, appearance } = useTheme();
   const [page, setPage] = useState(1)
   const details = [
     {
@@ -29,15 +31,15 @@ const DoctorAppointment = () => {
   ]
 
   return (
-    <div className='flex'>
+    <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
       <Sidebar />
-      <div className='flex-1 lg:h-[99.9vh]  xs:h-[85vh]  overflow-y-auto bg-[#E2F3F5]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+      <div className='flex-1 lg:h-[99.9vh]  xs:h-[85vh]  overflow-y-auto' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <Navbar messageCount={5} notificationCount={12} />
         <div>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 - i get coconut head 💀*/}
           <div className='md:px-[30px] px-3 mb-5 select-none'>
             <h1 className='text-4xl font-semibold mt-5'>Appointments</h1>
-            <section className='bg-white shadow-md rounded-md w-full mt-5 overflow-auto'>
+            <section className={`shadow-md rounded-md w-full mt-5 overflow-auto ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <table className='w-full text-left text-xs'>
                 <thead className=''>
                   <tr className='border-b'>
@@ -73,7 +75,7 @@ const DoctorAppointment = () => {
                   </svg>
                 </a>
                 {Array.from({ length: 5 }).map((num, index) => (
-                  <a key={index} onClick={() => setPage(index + 1)} className={`cursor-pointer text-xs leading-none p-[0.45rem] rounded-md ${page === index + 1 ? "text-white bg-[#17B978]" : "text-black border"}`}><span className='leading-none min-w-3 inline-block text-center'>{index + 1}</span></a>
+                  <a key={index} onClick={() => setPage(index + 1)} className={`cursor-pointer text-xs leading-none p-[0.45rem] rounded-md ${page === index + 1 ? "text-white bg-[#17B978]" : "border"}`}><span className='leading-none min-w-3 inline-block text-center'>{index + 1}</span></a>
                 ))}
                 <a onClick={() => page < 5 ? setPage(page + 1) : ""} className={`border p-[0.45rem] rounded-md ${page < 5 ? "cursor-pointer" : "cursor-not-allowed"}`}>
                   <svg className='w-3' viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

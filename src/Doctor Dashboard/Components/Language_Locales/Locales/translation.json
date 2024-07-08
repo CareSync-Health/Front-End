@@ -1,0 +1,207 @@
+{
+    "en": {
+      "welcome": "Welcome",
+      "description": "This is an example of how to use i18next for internationalization.",
+      "language": "Language"
+    },
+    "zh": {
+      "welcome": "欢迎",
+      "description": "这是一个如何使用i18next进行国际化的示例。",
+      "language": "语言"
+    },
+    "hi": {
+      "welcome": "स्वागत है",
+      "description": "यह i18next का उपयोग करके अंतर्राष्ट्रीयकरण का एक उदाहरण है।",
+      "language": "भाषा"
+    },
+    "es": {
+      "welcome": "Bienvenido",
+      "description": "Este es un ejemplo de cómo usar i18next para la internacionalización.",
+      "language": "Idioma"
+    },
+    "ar": {
+      "welcome": "مرحبا",
+      "description": "هذا مثال على كيفية استخدام i18next للتدويل.",
+      "language": "لغة"
+    },
+    "bn": {
+      "welcome": "স্বাগতম",
+      "description": "এটি i18next ব্যবহার করে আন্তর্জাতিককরণের একটি উদাহরণ।",
+      "language": "ভাষা"
+    },
+    "pt": {
+      "welcome": "Bem-vindo",
+      "description": "Este é um exemplo de como usar o i18next para internacionalização.",
+      "language": "Idioma"
+    },
+    "ru": {
+      "welcome": "Добро пожаловать",
+      "description": "Это пример того, как использовать i18next для интернационализации.",
+      "language": "Язык"
+    },
+    "ja": {
+      "welcome": "ようこそ",
+      "description": "これは、i18nextを使用して国際化を行う方法の例です。",
+      "language": "言語"
+    },
+    "pa": {
+      "welcome": "ਸਵਾਗਤ ਹੈ",
+      "description": "ਇਹ i18next ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਅੰਤਰਰਾਸ਼ਟਰੀਕਰਨ ਦਾ ਉਦਾਹਰਨ ਹੈ।",
+      "language": "ਭਾਸ਼ਾ"
+    },
+    "de": {
+      "welcome": "Willkommen",
+      "description": "Dies ist ein Beispiel dafür, wie man i18next zur Internationalisierung verwendet.",
+      "language": "Sprache"
+    },
+    "jw": {
+      "welcome": "Sugeng Rawuh",
+      "description": "Iki minangka conto cara nggunakake i18next kanggo internasionalisasi.",
+      "language": "Basa"
+    },
+    "vi": {
+      "welcome": "Chào mừng",
+      "description": "Đây là một ví dụ về cách sử dụng i18next để quốc tế hóa.",
+      "language": "Ngôn ngữ"
+    },
+    "ko": {
+      "welcome": "환영합니다",
+      "description": "이것은 i18next를 사용하여 국제화하는 방법의 예입니다.",
+      "language": "언어"
+    },
+    "ta": {
+      "welcome": "வரவேற்கிறோம்",
+      "description": "இது i18next ஐப் பயன்படுத்தி சர்வதேசமயமாக்குவதற்கான ஒரு உதாரணமாகும்.",
+      "language": "மொழி"
+    },
+    "it": {
+      "welcome": "Benvenuto",
+      "description": "Questo è un esempio di come utilizzare i18next per l'internazionalizzazione.",
+      "language": "Lingua"
+    },
+    "tr": {
+      "welcome": "Hoş geldiniz",
+      "description": "Bu, i18next kullanarak nasıl uluslararasılaştırma yapılacağını gösteren bir örnektir.",
+      "language": "Dil"
+    },
+    "fa": {
+      "welcome": "خوش آمدید",
+      "description": "این نمونه ای از نحوه استفاده از i18next برای بین المللی سازی است.",
+      "language": "زبان"
+    },
+    "pl": {
+      "welcome": "Witamy",
+      "description": "To jest przykład, jak używać i18next do internacjonalizacji.",
+      "language": "Język"
+    },
+    "uk": {
+      "welcome": "Ласкаво просимо",
+      "description": "Це приклад того, як використовувати i18next для інтернаціоналізації.",
+      "language": "Мова"
+    },
+    "ro": {
+      "welcome": "Bine ați venit",
+      "description": "Acesta este un exemplu de utilizare a i18next pentru internaționalizare.",
+      "language": "Limbă"
+    },
+    "nl": {
+      "welcome": "Welkom",
+      "description": "Dit is een voorbeeld van hoe i18next te gebruiken voor internationalisering.",
+      "language": "Taal"
+    },
+    "th": {
+      "welcome": "ยินดีต้อนรับ",
+      "description": "นี่คือตัวอย่างวิธีใช้ i18next สำหรับการทำให้เป็นสากล",
+      "language": "ภาษา"
+    },
+    "el": {
+      "welcome": "Καλώς ήρθατε",
+      "description": "Αυτό είναι ένα παράδειγμα για το πώς να χρησιμοποιήσετε το i18next για τη διεθνοποίηση.",
+      "language": "Γλώσσα"
+    },
+    "hu": {
+      "welcome": "Üdvözöljük",
+      "description": "Ez egy példa arra, hogyan kell használni az i18next-et a nemzetközivé tételhez.",
+      "language": "Nyelv"
+    },
+    "sv": {
+      "welcome": "Välkommen",
+      "description": "Detta är ett exempel på hur man använder i18next för internationalisering.",
+      "language": "Språk"
+    },
+    "az": {
+      "welcome": "Xoş gəldiniz",
+      "description": "Bu, beynəlxalqlaşdırma üçün i18next-dən necə istifadə edəcəyinizə dair bir nümunədir.",
+      "language": "Dil"
+    },
+    "he": {
+      "welcome": "ברוך הבא",
+      "description": "זהו דוגמה כיצד להשתמש ב-i18next עבור בינאום.",
+      "language": "שפה"
+    },
+    "bg": {
+      "welcome": "Добре дошли",
+      "description": "Това е пример за това как да използвате i18next за интернационализация.",
+      "language": "Език"
+    },
+    "da": {
+      "welcome": "Velkommen",
+      "description": "Dette er et eksempel på, hvordan du bruger i18next til internationalisering.",
+      "language": "Sprog"
+    },
+    "fi": {
+      "welcome": "Tervetuloa",
+      "description": "Tämä on esimerkki siitä, kuinka käyttää i18nextiä kansainvälistämiseen.",
+      "language": "Kieli"
+    },
+    "sk": {
+      "welcome": "Vitajte",
+      "description": "Toto je príklad použitia i18next na internacionalizáciu.",
+      "language": "Jazyk"
+    },
+    "no": {
+      "welcome": "Velkommen",
+      "description": "Dette er et eksempel på hvordan du bruker i18next for internasjonalisering.",
+      "language": "Språk"
+    },
+    "cs": {
+      "welcome": "Vítejte",
+      "description": "Toto je příklad, jak používat i18next pro internacionalizaci.",
+      "language": "Jazyk"
+    },
+    "sl": {
+      "welcome": "Dobrodošli",
+      "description": "To je primer uporabe i18next za internacionalizacijo.",
+      "language": "Jezik"
+    },
+    "hr": {
+      "welcome": "Dobrodošli",
+      "description": "Ovo je primjer kako koristiti i18next za internacionalizaciju.",
+      "language": "Jezik"
+    },
+    "lt": {
+      "welcome": "Sveiki atvykę",
+      "description": "Tai yra pavyzdys, kaip naudoti i18next internacionalizacijai.",
+      "language": "Kalba"
+    },
+    "lv": {
+      "welcome": "Laipni lūdzam",
+      "description": "Šis ir piemērs, kā izmantot i18next starptautiskai izplatīšanai.",
+      "language": "Valoda"
+    },
+    "et": {
+      "welcome": "Tere tulemast",
+      "description": "See on näide i18nexti kasutamisest rahvusvahelistamiseks.",
+      "language": "Keel"
+    },
+    "is": {
+      "welcome": "Velkomin",
+      "description": "Þetta er dæmi um hvernig nota á i18next til alþjóðavæðingar.",
+      "language": "Tungumál"
+    },
+    "ga": {
+      "welcome": "Fáilte",
+      "description": "Seo sampla de conas i18next a úsáid chun idirnáisiúnú.",
+      "language": "Teanga"
+    }
+  }  
