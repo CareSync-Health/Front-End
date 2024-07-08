@@ -98,7 +98,7 @@ const GeneralSetting = () => {
 
   return (
     <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-      <div className="pt-[3rem]">
+      <div className="pt-[2rem]">
         <div>
           <h1 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('language')}</h1>
           <select onChange={handleChange} value={i18n.language} className={`outline-none w-full sm:w-[50%] md:w-[30%] lg:w-[20%] py-[8px] px-[10px] mt-2 ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[rgba(0,0,0,0.5)]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : theme === 'light' ? 'text-white' : 'text-gray-800'}`}>

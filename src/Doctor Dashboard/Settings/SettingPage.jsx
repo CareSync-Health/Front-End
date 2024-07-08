@@ -20,7 +20,7 @@ const SettingPage = () => {
                 <Navbar messageCount={5} notificationCount={12} />
                 <div>
                     {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 - i get coconut head 💀*/}
-                    <div className='md:px-[30px] lg:px-3 xs:px-2 mb-5 select-none'>
+                    <div className='md:px-[30px] lg:px-[30px] xs:px-2 mb-5 select-none'>
                         <div>
                             <h2 className='text-[32px] font-bold font-Inter mt-[1rem]'>Settings</h2>
                             <hr className='w-full h-[2px] bg-[#C7C7C7] mt-4' />
