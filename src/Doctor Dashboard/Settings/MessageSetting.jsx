@@ -33,12 +33,15 @@ const MessageSetting = () => {
                 <p className='text-[18px] font-normal leading-[46px] font-Nunito'>You can customize and save your own message templates for quick and easy communication with patients.</p>
               </h4>
             </div>
-            <div className='flex pt-6'>
-              <div className='pr-52'>
-                <h1 className='text-2xl pt-6 pl-4'>Appointment Reminder</h1>
+            <div className='flex items-start gap-[5rem] pt-6'>
+              <div className=''>
+                <h1 className='text-2xl pt-6'>Appointment Reminder</h1>
+                <p className='border border-solid mt-5 border-sky-400 rounded-[10px] w-[350px] px-[10px] py-[10px] text-[15px] font-Nunito font-normal leading-[24px]'>"Dear [Patient Name], This is a friendly reminder of your upcoming appointment with Dr. [Doctor's Name] on [Date] at [Time]. Please remember to bring any necessary documents or medications. If you need to reschedule or have any questions, please don't hesitate to contact us. We look forward to seeing you soon!"</p>
+                {/* <textarea name='message' rows='6' columns='6' placeholder='Your Message' required className='bg-inherit border-sky-400 mt-4 ml-8 border-2'></textarea> */}
               </div>
-              <div className='pl-52'>
-                <h1 className='text-2xl pt-6 pl-4'>Create your template</h1>
+              <div className=''>
+                <h1 className='text-2xl pt-6'>Create your template</h1>
+                <textarea name='message' rows='6' placeholder='Your Message' required className='bg-inherit border-sky-400 border border-solid h-[200px] mt-4 rounded-[10px] w-[350px] px-[10px] py-[10px] text-[15px] font-Nunito font-normal leading-[24px]'></textarea>
               </div>
             </div>
             <div className='flex justify-center mt-12'>
