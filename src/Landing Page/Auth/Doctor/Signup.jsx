@@ -45,7 +45,7 @@ const Signup = () => {
                         <input onChange={(e) => setEmail(e.target.value)} type="email" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px] mb-[1rem]' required />
                         <label className='text-[#000] text-[17px] font-[600]'>Password</label><br />
                         <input onChange={(e) => setPassword(e.target.value)} type="password" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[100%] outline-none bg-transparent text-[#000] text-[17px]' required />
-                        <button type='submit' className='bg-[#17B978] lg:w-[150px] xs:w-full py-[10px] rounded-[8px] px-[10px] text-center text-[#fff] font-[500] lg:ms-[9rem] mt-[1.5rem]'>Sign Up</button>
+                        <Link to='/verify_account_doctor' className='bg-[#17B978] lg:w-[150px] xs:w-full py-[10px] rounded-[8px] px-[10px] text-center text-[#fff] font-[500] lg:ms-[9rem] mt-[1.5rem]'>Sign Up</Link>
                         <center>
                             <div className="flex gap-8 mt-5">
                                 <hr className="w-2/5 mt-3" />

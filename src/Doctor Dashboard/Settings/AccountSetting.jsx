@@ -49,11 +49,11 @@ const AccountSetting = () => {
                 </div>
               </div>
               <div className='border border-solid border-[#fff] mt-[4rem] py-2 px-3 lg:w-[87%]'>
-                  <h2 className='text-[18px] font-normal font-Nunito leading-[46px] flex items-center gap-[10px] px-[0.5rem]'><FaCheckCircle className='text-[#22D1EE] text-[23px]' /> Personal details confirmed</h2>
+                  <h2 className='text-[18px] font-normal font-Nunito leading-[46px] flex items-center gap-[10px] px-[0.5rem]'><FaCheckCircle className='text-[#22D1EE] text-[23px]' /> Personal Details confirmed</h2>
                   <hr className='w-full h-[1px] bg-white mt-2 mb-2' />
                   <h2 className='text-[18px] font-normal font-Nunito leading-[46px] flex items-center gap-[10px] px-[0.5rem]'><FaCheckCircle className='text-[#22D1EE] text-[23px]' /> Your Identity Verified</h2>
                   <hr className='w-full h-[1px] bg-white mt-2 mb-2' />
-                  <h2 className='text-[18px] font-normal font-Nunito leading-[46px] flex items-center gap-[10px] px-[0.5rem]'><FaCheckCircle className='text-[#22D1EE] text-[23px]' /> Your residential address verified</h2>
+                  <h2 className='text-[18px] font-normal font-Nunito leading-[46px] flex items-center gap-[10px] px-[0.5rem]'><FaCheckCircle className='text-[#22D1EE] text-[23px]' /> Email Address verified</h2>
               </div>
               <div className='mt-[1rem]'>
                 <h2 className='text-[25px] font-bold font-Nunito leading-[46px]'>Privacy</h2>

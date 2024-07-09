@@ -51,7 +51,7 @@ function App() {
           >
             <Routes>
               {/* LANDING PAGE */}
-              <Route path='/landingpage' element={ <Homepage/> } />
+              <Route path='/' element={ <Homepage/> } />
               <Route path='about' element={ <About /> } />
               <Route path='contact' element={ <Contact/> } />
               <Route path='user' element={ <UserPage/> } />
@@ -63,7 +63,7 @@ function App() {
               <Route path='verify_account_doctor' element={ <VerifyAccount2/> } />
 
               {/* DOCTOR DASHBOARD */}
-                <Route path='/' element={ <DoctorDashboard/> } />
+                <Route path='/doctor_dashboard' element={ <DoctorDashboard/> } />
                 <Route path='doctor_appointment' element={ <DoctorAppointment /> } />
                 <Route path='doctor_pages' element={ <DoctorPages /> } />
                 <Route path='doctor_patient_page' element={ <DoctorPatientPages/> } />
