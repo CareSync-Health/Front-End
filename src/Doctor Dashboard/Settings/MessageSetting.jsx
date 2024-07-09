@@ -33,15 +33,15 @@ const MessageSetting = () => {
                 <p className='text-[18px] font-normal leading-[46px] font-Nunito'>You can customize and save your own message templates for quick and easy communication with patients.</p>
               </h4>
             </div>
-            <div className='flex gap-[13rem] pt-6'>
+            <div className='flex pt-6'>
               <div className='pr-52'>
                 <h1 className='text-2xl pt-6 pl-4'>Appointment Reminder</h1>
               </div>
-              <div className=''>
+              <div className='pl-52'>
                 <h1 className='text-2xl pt-6 pl-4'>Create your template</h1>
               </div>
             </div>
-            <div className='flex justify-center mt-32'>
+            <div className='flex justify-center mt-12'>
               <h2 className='border border-sky-400 bg-sky-400 p-4 rounded-lg text-white fill-sky-500'>Save Changes</h2>
               <h2 className='border-2 p-4 border-current rounded-lg bg-gray-400 text-white ml-8  pr-8 pl-8 '>Cancel</h2>
             </div>
