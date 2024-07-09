@@ -10,34 +10,35 @@ const MessageSetting = () => {
     <div>
          <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
             <div >
-              <h1 className='text-black text-2xl pt-6 pl-4 '>
+              <h1 className='text-[25px] pt-[2rem] font-[700] leading-[46px] font-Nunito'>
                 Archive all Chats
               </h1>
-              <h4 className=' pt-6 pl-4 flex'>
-                Allows you to hide an individual or group chat from your chat list to better organise your conversation. 
-                You can view or archive chat by navigating from the buttom of the chat list. 
-                <div className='flex pl-6 pt-6 justify-center'>
+              <h4 className='pt-6 flex text-[18px] font-normal leading-[46px] font-Nunito'>
+                Allows you to hide an individual or group chat from your chat list to better organise your conversation. You can view or archive chat by navigating from the buttom of the chat list. 
+                <div className='flex pt-[3rem] justify-center'>
                   On/Off<FaToggleOn className='fill-sky-400 w-[120px] h-[40px] justify-center pl-none' />
                 </div>
               </h4>
             </div>
             <div>
-              <h1 className='text-black text-2xl pt-6 pl-4 '>
+              <h1 className='text-[25px] pt-6 font-[700] leading-[46px] font-Nunito'>
                 Message Templates
               </h1>
-              <h4 className='flex center pt-6 pl-4 text-lg'>
-                <GoDotFill className='pt-2 text-xl'/>Use our prefound template message for common scenerios, such as appointment remiders, prescription request, or test results.
+              <h4 className='flex items-start gap-[5px] pt-3 w-[980px]'>
+                <GoDotFill className='mt-2.5 text-[22px]'/>
+                <p className='text-[18px] font-normal leading-[46px] font-Nunito'>Use our prefound template message for common scenerios, such as appointment remiders, prescription request, or test results.</p>
               </h4>
-              <h4 className='flex center pt-6 pl-4 pr-4 text-lg'>
-                <GoDotFill className='pt-2 text-xl'/>Use our prefound template message for common scenerios, such as appointment remiders, prescription request, or test results.
+              <h4 className='flex items-start gap-[5px] pt-3 w-[980px]'>
+                <GoDotFill className='mt-2.5 text-[22px]'/>
+                <p className='text-[18px] font-normal leading-[46px] font-Nunito'>You can customize and save your own message templates for quick and easy communication with patients.</p>
               </h4>
             </div>
-            <div className='flex pt-6'>
+            <div className='flex gap-[13rem] pt-6'>
               <div className='pr-52'>
-                <h1 className='text-black text-2xl pt-6 pl-4'>Appointment Reminder</h1>
+                <h1 className='text-2xl pt-6 pl-4'>Appointment Reminder</h1>
               </div>
-              <div className='pl-52'>
-                <h1 className='text-black text-2xl pt-6 pl-4'>Create your template</h1>
+              <div className=''>
+                <h1 className='text-2xl pt-6 pl-4'>Create your template</h1>
               </div>
             </div>
             <div className='flex justify-center mt-32'>

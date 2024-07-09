@@ -100,14 +100,14 @@ const GeneralSetting = () => {
     <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
       <div className="pt-[2rem]">
         <div>
-          <h1 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('language')}</h1>
+          <h1 className='text-[25px] font-medium font-Nunito leading-[46px]'>{i18n.t('language')}</h1>
           <select onChange={handleChange} value={i18n.language} className={`outline-none w-full sm:w-[50%] md:w-[30%] lg:w-[20%] py-[8px] px-[10px] mt-2 ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[rgba(0,0,0,0.5)]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : theme === 'light' ? 'text-white' : 'text-gray-800'}`}>
             <option value="en">English</option>
             <option value="fr">Français</option>
           </select>
         </div>
         <div>
-          <h2 className='text-[25px] font-medium font-Inter leading-[46px] mt-5'>{i18n.t('Appearance')}</h2>
+          <h2 className='text-[25px] font-medium font-Nunito leading-[46px] mt-5'>{i18n.t('Appearance')}</h2>
           <div className="flex flex-wrap space-x-8 mt-5">
             {circles.map((circle) => (
               <Circle
@@ -122,7 +122,7 @@ const GeneralSetting = () => {
           </div>
         </div>
         <div className='mt-[3rem]'>
-          <h2 className='text-[25px] font-medium font-Inter leading-[46px]'>{i18n.t('Theme')}</h2>
+          <h2 className='text-[25px] font-medium font-Nunito leading-[46px]'>{i18n.t('Theme')}</h2>
           <div className='flex flex-wrap items-center gap-8 mt-5'>
             {images.map((image) => (
               <div
@@ -131,7 +131,7 @@ const GeneralSetting = () => {
                 className={`relative w-full sm:w-[40%] md:w-[30%] lg:w-[25%] cursor-pointer`}
               >
                 <img src={image.src} alt={`Theme ${image.id}`} className='w-full' />
-                <h1 className='text-[18px] font-medium font-Inter leading-[46px] text-center'>{i18n.t(`${image.name}`)}</h1>
+                <h1 className='text-[18px] font-medium font-Nunito leading-[46px] text-center'>{i18n.t(`${image.name}`)}</h1>
                 {selectedImage === image.id && (
                   <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[95%] p-[10px] rounded-[100px] ${appearance === 'green' ? 'bg-[#17B978]' : appearance === 'blue' ? 'bg-[#22D1EE]' : appearance === 'accent' ? ' bg-[#A6FFF2]' : theme === 'dark' ? 'bg-white' : 'bg-gray-800'}`}>
                     <ImCheckmark2 className='text-[30px] text-black' />

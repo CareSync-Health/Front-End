@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import ErrorBoundary from './Components/ErrorBoundary.jsx';
 import { ThemeProvider } from './Doctor Dashboard/Components/ThemeContext.jsx';
 import { useTranslation } from 'react-i18next';
+import Confetti from './Doctor Dashboard/Components/Confetti.jsx';
 
 const Homepage = lazy(() => import('./Landing Page/HomePage/Homepage'))
 const About = lazy(() => import('./Landing Page/About/About'))
@@ -69,6 +70,7 @@ function App() {
                 <Route path='doctor_profile' element={ <DoctorProfile /> } />
                 <Route path='payment_way' element={ <DoctorPayment/> } />
                 <Route path='doctor_settings/*' element={ <DoctorSetting/> } />
+                <Route path='congratulation' element={ <Confetti /> } />
             </Routes>
           </Suspense>
       </ErrorBoundary>
