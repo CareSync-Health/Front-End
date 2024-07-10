@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './Components/Sidebar';
 import Navbar from './Components/Navbar';
 import firstaid from '../assets/first aid.png';
@@ -13,13 +13,16 @@ import { useTheme } from './Components/ThemeContext';
 import Chatbot from './Components/Chatbot';
 import { IoHelpOutline } from "react-icons/io5";
 import { useSelector } from 'react-redux';
-import { doctorAuthReducer } from '../Redux/Reducers/DoctorReducers';
 
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
     // const [ user, setUser ] = useState(true)
     const { doctorDetail } = useSelector(state => state.doctorAuth);
+
+    useEffect(() => {
+      console.log(doctorDetail);
+    }, [doctorDetail]);
 
     const [isOpen, setIsOpen] = useState(false);
 

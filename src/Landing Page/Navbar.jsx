@@ -29,10 +29,10 @@ const Navbar = () => {
               <Link to='/' onClick={() => setIsOpen(false)}>Home</Link>
             </li>
             <li className='text-[#17B978] leading-[22.86px] lg:text-[17px] xs:text-[20px] font-[400] py-[2rem] text-center'>
-              <Link to='/services' onClick={() => setIsOpen(false)}>Services</Link>
+              <Link to='/' onClick={() => setIsOpen(false)}>Services</Link>
             </li>
             <li className='text-[#17B978] leading-[22.86px] lg:text-[17px] xs:text-[20px] font-[400] py-[2rem] text-center'>
-              <Link to='/doctors' onClick={() => setIsOpen(false)}>Doctors</Link>
+              <Link to='/' onClick={() => setIsOpen(false)}>Doctors</Link>
             </li>
             <li className='text-[#17B978] leading-[22.86px] lg:text-[17px] xs:text-[20px] font-[400] py-[2rem] text-center'>
               <Link to='/about' onClick={() => setIsOpen(false)}>About Us</Link>

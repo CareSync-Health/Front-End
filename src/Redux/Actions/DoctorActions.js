@@ -61,3 +61,23 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 	  dispatch({ type: types.DOCTOR_SIGNIN_FAIL, payload: message });
 	}
   };
+
+  //LOAD USER
+export const loadDoctor = () => async (dispatch) => {
+    try {
+        dispatch({ type: types.LOAD_DOCTOR_REQUEST })
+
+        const { data } = await axios.get(`${url}/doctor/:id`)
+
+        dispatch({ 
+            type: types.LOAD_DOCTOR_SUCCESS,
+            payload: data.data,
+         })
+
+    } catch (error) {
+        dispatch({
+            type: types.LOAD_DOCTOR_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
