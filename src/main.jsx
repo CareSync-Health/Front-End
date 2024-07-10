@@ -6,6 +6,7 @@ import configureStore from './Redux/Store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import './index.css'
+import './App.css'
 import './Doctor Dashboard/Components/Language_Locales/i18n'; // Import the i18n configuration
 
 const store = configureStore()

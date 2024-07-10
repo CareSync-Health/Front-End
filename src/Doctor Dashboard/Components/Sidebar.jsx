@@ -53,7 +53,7 @@ const Sidebar = () => {
         <>
             {/* DESKTOP SIDEBAR */}
             <div className='lg:block xs:hidden'>
-                <div className={`h-full pt-4 ${open ? "w-[13rem]" : "w-20 "} duration-300 ${theme === 'dark' ? 'bg-gray-800 text-white' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'}`} style={{ transition: 'width 0.3s ease' }}>
+                <div className={`h-full pt-4 ${open ? "w-[13rem]" : "w-20"} duration-300 ${theme === 'dark' ? 'bg-gray-800 text-white' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'}`} style={{ transition: 'width 0.3s ease' }}>
                     <div className='fixed top-0 left-0'>
                         <BsArrowLeftShort
                             className={`text-[#22D1EE] text-2xl rounded-full absolute right-[-3rem] top-9 border border-[#22D1EE] cursor-pointer lg:flex xs:hidden ${theme === 'dark' ? 'bg-gray-700 text-white' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} ${!open && "rotate-180 text-[22px] left-[4.3rem]"}`}
@@ -74,7 +74,7 @@ const Sidebar = () => {
                             {Menus.map((menu, index) => (
                                 <li
                                     key={index}
-                                    className={`font-Lato font-bold flex items-center gap-x-0 cursor-pointer w-[128%] p-2 hover:bg-light-white mt-2 
+                                    className={`font-Lato font-bold flex items-center gap-x-0 cursor-pointer w-[125%] p-2 hover:bg-light-white mt-2 
                                         ${menu.spacing ? "mt-6 border-t pt-[2rem] rounded-0" : "mt-2"} 
                                         ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} 
                                         ${activeIndex === index 
@@ -89,7 +89,7 @@ const Sidebar = () => {
                                     <span className={`text-4xl block float-left lg:ms-[15px] xs:ms-[5px]`}>
                                         {menu.icon ? menu.icon : <RiDashboardFill />}
                                     </span>
-                                    {!open && 'hidden'}
+                                    
                                     <span className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>
                                         {menu.title}
                                     </span>

@@ -92,14 +92,13 @@ const VerifyAccount = () => {
               <div className="inline-block w-8 h-8 border-4 border-[#22D1EE] border-t-transparent border-solid rounded-full animate-spin"></div>
             </div>
           ) : (
-            <Link 
-              to='/congratulation' 
-              // onClick={handleSubmit} 
+            <button type='submit'  
+              onClick={handleSubmit} 
               className={`bg-[#22D1EE] lg:w-[380px] xs:w-[350px] py-[13px] rounded-[8px] text-[16px] font-semibold font-Poppins text-[#fff] text-center lg:mt-[8rem] xs:mt-[11.95rem] ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={isButtonDisabled}
             >
               Verify Email
-            </Link>
+            </button>
           )}
           
           <p className='text-black text-lg font-normal font-Poppins mt-6 lg:ml-16 xs:ml-12'>Already have an account? <Link to='' className='text-[#22D1EE]'>Login</Link></p>

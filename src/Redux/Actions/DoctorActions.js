@@ -17,7 +17,7 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			})
-			navigate('/doctor_dashboard');
+			navigate('/congratulation');
 		} else {
             throw new Error(data.message);
         }
