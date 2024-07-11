@@ -56,7 +56,7 @@ const PatientDashboard = () => {
                                 <img src={bloodpressure} />
                                 <h2 className='text-[#000] text-[16px] font-medium font-Mulish'>Blood Pressure</h2>
                             </span>
-                            <h2 className='text-[#272927] text-[32px] font-normal font-Mulish flex items-center gap-[5px] mt-[1rem]'>102<span className='text-[#818181] text-[16px] font-bold'>72 mmhg</span></h2>
+                            <h2 className='text-[#272927] text-[32px] font-normal font-Mulish flex items-center gap-[5px] mt-[1rem]'>102<span className='text-[#818181] text-[16px] font-bold'>/ 72 mmhg</span></h2>
                             <h2 className='bg-[#D0FBFF] text-center w-[58px] py-[3px] px-[5px] rounded-[4px] text-[12px] font-medium text-[#000] font-Mulish mt-[0.5rem]'>Normal</h2>
                             <img src={group3} className='w-full' />
                         </div>

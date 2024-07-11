@@ -82,6 +82,7 @@ function App() {
               <Route path='/doctor_patient_page' element={<AuthorizedRoute />}>
                 <Route path='' element={<DoctorPatientPages />} />
               </Route>
+              
               <Route path='/doctor_profile' element={<AuthorizedRoute />}>
                 <Route path='' element={<DoctorProfile />} />
               </Route>
