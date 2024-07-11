@@ -28,6 +28,13 @@ const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage
 const AuthorizedRoute = lazy(() => import('./Components/ProtectedRoute.jsx'));
 const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti.jsx'));
 
+// PATIENT DASHBOARD
+const PatientDashboard = lazy(() => import('./Patient Dashboard/Dashboard/PatientDashboard.jsx'));
+const PatientAppointments = lazy(() => import('./Patient Dashboard/Appointments/Appointments.jsx'));
+const PatientMessage = lazy(() => import('./Patient Dashboard/Message/PatientMessage.jsx'));
+const PatientCalendar = lazy(() => import('./Patient Dashboard/Calendar/PatientCalendar.jsx'));
+const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientSettings.jsx'));
+
 function App() {
 
   return (
@@ -51,7 +58,7 @@ function App() {
           >
             <Routes>
               {/* LANDING PAGE */}
-              <Route path='/' element={<Homepage />} />
+              <Route path='/landing' element={<Homepage />} />
               <Route path='about' element={<About />} />
               <Route path='contact' element={<Contact />} />
               <Route path='user' element={<UserPage />} />
@@ -65,14 +72,35 @@ function App() {
               {/* DOCTOR DASHBOARD */}
               <Route path='/doctor_dashboard' element={<AuthorizedRoute />}>
                 <Route path='' element={<DoctorDashboard />} />
-                <Route path='doctor_appointment' element={<DoctorAppointment />} />
-                <Route path='doctor_pages' element={<DoctorPages />} />
-                <Route path='doctor_patient_page' element={<DoctorPatientPages />} />
-                <Route path='doctor_profile' element={<DoctorProfile />} />
-                <Route path='payment_way' element={<DoctorPayment />} />
-                <Route path='doctor_settings/*' element={<DoctorSetting />} />
-                <Route path='congratulation' element={<Confetti />} />
               </Route>
+              <Route path='/doctor_appointment' element={<AuthorizedRoute />}>
+                <Route path='' element={<DoctorAppointment />} />
+              </Route>
+              <Route path='/doctor_pages' element={<AuthorizedRoute />}>
+                <Route path='' element={<DoctorPages />} />
+              </Route>
+              <Route path='/doctor_patient_page' element={<AuthorizedRoute />}>
+                <Route path='' element={<DoctorPatientPages />} />
+              </Route>
+              <Route path='/doctor_profile' element={<AuthorizedRoute />}>
+                <Route path='' element={<DoctorProfile />} />
+              </Route>
+              <Route path='/payment_way' element={<AuthorizedRoute />}>
+                <Route path='' element={<DoctorPayment />} />
+              </Route>
+              <Route path='/doctor_settings' element={<AuthorizedRoute />}>
+                <Route path='/doctor_settings/*' element={<DoctorSetting />} />
+              </Route>
+              <Route path='/congratulation' element={<AuthorizedRoute />}>
+                <Route path='' element={<Confetti />} />
+              </Route>
+
+              {/* PATIENT DASHBOARD */}
+              <Route path='/' element={ <PatientDashboard /> } />
+              <Route path='patient_appointment' element={ <PatientAppointments /> } />
+              <Route path='patient_message' element={ <PatientMessage /> } />
+              <Route path='patient_calendar' element={ <PatientCalendar /> } />
+              <Route path='patient_settings' element={ <PatientSettings /> } />
             </Routes>
           </Suspense>
         </ErrorBoundary>

@@ -31,7 +31,7 @@ const Navbar = () => {
         className={({ isActive }) =>
           (isActive || activeLink.includes('account_setting')) ? `${linkClasses} ${activeClass}` : linkClasses
         }
-        onClick={() => handleLinkClick('/account_setting')}
+        onClick={() => handleLinkClick('account_setting')}
       >
         Account
       </NavLink>

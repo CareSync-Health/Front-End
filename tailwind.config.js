@@ -117,7 +117,8 @@ module.exports = {
         Almarai: ['Almarai', 'sans-serif'],
         Yesteryear: ['Yesteryear', 'cursive'],
         Volkhov: ['Volkhov', 'serif'],
-        Nunito: ['Nunito', 'sans-serif']
+        Nunito: ['Nunito', 'sans-serif'],
+        Mulish: ['Mulish', 'sans-serif']
       },
       fontSize: {
         "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
