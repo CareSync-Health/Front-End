@@ -27,7 +27,7 @@ const NotificationSetting = () => {
                   transition: 'background 0.3s',
                 }}
                 htmlFor="switch"
-                className={`absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.6rem] before:w-[1.6rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#fff] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[40px] before:bg-[#66bb6a]' : ''}`}
+                className={`absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#fff] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[40px] before:bg-[#66bb6a]' : ''}`}
               ></label>
             </div>
           </label>
