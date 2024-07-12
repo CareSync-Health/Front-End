@@ -11,7 +11,7 @@ const NotificationSetting = () => {
         <span>
           <p className='text-xl mt-8'>When CareSyn web page is closed continue to show notifications</p>
           <label className="switch">
-            <div className="toggle-switch relative w-[4.2rem] h-[1.]">
+            <div className="toggle-switch relative w-[4.2rem] h-[1.8rem]">
               <input
                 checked={check}
                 onChange={() => setCheck(!check)}
