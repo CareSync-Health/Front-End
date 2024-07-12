@@ -13,7 +13,7 @@ const NotificationSetting = () => {
           <label class="switch">
             <div class="toggle-switch relative w-[80px] h-[40px]">
               <input id="switch" type="checkbox" className='hidden'/>
-              <label for="switch" className=''></label>
+              <label for="switch" className='absolute top-0 left-0 right-0 bottom-0'></label>
             </div>
           </label>
         </span>
