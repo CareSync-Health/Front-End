@@ -3,7 +3,7 @@ import { useTheme } from '../Components/ThemeContext'
 
 const NotificationSetting = () => {
   const { theme, appearance } = useTheme();
-
+const 
   return (
     <div>
       <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
