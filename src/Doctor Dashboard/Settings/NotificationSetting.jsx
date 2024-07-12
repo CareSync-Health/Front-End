@@ -24,7 +24,7 @@ const NotificationSetting = () => {
           </label>
         </span>
         <span className='flex mt-8 justify-between items-center'>
-          <p className='text-xl'>When CareSyn web page is closed continue to show notifications</p>
+          <p className='text-xl'>Messages</p>
           <label className="switch">
             <div className="toggle-switch relative w-[4rem] h-[1.8rem]">
               <input
