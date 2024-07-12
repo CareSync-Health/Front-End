@@ -21,9 +21,9 @@ const NotificationSetting = () => {
               />
               <label
                 style={{
-                  background: check
-                    ? 'linear-gradient(to right, #66bb6a, #43a047)'
-                    : 'linear-gradient(to right, #2e2e2e, #4a4a4a)',
+                  // background: check
+                  //   ? 'linear-gradient(to right, #66bb6a, #43a047)'
+                  //   : 'linear-gradient(to right, #2e2e2e, #4a4a4a)',
                   transition: 'background 0.3s',
                 }}
                 htmlFor="switch"
