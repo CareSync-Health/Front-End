@@ -19,15 +19,7 @@ const NotificationSetting = () => {
                 type="checkbox"
                 className="hidden"
               />
-              <label
-                style={{
-                  // background: check
-                  //   ? 'linear-gradient(to right, #66bb6a, #43a047)'
-                  //   : 'linear-gradient(to right, #2e2e2e, #4a4a4a)',
-                  transition: 'background 0.3s',
-                }}
-                htmlFor="switch"
-                className={`absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[2.2rem] before:bg-[#A6FFF2]' : ''}`}
+              <label htmlFor="switch" className={`absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[2.2rem] before:bg-[#A6FFF2]' : ''}`}
               ></label>
             </div>
           </label>
