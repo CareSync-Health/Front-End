@@ -7,8 +7,8 @@ import schedule from '../../assets/Group 34.png'
 
 const MiniNavbar = () => {
   return (
-    <div className='lg:px-[30px] xs:px-[10px] pt-[3rem] flex items-center justify-between flex-wrap'>
-        <div className='bg-[#fff] w-[294px] shadow-lg p-5 rounded-[10px]'>
+    <div className='lg:px-[30px] xs:px-[10px] pt-[2rem] flex items-center justify-between flex-wrap'>
+        <div className='bg-[#fff] lg:w-[294px] xs:w-full shadow-lg p-5 rounded-[10px]'>
             <span className='flex items-center gap-[2rem]'>
                 <img src={bloodsugar} />
                <span>
@@ -17,7 +17,7 @@ const MiniNavbar = () => {
                </span>
             </span>
         </div>
-        <div className='bg-[#fff] w-[294px] shadow-lg p-5 rounded-[10px]'>
+        <div className='bg-[#fff] lg:w-[294px] xs:w-full lg:mt-0 xs:mt-4 shadow-lg p-5 rounded-[10px]'>
             <span className='flex items-center gap-[2rem]'>
                 <img src={heartrate} />
                <span>
@@ -26,7 +26,7 @@ const MiniNavbar = () => {
                </span>
             </span>
         </div>
-        <div className='bg-[#fff] w-[294px] shadow-lg p-5 rounded-[10px]'>
+        <div className='bg-[#fff] lg:w-[294px] xs:w-full lg:mt-0 xs:mt-4 shadow-lg p-5 rounded-[10px]'>
             <span className='flex items-center gap-[2rem]'>
                 <img src={bloodpressure} />
                <span>
@@ -35,7 +35,7 @@ const MiniNavbar = () => {
                </span>
             </span>
         </div>
-        <div className='bg-[#fff] w-[294px] shadow-lg p-5 rounded-[10px]'>
+        <div className='bg-[#fff] lg:w-[294px] xs:w-full lg:mt-0 xs:mt-4 shadow-lg p-5 rounded-[10px]'>
             <span className='flex items-center gap-[2rem]'>
                 <img src={schedule} />
                <span>

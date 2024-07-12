@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
 import bloodsugar from '../../assets/Group 31.png' 
@@ -8,15 +8,15 @@ import group2 from '../../assets/Group 29.png'
 import bloodpressure from '../../assets/Group 35.png'
 import group3 from '../../assets/Group 30.png'
 import vector from '../../assets/Group 2.png'
-import Man from '../../assets/Page-1.png'
+import Man from '../../assets/Man-Figure.png'
+import Woman from '../../assets/Girl-Figure.png'
 import { BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
 import { Card, CategoryBar, } from '@tremor/react';
   
-  
-
-
 
 const PatientDashboard = () => {
+    const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
+
   return (
     <div className='flex'>
         <Sidebar />
@@ -69,7 +69,7 @@ const PatientDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className='bg-[#303030] w-[480px] rounded-l-[30px] py-[20px] px-[30px]'>
+                <div className='bg-[#303030] w-[480px] rounded-l-[30px] py-[20px] px-[20px]'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[20px] font-normal font-Mulish text-[#fff]'>BMI Calculator</h1>
                         <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
@@ -135,7 +135,7 @@ const PatientDashboard = () => {
                                 </div>
                             </div>
                             <div className='mt-[1rem]'>
-                                <img src={Man} />
+                                <img src={gender === 'man' ? Man : Woman} alt={gender === 'man' ? 'Man' : 'Woman'} />
                             </div>
                         </div>
                 </div>

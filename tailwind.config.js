@@ -126,6 +126,21 @@ module.exports = {
         "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
+      keyframes: {
+        'popup-bounce-to-top': {
+          '0%': { transform: 'translateY(500px)', opacity: '0', 'animation-timing-function': 'ease-in' },
+          '38%': { transform: 'translateY(0)', opacity: '1', 'animation-timing-function': 'ease-out' },
+          '55%': { transform: 'translateY(65px)', 'animation-timing-function': 'ease-in' },
+          '72%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
+          '81%': { transform: 'translateY(28px)', 'animation-timing-function': 'ease-in' },
+          '90%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
+          '95%': { transform: 'translateY(8px)', 'animation-timing-function': 'ease-in' },
+          '100%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
+        },
+      },
+      animation: {
+        'popup-bounce-to-top': 'popup-bounce-to-top 1.1s both',
+      },
     },
   },
   safelist: [

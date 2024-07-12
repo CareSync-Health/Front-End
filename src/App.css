@@ -9,3 +9,11 @@
     border-image: linear-gradient(#58E3F5,
     #3EF59E) 1;
 }
+
+.searchPageNo-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+.searchPageNo-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
