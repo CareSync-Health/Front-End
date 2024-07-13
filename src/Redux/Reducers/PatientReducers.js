@@ -1,30 +1,36 @@
 import * as types from "../Types"
 
-export const patientAuthReducer = (state = {}, action) => {
+const initialState = {
+	patient: null,
+	loading: false,
+	error: null,
+  };
+
+export const patientAuthReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case types.PATIENT_AUTH_REQUEST:
-			return { loading: true }
+			return { ...state, loading: true, error: null}
 		case types.PATIENT_AUTH_SUCCESS:
-			return { loading: false, patientDetail: action.payload }
+			return { ...state, loading: false, patient: action.payload }
 		case types.PATIENT_AUTH_FAIL:
-			return { loading: false, error: action.payload }
+			return { ...state, loading: false, error: action.payload }
 		case types.PATIENT_AUTH_LOGOUT:
-			return {}
+			return { ...state, patient: null }
 		default:
 			return state
 	}
 }
 
-export const patientSigninReducer = (state = {}, action) => {
+export const patientSigninReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case types.PATIENT_SIGNIN_REQUEST:
-			return { loading: true }
+			return { ...state, loading: true, error: null }
 		case types.PATIENT_SIGNIN_SUCCESS:
-			return { loading: false, patientDetail: action.payload }
+			return { ...state, loading: false, patient: action.payload }
 		case types.PATIENT_SIGNIN_FAIL:
-			return { loading: false, error: action.payload }
+			return { ...state, loading: false, error: action.payload }
 		case types.PATIENT_SIGNIN_LOGOUT:
-			return {}
+			return { ...state, patient: null}
 		default:
 			return state
 	}
