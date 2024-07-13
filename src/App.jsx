@@ -81,7 +81,7 @@ function App() {
             <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />
             
             {/* PATIENT ROUTE */}
-            <Route path='/patient_dashboard' element={<PatientDashboard />} />
+            <Route path='/' element={<PatientDashboard />} />
             <Route path='/patient_appointment' element={<PatientAppointments />} />
             <Route path='/patient_message' element={<PatientMessage />} />
             <Route path='/patient_calendar' element={<PatientCalendar />} />
