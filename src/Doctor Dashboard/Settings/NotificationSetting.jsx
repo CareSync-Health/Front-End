@@ -73,7 +73,7 @@ const NotificationSetting = () => {
           </label>
         </span>
         <p className='font-medium text-xl mt-9'>Notification Sound</p>
-        <div className=''>
+        <div className='flex justify-between'>
           <p className='text-xl'>Message</p>
           <span className='text-xl flex items-center'>
             <img className='w-14' src={play} alt="" />
