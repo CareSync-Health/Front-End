@@ -15,6 +15,8 @@ import { Card, CategoryBar, } from '@tremor/react';
   
 
 const PatientDashboard = () => {
+    const patient = useSelector((state) => state.patientAuth.patient);
+  
     const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
 
   return (
