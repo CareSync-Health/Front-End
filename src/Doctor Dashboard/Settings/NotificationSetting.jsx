@@ -43,16 +43,16 @@ const NotificationSetting = () => {
         </span>
         <span className='flex mt-8 justify-between items-center'>
           <p className='text-xl'>Appointment Schedule</p>
-          <label className="switch2">
+          <label className="switch">
             <div className="toggle-switch relative w-[4rem] h-[1.8rem]">
               <input
                 checked={check2}
                 onChange={() => setCheck2(!check2)}
-                id="switch"
+                id="switch2"
                 type="checkbox"
                 className="hidden"
               />
-              <label htmlFor="switch" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check2 ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
+              <label htmlFor="switch2" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check2 ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
             </div>
           </label>
         </span>
