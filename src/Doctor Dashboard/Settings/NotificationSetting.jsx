@@ -84,7 +84,7 @@ const NotificationSetting = () => {
           </select>
         </div>
         <div className='flex justify-between items-center mt-6'>
-          <p className='text-xl w-[25%] pl-5'>Message</p>
+          <p className='text-xl w-[25%] pl-5'>Appointments</p>
           <span className='text-xl flex gap-2 items-center'>
             <img className='w-14' src={play} alt="" />
             Play Sound
