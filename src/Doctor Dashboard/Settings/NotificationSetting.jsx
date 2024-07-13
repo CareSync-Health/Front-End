@@ -10,7 +10,7 @@ const NotificationSetting = () => {
   const [check3, setCheck3] = useState(false)
   return (
     <div>
-      <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+      <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'} pb-28`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <p className='font-medium text-xl mt-9'>When CareSync is Closed</p>
         <span className='flex mt-8 justify-between items-center'>
           <p className='text-xl'>When CareSyn web page is closed continue to show notifications</p>
