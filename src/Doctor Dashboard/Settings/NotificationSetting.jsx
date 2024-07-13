@@ -75,7 +75,10 @@ const NotificationSetting = () => {
         <p className='font-medium text-xl mt-9'>Notification Sound</p>
         <div>
           <p>Message</p>
+          <span>
           <img src={play} alt="" />
+          
+          </span>
         </div>
       </div>
     </div>
