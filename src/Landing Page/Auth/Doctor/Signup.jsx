@@ -25,9 +25,8 @@ const Signup = () => {
 
     try {
       await dispatch(doctor_register(body, navigate));
-      toast.success('Signup successful!');
     } catch (error) {
-      toast.error('Registration failed! Please try again.');
+      console.log(error) 
     } finally {
       setLoading(false);
     }
