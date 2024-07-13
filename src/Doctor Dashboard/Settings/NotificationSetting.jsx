@@ -22,7 +22,7 @@ const NotificationSetting = () => {
                 type="checkbox"
                 className="hidden"
               />
-              <label htmlFor="switch" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
+              <label htmlFor="switch" className={`border  border-[#22D1EE] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#22D1EE] before:shadow-md before:transition-all before:duration-300 ${check ? 'before:translate-x-[2.15rem] before:bg-[#22D1EE]' : ''}`} ></label>
             </div>
           </label>
         </span>
@@ -37,7 +37,7 @@ const NotificationSetting = () => {
                 type="checkbox"
                 className="hidden"
               />
-              <label htmlFor="switch1" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check1 ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
+              <label htmlFor="switch1" className={`border  border-[#22D1EE] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#22D1EE] before:shadow-md before:transition-all before:duration-300 ${check1 ? 'before:translate-x-[2.15rem] before:bg-[#22D1EE]' : ''}`} ></label>
             </div>
           </label>
         </span>
@@ -52,7 +52,7 @@ const NotificationSetting = () => {
                 type="checkbox"
                 className="hidden"
               />
-              <label htmlFor="switch2" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check2 ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
+              <label htmlFor="switch2" className={`border  border-[#22D1EE] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#22D1EE] before:shadow-md before:transition-all before:duration-300 ${check2 ? 'before:translate-x-[2.15rem] before:bg-[#22D1EE]' : ''}`} ></label>
             </div>
           </label>
         </span>
@@ -67,7 +67,7 @@ const NotificationSetting = () => {
                 type="checkbox"
                 className="hidden"
               />
-              <label htmlFor="switch3" className={`border  border-[#A6FFF2] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#A6FFF2] before:shadow-md before:transition-all before:duration-300 ${check3 ? 'before:translate-x-[2.15rem] before:bg-[#A6FFF2]' : ''}`} ></label>
+              <label htmlFor="switch3" className={`border  border-[#22D1EE] absolute top-0 left-0 right-0 bottom-0 cursor-pointer rounded-lg transition-all duration-300 before:absolute before:h-[1.55rem] before:w-[1.55rem] before:left-[2px] before:bottom-[2px] before:rounded-lg before:bg-[#22D1EE] before:shadow-md before:transition-all before:duration-300 ${check3 ? 'before:translate-x-[2.15rem] before:bg-[#22D1EE]' : ''}`} ></label>
             </div>
           </label>
         </span>
