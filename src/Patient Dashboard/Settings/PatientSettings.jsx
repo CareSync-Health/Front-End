@@ -18,7 +18,7 @@ const PatientSettings = () => {
               </span>
             </span>
             <span>
-              <a className='px-4 font-bold text-white text-xs py-2 bg-[#22D1EE] border border-[#A6FFF2] rounded-xl'>Upload New Photo</a>
+              <a className='px-6 font-bold text-white text-xs py-4 bg-[#22D1EE] border border-[#A6FFF2] rounded-lg'>Upload New Photo</a>
               <a>Delete</a>
             </span>
           </div>
