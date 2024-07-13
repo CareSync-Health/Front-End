@@ -14,7 +14,7 @@ const PatientSettings = () => {
               <span>
                 <p className='text-[#384D6C]'>Ay Tech, Abdul</p>
                 <p>Product Design</p>
-                <p>Eastern European Time (EET), Cairo UTC +3</p>
+                <p>{"Eastern European Time (EET), Cairo UTC +3"}</p>
               </span>
             </span>
           </div>
