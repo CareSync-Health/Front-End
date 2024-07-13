@@ -13,6 +13,7 @@ const PatientSettings = () => {
               <img src={avatar} alt="" />
               <span>
                 <p className='text-[#384D6C]'>Ay Tech, Abdul</p>
+<p>Product Design</p>
 <p></p>
               </span>
             </span>
