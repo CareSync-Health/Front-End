@@ -10,17 +10,17 @@ const PatientSettings = () => {
         <section className='px-7'>
           <div>
             <span className='flex items-center gap-10'>
-              <img src={avatar} alt="" className='rounded-full w-32 h-32 border-[#E2F3F5] border-[6px]'/>
+              <img src={avatar} alt="" className='rounded-full w-32 h-32 border-[#E2F3F5] border-[6px]' />
               <span >
                 <p className='text-[#384D6C] text-lg font-bold'>Ay Tech, Abdul</p>
                 <p className='text-[#384D6C] text-lg'>Product Design</p>
                 <p className='text-[#384D6C] text-sm'>{"Eastern European Time (EET), Cairo UTC +3"}</p>
               </span>
             </span>
-<span>
-  <a>Upload New Photo</a>
-  <a></a>
-</span>
+            <span>
+              <a>Upload New Photo</a>
+              <a>Delete</a>
+            </span>
           </div>
         </section>
       </div>
