@@ -83,6 +83,16 @@ const NotificationSetting = () => {
             <option value="">Change</option>
           </select>
         </div>
+        <div className='flex justify-between items-center mt-6'>
+          <p className='text-xl w-[25%] pl-5'>Message</p>
+          <span className='text-xl flex gap-2 items-center'>
+            <img className='w-14' src={play} alt="" />
+            Play Sound
+          </span>
+          <select name="" id="" className='px-4 py-2 rounded-lg text-black text-xl bg-gray-500'>
+            <option value="">Change</option>
+          </select>
+        </div>
       </div>
     </div>
   )
