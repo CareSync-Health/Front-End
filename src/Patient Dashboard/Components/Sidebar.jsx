@@ -1,14 +1,23 @@
 import React from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation, Link, useNavigate} from 'react-router-dom'
 import Caresync from '../../assets/CareSync.png'
 import { MdDashboard, MdHelpOutline } from "react-icons/md"
 import { RiCalendarEventLine, RiMessage3Line } from "react-icons/ri"
 import { IoSettingsOutline } from "react-icons/io5"
 import { TbLogout2 } from "react-icons/tb"
 import { FiPieChart } from "react-icons/fi"
+import { useDispatch } from "react-redux"
+import { patient_logout } from '../../Redux/Actions/PatientActions';
 
 const Sidebar = () => {
   const location = useLocation()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+          dispatch(patient_logout(navigate));
+          navigate('/patientAuth')
+  };
 
   const navItems = [
     { path: '/', icon: <MdDashboard />, name: 'Dashboard' },
@@ -17,11 +26,6 @@ const Sidebar = () => {
     { path: '/patient_appointment', icon: <FiPieChart />, name: 'Appointment' },
     { path: '/patient_settings', icon: <IoSettingsOutline />, name: 'Settings' },
   ]
-
-  const handleLogout = () => {
-    // Add your logout logic here
-    console.log('Logging out...')
-  }
 
   return (
     <div className='bg-[#fff] shadow-lg w-20 pt-[1.2rem] lg:block xs:hidden'>
@@ -39,7 +43,7 @@ const Sidebar = () => {
             </span>
           </div>
         ))}
-        <div className='relative group cursor-pointer' onClick={handleLogout}>
+        <div className='relative group cursor-pointer' onClick={handleLogout}
           <div className='text-[25px] mt-[2rem] text-[#707070]'>
             <TbLogout2 />
           </div>
