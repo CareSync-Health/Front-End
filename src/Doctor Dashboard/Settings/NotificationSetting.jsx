@@ -31,8 +31,8 @@ const NotificationSetting = () => {
           <label className="switch">
             <div className="toggle-switch relative w-[4rem] h-[1.8rem]">
               <input
-                checked={check}
-                onChange={() => setCheck(!check)}
+                checked={check1}
+                onChange={() => setCheck1(!check1)}
                 id="switch"
                 type="checkbox"
                 className="hidden"
