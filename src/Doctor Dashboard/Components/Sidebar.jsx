@@ -31,7 +31,6 @@ const Sidebar = () => {
     const handleLogout = () => {
           dispatch(doctor_logout(navigate));
           navigate('/doctorAuth')
-          console.log('clicking fine but not working');
       };
 
     const Menus = [
