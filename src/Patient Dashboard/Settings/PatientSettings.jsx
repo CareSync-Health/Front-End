@@ -10,7 +10,7 @@ const PatientSettings = () => {
         <section className='md:px-7 px-4'>
           <div className='flex justify-between flex-wrap items-center'>
             <span className='flex items-center flex-wrap gap-10'>
-              <img src={avatar} alt="" className='rounded-full w-32 h-32 border-[#E2F3F5] border-[6px]' />
+              <img src={avatar} alt="" className='rounded-full md:w-32 md:h-32  border-[#E2F3F5] border-[6px]' />
               <span >
                 <p className='text-[#384D6C] text-lg font-bold'>Ay Tech, Abdul</p>
                 <p className='text-[#384D6C] text-lg'>Product Design</p>
