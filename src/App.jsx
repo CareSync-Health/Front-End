@@ -57,7 +57,7 @@ function App() {
           }
         >
           <Routes>
-            <Route path='/landing' element={<Homepage />} />
+            <Route path='/' element={<Homepage />} />
             <Route path='about' element={<About />} />
             <Route path='contact' element={<Contact />} />
             <Route path='user' element={<UserPage />} />
@@ -81,7 +81,7 @@ function App() {
             <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />
             
             {/* PATIENT ROUTE */}
-            <Route path='/' element={<PatientDashboard />} />
+            <Route path='/patient_dashbaord' element={<PatientDashboard />} />
             <Route path='/patient_appointment' element={<PatientAppointments />} />
             <Route path='/patient_message' element={<PatientMessage />} />
             <Route path='/patient_calendar' element={<PatientCalendar />} />
