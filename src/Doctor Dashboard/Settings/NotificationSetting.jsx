@@ -54,7 +54,7 @@ const NotificationSetting = () => {
           </label>
         </span>
         <span className='flex mt-8 justify-between items-center'>
-          <p className='text-xl'>Appointment Schedule</p>
+          <p className='text-xl'>Calls</p>
           <label className="switch">
             <div className="toggle-switch relative w-[4rem] h-[1.8rem]">
               <input
