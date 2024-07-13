@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTheme } from '../Components/ThemeContext'
-import play from "../"
+import play from "../../assets/"
 const NotificationSetting = () => {
   const { theme, appearance } = useTheme();
   const [check, setCheck] = useState(false)
