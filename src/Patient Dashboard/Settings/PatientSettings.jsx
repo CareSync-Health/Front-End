@@ -1,5 +1,6 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
+import avatar from '../../assets/avatar.png'
 
 const PatientSettings = () => {
   return (
@@ -9,7 +10,8 @@ const PatientSettings = () => {
         <section>
           <div>
             <span>
-              <img src="" alt="" />
+              <img src={avatar} alt="" />
+              
             </span>
           </div>
         </section>
