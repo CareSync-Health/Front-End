@@ -19,12 +19,19 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     const body = { firstname, lastname, email, password };
-    dispatch(patient_register(body, navigate))
-      .finally(() => setLoading(false));
+
+    try {
+      await dispatch(doctor_register(body, navigate));
+      toast.success('Signup successful!');
+    } catch (error) {
+      toast.error('Registration failed! Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -111,7 +118,11 @@ const Signup = () => {
               className='font-Roboto bg-[#22D1EE] w-full mt-5 py-2 text-white rounded-md flex justify-center items-center'
               disabled={loading}
             >
-              {loading ? <ClipLoader size={20} color='#fff' /> : 'Create Account'}
+               {loading ? (
+                <ClipLoader size={24} color="#fff" />
+              ) : (
+                'Create Account'
+              )}
             </button>
             <center>
               <h6 className='font-Roboto mt-8'>
