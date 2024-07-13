@@ -10,7 +10,7 @@ const PatientSettings = () => {
         <section>
           <div>
             <span>
-              <img src={avatar} alt="" className='rounded-full w-24 h-24 border '/>
+              <img src={avatar} alt="" className='rounded-full w-24 h-24 border border-[]'/>
               <span >
                 <p className='text-[#384D6C] text-lg font-bold'>Ay Tech, Abdul</p>
                 <p className='text-[#384D6C] text-lg'>Product Design</p>
