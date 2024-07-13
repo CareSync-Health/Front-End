@@ -18,6 +18,7 @@ const PatientSettings = () => {
               </span>
             </span>
 <span>
+  <a>Upload New Photo</a>
   <a></a>
 </span>
           </div>
