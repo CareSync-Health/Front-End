@@ -37,6 +37,7 @@ const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientS
 
 function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const patient = useSelector((state) => state.patientAuth.patient);
   
   return (
     <ThemeProvider>
@@ -57,7 +58,7 @@ function App() {
           }
         >
           <Routes>
-            <Route path='/landing' element={<Homepage />} />
+            <Route path='/' element={<Homepage />} />
             <Route path='about' element={<About />} />
             <Route path='contact' element={<Contact />} />
             <Route path='user' element={<UserPage />} />
@@ -81,11 +82,11 @@ function App() {
             <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />
             
             {/* PATIENT ROUTE */}
-            <Route path='/' element={<PatientDashboard />} />
-            <Route path='/patient_appointment' element={<PatientAppointments />} />
-            <Route path='/patient_message' element={<PatientMessage />} />
-            <Route path='/patient_calendar' element={<PatientCalendar />} />
-            <Route path='/patient_settings' element={<PatientSettings />} />
+            <Route path='/patient_dashboard' element={patient ? <PatientDashboard /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/patient_appointment' element={patient ? <PatientAppointments /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/patient_message' element={patient ? <PatientMessage /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/patient_calendar' element={patient ? <PatientCalendar /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/patient_settings' element={patient ? <PatientSettings /> : <Navigate to='/patientAuth' /> } />
           </Routes>
         </Suspense>
       </ErrorBoundary>

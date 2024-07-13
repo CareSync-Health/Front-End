@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { useDispatch } from 'react-redux';
 import { doctor_register } from '../../../Redux/Actions/DoctorActions';
-import toast from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
 
 const Signup = () => {
@@ -25,9 +24,8 @@ const Signup = () => {
 
     try {
       await dispatch(doctor_register(body, navigate));
-      toast.success('Signup successful!');
     } catch (error) {
-      toast.error('Registration failed! Please try again.');
+      console.log(error) 
     } finally {
       setLoading(false);
     }

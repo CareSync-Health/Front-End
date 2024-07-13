@@ -9,15 +9,15 @@ import { userChats } from '../../Redux/DoctorApi/ChatRequest';
 const DoctorChat = () => {
  const { theme, appearance } = useTheme();
 
- const { doctorDetail } = useSelector(state => state.doctorAuth);
- console.log(doctorDetail);
+ const doctor = useSelector((state) => state.doctorAuth.doctor);
+ console.log(doctor);
  
  const [chats, setChats] = useState([]);
 
  useEffect(() => {
     const getChats = async() =>{
         try {
-           const {data} = await userChats(doctorDetail._id) 
+           const {data} = await userChats(doctor.id) 
            setChats(data)
            console.log(data)
         } catch (error) {
@@ -25,7 +25,7 @@ const DoctorChat = () => {
         }
     }
     getChats()
- }, [doctorDetail])
+ }, [doctor])
 
   return (
     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>

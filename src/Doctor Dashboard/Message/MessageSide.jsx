@@ -6,9 +6,13 @@ import Ellipse from '../../assets/Ellipse 1.png'
 import Ellipse2 from '../../assets/Ellipse 2.png'
 import Ellipse3 from '../../assets/Ellipse 3.png'
 import Ellipse4 from '../../assets/Ellipse 4.png'
+import { useSelector } from 'react-redux';
 
 
 const MessageSide = () => {
+
+    const doctor = useSelector((state) => state.doctorAuth.doctor);
+
   return (
     <div className='border-r-[1px] border-t-[1px] w-[361px] h-[525px] shadow-lg py-3 px-4 bg-[#E2F3F5]'>
         <div className='flex items-center justify-between'>
@@ -27,7 +31,7 @@ const MessageSide = () => {
         <div className='flex items-center gap-[10px] mt-[1rem]'>
             <img src={Ellipse} />
             <div>
-                <h1 className='text-[#52575C] text-[14px] leading-[20px] font-normal font-Nunito'>Leslie Alexander</h1>
+                <h1 className='text-[#52575C] text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstname} {doctor?.lastname}</h1>
                 <div className='flex items-center gap-[10px] mt-[4px]'>
                     <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>❤</h2>
                     <h2 className='text-[12px] text-[#65676B] font-normal font-Nunito leading-[16px]'>4d</h2>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
 import Sidebar from '../Components/Sidebar'
 import Navbar from '../Components/Navbar'
 import bloodsugar from '../../assets/Group 31.png' 
@@ -15,6 +16,8 @@ import { Card, CategoryBar, } from '@tremor/react';
   
 
 const PatientDashboard = () => {
+    const patient = useSelector((state) => state.patientAuth.patient);
+  
     const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
 
   return (
