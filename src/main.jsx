@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           {/* <React.StrictMode> */}
-            <Route path='/*' element={ <App /> } />
+            <Route path='*' element={ <App /> } />
           {/* </React.StrictMode> */}
         </Routes>
       </BrowserRouter>

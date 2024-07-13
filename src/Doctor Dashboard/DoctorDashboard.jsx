@@ -17,12 +17,12 @@ import { useSelector } from 'react-redux';
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
-    // const [ user, setUser ] = useState(true)
-    const { doctorDetail } = useSelector(state => state.doctorAuth);
+    const [ user, setUser ] = useState(true);
+    const {doctor} = useSelector(state => state.doctorAuth);
 
     useEffect(() => {
-      console.log(doctorDetail);
-    }, [doctorDetail]);
+      console.log(doctor);
+    }, [doctor]);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +33,7 @@ const DoctorDashboard = () => {
     return (
         <>
             {
-                doctorDetail ? (
+                doctor ? (
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>

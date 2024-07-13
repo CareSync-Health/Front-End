@@ -1,9 +1,9 @@
-import React, { useState, Suspense, lazy, useEffect } from 'react';
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
+// App.js
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { Toaster } from "react-hot-toast";
-import ErrorBoundary from './Components/ErrorBoundary.jsx';
-import { ThemeProvider } from './Doctor Dashboard/Components/ThemeContext.jsx';
+import ErrorBoundary from './Components/ErrorBoundary';
+import { ThemeProvider } from './Doctor Dashboard/Components/ThemeContext';
 import { useSelector } from 'react-redux';
 
 const Homepage = lazy(() => import('./Landing Page/HomePage/Homepage'));
@@ -17,97 +17,80 @@ const Contact = lazy(() => import('./Landing Page/Contact/Contact'));
 const VerifyAccount = lazy(() => import('./Landing Page/Auth/Patient/VerifyAccount'));
 const VerifyAccount2 = lazy(() => import('./Landing Page/Auth/Doctor/VerifyAccount'));
 
-// DOCTOR DASHBOARD
+// DOCTOR IMPORTS
 const DoctorDashboard = lazy(() => import('./Doctor Dashboard/DoctorDashboard'));
 const DoctorAppointment = lazy(() => import('./Doctor Dashboard/DoctorAppointment'));
+const DoctorChat = lazy(() => import('./Doctor Dashboard/Message/DoctorChat'));
 const DoctorPages = lazy(() => import('./Doctor Dashboard/DoctorPages'));
 const DoctorPatientPages = lazy(() => import('./Doctor Dashboard/PatientPages'));
 const DoctorProfile = lazy(() => import('./Doctor Dashboard/Profile/DcotorProfile'));
 const DoctorPayment = lazy(() => import('./Doctor Dashboard/Payment/Payment'));
-const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage.jsx'));
-const AuthorizedRoute = lazy(() => import('./Components/ProtectedRoute.jsx'));
-const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti.jsx'));
+const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage'));
+const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti'));
 
-// PATIENT DASHBOARD
-const PatientDashboard = lazy(() => import('./Patient Dashboard/Dashboard/PatientDashboard.jsx'));
-const PatientAppointments = lazy(() => import('./Patient Dashboard/Appointments/Appointments.jsx'));
-const PatientMessage = lazy(() => import('./Patient Dashboard/Message/PatientMessage.jsx'));
-const PatientCalendar = lazy(() => import('./Patient Dashboard/Calendar/PatientCalendar.jsx'));
-const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientSettings.jsx'));
+// PATIENT IMPORTS
+const PatientDashboard = lazy(() => import('./Patient Dashboard/Dashboard/PatientDashboard'));
+const PatientAppointments = lazy(() => import('./Patient Dashboard/Appointments/Appointments'));
+const PatientMessage = lazy(() => import('./Patient Dashboard/Message/PatientMessage'));
+const PatientCalendar = lazy(() => import('./Patient Dashboard/Calendar/PatientCalendar'));
+const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientSettings'));
 
 function App() {
-
+  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  
   return (
-    <div>
-      <ThemeProvider>
-        <ErrorBoundary>
-          <Suspense
-            fallback={
-              <div id="preloader-active" className="fixed inset-0 z-50 flex items-center justify-center bg-white">
-                <div className="preloader flex items-center justify-center">
-                  <div className="preloader-inner relative">
-                    <div className="superballs flex space-x-2">
-                      <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
-                      <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-                      <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
-                    </div>
+    <ThemeProvider>
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <div id="preloader-active" className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+              <div className="preloader flex items-center justify-center">
+                <div className="preloader-inner relative">
+                  <div className="superballs flex space-x-2">
+                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
+                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
                   </div>
                 </div>
               </div>
-            }
-          >
-            <Routes>
-              {/* LANDING PAGE */}
-              <Route path='/landing' element={<Homepage />} />
-              <Route path='about' element={<About />} />
-              <Route path='contact' element={<Contact />} />
-              <Route path='user' element={<UserPage />} />
-              <Route path='patientAuth' element={<Login />} />
-              <Route path='patientSignup' element={<Signup />} />
-              <Route path='doctorAuth' element={<Login2 />} />
-              <Route path='doctorSignup' element={<Signup2 />} />
-              <Route path='verify_account_patient' element={<VerifyAccount />} />
-              <Route path='verify_account_doctor' element={<VerifyAccount2 />} />
+            </div>
+          }
+        >
+          <Routes>
+            <Route path='/landing' element={<Homepage />} />
+            <Route path='about' element={<About />} />
+            <Route path='contact' element={<Contact />} />
+            <Route path='user' element={<UserPage />} />
+            <Route path='patientAuth' element={<Login />} />
+            <Route path='patientSignup' element={<Signup />} />
+            <Route path='doctorAuth' element={<Login2 />} />
+            <Route path='doctorSignup' element={<Signup2 />} />
+            <Route path='verify_account_patient' element={<VerifyAccount />} />
+            <Route path='verify_account_doctor' element={<VerifyAccount2 />} />
 
-              {/* DOCTOR DASHBOARD */}
-              <Route path='/doctor_dashboard' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorDashboard />} />
-              </Route>
-              <Route path='/doctor_appointment' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorAppointment />} />
-              </Route>
-              <Route path='/doctor_pages' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorPages />} />
-              </Route>
-              <Route path='/doctor_patient_page' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorPatientPages />} />
-              </Route>
-              
-              <Route path='/doctor_profile' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorProfile />} />
-              </Route>
-              <Route path='/payment_way' element={<AuthorizedRoute />}>
-                <Route path='' element={<DoctorPayment />} />
-              </Route>
-              <Route path='/doctor_settings' element={<AuthorizedRoute />}>
-                <Route path='/doctor_settings/*' element={<DoctorSetting />} />
-              </Route>
-              <Route path='/congratulation' element={<AuthorizedRoute />}>
-                <Route path='' element={<Confetti />} />
-              </Route>
 
-              {/* PATIENT DASHBOARD */}
-              <Route path='/' element={ <PatientDashboard /> } />
-              <Route path='patient_appointment' element={ <PatientAppointments /> } />
-              <Route path='patient_message' element={ <PatientMessage /> } />
-              <Route path='patient_calendar' element={ <PatientCalendar /> } />
-              <Route path='patient_settings' element={ <PatientSettings /> } />
-            </Routes>
-          </Suspense>
-        </ErrorBoundary>
-        <Toaster />
-      </ThemeProvider>
-    </div>
+            {/* DOCTOR ROUTE */}
+            <Route path='/doctor_dashboard' element={doctor ? <DoctorDashboard/> : <Navigate to='/doctorAuth' /> } />
+            <Route path='/doctor_appointment' element={doctor ? <DoctorAppointment /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_message' element={doctor ? <DoctorChat /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_pages' element={doctor ? <DoctorPages /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_patient_page' element={doctor ? <DoctorPatientPages /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_profile' element={doctor ? <DoctorProfile /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_payment_way' element={doctor ? <DoctorPayment /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_settings/*' element={doctor ? <DoctorSetting /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />
+            
+            {/* PATIENT ROUTE */}
+            <Route path='/patient_dashboard' element={<PatientDashboard />} />
+            <Route path='/patient_appointment' element={<PatientAppointments />} />
+            <Route path='/patient_message' element={<PatientMessage />} />
+            <Route path='/patient_calendar' element={<PatientCalendar />} />
+            <Route path='/patient_settings' element={<PatientSettings />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+      <Toaster />
+    </ThemeProvider>
   );
 }
 

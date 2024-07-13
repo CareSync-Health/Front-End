@@ -6,9 +6,11 @@ import profileavatar from '../../assets/profile_avatar.png'
 import ProfilePost from './ProfilePost'
 import { FaPencil } from 'react-icons/fa6'
 import { useTheme } from '../Components/ThemeContext'
+import { useSelector } from 'react-redux'
 
 const DcotorProfile = () => {
   const { theme, appearance } = useTheme()
+  const doctor = useSelector((state) => state.doctorAuth.doctor);
 
   return (
     <div className='flex'>
