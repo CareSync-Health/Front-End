@@ -89,7 +89,7 @@ const NotificationSetting = () => {
             <img className='w-14' src={play} alt="" />
             Play Sound
           </span>
-          <select name="" id="" className='px-4 py-2 rounded-lg text-black text-xl' style={{background: "linear-gradient(to top, #66bb6a, #43a047)"}}>
+          <select name="" id="" className='px-4 py-2 rounded-lg text-black text-xl' style={{background: "linear-gradient(to top, black, #43a047)"}}>
             <option value="">Change</option>
           </select>
         </div>
