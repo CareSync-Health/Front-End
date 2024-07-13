@@ -11,11 +11,13 @@ export const patientAuthReducer = (state = initialState, action) => {
 		case types.PATIENT_AUTH_REQUEST:
 			return { ...state, loading: true, error: null}
 		case types.PATIENT_AUTH_SUCCESS:
-			return { ...state, loading: false, patient: action.payload }
+			return { ...state, loading: false, patient: action.payload, message: action.message }
 		case types.PATIENT_AUTH_FAIL:
-			return { ...state, loading: false, error: action.payload }
+			return { ...state, loading: false, error: action.payload, message: action.message }
 		case types.PATIENT_AUTH_LOGOUT:
 			return { ...state, patient: null }
+	        case types.CLEAR_ERRORS:
+                        return { ...state, error: null };
 		default:
 			return state
 	}
@@ -26,11 +28,13 @@ export const patientSigninReducer = (state = initialState, action) => {
 		case types.PATIENT_SIGNIN_REQUEST:
 			return { ...state, loading: true, error: null }
 		case types.PATIENT_SIGNIN_SUCCESS:
-			return { ...state, loading: false, patient: action.payload }
+			return { ...state, loading: false, patient: action.payload, message: action.message }
 		case types.PATIENT_SIGNIN_FAIL:
-			return { ...state, loading: false, error: action.payload }
+			return { ...state, loading: false, error: action.payload, message: action.message }
 		case types.PATIENT_SIGNIN_LOGOUT:
-			return { ...state, patient: null}
+			return { ...state, patient: null }
+		case types.CLEAR_ERRORS:
+                        return { ...state, error: null };
 		default:
 			return state
 	}
