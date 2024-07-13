@@ -9,7 +9,7 @@ const PatientSettings = () => {
       <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <section>
           <div>
-            <span>
+            <span className='flex items-center'>
               <img src={avatar} alt="" className='rounded-full w-32 h-32 border-[#E2F3F5] border-[6px]'/>
               <span >
                 <p className='text-[#384D6C] text-lg font-bold'>Ay Tech, Abdul</p>
