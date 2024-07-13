@@ -1,6 +1,6 @@
 import React from 'react'
 import Sidebar from '../Components/Sidebar'
-import avatar from '../../assets/avatar.png'
+import avatar from '../../assets/av.jpeg'
 
 const PatientSettings = () => {
   return (
