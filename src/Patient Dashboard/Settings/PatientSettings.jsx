@@ -7,7 +7,7 @@ const PatientSettings = () => {
     <div className='flex'>
       <Sidebar />
       <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-        <section className='md:px-7'>
+        <section className='px-7'>
           <div className='flex justify-between flex-wrap items-center'>
             <span className='flex items-center flex-wrap gap-10'>
               <img src={avatar} alt="" className='rounded-full w-32 h-32 border-[#E2F3F5] border-[6px]' />
