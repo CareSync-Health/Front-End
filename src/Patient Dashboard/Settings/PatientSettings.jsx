@@ -18,7 +18,7 @@ const PatientSettings = () => {
               </span>
             </span>
             <span>
-              <a >Upload New Photo</a>
+              <a px-4 pt-2>Upload New Photo</a>
               <a>Delete</a>
             </span>
           </div>
