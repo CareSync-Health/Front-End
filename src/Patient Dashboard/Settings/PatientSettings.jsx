@@ -17,7 +17,7 @@ const PatientSettings = () => {
                 <p className='text-[#384D6C] text-sm'>{"Eastern European Time (EET), Cairo UTC +3"}</p>
               </span>
             </span>
-            <span className='flex gap'>
+            <span className='flex gap-5 items-center'>
               <a className='px-4 font-bold text-white text-xs py-3 bg-[#22D1EE] border border-[#A6FFF2] rounded-lg'>Upload New Photo</a>
               <a className='px-14 font-bold text-[#384D6C] text-xs py-3 bg-[#E2F3F5] border border-[#384D6C] rounded-lg'>Delete</a>
             </span>
