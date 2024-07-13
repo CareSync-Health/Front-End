@@ -11,7 +11,7 @@ const PatientSettings = () => {
           <div>
             <span>
               <img src={avatar} alt="" />
-              <span>
+              <span >
                 <p className='text-[#384D6C] text-lg font-bold'>Ay Tech, Abdul</p>
                 <p className='text-[#384D6C] text-lg'>Product Design</p>
                 <p className='text-[#384D6C] text-sm'>{"Eastern European Time (EET), Cairo UTC +3"}</p>
