@@ -17,7 +17,9 @@ const PatientSettings = () => {
                 <p className='text-[#384D6C] text-sm'>{"Eastern European Time (EET), Cairo UTC +3"}</p>
               </span>
             </span>
-
+<span>
+  <a></a>
+</span>
           </div>
         </section>
       </div>
