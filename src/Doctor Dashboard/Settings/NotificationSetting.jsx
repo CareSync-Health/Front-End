@@ -56,7 +56,7 @@ const NotificationSetting = () => {
             </div>
           </label>
         </span>
-        <span className='flex mt-8 justify-between items-center border-b pb-16'>
+        <span className='flex mt-8 justify-between items-center border-b pb-20'>
           <p className='text-xl'>Calls</p>
           <label className="switch3">
             <div className="toggle-switch relative w-[4rem] h-[1.8rem]">
