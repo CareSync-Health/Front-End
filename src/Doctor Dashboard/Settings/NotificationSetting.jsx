@@ -80,7 +80,7 @@ const NotificationSetting = () => {
             Play Sound
           </span>
           <select name="" id="">
-            <option value=""></option>
+            <option value="">Change</option>
           </select>
         </div>
       </div>
