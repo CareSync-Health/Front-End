@@ -76,7 +76,7 @@ const NotificationSetting = () => {
         <div>
           <p>Message</p>
           <span>
-            <img className='w-10' src={play} alt="" />
+            <img className='w-20' src={play} alt="" />
             Play Sound
           </span>
         </div>
