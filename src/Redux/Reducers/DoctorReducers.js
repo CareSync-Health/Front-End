@@ -9,7 +9,7 @@ const initialState = {
 export const doctorAuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.DOCTOR_SIGNIN_REQUEST:
-      return { ...state, loading: true, error: null };
+      return { ...state, loading: true };
     case types.DOCTOR_SIGNIN_SUCCESS:
       return { ...state, loading: false, doctor: action.payload, message: action.message };
     case types.DOCTOR_SIGNIN_FAIL:
@@ -27,7 +27,7 @@ export const doctorAuthReducer = (state = initialState, action) => {
 export const doctorSigninReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.DOCTOR_SIGNIN_REQUEST:
-      return { ...state, loading: true,error: null };
+      return { ...state, loading: true  };
     case types.DOCTOR_SIGNIN_SUCCESS:
       return { ...state, loading: false, doctor: action.payload, message: action.message };
     case types.DOCTOR_SIGNIN_FAIL:
