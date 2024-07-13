@@ -75,10 +75,13 @@ const NotificationSetting = () => {
         <p className='font-medium text-xl mt-9'>Notification Sound</p>
         <div>
           <p className='text-xl'>Message</p>
-          <span className='text-xl'>
+          <span className='text-xl flex items-center'>
             <img className='w-14' src={play} alt="" />
             Play Sound
           </span>
+          <select name="" id="">
+            <option value=""></option>
+          </select>
         </div>
       </div>
     </div>
