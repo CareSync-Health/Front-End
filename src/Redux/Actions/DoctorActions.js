@@ -2,7 +2,7 @@ import * as types from "../Types";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { config } from "../Config";
-import { header } from "../Header";
+import { authHeader, header } from "../Header";
 
 const url = config.liveUrl;
 
@@ -57,19 +57,30 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 	navigate('/doctorAuth');
   };
 
-// export const loadDoctor = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: types.LOAD_DOCTOR_REQUEST });
-
-//     const { data } = await axios.get(`${url}/doctor/${id}`);
-
-//     dispatch({
-//       type: types.LOAD_DOCTOR_SUCCESS,
-//       payload: data.data,
-//     });
-//   } catch (error) {
-//     const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-//     toast.error(message);
-//     dispatch({ type: types.LOAD_DOCTOR_FAIL, payload: message });
-//   }
-// };
+// Load Doctor
+export const loadDoctor = (id) => async (dispatch, getState) => {
+	try {
+	  const token = getState().doctorAuth.doctor.token; // Assume token is stored in doctorAuth
+  
+	  const config = {
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`
+		  }
+	  };
+  
+	  const res = await axios.get(`${url}/doctor/${id}`, config);
+  
+	  dispatch({
+		type: types.LOAD_DOCTOR_SUCCESS,
+		payload: res.data
+	  });
+  
+	  return res.data;
+	} catch (err) {
+	  console.error(err);
+	  dispatch({
+		type: types.LOAD_DOCTOR_FAIL
+	  });
+	}
+  };
