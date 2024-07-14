@@ -137,7 +137,7 @@ const { status } = checkOnlineStatus(chat);
                              >
                               <div className={`items-start w-full rounded-[18px] px-3 py-2 max-w-xs flex flex-col gap-2
                                  ${message.senderId === currentDoctor 
-                                   ? "self-end bg-[#22D1EE] rounded-br-none"
+                                   ? "self-end bg-[#22D1EE] rounded-br-none text-white"
                                    : "rounded-bl-none bg-[#E4E6EB] text-black"
                                  }`}>
                                 <span className='lg:text-[15px] xs:text-[13px] font-Nunito font-medium'>{message.text}</span>
