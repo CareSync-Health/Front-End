@@ -131,7 +131,7 @@ const DoctorChat = () => {
               </div>
             ))}
           </div>
-          <div className={`fixed right-0 w-full lg:w-[797px] h-full lg:h-[799px] z-50 ${currentChat && currentChat.members ? 'block' : 'hidden'}`}>
+          <div className={`fixed right-0 w-full lg:w-[797px] h-full lg:h-[799px] z-50 visible-section animate-gb-popup-slide-zoom-left ${currentChat && currentChat.members ? 'block' : 'hidden '}`}>
             <ChatBox chat={currentChat} currentDoctor={doctor.id} onBack={handleBack} setSendMessage={setSendMessage} receiveMessage={receiveMessage} checkOnlineStatus={checkOnlineStatus} handleSendMessage={handleSendMessage} />
           </div>
         </div>

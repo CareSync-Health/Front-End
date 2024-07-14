@@ -84,3 +84,35 @@ export const loadDoctor = (id) => async (dispatch, getState) => {
 	  });
 	}
   };
+
+  // Search Doctors
+export const searchDoctors = (query) => async (dispatch) => {
+	try {
+	  dispatch({ type: types.SEARCH_DOCTORS_REQUEST });
+  
+	  const { data } = await axios.get(`${url}/doctor/`, {
+		params: { q: query },
+		...header
+	  });
+  
+	  if (data.status === 'OK') {
+		dispatch({ type: types.SEARCH_DOCTORS_SUCCESS, payload: data.data });
+	  } else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+	  dispatch({ type: types.SEARCH_DOCTORS_FAIL, payload: message });
+	}
+  };
+
+// Action Creator
+export const fetchDoctorDetails = (id) => async (dispatch) => {
+  dispatch({ type: types.FETCH_DOCTOR_DETAILS_REQUEST });
+  try {
+    const response = await axios.get(`${url}/doctor/${id}`); // Replace with your API endpoint
+    dispatch({ type: types.FETCH_DOCTOR_DETAILS_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: types.FETCH_DOCTOR_DETAILS_FAIL, payload: error.message });
+  }
+};

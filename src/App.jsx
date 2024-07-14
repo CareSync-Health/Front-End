@@ -76,7 +76,7 @@ function App() {
             <Route path='/doctor_message' element={doctor ? <DoctorChat /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_pages' element={doctor ? <DoctorPages /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_patient_page' element={doctor ? <DoctorPatientPages /> : <Navigate to='/doctorAuth' />} />
-            <Route path='/doctor_profile' element={doctor ? <DoctorProfile /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/doctor_profile/:id' element={doctor ? <DoctorProfile /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_payment_way' element={doctor ? <DoctorPayment /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_settings/*' element={doctor ? <DoctorSetting /> : <Navigate to='/doctorAuth' />} />
             <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />

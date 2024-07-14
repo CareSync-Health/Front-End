@@ -31,7 +31,7 @@ const Conversation = ({ data, currentDoctor, online, messages }) => {
 
 
   return (
-    <div className={`border-r-[1px] lg:w-[361px] xs:w-full h-[610px] shadow-lg py-3 px-4 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+    <div className={`border-r-[1px] lg:w-[361px] xs:w-full h-[518px] shadow-lg py-3 px-4 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
       <div className='flex items-center justify-between'>
         <h2 className='text-[18px] font-bold font-Nunito'>Messages</h2>
         <div className='flex items-center gap-[1rem]'>
@@ -45,20 +45,22 @@ const Conversation = ({ data, currentDoctor, online, messages }) => {
         <input type='text' placeholder='Search Messages' className='text-[14px] font-Inter leading-[16px] text-start font-normal bg-transparent lg:w-[350px] xs:w-[150px] rounded-md focus:outline-none border-none' />
       </div>
       <h2 className='mt-2 ms-2 text-[16px] text-[#17B978] font-Nunito font-medium'>Conversations</h2>
-      <div className='flex items-center gap-[10px] mt-[1rem] cursor-pointer'>
-        <img src={Ellipse} alt="doctor" />
-        <div>
-          <h1 className='text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstname} {doctor?.lastname}</h1>
-          <div className='flex items-center gap-[10px] mt-[4px]'>
-            <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>
-                        {messages.map((message) => (
-                            <div key={message._id} className={`bg-[var(--buttonBg)] text-white p-3.5 rounded-2xl w-fit max-w-xs flex flex-col gap-2 ${message.senderId === currentDoctor ? "self-end rounded-br-none bg-gradient-to-r from-[#24e4f0] to-[#358ff9]" : "rounded-bl-none"}`}>
-                                <span>{message.text}</span>
-                            </div>
-                        ))}
-            </h2>
-            <h2 className='text-[12px] font-normal font-Nunito leading-[16px]'>{status}</h2>
-          </div>
+      <div className='h-[370px] overflow-y-auto' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+        <div className='flex items-center gap-[10px] mt-[1rem] cursor-pointer'>
+            <img src={Ellipse} alt="doctor" />
+            <div>
+            <h1 className='text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstname} {doctor?.lastname}</h1>
+            <div className='flex items-center gap-[10px] mt-[4px]'>
+                <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>
+                            {messages.map((message) => (
+                                <div key={message._id} className={`bg-[var(--buttonBg)] text-white p-3.5 rounded-2xl w-fit max-w-xs flex flex-col gap-2 ${message.senderId === currentDoctor ? "self-end rounded-br-none bg-gradient-to-r from-[#24e4f0] to-[#358ff9]" : "rounded-bl-none"}`}>
+                                    <span>{message.text}</span>
+                                </div>
+                            ))}
+                </h2>
+                <h2 className='text-[12px] font-normal font-Nunito leading-[16px]'>{status}</h2>
+            </div>
+            </div>
         </div>
       </div>
     </div>

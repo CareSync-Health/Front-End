@@ -53,3 +53,31 @@ export const loadDoctorReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const searchDoctorsReducer = (state = { doctors: [] }, action) => {
+  switch (action.type) {
+    case types.SEARCH_DOCTORS_REQUEST:
+      return { ...state, loading: true };
+    case types.SEARCH_DOCTORS_SUCCESS:
+      return { ...state, loading: false, doctors: action.payload };
+    case types.SEARCH_DOCTORS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case types.CLEAR_ERRORS:
+      return { ...state, error: null };
+    default:
+      return state;
+  }
+};
+
+export const singleDoctorReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.FETCH_DOCTOR_DETAILS_REQUEST:
+      return { ...state, loading: true };
+    case types.FETCH_DOCTOR_DETAILS_SUCCESS:
+      return { ...state, loading: false, doctor: action.payload };
+    case types.FETCH_DOCTOR_DETAILS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};

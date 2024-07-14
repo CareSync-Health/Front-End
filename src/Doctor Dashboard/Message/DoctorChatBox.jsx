@@ -122,7 +122,7 @@ const { status } = checkOnlineStatus(chat);
                     </div>
 
                     {/* MESSAGES */}
-                    <div className="flex flex-col h-full bg-[var(--cardColor)] rounded-2xl overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+                    <div className="flex flex-col h-full bg-[var(--cardColor)] overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                         <div className="flex-1 flex flex-col gap-2 p-6 overflow-auto"
                             style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                             {messages.map((message) => (
@@ -153,13 +153,13 @@ const { status } = checkOnlineStatus(chat);
                                 ))}
                         </div>
 
-                        <div className={`flex items-center lg:gap-4 lg:p-4 xs:p-4 w-full rounded-2xl self-end z-50 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                        <div className={`flex items-center lg:gap-4 lg:p-4 xs:p-4 w-full self-end z-50 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                             <InputEmoji
                                 value={newMessage}
                                 onChange={handleChange}
                                 onKeyDown={handleKeyDown} 
                                 placeholder="Message"
-                                className="flex-1 lg:px-4 lg:py-2 rounded-md border-none outline-none font-Nunito font-bold text-sm"
+                                className="flex-1 lg:px-4 lg:py-2 border-none outline-none font-Nunito font-bold text-sm"
                             />
                             <button onClick={handleSend} className='bg-[#22D1EE] p-2 rounded-[10px]'>Send</button>
                         </div>
