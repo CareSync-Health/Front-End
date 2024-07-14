@@ -7,14 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadDoctor } from '../../Redux/Actions/DoctorActions';
 import { useTheme } from '../Components/ThemeContext';
 
-const Conversation = ({ data, currentDoctorId, online }) => {
+const Conversation = ({ data, currentDoctor, online, messages }) => {
     const { theme, appearance } = useTheme()
 
   const dispatch = useDispatch();
   const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    const userId = data.members.find((id) => id !== currentDoctorId);
+    const userId = data.members.find((id) => id !== currentDoctor);
     const getDoctorData = async () => {
       try {
         const response = await dispatch(loadDoctor(userId));
@@ -27,8 +27,11 @@ const Conversation = ({ data, currentDoctorId, online }) => {
         getDoctorData();
   }, []);
 
+  const { status } = online;
+
+
   return (
-    <div className={`border-r-[1px] lg:w-[361px] xs:w-full h-[525px] shadow-lg py-3 px-4 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+    <div className={`border-r-[1px] lg:w-[361px] xs:w-full h-[610px] shadow-lg py-3 px-4 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
       <div className='flex items-center justify-between'>
         <h2 className='text-[18px] font-bold font-Nunito'>Messages</h2>
         <div className='flex items-center gap-[1rem]'>
@@ -47,8 +50,14 @@ const Conversation = ({ data, currentDoctorId, online }) => {
         <div>
           <h1 className='text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstname} {doctor?.lastname}</h1>
           <div className='flex items-center gap-[10px] mt-[4px]'>
-            <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>❤</h2>
-            <h2 className='text-[12px] font-normal font-Nunito leading-[16px]'>{online? "Online" : "Offline"}</h2>
+            <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>
+                        {messages.map((message) => (
+                            <div key={message._id} className={`bg-[var(--buttonBg)] text-white p-3.5 rounded-2xl w-fit max-w-xs flex flex-col gap-2 ${message.senderId === currentDoctor ? "self-end rounded-br-none bg-gradient-to-r from-[#24e4f0] to-[#358ff9]" : "rounded-bl-none"}`}>
+                                <span>{message.text}</span>
+                            </div>
+                        ))}
+            </h2>
+            <h2 className='text-[12px] font-normal font-Nunito leading-[16px]'>{status}</h2>
           </div>
         </div>
       </div>

@@ -9,8 +9,11 @@ import { format } from 'timeago.js';
 import { addMessage, getMessages } from './../../Redux/DoctorApi/MessageRequest';
 import InputEmoji from 'react-input-emoji';
 import { FaArrowLeft } from 'react-icons/fa6';
+import { useTheme } from '../Components/ThemeContext';
 
-const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, checkOnlineStatus }) => {
+const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, checkOnlineStatus, handleSendMessage }) => {
+    const { theme, appearance } = useTheme();
+
     const dispatch = useDispatch();
     const [doctor, setDoctor] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -58,29 +61,40 @@ const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, 
     const handleChange = (newMessage) => {
         setNewMessage(newMessage);
     };
-
-    const handleSend = async (e) => {
-        e.preventDefault();
+ // Handle send message
+ const handleSend = async (e) => {
+    e.preventDefault();
+    if (newMessage.trim()) {
         const message = {
             senderId: currentDoctor,
             text: newMessage,
             chatId: chat._id
-        }
+        };
 
-        // send message to database
+        // Send message to the database
         try {
-            const {data} = await addMessage(message);
-            setMessages([...messages, data])
-            setNewMessage("")
-
+            const { data } = await addMessage(message);
+            setMessages([...messages, data]);
+            setNewMessage("");
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
 
-        // send message to socket server
+        // Send message to the socket server
         const receiverId = chat.members.find((id) => id !== currentDoctor);
-        setSendMessage({...message, receiverId})
+        setSendMessage({...message, receiverId});
     }
+};
+
+// Handle key press event
+const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSend(e);
+    }
+};
+
+const { status } = checkOnlineStatus(chat);
 
     // Always scroll to the last message
     useEffect(() => {
@@ -88,7 +102,7 @@ const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, 
     }, [messages])
 
     return (
-        <div className='lg:h-[73vh] xs:h-[62vh]'>
+        <div className={`lg:h-[73vh] xs:h-[68vh] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             {chat ? (
                 <>
                     <div className='flex items-center justify-between shadow-lg py-3 lg:px-5 xs:px-2'>
@@ -97,7 +111,7 @@ const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, 
                             <img src={avatar} />
                             <div>
                                 <h2 className='text-[14px] font-Nunito font-bold'>{doctor?.firstname} {doctor?.lastname}</h2>
-                                <h2 className='text-[#65676B] text-[12px] leading-[16px] font-normal font-Nunito'>{checkOnlineStatus? "Online": "Offline"}</h2>
+                                <h2 className='text-[#65676B] text-[12px] leading-[16px] font-normal font-Nunito'>{status}</h2>
                             </div>
                         </div>
                         <div className='flex items-center gap-[1.5rem] text-[#22D1EE] text-[20px]'>
@@ -108,24 +122,46 @@ const ChatBox = ({ chat, currentDoctor, onBack, setSendMessage, receiveMessage, 
                     </div>
 
                     {/* MESSAGES */}
-                    <div className="flex flex-col h-full bg-[var(--cardColor)] rounded-2xl">
-                        <div className="flex-1 flex flex-col gap-2 p-6 overflow-auto">
+                    <div className="flex flex-col h-full bg-[var(--cardColor)] rounded-2xl overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+                        <div className="flex-1 flex flex-col gap-2 p-6 overflow-auto"
+                            style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                             {messages.map((message) => (
-                                <div ref={scroll} className={`bg-[var(--buttonBg)] text-white p-3.5 rounded-2xl w-fit max-w-xs flex flex-col gap-2 ${message.senderId === currentDoctor ? "self-end rounded-br-none bg-gradient-to-r from-[#24e4f0] to-[#358ff9]" : "rounded-bl-none"}`}>
-                                    <span>{message.text}</span>
-                                    <span className="text-xs text-[var(--textColor)] self-end">{format(message.createdAt)}</span>
-                                </div>
+                               <>
+                                <div
+                               key={message.id}
+                               className={`items-start w-full rounded-[18px] px-3 py-2 max-w-xs flex flex-col gap-2
+                                 ${message.senderId === currentDoctor 
+                                   ? "self-end"
+                                   : ""
+                                 }`}
+                             >
+                              <div className={`items-start w-full rounded-[18px] px-3 py-2 max-w-xs flex flex-col gap-2
+                                 ${message.senderId === currentDoctor 
+                                   ? "self-end bg-[#22D1EE] rounded-br-none"
+                                   : "rounded-bl-none bg-[#E4E6EB] text-black"
+                                 }`}>
+                                <span className='lg:text-[15px] xs:text-[13px] font-Nunito font-medium'>{message.text}</span>
+                              </div>
+                               <span className={`text-xs font-Nunito font-normal ${message.senderId === currentDoctor 
+                                   ? "self-end"
+                                   : "self-start"
+                                 }`}>
+                                 {format(message.createdAt)}
+                               </span>
+                             </div>
+                               </>
                                 ))}
                         </div>
 
-                        <div className="flex items-center gap-4 p-4 w-full rounded-2xl self-end">
+                        <div className={`flex items-center lg:gap-4 lg:p-4 xs:p-4 w-full rounded-2xl self-end z-50 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                             <InputEmoji
                                 value={newMessage}
                                 onChange={handleChange}
+                                onKeyDown={handleKeyDown} 
                                 placeholder="Message"
-                                className="flex-1 px-4 py-2 rounded-md border-none outline-none font-Nunito font-bold text-sm"
+                                className="flex-1 lg:px-4 lg:py-2 rounded-md border-none outline-none font-Nunito font-bold text-sm"
                             />
-                            <button onClick={handleSend}>Send</button>
+                            <button onClick={handleSend} className='bg-[#22D1EE] p-2 rounded-[10px]'>Send</button>
                         </div>
                     </div>
                 </>
