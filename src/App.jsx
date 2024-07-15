@@ -26,6 +26,7 @@ const DoctorPatientPages = lazy(() => import('./Doctor Dashboard/PatientPages'))
 const DoctorProfile = lazy(() => import('./Doctor Dashboard/Profile/DcotorProfile'));
 const DoctorPayment = lazy(() => import('./Doctor Dashboard/Payment/Payment'));
 const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage'));
+const Verification = lazy(() => import('./Doctor Dashboard/VerifyAccount/Verification'))
 const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti'));
 
 // PATIENT IMPORTS
@@ -79,6 +80,7 @@ function App() {
             <Route path='/doctor_profile/:id' element={doctor ? <DoctorProfile /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_payment_way' element={doctor ? <DoctorPayment /> : <Navigate to='/doctorAuth' />} />
             <Route path='/doctor_settings/*' element={doctor ? <DoctorSetting /> : <Navigate to='/doctorAuth' />} />
+            <Route path='/verification_process' element={ doctor ? <Verification /> : <Navigate to='/doctorAuth' /> } />
             <Route path='/congratulation' element={doctor ? <Confetti /> : <Navigate to='/doctorAuth' />} />
             
             {/* PATIENT ROUTE */}

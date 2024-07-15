@@ -19,7 +19,6 @@ const Conversation = ({ data, currentDoctor, online, messages }) => {
       try {
         const response = await dispatch(loadDoctor(userId));
         setDoctor(response.data);
-        // console.log(response.data); // Log the response data
       } catch (error) {
         console.log(error);
       }

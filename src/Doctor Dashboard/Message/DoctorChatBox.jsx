@@ -122,8 +122,8 @@ const { status } = checkOnlineStatus(chat);
                     </div>
 
                     {/* MESSAGES */}
-                    <div className="flex flex-col h-full bg-[var(--cardColor)] overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                        <div className="flex-1 flex flex-col gap-2 p-6 overflow-auto"
+                    <div className="flex flex-col h-full overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+                        <div className="flex-1 flex flex-col gap-2 lg:p-6 xs:p-2 overflow-auto"
                             style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                             {messages.map((message) => (
                                <>

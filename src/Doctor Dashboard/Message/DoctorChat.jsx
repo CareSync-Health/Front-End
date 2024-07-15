@@ -48,7 +48,6 @@ const DoctorChat = () => {
       try {
         const { data } = await userChats(doctor.id);
         setChats(data);
-        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -61,27 +60,23 @@ const DoctorChat = () => {
 
   const checkOnlineStatus = (chat) => {
     if (!chat || !chat.members || !Array.isArray(chat.members)) {
-      console.error('Invalid chat or members:', chat);
       return { status: 'Offline' };
     }
   
     const chatMember = chat.members.find((member) => member !== doctor.id);
   
     if (!chatMember) {
-      console.error('No valid chat member found:', chat);
       return { status: 'Offline' };
     }
   
     const onlineDoctor = onlineDoctors.find((doc) => doc.doctorId === chatMember);
   
     if (!onlineDoctor) {
-      console.log('Online doctor not found:', chatMember);
       return { status: 'Offline' };
     }
   
     // Validate `lastOnline` is defined and a valid date
     if (!onlineDoctor.lastOnline) {
-      console.error('lastOnline is undefined for doctor:', onlineDoctor.doctorId);
       return { status: 'Offline' };
     }
   
@@ -89,16 +84,11 @@ const DoctorChat = () => {
   
     // Ensure lastOnline is a valid date
     if (isNaN(lastOnline.getTime())) {
-      console.error('Invalid lastOnline date:', onlineDoctor.lastOnline);
       return { status: 'Offline' };
     }
   
     const now = new Date();
     const diff = (now - lastOnline) / (1000 * 60); // Difference in minutes
-  
-    console.log('Online doctor:', onlineDoctor);
-    console.log('Last online:', lastOnline);
-    console.log('Difference in minutes:', diff);
   
     if (diff < 30) {
       return { status: 'Online' };
