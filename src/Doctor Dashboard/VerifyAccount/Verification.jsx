@@ -138,15 +138,19 @@ const Verification = () => {
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-[1.5rem]'>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>first name</h2>
-                  <h2 type='text' className='text-black bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full'>{doctor?.firstname}</h2>
+                  <h2 type='text' className='text-black bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full'>{doctor?.firstName}</h2>
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>last name</h2>
-                  <h2 type='text' className='text-black bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full'>{doctor?.lastname}</h2>
+                  <h2 type='text' className='text-black bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full'>{doctor?.lastName}</h2>
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>title</h2>
                   <input type='text' name='title' placeholder='Dr.' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none' required />
+                </div>
+                <div>
+                  <h2 className='text-[15px] font-Nunito font-medium'>age</h2>
+                  <input type='text' name='age' placeholder='Age' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none' required />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>profession</h2>
@@ -234,15 +238,6 @@ const Verification = () => {
                       }),
                     }}
                   />
-                </div>
-                <div>
-                  <h2 className='text-[15px] font-Nunito font-medium'>area of specialization</h2>
-                  <select type='text' className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none' required >
-                    <option>Isolo</option>
-                    <option>Mafoluku</option>
-                    <option>Oshodi</option>
-                    <option>Ikeja</option>
-                  </select>
                 </div>
               </div>
 

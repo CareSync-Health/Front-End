@@ -13,6 +13,7 @@ import Man from '../../assets/Man-Figure.png'
 import Woman from '../../assets/Girl-Figure.png'
 import { BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
 import { Card, CategoryBar, } from '@tremor/react';
+// import ActivityGrowth from './ActivityGrowth';
   
 
 const PatientDashboard = () => {
@@ -25,7 +26,7 @@ const PatientDashboard = () => {
         <Sidebar />
         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
             <div className='flex items-start gap-[10px]'>
-                <div className='lg:px-[20px] xs:px-[10px] pt-[2rem]'>
+                <div className='lg:px-[20px] xs:px-[10px] pt-[1.5rem]'>
                     <div className='flex justify-between items-center'>
                         <div>
                             <h1 className='text-[#303030] text-[25px] font-bold font-Mulish leading-[35px]'>Health Overview</h1>
@@ -64,7 +65,10 @@ const PatientDashboard = () => {
                             <img src={group3} className='w-full' />
                         </div>
                     </div>
-                    <div className='bg-[#fff] shadow-2xl w-full py-[25px] rounded-[12px] px-[30px] mt-[3rem]'>
+                    {/* <div className='mt-[2rem]'>
+                        <ActivityGrowth/>
+                    </div> */}
+                    <div className='bg-[#fff] shadow-2xl w-full py-[25px] rounded-[12px] px-[30px] mt-[2rem]'>
                         <div className='flex items-center justify-between'>
                             <h2 className='text-[#303030] text-[20px] font-bold font-Mulish leading-[25px]'>Upcoming Appointment</h2>
                             <h3 className='text-[#383838] text-[12px] font-bold font-Mulish leading-[15px] bg-[#D0FBFF] w-[111px] p-2 text-center rounded-[8px]'>August 14, 2021</h3>
