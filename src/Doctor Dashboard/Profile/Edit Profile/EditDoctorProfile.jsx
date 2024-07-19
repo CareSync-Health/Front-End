@@ -110,11 +110,11 @@ const EditProfile = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>End Date*</h2>
                   <input type='date' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} required />
                 </div>
-                <div>
-                  <h2 className='text-[15px] font-Nunito font-medium'>Description</h2>
-                  <textarea rows='6' placeholder='Job Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] lg:w-[985px] xs:w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
-                </div>
               </div>
+                <div>
+                  <h2 className='text-[15px] font-Nunito font-medium mt-[2rem]'>Description</h2>
+                  <textarea rows='6' placeholder='Job Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
+                </div>
             </div>
             <div className='lg:flex items-end justify-end lg:px-[90px] xs:px-[10px] mt-[2rem]'>
               <button type='submit' className='bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px]'>Save</button>
@@ -148,17 +148,15 @@ const EditProfile = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>End Date*</h2>
                   <input type='date' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} required />
                 </div>
-                <div>
-                  <div>
-                    <h2 className='text-[15px] font-Nunito font-medium'>Activities and societies</h2>
-                    <textarea rows='6' placeholder='Activities Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] lg:w-[985px] xs:w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
-                  </div>
-                  <div>
-                    <h2 className='text-[15px] font-Nunito font-medium mt-5'>Description</h2>
-                    <textarea rows='6' placeholder='Job Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] lg:w-[985px] xs:w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
-                  </div>
-                </div>
               </div>
+                  <div>
+                    <h2 className='text-[15px] font-Nunito font-medium mt-[2rem]'>Activities and societies</h2>
+                    <textarea rows='6' placeholder='Activities Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
+                  </div>
+                  <div>
+                    <h2 className='text-[15px] font-Nunito font-medium mt-[2rem]'>Description</h2>
+                    <textarea rows='6' placeholder='Job Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} />
+                  </div>
             </div>
             <div className='lg:flex items-end justify-end lg:px-[90px] xs:px-[10px] mt-[2rem]'>
               <button type='submit' className='bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px]'>Save</button>
