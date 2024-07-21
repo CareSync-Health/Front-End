@@ -41,7 +41,7 @@ const PatientSettings = () => {
           <div className='mt-10 flex md:px-12 md:gap-9 flex-wrap md:flex-nowrap'>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Email Address</label>
-              <input style={{backgroundImage:"url(../../assets/av.jpeg)"}} className='border outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder=''/>
+              <input style={{backgroundImage:""}} className='border outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder=''/>
             </div>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Phone Number</label>
