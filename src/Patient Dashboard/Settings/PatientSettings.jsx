@@ -6,8 +6,8 @@ const PatientSettings = () => {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [location, setLocation] = useState("")
-  const [email, setEmail] = useState("")
-  
+  const [Time, setTime] = useState("")
+
   return (
     <div className='flex'>
       <Sidebar />
