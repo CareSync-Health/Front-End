@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../Components/Sidebar'
 import avatar from '../../assets/av.jpeg'
 
 const PatientSettings = () => {
+  const [email, setEmail] = useState("")
   return (
     <div className='flex'>
       <Sidebar />
