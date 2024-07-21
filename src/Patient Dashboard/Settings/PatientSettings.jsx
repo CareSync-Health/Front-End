@@ -46,21 +46,21 @@ const PatientSettings = () => {
           <div className='mt-10 border-b pb-9 flex md:px-12 px-2 md:gap-9 flex-wrap md:flex-nowrap'>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Email Address</label>
-              <input value={email} onChange={(e)=> setEmail(e.target.value)} className={`border ${email.length > 0?"ll": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
+              <input value={email} onChange={(e)=> setEmail(e.target.value)} className={`border ${email.length !> 0?"ll": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
             </div>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Phone Number</label>
-              <input value={phone} onChange={(e)=> setPhone(e.target.value)} className={`border ${phone.length > 0?"mm": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
+              <input value={phone} onChange={(e)=> setPhone(e.target.value)} className={`border ${phone.length !> 0?"mm": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
             </div>
           </div>
           <div className='mt-12 md:px-12 px-2'>
             <div className='flex flex-col w-full mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Location</label>
-              <input value={location} onChange={(e)=> setLocation(e.target.value)} className={`border ${location.length > 0?"nn": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
+              <input value={location} onChange={(e)=> setLocation(e.target.value)} className={`border ${location.length !> 0?"nn": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
             </div>
             <div className='flex flex-col w-full mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Time Zone</label>
-              <input value={time} onChange={(e)=> setTime(e.target.value)} className={`border ${time.length > 0?"oo": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
+              <input value={time} onChange={(e)=> setTime(e.target.value)} className={`border ${time.length !> 0?"oo": ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder=''/>
             </div>
           </div>
         </section>
