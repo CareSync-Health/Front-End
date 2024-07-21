@@ -11,12 +11,14 @@ const PatientMessage = () => {
         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
             <Navbar/>
             <MiniNavbar/>
-            <div className='w-[95rem] flex items-center justify-between mt-[4rem] ml-[2rem]'>
-              <h1 className='text-[30px] font-Inter font-bold leading-[20px] text-start'>Messages</h1>
-              <IoOptions  className='w-[10rem] h-[3rem]'/>
+            <div className='xs:px-[10px] lg:px-[30px]'>
+            <div className='flex items-center justify-between mt-[4rem]'>
+              <h1 className='lg:text-[27px] xs:text-[24px] font-Mulish font-bold leading-[20px] text-start'>Messages</h1>
+              <IoOptions  className='lg:text-[30px] xs:text-[27px]'/>
             </div>
-            <hr className='w-[91.5rem] h-[4px] bg-#94949480 mt-[3rem] ml-[2rem]' />
-            <h2 className='text-[30px] font-Inter font-bold leading-[50px] text-start mt-[4rem] ml-[2rem]'>No any message yet, once you have an unread <br />message, it will display here </h2>
+            <hr className='w-full h-[4px] bg-#94949480 mt-[2rem]' />
+            <h2 className='lg:text-[23px] xs:text-[19px] font-Mulish font-bold text-start mt-[2rem]'>No any message yet, once you have an unread message, it will display here </h2>
+            </div>
         </div>
     </div>
   )

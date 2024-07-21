@@ -17,12 +17,13 @@ import { useSelector } from 'react-redux';
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
-    // const [ user, setUser ] = useState(true)
-    const { doctorDetail } = useSelector(state => state.doctorAuth);
+    const [user, setUser] = useState(true);
+    const doctor = useSelector(state => state.doctorAuth);
+    
 
     useEffect(() => {
-      console.log(doctorDetail);
-    }, [doctorDetail]);
+        console.log(doctor);
+    }, [doctor]);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +34,7 @@ const DoctorDashboard = () => {
     return (
         <>
             {
-                doctorDetail ? (
+                doctor ? (
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
@@ -87,45 +88,42 @@ const DoctorDashboard = () => {
                                 </div>
                             </div>
                             <div>
-                                <DashboardTable/>
+                                <DashboardTable />
                             </div>
                         </div>
                     </div>
-                    ) : (
-                        <>
-                            <div className='flex justify-center items-center h-screen text-start'>
-                                <div className='bg-[#fbfbfbfb] py-[25px] px-[15px]'>
-                                    <h1 className='lg:text-[28px] xs:text-[25px] font-bold font-Nunito lg:leading-[46px]'>Hang tight, we're reviewing your application now</h1>
-                                    <hr className='w-full h-[2px] bg-[#d6d6d6] mt-3' />
-                                    <p className='text-[16px] font-Nunito font-medium mt-[1rem]'>Thank you so much for taking time to submit your application to join caresync as a medical practitioner!</p>
-                                    <p className='text-[16px] font-Nunito font-medium mt-[0.8rem]'>Expect a decision back to you very soon. In the interim, please reach out to out Support Team with any questions via the Need</p>
-                                    <p className='text-[16px] font-Nunito font-medium lg:mt-o xs:mt-2'>Help? button and we will get back to you as soon as possible.</p>
-                                </div>
+                ) : (
+                    <>
+                        <div className='flex justify-center items-center h-screen text-start'>
+                            <div className='bg-[#fbfbfbfb] py-[25px] px-[15px]'>
+                                <h1 className='lg:text-[28px] xs:text-[25px] font-bold font-Nunito lg:leading-[46px]'>Hang tight, we're reviewing your application now</h1>
+                                <hr className='w-full h-[2px] bg-[#d6d6d6] mt-3' />
+                                <p className='text-[16px] font-Nunito font-medium mt-[1rem]'>Thank you so much for taking time to submit your application to join caresync as a medical practitioner!</p>
+                                <p className='text-[16px] font-Nunito font-medium mt-[0.8rem]'>Expect a decision back to you very soon. In the interim, please reach out to out Support Team with any questions via the Need</p>
+                                <p className='text-[16px] font-Nunito font-medium lg:mt-o xs:mt-2'>Help? button and we will get back to you as soon as possible.</p>
                             </div>
-                            <div className='fixed z-50 lg:right-[3rem] xs:right-[1rem] lg:bottom-[2rem] xs:bottom-[2rem]'>
-                                <div>
-                                    <div 
-                                        className='w-[46px] text-[24px] py-[10px] text-center px-[11px] text-white bg-[#17B978] rounded-[100px] cursor-pointer'
-                                        onClick={toggleChat}
-                                    >
-                                        <IoHelpOutline />
-                                    </div>
+                        </div>
+                        <div className='fixed z-50 lg:right-[3rem] xs:right-[1rem] lg:bottom-[2rem] xs:bottom-[2rem]'>
+                            <div>
+                                <div
+                                    className='w-[46px] text-[24px] py-[10px] text-center px-[11px] text-white bg-[#17B978] rounded-[100px] cursor-pointer'
+                                    onClick={toggleChat}
+                                >
+                                    <IoHelpOutline />
+                                </div>
 
-                                    {isOpen && (
-                                        <div className="rounded-[10px] shadow-lg fixed lg:bottom-20 xs:bottom-[6rem] lg:right-12 xs:right-0 z-50 flex flex-col">
-                                            <iframe src="https://app.fastbots.ai/embed/clxz8mllh00aunibbb63ntw1p" className='rounded-[10px] lg:w-[400px] lg:h-[80vh] xs:w-[378px] xs:h-[73vh]'></iframe>
-                                        </div>
-                                    )}
-                                </div>
+                                {isOpen && (
+                                    <div className="rounded-[10px] shadow-lg fixed lg:bottom-20 xs:bottom-[6rem] lg:right-12 xs:right-0 z-50 flex flex-col">
+                                        <iframe src="https://app.fastbots.ai/embed/clxz8mllh00aunibbb63ntw1p" className='rounded-[10px] lg:w-[400px] lg:h-[80vh] xs:w-[378px] xs:h-[73vh]'></iframe>
+                                    </div>
+                                )}
                             </div>
-                        </>
-                    )
+                        </div>
+                    </>
+                )
             }
         </>
     );
 };
 
 export default DoctorDashboard;
-
-
-

@@ -11,17 +11,24 @@ import { ClipLoader } from 'react-spinners';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const body = { email, password };
-    dispatch(patient_login(body, navigate))
-      .finally(() => setLoading(false));
+    setLoading(true); // Set loading to true when starting the submission
+    const body = {
+      email,
+      password
+    };
+
+    try {
+      await dispatch(patient_login(body, navigate));
+    } catch (error) {
+      // Handle login error
+    }
   };
 
   return (
@@ -99,7 +106,11 @@ const Login = () => {
                   className="font-Roboto bg-[#22D1EE] w-full mt-5 py-2 text-white rounded-md flex justify-center items-center"
                   disabled={loading}
                 >
-                  {loading ? <ClipLoader size={20} color='#fff' /> : 'Login'}
+                   {loading ? (
+                            <ClipLoader size={24} color="#fff" /> // Show spinner when loading
+                        ) : (
+                            'Login'
+                        )}
                 </button>
                 <h6 className="font-Roboto mt-5">
                   Don’t have an account?{" "}

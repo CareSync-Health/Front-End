@@ -25,9 +25,9 @@ const Login = () => {
     try {
       await dispatch(doctor_login(body, navigate));
     } catch (error) {
-      // Handle login error
+      console.log(error);
     } finally {
-      setLoading(false); // Reset loading state after the submission
+      setLoading(false);
     }
   };
 

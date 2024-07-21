@@ -137,9 +137,22 @@ module.exports = {
           '95%': { transform: 'translateY(8px)', 'animation-timing-function': 'ease-in' },
           '100%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
         },
+        'gb-popup-slide-zoom-left': {
+          '0%': {
+            opacity: '0',
+            transformOrigin: '100% 50%',
+            transform: 'scale(0.2) translate(200%, 0%)',
+          },
+          '100%': {
+            opacity: '1',
+            transformOrigin: '100% 50%',
+            transform: 'scale(1) translate(0%, 0%)',
+          },
+        },
       },
       animation: {
         'popup-bounce-to-top': 'popup-bounce-to-top 1.1s both',
+        'gb-popup-slide-zoom-left': 'gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)',
       },
     },
   },

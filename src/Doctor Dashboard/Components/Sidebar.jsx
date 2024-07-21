@@ -15,25 +15,33 @@ import setting from '../../assets/Icons/setting.svg';
 import help from '../../assets/Icons/help.svg';
 import logout from '../../assets/Icons/logout.svg';
 import { useTheme } from './ThemeContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { doctor_logout } from '../../Redux/Actions/DoctorActions';
 
 const Sidebar = () => {
+
     const { theme, appearance } = useTheme();
     const [open, setOpen] = useState(true);
     const [showMore, setShowMore] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const location = useLocation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+          dispatch(doctor_logout(navigate));
+          navigate('/doctorAuth')
+      };
 
     const Menus = [
         { title: "Dashboard", Link: '/doctor_dashboard', icon: <img src={dash} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Appointments", Link: '/doctor_appointment', icon: <img src={appoint} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
-        { title: "Messages", icon: <img src={message} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
+        { title: "Messages", Link: '/doctor_message', icon: <img src={message} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Doctors", Link: '/doctor_pages', icon: <img src={doctor} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Patients", Link: '/doctor_patient_page', icon: <img src={patient} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
-        { title: "Payments", Link: '/payment_way', icon: <img src={payment} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
+        { title: "Payments", Link: '/doctor_payment_way', icon: <img src={payment} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Settings", Link: '/doctor_settings/general_setting', spacing: true, icon: <img src={setting} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Help", icon: <img src={help} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
-        { title: "Logout", icon: <img src={logout} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
     ];
 
     useEffect(() => {
@@ -95,6 +103,10 @@ const Sidebar = () => {
                                     </span>
                                 </li>
                             ))}
+                            <li className='flex items-center gap-x-0 cursor-pointer mt-4 ms-2' onClick={handleLogout}>
+                                <span className='text-4xl block float-left lg:ms-[15px] xs:ms-[5px]'><img src={logout} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /></span>
+                                <h2  className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>Logout</h2>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -133,7 +145,7 @@ const Sidebar = () => {
                                 <li
                                     key={index}
                                     onClick={() => handleMenuClick(index + 4, menu.Link)}
-                                    className={`list-none py-2 mx-2 mt-[3rem]                                     
+                                    className={`list-none py-2 mx-2 mt-[2rem]                                     
                                         ${activeIndex === index + 4 
                                             ? (appearance === 'green' ? 'text-[#17B978]' : 
                                                appearance === 'blue' ? 'text-[#22D1EE]' : 
@@ -150,6 +162,7 @@ const Sidebar = () => {
                                     </span> */}
                                 </li>
                             ))}
+                            <span className='text-2xl -ms-2 mt-[3rem]'><img src={logout} className={`cursor-pointer lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} onClick={handleLogout} /></span>
                         </div>
                     </div>
                 )}

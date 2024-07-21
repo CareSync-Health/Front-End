@@ -5,6 +5,9 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    host: true,
+  },
   resolve: {
     alias: {
       '@i18n': path.resolve(__dirname, './src/Doctor Dashboard/Components/Language_Locales'),
