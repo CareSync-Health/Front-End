@@ -64,7 +64,9 @@ const PatientSettings = () => {
             </div>
           </div>
           <div>
-            <div></div>
+            <div>
+              <p></p>
+            </div>
             <div></div>
           </div>
         </section>
