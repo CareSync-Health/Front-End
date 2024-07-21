@@ -23,7 +23,7 @@ const PatientSettings = () => {
             </span>
           </div>
           <div>
-            <div >
+            <div className=''>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">First Name</label>
               <input type="text" placeholder='e.g Alaa'/>
             </div>
