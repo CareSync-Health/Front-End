@@ -23,7 +23,7 @@ const PatientSettings = () => {
             </span>
           </div>
           <div className='mt-12'>
-            <div className='flex flex-col w-1.2'>
+            <div className='flex flex-col w-1/2'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">First Name</label>
               <input className='border border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder='e.g Alaa'/>
             </div>
