@@ -40,7 +40,7 @@ const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientS
 
 function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorSignin.doctor);
-  const patient = useSelector((state) => state.patientAuth.patient);
+  const patient = useSelector((state) => state.patientAuth.patient || state.patientSignin.patient);
 
   return (
     <ThemeProvider>
@@ -69,7 +69,7 @@ function App() {
             <Route path='patientSignup' element={<Signup />} />
             <Route path='doctorAuth' element={<Login2 />} />
             <Route path='doctorSignup' element={<Signup2 />} />
-            <Route path='verify_account_patient' element={<VerifyAccount />} />
+            <Route path='patient_verify_otp' element={<VerifyAccount />} />
             <Route path='doctor_verify_otp' element={<VerifyAccount2 />} />
 
 

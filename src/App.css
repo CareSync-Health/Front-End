@@ -18,6 +18,26 @@
     scrollbar-width: none; /* Firefox */
 }
 
+.ll{
+    background-image: url(/src/assets/mail.svg);
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+}
+.mm{
+    background-image: url(/src/assets/phone.svg);
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
+}
+.nn{
+    background-image: url(/src/assets/location.svg);
+    background-repeat: no-repeat;
+    background-position: 2% 55%;
+}
+.oo{
+    background-image: url(/src/assets/time.svg);
+    background-repeat: no-repeat;
+    background-position: 2% 55%;
+}
 
 
 /* chat message to be removed soon */

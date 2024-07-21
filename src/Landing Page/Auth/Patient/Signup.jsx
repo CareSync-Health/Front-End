@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../../assets/logo.png';
 import img2 from '../../../assets/google.png';
 import img3 from '../../../assets/facebook.png';
-import { FaEnvelope, FaKey } from 'react-icons/fa';
+import { FaEnvelope, FaKey, FaPhoneAlt } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import gif from '../../../assets/Group2.gif';
 import { useDispatch } from 'react-redux';
@@ -10,9 +10,10 @@ import { patient_register } from '../../../Redux/Actions/PatientActions';
 import { ClipLoader } from 'react-spinners';
 
 const Signup = () => {
-  const [lastname, setLastName] = useState('');
-  const [firstname, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +23,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const body = { firstname, lastname, email, password };
+    const body = { firstName, lastName, email, phoneNumber, password };
 
     try {
       await dispatch(patient_register(body, navigate));
@@ -62,7 +63,7 @@ const Signup = () => {
               id='firstName'
               placeholder='Enter your First Name'
               className='bg-[#F6F6F6] px-2 lg:py-2 xs:py-[10px] outline-none lg:w-[45%] xs:w-full'
-              value={firstname}
+              value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
             />
@@ -72,20 +73,34 @@ const Signup = () => {
               id='lastName'
               placeholder='Enter your Last Name'
               className='bg-[#F6F6F6] px-2 lg:py-2 xs:py-[10px] rounded-[8px] lg:ms-10 sm:ms-9 lg:w-[45%] xs:w-full outline-none lg:mt-0 xs:mt-[1rem]'
-              value={lastname}
+              value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
             />
             <div className='mt-5 font-Roboto'>
               <div className='flex'>
                 <span className='relative left-[3.5%] mt-[2.8%] text-[20px]'>
+                  <FaPhoneAlt />
+                </span>
+                <input
+                  type='text'
+                  placeholder='Phone Number'
+                  name='phoneNumber'
+                  className='bg-[#F6F6F6] ms-[-5%] lg:w-[99%] xs:w-full lg:px-[55px] lg:py-[10px] xs:px-[40px] xs:py-[7px] rounded-[8px] outline-none'
+                  required
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </div>
+              <div className='flex mt-5'>
+                <span className='relative left-[3.5%] mt-[0.69rem] text-[20px]'>
                   <FaEnvelope />
                 </span>
                 <input
                   type='email'
                   placeholder='Email'
                   name='name'
-                  className='bg-[#F6F6F6] ms-[-5%] w-[150%] px-[55px] py-[10px] rounded-[8px] outline-none'
+                  className='bg-[#F6F6F6] ms-[-5%] w-[150%] lg:px-[55px] xs:px-[40px] py-[10px] rounded-[8px] outline-none'
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -99,19 +114,19 @@ const Signup = () => {
                   type='password'
                   placeholder='Password'
                   name='password'
-                  className='bg-[#F6F6F6] ms-[-5%] w-[150%] px-[55px] py-[10px] rounded-[8px] outline-none'
+                  className='bg-[#F6F6F6] ms-[-5%] w-[150%] lg:px-[55px] xs:px-[40px] py-[10px] rounded-[8px] outline-none'
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
-            <div className='mt-5'>
-              <input type='checkbox' required className='bg-[#F6F6F6]' />
+            <label className='cursor-pointer'>
+              <input type='checkbox' required className='bg-[#F6F6F6] mt-[2rem]' />
               <span className='ms-2'>
                 Yes, I understand and agree to the CareSync Terms of Service
               </span>
-            </div>
+            </label>
             <button
               type='submit'
               className='font-Roboto bg-[#22D1EE] w-full mt-5 py-2 text-white rounded-md flex justify-center items-center'
