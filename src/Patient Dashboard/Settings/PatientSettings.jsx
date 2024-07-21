@@ -60,7 +60,7 @@ const PatientSettings = () => {
             </div>
             <div className='flex flex-col w-full mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Time Zone</label>
-              <input value={ti} onChange={(e)=> setEmail(e.target.value)} className='border oo outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder=''/>
+              <input value={time} onChange={(e)=> setTime(e.target.value)} className='border oo outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder=''/>
             </div>
           </div>
         </section>
