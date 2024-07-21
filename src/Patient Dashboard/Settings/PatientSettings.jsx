@@ -65,7 +65,7 @@ const PatientSettings = () => {
           </div>
           <div>
             <div>
-              <p></p>
+              <p className='text-[0.87rem] font-bold text-[#384D6C]'></p>
             </div>
             <div></div>
           </div>
