@@ -26,5 +26,5 @@
 .mm{
     background-image: url(/src/assets/phone.svg);
     background-repeat: no-repeat;
-    background-position: 5% 50%;
+    /* background-position: 5% 50%; */
 }
