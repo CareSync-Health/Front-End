@@ -44,7 +44,7 @@ const PatientSettings = () => {
               <input className='border outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder='e.g Alaa'/>
             </div>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
-              <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Last Name</label>
+              <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Phone Number</label>
               <input className='border outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder='eg. Mohamed'/>
             </div>
           </div>
