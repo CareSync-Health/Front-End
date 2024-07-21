@@ -66,7 +66,9 @@ const PatientSettings = () => {
           <div className='md:pl-12 pl-2 mt-12'>
             <div>
               <p className='text-[0.87rem] font-bold text-[#384D6C]'>Companies</p>
-              
+              <span>
+                
+              </span>
             </div>
             <div></div>
           </div>
