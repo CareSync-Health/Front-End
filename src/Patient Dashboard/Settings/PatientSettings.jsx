@@ -22,7 +22,7 @@ const PatientSettings = () => {
               <a className='px-12 font-bold text-[#384D6C] text-xs py-3 bg-[#E2F3F5] border border-[#384D6C] rounded-lg'>Delete</a>
             </span>
           </div>
-          <div className='mt-12 flex md:px-12 gap-3'>
+          <div className='mt-12 flex md:px-12 gap-3 flex-wrap md:flex-nowrap'>
             <div className='flex flex-col w-1/2'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">First Name</label>
               <input className='border border-[#D1D5DB] px-5 py-3 rounded-lg mt-3' type="text" placeholder='e.g Alaa'/>
