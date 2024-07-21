@@ -31,10 +31,10 @@
 .nn{
     background-image: url(/src/assets/location.svg);
     background-repeat: no-repeat;
-    background-position: 5% 55%;
+    background-position: 1% 55%;
 }
 .oo{
     background-image: url(/src/assets/time.svg);
     background-repeat: no-repeat;
-    background-position: 5% 55%;
+    background-position: 1% 55%;
 }
