@@ -63,6 +63,9 @@ const PatientSettings = () => {
               <input value={time} onChange={(e) => setTime(e.target.value)} className={`border ${time.length < 1 ? "oo" : ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder='' />
             </div>
           </div>
+          <div>
+            
+          </div>
         </section>
       </div>
     </div>
