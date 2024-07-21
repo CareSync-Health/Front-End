@@ -89,10 +89,10 @@ const PatientSettings = () => {
               </span>
             </div>
             <div>
-            <span className='flex gap-5 flex-wrap items-center mt-4'>
-              <a className='px-12 font-bold text-[#384D6C] text-xs py-3 bg-[#E2F3F5] border border-[#384D6C] rounded-lg'>Cancel</a>
-              <a className='px-4 font-bold text-white text-xs py-3 bg-[#22D1EE] border border-[#A6FFF2] rounded-lg'>Save Changes</a>
-            </span>
+              <span className='flex gap-5 flex-wrap items-center mt-4'>
+                <a className='px-12 font-bold text-[#384D6C] text-xs py-3 bg-[#E2F3F5] border border-[#384D6C] rounded-lg'>Cancel</a>
+                <a className='px-4 font-bold text-white text-xs py-3 bg-[#22D1EE] border border-[#A6FFF2] rounded-lg'>Save Changes</a>
+              </span>
             </div>
           </div>
         </section>
