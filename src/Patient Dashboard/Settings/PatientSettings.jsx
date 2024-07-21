@@ -6,7 +6,7 @@ const PatientSettings = () => {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [location, setLocation] = useState("")
-  const [Time, setTime] = useState("")
+  const [time, setTime] = useState("")
 
   return (
     <div className='flex'>
