@@ -24,8 +24,9 @@ const PatientSettings = () => {
           </div>
           <div>
             <div>
-              <label htmlFor=""></label>
-              <input type="text" />
+              <label htmlFor="">
+                <input type="text" />
+              </label>
             </div>
           </div>
         </section>
