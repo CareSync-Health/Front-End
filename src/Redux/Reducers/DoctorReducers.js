@@ -3,16 +3,12 @@ import * as types from "../Types";
 export const doctorAuthReducer = (state = {}, action) => {
   switch (action.type) {
     case types.DOCTOR_AUTH_REQUEST:
-    case types.DOCTOR_SIGNIN_REQUEST:
       return { ...state, loading: true };
     case types.DOCTOR_AUTH_SUCCESS:
-    case types.DOCTOR_SIGNIN_SUCCESS:
       return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
     case types.DOCTOR_AUTH_FAIL:
-    case types.DOCTOR_SIGNIN_FAIL:
       return { ...state, loading: false, error: action.payload, message: action.message};
     case types.DOCTOR_AUTH_LOGOUT:
-    case types.DOCTOR_SIGNIN_LOGOUT:
       return { ...state, doctor: null};
     case types.CLEAR_ERRORS:
       return { ...state, error: null };
@@ -26,7 +22,7 @@ export const doctorVerifyOtpReducer = (state = {}, action) => {
     case types.VERIFY_OTP_REQUEST:
       return { ...state, loading: true };
     case types.VERIFY_OTP_SUCCESS:
-      return { ...state, loading: false, success: true };
+      return { ...state, loading: false, success: true, doctor: action.payload };
     case types.VERIFY_OTP_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
@@ -35,22 +31,22 @@ export const doctorVerifyOtpReducer = (state = {}, action) => {
 };
 
 
-// export const doctorSigninReducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case types.DOCTOR_SIGNIN_REQUEST:
-//       return { ...state, loading: true  };
-//     case types.DOCTOR_SIGNIN_SUCCESS:
-//       return { ...state, loading: false, doctor: action.payload, message: action.message };
-//     case types.DOCTOR_SIGNIN_FAIL:
-//       return { ...state, loading: false, error: action.payload, message: action.message };
-//     case types.DOCTOR_SIGNIN_LOGOUT:
-//       return { ...state, doctor: null };
-//     case types.CLEAR_ERRORS:
-//       return { ...state, error: null };
-//     default:
-//       return state;
-//   }
-// };
+export const doctorSigninReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.DOCTOR_SIGNIN_REQUEST:
+      return { loading: true  };
+    case types.DOCTOR_SIGNIN_SUCCESS:
+      return { loading: false, doctor: action.payload, message: action.message };
+    case types.DOCTOR_SIGNIN_FAIL:
+      return { loading: false, error: action.payload, message: action.message };
+    case types.DOCTOR_SIGNIN_LOGOUT:
+      return { doctor: null };
+    case types.CLEAR_ERRORS:
+      return { error: null };
+    default:
+      return state;
+  }
+};
 
 export const loadDoctorReducer = (state = {}, action) => {
   switch (action.type) {

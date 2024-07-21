@@ -16,6 +16,7 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 		toast.success(data.message, {
 		  position: 'top-right',
 		});
+		console.log('Signup Data', data)
 		navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
 	  } else {
 		throw new Error(data.message);
@@ -31,12 +32,13 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 	try {
 	  dispatch({ type: types.VERIFY_OTP_REQUEST });
   
-	  const { data } = await axios.post(`${url}/doctor/verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
+	  const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
 	  if (data) {
 		dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
 		toast.success(data.message, {
 		  position: 'top-right',
 		});
+		console.log('VerifyOtp Data', data)
 		navigate('/congratulation'); // Navigate to the dashboard page
 	  } else {
 		throw new Error(data.message);
@@ -50,14 +52,6 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 	}
   };
 
-//   export const submitVerificationForm = (body, navigate) => async (dispatch) => {
-// 	try {
-// 		const {data} = await.post(`${url}/doctor`)
-// 	} catch (error) {
-		
-// 	}
-//   }
-
 export const doctor_login = (body, navigate) => async (dispatch) => {
 	try {
 	  dispatch({ type: types.DOCTOR_SIGNIN_REQUEST });
@@ -69,6 +63,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 			position: 'top-right',
 		});
 		navigate('/doctor_dashboard');
+
 	  } else {
 		throw new Error(data.message);
 	  }
@@ -98,16 +93,19 @@ export const loadDoctor = (id) => async (dispatch, getState) => {
 		  }
 	  };
   
-	  const res = await axios.get(`${url}/doctor/${id}`, config);
+	  const {data} = await axios.get(`${url}/doctor/${id}`, config);
   
-	  dispatch({
-		type: types.LOAD_DOCTOR_SUCCESS,
-		payload: res.data
-	  });
-  
-	  return res.data;
-	} catch (err) {
-	  console.error(err);
+	  if(data){
+		dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data });
+		dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
+		dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data });
+
+		return data.data;
+	  }  else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  console.error(error);
 	  dispatch({
 		type: types.LOAD_DOCTOR_FAIL
 	  });

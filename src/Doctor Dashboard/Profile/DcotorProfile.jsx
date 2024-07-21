@@ -15,7 +15,7 @@ const DcotorProfile = () => {
   const { theme, appearance } = useTheme()
   const dispatch = useDispatch();
   const { id } = useParams();
-  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorSignin.doctor);
 
   useEffect(() => {
     if (id) {

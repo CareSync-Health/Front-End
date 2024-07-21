@@ -10,7 +10,7 @@ import { io } from 'socket.io-client';
 
 const DoctorChat = () => {
   const { theme, appearance } = useTheme();
-  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const doctor = useSelector((state) => state.doctorVerifyOtp.doctor || state.doctorSignin.doctor);
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [onlineDoctors, setOnlineDoctors] = useState([])
