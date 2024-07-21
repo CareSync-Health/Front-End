@@ -20,9 +20,11 @@
 
 .ll{
     background-image: url(/src/assets/mail.svg);
-    background-repeat: no-repeat;background-position: 5% 50%;
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
 }
 .mm{
     background-image: url(/src/assets/phone.svg);
-    background-repeat: no-repeat;background-position: 5% 50%;
+    background-repeat: no-repeat;
+    background-position: 5% 50%;
 }
