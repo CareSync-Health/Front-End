@@ -22,7 +22,9 @@ const PatientSettings = () => {
               <a className='px-12 font-bold text-[#384D6C] text-xs py-3 bg-[#E2F3F5] border border-[#384D6C] rounded-lg'>Delete</a>
             </span>
           </div>
-          
+          <div>
+            
+          </div>
         </section>
       </div>
     </div>
