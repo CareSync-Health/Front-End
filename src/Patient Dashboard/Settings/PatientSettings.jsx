@@ -26,7 +26,7 @@ const PatientSettings = () => {
             <div>
               <label className='flex flex-col' htmlFor="">
                 First Name
-                <input type="text" />
+                <input type="text" placeholder='e.g Alaa'/>
               </label>
             </div>
           </div>
