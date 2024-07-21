@@ -63,7 +63,7 @@ const PatientSettings = () => {
               <input value={time} onChange={(e) => setTime(e.target.value)} className={`border ${time.length < 1 ? "oo" : ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder='' />
             </div>
           </div>
-          <div className='md:pl-12 pl-2 mt-12 pb-10 flex flex-wrap justify-between'>
+          <div className='md:pl-12 pl-2 mt-12 pb-10 flex flex-wrap justify-between items-end'>
             <div>
               <p className='text-[0.87rem] font-bold text-[#384D6C]'>Companies</p>
               <span className='flex gap-4 mt-5 items-center'>
