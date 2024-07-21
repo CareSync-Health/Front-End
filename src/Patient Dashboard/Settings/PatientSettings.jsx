@@ -4,6 +4,7 @@ import avatar from '../../assets/av.jpeg'
 
 const PatientSettings = () => {
   const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("")
   return (
     <div className='flex'>
       <Sidebar />
