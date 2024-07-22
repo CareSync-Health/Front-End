@@ -24,7 +24,7 @@ const Sidebar = () => {
     { path: '/patient_calendar', icon: <RiCalendarEventLine />, name: 'Calendar' },
     { path: '/patient_message', icon: <RiMessage3Line />, name: 'Messages' },
     { path: '/patient_appointment', icon: <FiPieChart />, name: 'Appointment' },
-    { path: '/patient_settings', icon: <IoSettingsOutline />, name: 'Settings' },
+    { path: '/patient_settings/patient_profile', icon: <IoSettingsOutline />, name: 'Settings' },
   ]
 
   return (

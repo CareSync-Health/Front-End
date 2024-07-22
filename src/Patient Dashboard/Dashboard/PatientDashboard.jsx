@@ -22,7 +22,7 @@ const PatientDashboard = () => {
   
     const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
 
-    const [ showBmi, setShowBmi ] = useState(true);
+    const [ showBmi, setShowBmi ] = useState(false);
 
   return (
     <div className='flex'>

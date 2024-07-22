@@ -93,7 +93,7 @@ function App() {
             <Route path='/patient_appointment' element={patient ? <PatientAppointments /> : <Navigate to='/patientAuth' />} />
             <Route path='/patient_message' element={patient ? <PatientMessage /> : <Navigate to='/patientAuth' />} />
             <Route path='/patient_calendar' element={patient ? <PatientCalendar /> : <Navigate to='/patientAuth' />} />
-            <Route path='/patient_settings' element={patient ? <PatientSettings /> : <Navigate to='/patientAuth' />} />
+            <Route path='/patient_settings/*' element={patient ? <PatientSettings /> : <Navigate to='/patientAuth' />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
