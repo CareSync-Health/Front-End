@@ -54,7 +54,7 @@ const PatientSettings = () => {
             </div>
             <div className='flex flex-col w-full md:w-1/2 mt-3'>
               <label className='text-[0.87rem] font-bold text-[#384D6C]' htmlFor="">Phone Number</label>
-              <input value={phone} onChange={(e) => setPhone(e.target.value)} className={`border ps-[4rem] ${phone.length < 1 ? "mm" : ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder={patient?.PhoneNumber} />
+              <input value={phone} onChange={(e) => setPhone(e.target.value)} className={`border ps-[3.5rem] ${phone.length < 1 ? "mm" : ""} outline-none placeholder:italic placeholder:font-light border-[#D1D5DB] px-5 py-3 rounded-lg mt-3`} type="text" placeholder={patient?.phoneNumber} />
             </div>
           </div>
           <div className='mt-12 md:px-12 px-2'>

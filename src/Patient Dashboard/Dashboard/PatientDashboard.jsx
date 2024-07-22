@@ -13,6 +13,7 @@ import Man from '../../assets/Man-Figure.png'
 import Woman from '../../assets/Girl-Figure.png'
 import { BiDownArrowAlt, BiUpArrowAlt } from 'react-icons/bi'
 import { Card, CategoryBar, } from '@tremor/react';
+import BmiCalculator from './BmiCalculator';
 // import ActivityGrowth from './ActivityGrowth';
   
 
@@ -20,6 +21,8 @@ const PatientDashboard = () => {
     const patient = useSelector((state) => state.patientAuth.patient);
   
     const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
+
+    const [ showBmi, setShowBmi ] = useState(true);
 
   return (
     <div className='flex'>
@@ -32,12 +35,12 @@ const PatientDashboard = () => {
                             <h1 className='text-[#303030] text-[25px] font-bold font-Mulish leading-[35px]'>Health Overview</h1>
                             <h2 className='text-[#6A6969] text-[14px] font-medium font-Mulish leading-[20px]'>October 12, 2023</h2>
                         </div>
-                        <div>
-
+                        <div className='bg-[#000] p-2 rounded-l-[30px] -mr-2.5 cursor-pointer lg:hidden xs:flex' onClick={() => setShowBmi(true)}>
+                            <h2 className='text-[17px] text-white font-Mulish font-bold'>BMI</h2>
                         </div>
                     </div>
-                    <div className='flex items-center gap-[2rem]'>
-                        <div className='bg-[#fff] w-[231px] shadow-lg p-5 mt-[2rem] rounded-[10px]'>
+                    <div className='lg:flex items-center gap-[2rem]'>
+                        <div className='bg-[#fff] lg:w-[231px] xs:w-full shadow-lg p-5 mt-[2rem] rounded-[10px]'>
                             <span className='flex items-center gap-[15px]'>
                                 <img src={bloodsugar} />
                                 <h2 className='text-[#000] text-[16px] font-medium font-Mulish'>Blood Sugar</h2>
@@ -46,7 +49,7 @@ const PatientDashboard = () => {
                             <h2 className='bg-[#F8DEBD] text-center w-[58px] py-[3px] px-[5px] rounded-[4px] text-[12px] font-medium text-[#000] font-Mulish mt-[0.5rem]'>Normal</h2>
                             <img src={group} className='w-full' />
                         </div>
-                        <div className='bg-[#fff] w-[231px] shadow-lg p-5 mt-[2rem] rounded-[10px]'>
+                        <div className='bg-[#fff] lg:w-[231px] xs:w-full shadow-lg p-5 mt-[2rem] rounded-[10px]'>
                             <span className='flex items-center gap-[15px]'>
                                 <img src={heartrate} />
                                 <h2 className='text-[#000] text-[16px] font-medium font-Mulish'>Heart Rate</h2>
@@ -55,7 +58,7 @@ const PatientDashboard = () => {
                             <h2 className='bg-[#FBF0F3] text-center w-[58px] py-[3px] px-[5px] rounded-[4px] text-[12px] font-medium text-[#000] font-Mulish mt-[0.5rem]'>Normal</h2>
                             <img src={group2} className='w-full' />
                         </div>
-                        <div className='bg-[#fff] w-[231px] shadow-lg p-5 mt-[2rem] rounded-[10px]'>
+                        <div className='bg-[#fff] lg:w-[231px] xs:w-full shadow-lg p-5 mt-[2rem] rounded-[10px]'>
                             <span className='flex items-center gap-[15px]'>
                                 <img src={bloodpressure} />
                                 <h2 className='text-[#000] text-[16px] font-medium font-Mulish'>Blood Pressure</h2>
@@ -68,15 +71,22 @@ const PatientDashboard = () => {
                     {/* <div className='mt-[2rem]'>
                         <ActivityGrowth/>
                     </div> */}
-                    <div className='bg-[#fff] shadow-2xl w-full py-[25px] rounded-[12px] px-[30px] mt-[2rem]'>
+                    <div className='bg-[#fff] shadow-2xl w-full py-[25px] rounded-[12px] lg:px-[30px] xs:px-[15px] mt-[2rem]'>
                         <div className='flex items-center justify-between'>
-                            <h2 className='text-[#303030] text-[20px] font-bold font-Mulish leading-[25px]'>Upcoming Appointment</h2>
-                            <h3 className='text-[#383838] text-[12px] font-bold font-Mulish leading-[15px] bg-[#D0FBFF] w-[111px] p-2 text-center rounded-[8px]'>August 14, 2021</h3>
-                            <h2 className='text-[16px] font-normal text-[#383838] font-Mulish leading-[20px]'>Consultation with Dr. James</h2>
+                            <h2 className='text-[#303030] lg:text-[20px] xs:text-[14px] font-bold font-Mulish leading-[25px]'>Upcoming Appointment</h2>
+                            <h3 className='text-[#383838] lg:text-[12px] xs:text-[10px] font-bold font-Mulish leading-[15px] bg-[#D0FBFF] lg:w-[111px] lg:p-2 xs:p-1 text-center rounded-[8px]'>August 14, 2021</h3>
+                            <h2 className='lg:text-[16px] xs:text-[12px] font-normal text-[#383838] font-Mulish leading-[20px] lg:ms-0 xs:ms-5'>Consultation with Dr. James</h2>
                         </div>
                     </div>
                 </div>
-                <div className='bg-[#303030] w-[480px] rounded-l-[30px] py-[20px] px-[20px]'>
+                {
+                    showBmi && (
+                <div className='lg:hidden xs:block'>
+                    <BmiCalculator setShowBmi={setShowBmi} />
+                </div>
+                 )
+                }
+                        <div className='bg-[#303030] w-[480px] rounded-l-[30px] py-[20px] px-[20px] lg:block xs:hidden'>
                     <div className='flex items-center justify-between'>
                         <h1 className='text-[20px] font-normal font-Mulish text-[#fff]'>BMI Calculator</h1>
                         <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
@@ -146,6 +156,7 @@ const PatientDashboard = () => {
                             </div>
                         </div>
                 </div>
+                   
             </div>
         </div>
     </div>
