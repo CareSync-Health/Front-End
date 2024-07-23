@@ -28,7 +28,7 @@ const SecuritySetting = () => {
     
           <div className='mt-[3.5rem]'>
             <h1 className='text-[25px] font-Nunito font-bold leading-[10px]'>2-Step verification</h1>
-            <h2 className='mt-[3rem] lg:text-[19px] xs:text-[17px] font-Nunito font-medium lg:leading-[3rem]'>2-Step Verification ensures that all sensitive transaction are authorized</h2>
+            <h2 className='mt-[3rem] lg:text-[19px] xs:text-[17px] font-Nunito font-medium lg:leading-[3rem]'>2-Step Verification ensures that all sensitive transaction are authorized by you.</h2>
           </div>
 
           <div className='flex justify-between items-center border border-gray-400 py-[15px] lg:px-4 xs:px-2 rounded-lg mt-[3rem] mb-[3rem]'>

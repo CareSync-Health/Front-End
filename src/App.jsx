@@ -41,8 +41,8 @@ const PatientCalendar = lazy(() => import('./Patient Dashboard/Calendar/PatientC
 const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientSettings'));
 
 function App() {
-  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorSignin.doctor);
-  const patient = useSelector((state) => state.patientAuth.patient || state.patientSignin.patient);
+  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const patient = useSelector((state) => state.patientAuth.patient);
 
   return (
     <ThemeProvider>

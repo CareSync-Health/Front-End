@@ -320,7 +320,7 @@ const Verification = () => {
                 </p>
                 <div>
                   <div className='mt-[1.5rem]'>
-                    <h2 className='text-[15px] font-Nunito font-medium'>upload license</h2>
+                    <h2 className='text-[15px] font-Nunito font-medium'>upload ID</h2>
                     <label className='block bg-[#7ceafd] text-[#fff] text-[15px] font-Nunito font-bold px-3 py-[15px] mt-2 rounded-[8px] w-full text-center cursor-pointer'>
                       <input
                         type="file"
@@ -331,7 +331,7 @@ const Verification = () => {
                         {selectedFile2 ? selectedFile2 : 'Tap to upload documents'}
                       </span>
                     </label>
-                    <p className='mt-1 ms-1 text-[13px] text-red-600 font-Nunito font-medium'>NIN, Driver license, International Passport</p>
+                    <p className='mt-1 ms-1 text-[13px] text-red-600 font-Nunito font-medium'>NIN, Driver's license, International Passport</p>
                   </div>
                 </div>
               </div>

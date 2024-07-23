@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-// import Sidebar from '../Components/Sidebar'
 import avatar from '../../assets/av.jpeg'
 import { useSelector } from 'react-redux';
 
 const PatientProfile = () => {
-  const patient = useSelector((state) => state.patientAuth.patient || state.patientSignin.patient);
+  const patient = useSelector((state) => state.patientAuth.patient);
 
 
   const [email, setEmail] = useState("")
@@ -13,8 +12,7 @@ const PatientProfile = () => {
   const [time, setTime] = useState("")
 
   return (
-    <div className=''>
-      {/* <Sidebar /> */}
+    <div className='mt-[5rem]'>
       <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <section className='md:px-7 px-4'>
           <div className='flex justify-between flex-wrap items-center'>

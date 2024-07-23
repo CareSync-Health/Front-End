@@ -11,7 +11,7 @@ const Navbar = () => {
   // const [searchPageOpen, setSearchPageOpen] = useState(false);
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [detailedSearchOpen, setDetailedSearchOpen] = useState(false);
-  const patient = useSelector((state) => state.patientAuth.patient || state.patientSignin.patient);
+  const patient = useSelector((state) => state.patientAuth.patient);
 
 
   return (

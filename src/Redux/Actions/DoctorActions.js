@@ -62,8 +62,8 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 		toast.success(data.message, {
 			position: 'top-right',
 		});
+		console.log('VerifyOtp Data', data)
 		navigate('/doctor_dashboard');
-
 	  } else {
 		throw new Error(data.message);
 	  }
