@@ -16,6 +16,8 @@ const Signup2 = lazy(() => import('./Landing Page/Auth/Doctor/Signup'));
 const Contact = lazy(() => import('./Landing Page/Contact/Contact'));
 const VerifyAccount = lazy(() => import('./Landing Page/Auth/Patient/VerifyAccount'));
 const VerifyAccount2 = lazy(() => import('./Landing Page/Auth/Doctor/VerifyAccount'));
+const Terms_Conditions = lazy(() => import('./Components/Terms_Conditions'));
+const Privacy_Policy = lazy(() => import('./Components/Privacy_Policy'));
 
 // DOCTOR IMPORTS
 const DoctorDashboard = lazy(() => import('./Doctor Dashboard/DoctorDashboard'));
@@ -26,9 +28,9 @@ const DoctorPatientPages = lazy(() => import('./Doctor Dashboard/PatientPages'))
 const DoctorProfile = lazy(() => import('./Doctor Dashboard/Profile/DcotorProfile'));
 const EditDoctorProfile = lazy(() => import('./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile'))
 const DoctorPayment = lazy(() => import('./Doctor Dashboard/Payment/Payment'));
-const DoctorWithdraw = lazy(() => import('./Doctor Dashboard/Payment/WithdrawBalance'))
+const DoctorWithdraw = lazy(() => import('./Doctor Dashboard/Payment/WithdrawBalance'));
 const DoctorSetting = lazy(() => import('./Doctor Dashboard/Settings/SettingPage'));
-const Verification = lazy(() => import('./Doctor Dashboard/VerifyAccount/Verification'))
+const Verification = lazy(() => import('./Doctor Dashboard/VerifyAccount/Verification'));
 const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti'));
 
 // PATIENT IMPORTS
@@ -71,6 +73,8 @@ function App() {
             <Route path='doctorSignup' element={<Signup2 />} />
             <Route path='patient_verify_otp' element={<VerifyAccount />} />
             <Route path='doctor_verify_otp' element={<VerifyAccount2 />} />
+            <Route path='terms&conditions' element={ <Terms_Conditions /> } />
+            <Route path='privacy_policy' element={ <Privacy_Policy /> } />
 
 
             {/* DOCTOR ROUTE */}
