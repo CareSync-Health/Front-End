@@ -1,8 +1,11 @@
-// import React from "react";
-import { Routes, Route } from "react-router-dom";
+// import React from 'react'
 import Sidebar from "../Components/Sidebar";
+import { Routes, Route } from "react-router-dom";
+import PatientPayment from "./PatientPayment";
+import PatientProfile from "./PatientProfile";
+import PatientSecurity from "./PatientSecurity";
+import Navbar2 from "./Navbar";
 import Navbar from "../Components/Navbar";
-import Navbar2 from "./Navbar2";
 import BMICalculatorSettings from "./BMICalculatorSettings";
 
 const PatientSettings = () => {
@@ -15,13 +18,15 @@ const PatientSettings = () => {
       >
         <Navbar />
         <Navbar2 />
-        <div className="md:px-[30px] lg:px-[30px] xs:px-2 mb-5 select-none">
+        <div>
           <Routes>
+            <Route path="patient_profile" element={<PatientProfile />} />
+            <Route path="patient_payment" element={<PatientPayment />} />
+            <Route path="patient_security" element={<PatientSecurity />} />
             <Route
               path="/bmi_calculator_setting"
               element={<BMICalculatorSettings />}
             />
-            {/* Add other routes as needed */}
           </Routes>
         </div>
       </div>

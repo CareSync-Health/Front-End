@@ -1,12 +1,10 @@
 import React from 'react'
-import { useTheme } from '../Components/ThemeContext'
 
-const SecuritySetting = () => {
-  const { theme, appearance } =  useTheme();
+const PatientSecurity = () => {
 
   return (
     <div>
-         <div className={`${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+         <div className='px-[30px] mt-[5rem]'>
           <div className='mt-[3rem]'>
             <h1 className='text-[25px] font-Nunito font-bold leading-[10px]'>Authorization</h1>
             <p className='mt-[2rem] lg:text-[19px] xs:text-[17px] font-Nunito font-medium lg:leading-[40px]'>Information for login in to your Caresync account</p>
@@ -43,4 +41,4 @@ const SecuritySetting = () => {
   )
 }
 
-export default SecuritySetting
+export default PatientSecurity

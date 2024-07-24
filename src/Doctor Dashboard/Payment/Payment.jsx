@@ -27,7 +27,7 @@ const Payment = () => {
                     <h2 className='text-[32px] font-Inter font-bold mt-[0.5rem]'>$0.00</h2>
                     <h3 className='text-[14px] font-Lato font-medium leading-[20px]'>Withdrawn to date:</h3>
                     <h3 className='text-[14px] font-Lato font-medium leading-[20px]'>$0.00</h3>
-                    <button className={`w-[264px] py-[10px] px-[10px] rounded-[10px] text-[#fff] text-[18px] font-Inter font-medium text-center mt-[3.2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#A9A9A9]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Withdraw balance</button>
+                    <button className={`w-[264px] py-[10px] px-[10px] rounded-[10px] text-[#fff] text-[18px] font-Inter font-medium text-center mt-[3.2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#A9A9A9]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}> <Link to='/doctor_payment_withdraw'>Withdraw balance</Link></button>
                     <h3 className='text-[#17B978] text-[15px] font-Inter font-medium text-start mt-[1rem]'><Link to='' className='underline'>Manage Payout Methods</Link></h3>
                 </div>
                 <div className='border-[1px] border-solid border-[#C7C7C7] lg:w-[315px] xs:w-full rounded-[10px] p-[15px] lg:mt-0 xs:mt-[2rem]'>

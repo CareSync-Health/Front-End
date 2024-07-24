@@ -15,12 +15,21 @@ const persistConfig = {
   whitelist: ["patientAuth", "doctorAuth"]
 };
 
+const doctorFromStorage = localStorage.getItem('doctor')
+  ? JSON.parse(localStorage.getItem('doctor'))
+  : null;
+
+const initialState = {
+  doctorLogin: { doctor: doctorFromStorage },
+};
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleware = [thunk];
 
 const configStore = () => {
   return createStore(
     persistedReducer,
+    initialState,
     composeWithDevTools(applyMiddleware(...middleware, logger))
   );
 };

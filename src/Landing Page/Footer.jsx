@@ -28,8 +28,8 @@ const Footer = () => {
         <div>
             <h1 className='text-[#fff] text-[22px] font-Inter font-bold mt-[2rem]'>OUR COMPANY</h1>
             <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[2rem]'>Blog</h2>
-            <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'>Privacy Policy</h2>
-            <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'>Terms & Conditions</h2>
+            <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'><Link to='/privacy_policy'>Privacy Policy</Link></h2>            
+            <h2 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'><Link to='/terms&conditions'>Terms & Conditions</Link></h2>            
             <div className='lg:hidden mt-[1rem]'>
                 <h3 className='text-[#fff] text-[16px] font-Poppins font-normal'><Link to='/about'>About-Us</Link></h3>
                 <h3 className='text-[#fff] text-[16px] font-Poppins font-normal mt-[1rem]'><Link to='/contact'>Contact-Us</Link></h3>

@@ -8,7 +8,7 @@ import { loadDoctor } from '../../Redux/Actions/DoctorActions';
 import { useTheme } from '../Components/ThemeContext';
 
 const Conversation = ({ data, currentDoctor, online, messages }) => {
-    const { theme, appearance } = useTheme()
+    const { theme, appearance } = useTheme();
 
   const dispatch = useDispatch();
   const [doctor, setDoctor] = useState(null);
@@ -48,7 +48,7 @@ const Conversation = ({ data, currentDoctor, online, messages }) => {
         <div className='flex items-center gap-[10px] mt-[1rem] cursor-pointer'>
             <img src={Ellipse} alt="doctor" />
             <div>
-            <h1 className='text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstname} {doctor?.lastname}</h1>
+            <h1 className='text-[14px] leading-[20px] font-normal font-Nunito'>{doctor?.firstName} {doctor?.lastName}</h1>
             <div className='flex items-center gap-[10px] mt-[4px]'>
                 <h2 className='text-[13px] text-red-500 leading-[16px] font-normal font-Nunito'>
                             {messages.map((message) => (

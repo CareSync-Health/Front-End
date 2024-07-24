@@ -7,38 +7,62 @@ import { authHeader, header } from "../Header";
 const url = config.liveUrl;
 
 export const doctor_register = (body, navigate) => async (dispatch) => {
-  try {
-    dispatch({ type: types.DOCTOR_AUTH_REQUEST });
-
-    const { data } = await axios.post(`${url}/doctor/`, body, header);
-    if (data.status === 'OK') {
-      dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
-      	toast.success(data.message, {
-			position: 'top-right',
-		})
-      	navigate('/congratulation');
-    } else {
-      throw new Error(data.message);
-    }
-  } catch (error) {
-    const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-    toast.error(message, {
+	try {
+	  dispatch({ type: types.DOCTOR_AUTH_REQUEST });
+  
+	  const { data } = await axios.post(`${url}/doctor/Signup`, body, header); // Assuming the endpoint is /doctor/register
+	  if (data) {
+		dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
+		toast.success(data.message, {
+		  position: 'top-right',
+		});
+		console.log('Signup Data', data)
+		navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
+	  } else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+		toast.error(message);
+		dispatch({ type: types.DOCTOR_AUTH_FAIL, payload: message });
+	  }
+  };
+  
+  export const verify_otp = (otp, navigate) => async (dispatch) => {
+	try {
+	  dispatch({ type: types.VERIFY_OTP_REQUEST });
+  
+	  const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
+	  if (data) {
+		dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
+		toast.success(data.message, {
+		  position: 'top-right',
+		});
+		console.log('VerifyOtp Data', data)
+		navigate('/congratulation'); // Navigate to the dashboard page
+	  } else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+	  toast.error(message, {
 		position: 'top-right',
-	});
-    dispatch({ type: types.DOCTOR_AUTH_FAIL, payload: message });
-  }
-};
+	  });
+	  dispatch({ type: types.VERIFY_OTP_FAIL, payload: message });
+	}
+  };
 
 export const doctor_login = (body, navigate) => async (dispatch) => {
 	try {
 	  dispatch({ type: types.DOCTOR_SIGNIN_REQUEST });
   
-	  const { data } = await axios.post(`${url}/doctor/doctor-signin`, body, header);
+	  const { data } = await axios.post(`${url}/doctor/Signin`, body, header);
 	  if (data.status === 'Ok') {
 		dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data });
 		toast.success(data.message, {
 			position: 'top-right',
 		});
+		console.log('VerifyOtp Data', data)
 		navigate('/doctor_dashboard');
 	  } else {
 		throw new Error(data.message);
@@ -69,16 +93,19 @@ export const loadDoctor = (id) => async (dispatch, getState) => {
 		  }
 	  };
   
-	  const res = await axios.get(`${url}/doctor/${id}`, config);
+	  const {data} = await axios.get(`${url}/doctor/${id}`, config);
   
-	  dispatch({
-		type: types.LOAD_DOCTOR_SUCCESS,
-		payload: res.data
-	  });
-  
-	  return res.data;
-	} catch (err) {
-	  console.error(err);
+	  if(data){
+		dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data });
+		dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
+		dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data });
+
+		return data.data;
+	  }  else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  console.error(error);
 	  dispatch({
 		type: types.LOAD_DOCTOR_FAIL
 	  });

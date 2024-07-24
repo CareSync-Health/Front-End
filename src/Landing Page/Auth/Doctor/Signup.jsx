@@ -6,10 +6,11 @@ import logo from '../../../assets/logo.png';
 import { useDispatch } from 'react-redux';
 import { doctor_register } from '../../../Redux/Actions/DoctorActions';
 import { ClipLoader } from 'react-spinners';
+import { config } from '../../../Redux/Config';
 
 const Signup = () => {
-  const [lastname, setLastName] = useState('');
-  const [firstname, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,16 +21,23 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const body = { firstname, lastname, email, password };
+    const body = { firstName, lastName, email, password };
 
     try {
       await dispatch(doctor_register(body, navigate));
+      // navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
     } catch (error) {
       console.log(error) 
     } finally {
       setLoading(false);
     }
   };
+
+  const url = config.liveUrl;
+
+  const handleGoogleSignup = () => {
+    window.open(`${url}/doctor/google`, '_self');
+  }
 
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='lg:px-[50px] py-[40px]'>
@@ -44,9 +52,9 @@ const Signup = () => {
           <h1 className='text-[30px] leading-[39.99px] font-[700] text-center'>Sign Up</h1>
           <form onSubmit={submitHandler}>
             <label className='text-[#000] text-[17px] font-[600] mt-3'>First Name</label><br />
-            <input value={firstname} onChange={(e) => setFirstName(e.target.value)} type="text" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[40%] bg-transparent text-[#000] text-[17px] mb-[1rem]' required disabled={loading} />
+            <input value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[40%] bg-transparent text-[#000] text-[17px] mb-[1rem]' required disabled={loading} />
             <label className='text-[#000] text-[17px] font-[600]'>Last Name</label><br />
-            <input value={lastname} onChange={(e) => setLastName(e.target.value)} type="text" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[40%] bg-transparent text-[#000] text-[17px] mb-[1rem]' required disabled={loading} />
+            <input value={lastName} onChange={(e) => setLastName(e.target.value)} type="text" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[40%] bg-transparent text-[#000] text-[17px] mb-[1rem]' required disabled={loading} />
             <label className='text-[#000] text-[17px] font-[600]'>Email</label><br />
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className='lg:w-[456px] xs:w-full px-[10px] py-[10px] mt-[10px] rounded-[8px] border-[0.5px] opacity-[40%] bg-transparent text-[#000] text-[17px] mb-[1rem]' required disabled={loading} />
             <label className='text-[#000] text-[17px] font-[600]'>Password</label><br />
@@ -65,7 +73,7 @@ const Signup = () => {
                 <hr className="w-2/5 mt-3" />
               </div>
             </center>
-            <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[120px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto">
+            <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[120px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto cursor-pointer" onClick={handleGoogleSignup}>
               <img src={img2} alt="google-icon" className="w-6" />
               <h6 className='text-[18px] font-medium font-Inter'>Sign up with Google</h6>
             </div>

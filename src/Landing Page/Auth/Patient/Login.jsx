@@ -27,7 +27,9 @@ const Login = () => {
     try {
       await dispatch(patient_login(body, navigate));
     } catch (error) {
-      // Handle login error
+      console.log(error)
+    } finally {
+      setLoading(false);
     }
   };
 
