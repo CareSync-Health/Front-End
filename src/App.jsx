@@ -1,10 +1,10 @@
 // App.js
-import React, { Suspense, lazy } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import React, { Suspense, lazy } from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import ErrorBoundary from './Components/ErrorBoundary';
-import { ThemeProvider } from './Doctor Dashboard/Components/ThemeContext';
-import { useSelector } from 'react-redux';
+import ErrorBoundary from "./Components/ErrorBoundary";
+import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
+import { useSelector } from "react-redux";
 
 const Homepage = lazy(() => import('./Landing Page/HomePage/Homepage'));
 const About = lazy(() => import('./Landing Page/About/About'));
@@ -34,11 +34,11 @@ const Verification = lazy(() => import('./Doctor Dashboard/VerifyAccount/Verific
 const Confetti = lazy(() => import('./Doctor Dashboard/Components/Confetti'));
 
 // PATIENT IMPORTS
-const PatientDashboard = lazy(() => import('./Patient Dashboard/Dashboard/PatientDashboard'));
-const PatientAppointments = lazy(() => import('./Patient Dashboard/Appointments/Appointments'));
-const PatientMessage = lazy(() => import('./Patient Dashboard/Message/PatientMessage'));
-const PatientCalendar = lazy(() => import('./Patient Dashboard/Calendar/PatientCalendar'));
-const PatientSettings = lazy(() => import('./Patient Dashboard/Settings/PatientSettings'));
+const PatientDashboard = lazy(() => import("./Patient Dashboard/Dashboard/PatientDashboard"));
+const PatientAppointments = lazy(() => import("./Patient Dashboard/Appointments/Appointments"));
+const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
+const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
+const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
 
 function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor);
@@ -49,12 +49,18 @@ function App() {
       <ErrorBoundary>
         <Suspense
           fallback={
-            <div id="preloader-active" className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+            <div
+              id="preloader-active"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-white"
+            >
               <div className="preloader flex items-center justify-center">
                 <div className="preloader-inner relative">
                   <div className="superballs flex space-x-2">
                     <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
-                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
+                    <div
+                      className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"
+                      style={{ animationDelay: "0.5s" }}
+                    ></div>
                     <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
                   </div>
                 </div>
