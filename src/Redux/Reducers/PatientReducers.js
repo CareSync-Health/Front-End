@@ -13,8 +13,8 @@ export const patientAuthReducer = (state = {}, action) => {
 			return { ...state, loading: false, error: action.payload, message: action.message }
 		case types.PATIENT_AUTH_LOGOUT:
 			return { ...state, patient: null }
-	    case types.CLEAR_ERRORS:
-            return { ...state, error: null };
+		case types.CLEAR_ERRORS:
+			return { ...state, error: null };
 		default:
 			return state
 	}
@@ -22,16 +22,29 @@ export const patientAuthReducer = (state = {}, action) => {
 
 export const patientVerifyOtpReducer = (state = {}, action) => {
 	switch (action.type) {
-	  case types.VERIFY_OTP_REQUEST:
-		return { ...state, loading: true };
-	  case types.VERIFY_OTP_SUCCESS:
-		return { ...state, loading: false, success: true, patient: action.payload };
-	  case types.VERIFY_OTP_FAIL:
-		return { ...state, loading: false, error: action.payload };
-	  default:
-		return state;
+		case types.VERIFY_OTP_REQUEST:
+			return { ...state, loading: true };
+		case types.VERIFY_OTP_SUCCESS:
+			return { ...state, loading: false, success: true, patient: action.payload };
+		case types.VERIFY_OTP_FAIL:
+			return { ...state, loading: false, error: action.payload };
+		default:
+			return state;
 	}
-  };
+};
+
+export const appointmentReducer = (state = [], action) => {
+	switch (action.type) {
+		case types.FETCH_APPOINTMENTS_REQUEST:
+			return { ...state, loading: true, };
+		case types.FETCH_APPOINTMENTS_SUCCESS:
+			return { ...state, loading: false, appointments: action.payload, };
+		case types.FETCH_APPOINTMENTS_FAILURE:
+			return { ...state, loading: false, error: action.error, };
+		default:
+			return state;
+	}
+};
 
 // export const patientSigninReducer = (state = {}, action) => {
 // 	switch (action.type) {

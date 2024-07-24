@@ -33,7 +33,7 @@ export const patient_register = (body, navigate) => async (dispatch) => {
 	try {
 	  dispatch({ type: types.VERIFY_OTP_REQUEST });
   
-	  const { data } = await axios.post(`${url}/patient/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
+	  const { data } = await axios.post(`${url}/patient/Verifyotp`, { otp }, header);
 	  if (data) {
 		dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
 		toast.success(data.message, {
@@ -81,3 +81,18 @@ export const patient_logout = (navigate) => (dispatch) => {
 	toast.success("Logged out successfully");
 	navigate('/patientAuth');
 }; 
+
+
+// APPOINTMENT
+export const fetchAppointments = () => {
+	return async (dispatch) => {
+	  dispatch({ type: types.FETCH_APPOINTMENTS_REQUEST });
+	  try {
+		const response = await fetch(`${url}/appointments`);
+		const data = await response.json();
+		dispatch({ type: types.FETCH_APPOINTMENTS_SUCCESS, payload: data });
+	  } catch (error) {
+		dispatch({ type: types.FETCH_APPOINTMENTS_FAILURE, error });
+	  }
+	};
+  };
