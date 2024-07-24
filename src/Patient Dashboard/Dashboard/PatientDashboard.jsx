@@ -58,7 +58,7 @@ const PatientDashboard = () => {
                             <h2 className='bg-[#FBF0F3] text-center w-[58px] py-[3px] px-[5px] rounded-[4px] text-[12px] font-medium text-[#000] font-Mulish mt-[0.5rem]'>Normal</h2>
                             <img src={group2} className='w-full' />
                         </div>
-                        <div className='bg-[#fff] lg:w-[231px] xs:w-full shadow-lg p-5 mt-[2rem] rounded-[10px]'>
+                        <div className='bg-[#fff] lg:w-[231px] xs:w-full shadow-lg p-5 mt-[2rem] rounded-[10px] pb-[4rem]'>
                             <span className='flex items-center gap-[15px]'>
                                 <img src={bloodpressure} />
                                 <h2 className='text-[#000] text-[16px] font-medium font-Mulish'>Blood Pressure</h2>
