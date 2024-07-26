@@ -10,7 +10,7 @@ const VerifyAccount = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((state) => state.doctorVerifyOtp.doctor); // assuming state name
+  const { loading } = useSelector((state) => state.doctorVerifyOtp); // assuming state name
   const { email } = useSelector((state) => state.doctorAuth.doctor); // assuming state.auth contains the logged in user email
 
   useEffect(() => {
