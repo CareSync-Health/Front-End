@@ -53,6 +53,27 @@ export const patient_register = (body, navigate) => async (dispatch) => {
 	}
   };
 
+  export const resend_otp = (email) => async (dispatch) => {
+	try {
+	  dispatch({ type: types.RESEND_OTP_REQUEST });
+  
+	  const { data } = await axios.post(`${url}/patient/resend-otp`, { email }, header);
+	  if (data) {
+		dispatch({ type: types.RESEND_OTP_SUCCESS });
+		toast.success(data.message, {
+		  position: 'top-right',
+		});
+	  } else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+	  toast.error(message, {
+		position: 'top-right',
+	  });
+	  dispatch({ type: types.RESEND_OTP_FAIL, payload: message });
+	}
+  };
 
   export const patient_login = (body, navigate) => async (dispatch) => {
 	try {
