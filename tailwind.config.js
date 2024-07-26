@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 /* eslint-disable max-len */
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: [
     "./index.html",
@@ -12,22 +12,22 @@ module.exports = {
       xml: "412px",
       // => @media (min-width: 412px) { ... }
 
-      xs: '360px',
+      xs: "360px",
       // => @media (min-width: 350px) { ... }
 
-      sm: '640px',
+      sm: "640px",
       // => @media (min-width: 640px) { ... }
 
-      md: '768px',
+      md: "768px",
       // => @media (min-width: 768px) { ... }
 
-      lg: '1024px',
+      lg: "1024px",
       // => @media (min-width: 1024px) { ... }
 
-      xl: '1280px',
+      xl: "1280px",
       // => @media (min-width: 1280px) { ... }
 
-      "2xl": '1536px',
+      "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
     },
     transparent: "transparent",
@@ -98,12 +98,16 @@ module.exports = {
       boxShadow: {
         // light
         "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "tremor-card":
+          "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "tremor-dropdown":
+          "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
         // dark
         "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "dark-tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "dark-tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "dark-tremor-card":
+          "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "dark-tremor-dropdown":
+          "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
       },
       borderRadius: {
         "tremor-small": "0.375rem",
@@ -111,14 +115,14 @@ module.exports = {
         "tremor-full": "9999px",
       },
       fontFamily: {
-        Roboto: ['Roboto', 'sans-serif'],
-        Inter: ['Inter', 'sans-serif'],
-        Poppins: ['Poppins', 'sans-serif'],
-        Almarai: ['Almarai', 'sans-serif'],
-        Yesteryear: ['Yesteryear', 'cursive'],
-        Volkhov: ['Volkhov', 'serif'],
-        Nunito: ['Nunito', 'sans-serif'],
-        Mulish: ['Mulish', 'sans-serif']
+        Roboto: ["Roboto", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
+        Poppins: ["Poppins", "sans-serif"],
+        Almarai: ["Almarai", "sans-serif"],
+        Yesteryear: ["Yesteryear", "cursive"],
+        Volkhov: ["Volkhov", "serif"],
+        Nunito: ["Nunito", "sans-serif"],
+        Mulish: ["Mulish", "sans-serif"],
       },
       fontSize: {
         "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
@@ -127,32 +131,59 @@ module.exports = {
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       keyframes: {
-        'popup-bounce-to-top': {
-          '0%': { transform: 'translateY(500px)', opacity: '0', 'animation-timing-function': 'ease-in' },
-          '38%': { transform: 'translateY(0)', opacity: '1', 'animation-timing-function': 'ease-out' },
-          '55%': { transform: 'translateY(65px)', 'animation-timing-function': 'ease-in' },
-          '72%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
-          '81%': { transform: 'translateY(28px)', 'animation-timing-function': 'ease-in' },
-          '90%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
-          '95%': { transform: 'translateY(8px)', 'animation-timing-function': 'ease-in' },
-          '100%': { transform: 'translateY(0)', 'animation-timing-function': 'ease-out' },
-        },
-        'gb-popup-slide-zoom-left': {
-          '0%': {
-            opacity: '0',
-            transformOrigin: '100% 50%',
-            transform: 'scale(0.2) translate(200%, 0%)',
+        "popup-bounce-to-top": {
+          "0%": {
+            transform: "translateY(500px)",
+            opacity: "0",
+            "animation-timing-function": "ease-in",
           },
-          '100%': {
-            opacity: '1',
-            transformOrigin: '100% 50%',
-            transform: 'scale(1) translate(0%, 0%)',
+          "38%": {
+            transform: "translateY(0)",
+            opacity: "1",
+            "animation-timing-function": "ease-out",
+          },
+          "55%": {
+            transform: "translateY(65px)",
+            "animation-timing-function": "ease-in",
+          },
+          "72%": {
+            transform: "translateY(0)",
+            "animation-timing-function": "ease-out",
+          },
+          "81%": {
+            transform: "translateY(28px)",
+            "animation-timing-function": "ease-in",
+          },
+          "90%": {
+            transform: "translateY(0)",
+            "animation-timing-function": "ease-out",
+          },
+          "95%": {
+            transform: "translateY(8px)",
+            "animation-timing-function": "ease-in",
+          },
+          "100%": {
+            transform: "translateY(0)",
+            "animation-timing-function": "ease-out",
+          },
+        },
+        "gb-popup-slide-zoom-left": {
+          "0%": {
+            opacity: "0",
+            transformOrigin: "100% 50%",
+            transform: "scale(0.2) translate(200%, 0%)",
+          },
+          "100%": {
+            opacity: "1",
+            transformOrigin: "100% 50%",
+            transform: "scale(1) translate(0%, 0%)",
           },
         },
       },
       animation: {
-        'popup-bounce-to-top': 'popup-bounce-to-top 1.1s both',
-        'gb-popup-slide-zoom-left': 'gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)',
+        "popup-bounce-to-top": "popup-bounce-to-top 1.1s both",
+        "gb-popup-slide-zoom-left":
+          "gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
       },
     },
   },
