@@ -52,7 +52,7 @@ const VerifyAccount = () => {
   }
 
   return (
-    <div className='bg-[#E2F3F5] w-full pb-4 lg:px-5'>
+    <div className='bg-[#E2F3F5] w-full h-screen pb-4 lg:px-5'>
       <img src={logo} className='lg:w-[253px] xs:w-[200px]' />
       <div className='lg:px-12 xs:px-4 lg:flex gap-32'>
         <div className='lg:w-1/2'>

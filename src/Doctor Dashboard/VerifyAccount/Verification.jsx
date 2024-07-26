@@ -11,7 +11,7 @@ const Verification = () => {
   const [showVideo, setShowVideo] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
   const [title, setTitle] = useState('');
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [profession, setProfession] = useState('');
   const [areaOfSpecialization, setAreaOfSpecialization] = useState('');
@@ -20,8 +20,8 @@ const Verification = () => {
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
   const [licenseType, setLicenseType] = useState('');
-  const [licenseYear, setLicenseYear] = useState(0);
-  const [licenseNumber, setLicenseNumber] = useState(0);
+  const [licenseYear, setLicenseYear] = useState('');
+  const [licenseNumber, setLicenseNumber] = useState('');
   const [licenseState, setLicenseState] = useState('');
   const [licenseFile, setLicenseFile] = useState(null);
   const [idFile, setIdFile] = useState(null);
