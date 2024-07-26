@@ -39,7 +39,7 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 		  position: 'top-right',
 		});
 		console.log('VerifyOtp Data', data)
-		navigate('/congratulation'); // Navigate to the dashboard page
+		navigate('/verification_process'); // Navigate to the dashboard page
 	  } else {
 		throw new Error(data.message);
 	  }
@@ -49,6 +49,28 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 		position: 'top-right',
 	  });
 	  dispatch({ type: types.VERIFY_OTP_FAIL, payload: message });
+	}
+  };
+
+  export const resend_otp = (email) => async (dispatch) => {
+	try {
+	  dispatch({ type: types.RESEND_OTP_REQUEST });
+  
+	  const { data } = await axios.post(`${url}/doctor/resend-otp`, { email }, header);
+	  if (data) {
+		dispatch({ type: types.RESEND_OTP_SUCCESS });
+		toast.success(data.message, {
+		  position: 'top-right',
+		});
+	  } else {
+		throw new Error(data.message);
+	  }
+	} catch (error) {
+	  const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+	  toast.error(message, {
+		position: 'top-right',
+	  });
+	  dispatch({ type: types.RESEND_OTP_FAIL, payload: message });
 	}
   };
 

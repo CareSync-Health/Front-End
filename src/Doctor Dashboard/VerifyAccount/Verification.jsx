@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import verifyVideo from '../../assets/verify-video.mp4';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select'
 import { Country, State, City } from 'country-state-city';
+import { useNavigate } from 'react-router-dom';
 
 const Verification = () => {
-  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
 
   const [showVideo, setShowVideo] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedCountry2, setSelectedCountry2] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFile2, setSelectedFile2] = useState(null);
+  const [title, setTitle] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [profession, setProfession] = useState('');
+  const [areaOfSpecialization, setAreaOfSpecialization] = useState('');
+  const [country, setCountry] = useState(null);
+  const [licenseCountry, setLicenseCountry] = useState(null);
+  const [state, setState] = useState(null);
+  const [city, setCity] = useState(null);
+  const [licenseType, setLicenseType] = useState('');
+  const [licenseYear, setLicenseYear] = useState('');
+  const [licenseNumber, setLicenseNumber] = useState('');
+  const [licenseState, setLicenseState] = useState('');
+  const [licenseFile, setLicenseFile] = useState(null);
+  const [idFile, setIdFile] = useState(null);
 
 
   useEffect(() => {
@@ -47,72 +57,87 @@ const Verification = () => {
     label: country.name,
   }));
 
-  const states = selectedCountry
-    ? State.getStatesOfCountry(selectedCountry.value).map((state) => ({
+  const states = country
+    ? State.getStatesOfCountry(country.value).map((state) => ({
       value: state.isoCode,
       label: state.name,
     }))
     : [];
 
-  const cities = selectedState
-    ? City.getCitiesOfState(selectedCountry.value, selectedState.value).map((city) => ({
+  const cities = state
+    ? City.getCitiesOfState(country.value, state.value).map((city) => ({
       value: city.name,
       label: city.name,
     }))
     : [];
 
   const handleCountryChange = (country) => {
-    setSelectedCountry(country);
-    setSelectedState(null);
-    setSelectedCity(null);
+    setCountry(country);
+    setState(null);
+    setCity(null);
   };
   const handleCountryChange2 = (country) => {
-    setSelectedCountry2(country);
+    setLicenseCountry(country);
   };
 
   const handleStateChange = (state) => {
-    setSelectedState(state);
-    setSelectedCity(null);
+    setState(state);
+    setCity(null);
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file.name);
+      setLicenseFile(file.name);
     } else {
-      setSelectedFile(null);
+      setLicenseFile(null);
     }
   };
   const handleFileChange2 = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile2(file.name);
+      setIdFile(file.name);
     } else {
-      setSelectedFile2(null);
+      setIdFile(null);
     }
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
 
-  //   const formData = {
-  //     title: event.target.title.value,
-  //     profession: event.target.profession.value,
-  //     country: selectedCountry?.label,
-  //     state: selectedState?.label,
-  //     city: selectedCity?.label,
-  //     areaOfSpecialization: event.target.areaOfSpecialization.value,
-  //     licenseType: event.target.licenseType.value,
-  //     year: event.target.year.value,
-  //     licenseNumber: event.target.licenseNumber.value,
-  //     country2: selectedCountry2?.label,
-  //     licenseState: event.target.licenseState.value,
-  //     licenseFile: selectedFile,
-  //     idFile: selectedFile2,
-  //   };
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  //   dispatch(submitVerificationForm(formData));
-  // };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.set("title", title)
+    formData.set("age", age)
+    formData.set("profession", profession)
+    formData.set("areaOfSpecialization", areaOfSpecialization)
+    formData.set("country", country)
+    formData.set("state", state)
+    formData.set("city", city)
+    formData.set("licenseType", licenseType)
+    formData.set("licenseYear", licenseYear)
+    formData.set("licenseNumber", licenseNumber)
+    formData.set("licenseCountry", licenseCountry)
+    formData.set("licenseState", licenseState)
+    formData.set("licenseFile", licenseFile)
+    formData.set("idFile", idFile)
+
+    // images.forEach(image => {
+    //     formData.append('images', image)
+    // })
+
+    if (formData) {
+      alert('success submitted');
+      console.log(formData);
+      navigate('/congratulation')
+    }
+
+    // dispatch(newProduct(formData))
+    // navigate('/doctor_dashboard')
+  };
 
   return (
     <div className='overflow-y-auto h-[100vh]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
@@ -127,7 +152,7 @@ const Verification = () => {
             <video src={verifyVideo} autoPlay muted className='h-screen' />
           </div>
         )}
-        <form className={`mb-[1.5rem] ${showVideo && isSmallScreen ? 'hidden' : 'block'}`}>
+        <form className={`mb-[1.5rem] ${showVideo && isSmallScreen ? 'hidden' : 'block'}`} onSubmit={handleSubmit}>
           <div className={`${showVideo && isSmallScreen ? 'hidden' : 'block'} shadow-2xl relative ${!isSmallScreen ? 'left-[22rem] w-[72vw]' : 'w-full px-4 py-8'} rounded-[20px] lg:mt-[1rem] py-3 pb-[5rem] lg:pt-[4rem] xs:pt-[2rem]`}>
             <div className={`${isSmallScreen ? 'w-full' : 'px-[4rem]'}`}>
               {/* PERSONAL INFORMATION */}
@@ -146,15 +171,73 @@ const Verification = () => {
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>title</h2>
-                  <input type='text' name='title' placeholder='Dr.' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none' required />
+                  <input
+                    type='text'
+                    placeholder='Dr.'
+                    className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>age</h2>
-                  <input type='text' name='age' placeholder='Age' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none' required />
+                  <input
+                    type='text'
+                    placeholder='Age'
+                    className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
+                    required
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <h2 className='text-[15px] font-Nunito font-medium'>gender</h2>
+                  {/* <input
+                    type='text'
+                    placeholder='Gender'
+                    className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
+                    required
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  /> */}
+                  <select 
+                    className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
+                    required
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                      <option>Select Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Other</option>
+                  </select>
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>profession</h2>
-                  <select type='text' className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none' required >
+                  <select
+                    className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
+                    required
+                    value={profession}
+                    onChange={(e) => setProfession(e.target.value)}
+                  >
+                    <option>Select Profession</option>
+                    <option>Dentist</option>
+                    <option>Care Giver</option>
+                    <option>Physoclogic</option>
+                    <option>Dentist</option>
+                  </select>
+                </div>
+                <div>
+                  <h2 className='text-[15px] font-Nunito font-medium'>area of specialization</h2>
+                  <select
+                    type='text'
+                    className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
+                    required
+                    value={areaOfSpecialization}
+                    onChange={(e) => setAreaOfSpecialization(e.target.value)}
+                  >
+                    <option>Select Area of Specialization</option>
                     <option>Dentist</option>
                     <option>Care Giver</option>
                     <option>Physoclogic</option>
@@ -163,35 +246,35 @@ const Verification = () => {
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
-                   <Select
-                  options={countries}
-                  value={selectedCountry}
-                  onChange={handleCountryChange}
-                  className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.4rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
-                  required
-                  styles={{
-                    control: (base) => ({
-                      ...base,
-                      backgroundColor: '#F7F9FC',
-                      border: 'none',
-                      boxShadow: 'none',
-                    }),
-                    indicatorSeparator: () => ({
-                      display: 'none',
-                    }),
-                    option: (base, state) => ({
-                      ...base,
-                      backgroundColor: state.isSelected ? '#E2E8F0' : '#F7F9FC',
-                      color: '#333',
-                    }),
-                  }}
-                />
+                  <Select
+                    options={countries}
+                    value={country}
+                    onChange={handleCountryChange}
+                    className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.4rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
+                    required
+                    styles={{
+                      control: (base) => ({
+                        ...base,
+                        backgroundColor: '#F7F9FC',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }),
+                      indicatorSeparator: () => ({
+                        display: 'none',
+                      }),
+                      option: (base, state) => ({
+                        ...base,
+                        backgroundColor: state.isSelected ? '#E2E8F0' : '#F7F9FC',
+                        color: '#333',
+                      }),
+                    }}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>state</h2>
                   <Select
                     options={states}
-                    value={selectedState}
+                    value={state}
                     onChange={handleStateChange}
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.4rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
@@ -217,8 +300,8 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>city</h2>
                   <Select
                     options={cities}
-                    value={selectedCity}
-                    onChange={(city) => setSelectedCity(city)}
+                    value={city}
+                    onChange={(city) => setCity(city)}
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
                     styles={{
@@ -250,7 +333,13 @@ const Verification = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-[1.5rem]'>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license type</h2>
-                    <select type='text' className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none' required >
+                    <select 
+                      type='text' 
+                      className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none' 
+                      required 
+                      value={licenseType}
+                      onChange={(e) => setLicenseType(e.target.value)}
+                    >
                       <option>Current State</option>
                       <option>Lagos</option>
                       <option>Anambra</option>
@@ -260,20 +349,34 @@ const Verification = () => {
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>year</h2>
-                    <input type='text' placeholder='Enter Year' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' required />
+                    <input 
+                      type='text' 
+                      placeholder='Enter Year' 
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
+                      required 
+                      value={licenseYear}
+                      onChange={(e) => setLicenseYear(e.target.value)}
+                    />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license number</h2>
-                    <input type='text' placeholder='Enter Number' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' required />
+                    <input 
+                      type='text' 
+                      placeholder='Enter Number' 
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
+                      required 
+                      value={licenseNumber}
+                      onChange={(e) => setLicenseNumber(e.target.value)}
+                    />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
                     <Select
                       options={countries2}
-                      value={selectedCountry2}
-                      onChange={handleCountryChange2} 
+                      value={licenseCountry}
+                      onChange={handleCountryChange2}
                       className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
-                      required 
+                      required
                       styles={{
                         control: (base) => ({
                           ...base,
@@ -294,7 +397,14 @@ const Verification = () => {
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license states / provinces (where applicable)</h2>
-                    <input type='text' placeholder='Enter State' className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' required />
+                    <input 
+                      type='text' 
+                      placeholder='Enter State' 
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
+                      required 
+                      value={licenseState}
+                      onChange={(e) => setLicenseState(e.target.value)}
+                    />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>upload license</h2>
@@ -305,7 +415,7 @@ const Verification = () => {
                         onChange={handleFileChange}
                       />
                       <span>
-                        {selectedFile ? selectedFile : 'Tap to upload documents'}
+                        {licenseFile ? licenseFile : 'Tap to upload documents'}
                       </span>
                     </label>
                   </div>
@@ -328,7 +438,7 @@ const Verification = () => {
                         onChange={handleFileChange2}
                       />
                       <span>
-                        {selectedFile2 ? selectedFile2 : 'Tap to upload documents'}
+                        {idFile ? idFile : 'Tap to upload documents'}
                       </span>
                     </label>
                     <p className='mt-1 ms-1 text-[13px] text-red-600 font-Nunito font-medium'>NIN, Driver's license, International Passport</p>

@@ -71,7 +71,7 @@ const PatientSettings = lazy(() =>
 );
 
 function App() {
-  const doctor = useSelector((state) => state.doctorAuth.doctor);
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
   const patient = useSelector((state) => state.patientAuth.patient);
 
   return (
