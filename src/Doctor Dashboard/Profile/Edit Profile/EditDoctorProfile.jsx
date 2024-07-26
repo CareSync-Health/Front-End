@@ -14,7 +14,7 @@ const EditProfile = () => {
 
   const { theme, appearance } = useTheme();
 
-  const doctor = useSelector((state) => state.doctorAuth.doctor)
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor)
 
   return (
     <div className='flex'>

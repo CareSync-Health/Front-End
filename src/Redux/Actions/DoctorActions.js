@@ -39,7 +39,7 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 		  position: 'top-right',
 		});
 		console.log('VerifyOtp Data', data)
-		navigate('/congratulation'); // Navigate to the dashboard page
+		navigate('/verification_process'); // Navigate to the dashboard page
 	  } else {
 		throw new Error(data.message);
 	  }
