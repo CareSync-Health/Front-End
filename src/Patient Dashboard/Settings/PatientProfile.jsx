@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import avatar from '../../assets/av.jpeg'
 import { useSelector } from 'react-redux';
+import { FaEnvelope } from 'react-icons/fa';
 
 const PatientProfile = () => {
   const patient = useSelector((state) => state.patientAuth.patient);

@@ -11,7 +11,7 @@ const VerifyAccount = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.doctorVerifyOtp); // assuming state name
-  const { email } = useSelector((state) => state.doctorAuth.doctor); // assuming state.auth contains the logged in user email
+  // const { email } = useSelector((state) => state.doctorAuth.doctor); // assuming state.auth contains the logged in user email
 
   useEffect(() => {
     setIsButtonDisabled(otp.some(val => val === ""));
@@ -52,9 +52,9 @@ const VerifyAccount = () => {
     dispatch(verify_otp(otpCode, navigate));
   }
 
-  function handleResend() {
-    dispatch(resend_otp(email));
-  }
+  // function handleResend() {
+  //   dispatch(resend_otp(email));
+  // }
 
   return (
     <div className='bg-[#E2F3F5] w-full h-screen pb-4 lg:px-5'>
@@ -93,12 +93,12 @@ const VerifyAccount = () => {
               >
                 Verify Email
               </button>
-              <h2
+              {/* <h2
                 onClick={handleResend}
                 className='mt-4 text-[14px] font-semibold font-Inter text-[#22D1EE] text-center lg:w-[65%]'
               >
                 Resend OTP
-              </h2>
+              </h2> */}
             </>
           )}
 

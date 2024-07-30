@@ -32,7 +32,7 @@ const BMICalculatorSettings = () => {
   };
 
   return (
-    <div className="flex justify-start ml-32 p-4">
+    <div className="flex justify-start lg:p-[50px] xs:p-[10px]">
       <style>{`
         .custom-select {
           width: 12rem;
@@ -47,7 +47,7 @@ const BMICalculatorSettings = () => {
           width: 12rem;
           height: 2.5rem;
           border: 1px solid #000000;
-          box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+          background: transparent;
           color: black;
           font-size: 1.2rem;
           position: relative;
@@ -98,13 +98,13 @@ const BMICalculatorSettings = () => {
             Choose your preferred units for height and weight:
           </h3>
 
-          <label className="flex flex-row font-normal text-lg font-Nunito ml-24 p-4 justify-evenly">
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly">
             <span className="font-extrabold text-2xl">Height</span>
             <select
               name="heightUnit"
               value={formData.heightUnit}
               onChange={handleChange}
-              className="custom-select flex justify-around w-full mt-1 bg-gray-400 p-2 rounded-lg text-justify"
+              className="custom-select flex justify-around w-full bg-gray-400 p-2 rounded-lg text-justify"
             >
               <option value="cm">Centimeters</option>
               <option value="m">Meters</option>
@@ -113,13 +113,13 @@ const BMICalculatorSettings = () => {
             </select>
           </label>
 
-          <label className="flex flex-row font-normal text-lg font-Nunito ml-24 p-4 justify-evenly">
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly">
             <span className="font-extrabold text-2xl">Weight</span>
             <select
               name="weightUnit"
               value={formData.weightUnit}
               onChange={handleChange}
-              className="custom-select flex justify-around w-full mt-1 bg-gray-400 p-2 rounded-lg text-justify"
+              className="custom-select flex justify-around w-full bg-gray-400 p-2 rounded-lg text-justify"
             >
               <option value="kg">Kilograms</option>
               <option value="lb">Pounds</option>
@@ -135,8 +135,8 @@ const BMICalculatorSettings = () => {
             Enter your age and gender for more accurate BMI calculations:
           </h3>
 
-          <label className="flex flex-row font-normal text-lg font-Nunito ml-24 p-4 justify-evenly">
-            <span className="font-extrabold mr-20 text-2xl">Age</span>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly gap-[5rem]">
+            <span className="font-extrabold text-2xl">Age</span>
             <input
               name="age"
               value={formData.age}
@@ -147,8 +147,8 @@ const BMICalculatorSettings = () => {
             />
           </label>
 
-          <label className="flex flex-row font-normal text-lg font-Nunito ml-24 p-4 justify-evenly">
-            <span className="font-extrabold mr-20 text-2xl">Gender</span>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly gap-[3rem]">
+            <span className="font-extrabold text-2xl">Gender</span>
             <select
               name="gender"
               value={formData.gender}
@@ -169,31 +169,41 @@ const BMICalculatorSettings = () => {
             View BMI categories and corresponding ranges for interpretation:
           </h3>
 
-          <ul className="custom-list">
-            <li>
-              Underweight:{" "}
-              <span className="text-blue-500">
-                BMI <span className="text-black">&lt;</span> 18.5
-              </span>{" "}
-            </li>
-            <li>
-              Normal weight:{" "}
-              <span className="text-green-500">
-                18.5 <span className="text-black">&le;</span> BMI{" "}
-                <span className="text-black">&lt;</span> 24.9
+          <ul className="custom-list mt-3 lg:ms-5">
+            <li className="flex items-center gap-[3rem]">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Underweight:</h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#254FE3]">BMI</h2>
+                <span className="text-black">&lt;</span> 
+                <h2 className="text-[#254FE3]">18.5</h2>
               </span>
             </li>
-            <li>
-              Overweight:{" "}
-              <span className="text-yellow-300">
-                25 <span className="text-black">&le;</span> BMI{" "}
-                <span className="text-black">&lt;</span> 29.9
+            <li className="flex items-center gap-[2rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Normal weight:</h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#17B978]">18.5</h2>
+                <span className="text-black">&le;</span>
+                <h2 className="text-[#17B978]">BMI</h2>
+                <span className="text-black">&lt;</span>
+                <h2 className="text-[#17B978]">24.9</h2>
               </span>
             </li>
-            <li>
-              Obese:{" "}
-              <span className="text-red-500">
-                BMI <span className="text-black">&ge;</span> 30
+            <li className="flex items-center gap-[3.7rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Overweight:</h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#F4EB12]">25</h2>
+                <span className="text-black">&le;</span>
+                <h2 className="text-[#F4EB12]">BMI</h2>
+                <span className="text-black">&lt;</span> 
+                <h2 className="text-[#F4EB12]">29.9</h2>
+              </span>
+            </li>
+            <li className="flex items-center gap-[6.5rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Obese:</h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#BE0D0D]">BMI</h2>
+                <span className="text-black">&ge;</span>
+                <h2 className="text-[#BE0D0D]">30</h2>
               </span>
             </li>
           </ul>

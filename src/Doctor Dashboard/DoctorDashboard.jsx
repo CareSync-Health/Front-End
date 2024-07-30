@@ -17,7 +17,7 @@ import { useSelector } from 'react-redux';
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
-    const [user, setUser] = useState(true);
+    const [user, setUser] = useState(false);
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
     
 

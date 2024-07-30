@@ -62,7 +62,8 @@ const Signup = () => {
               name='firstName'
               id='firstName'
               placeholder='Enter your First Name'
-              className='bg-[#F6F6F6] px-2 lg:py-2 xs:py-[10px] outline-none lg:w-[45%] xs:w-full'
+              className='bg-[#F6F6F6] px-2 lg:py-2 xs:py-[10px] outline-none lg:w-[45%] xs:w-full border-[2px] border-solid'
+              style={{  borderImage: 'linear-gradient(#58E3F5, #3EF59E) 1' }}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
@@ -72,26 +73,22 @@ const Signup = () => {
               name='lastName'
               id='lastName'
               placeholder='Enter your Last Name'
-              className='bg-[#F6F6F6] px-2 lg:py-2 xs:py-[10px] rounded-[8px] lg:ms-10 sm:ms-9 lg:w-[45%] xs:w-full outline-none lg:mt-0 xs:mt-[1rem]'
+              className='bg-[#F6F6F6] border-[2px] border-solid px-2 lg:py-2 xs:py-[10px] rounded-[8px] lg:ms-10 sm:ms-9 lg:w-[45%] xs:w-full outline-none lg:mt-0 xs:mt-[1rem]'
+              style={{  borderImage: 'linear-gradient(#58E3F5, #3EF59E) 1' }}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
             />
             <div className='mt-5 font-Roboto'>
-              <div className='flex'>
-                <span className='relative left-[3.5%] mt-[2.8%] text-[20px]'>
-                  <FaPhoneAlt />
-                </span>
                 <input
                   type='text'
                   placeholder='Phone Number'
                   name='phoneNumber'
-                  className='bg-[#F6F6F6] ms-[-5%] lg:w-[99%] xs:w-full lg:px-[55px] lg:py-[10px] xs:px-[40px] xs:py-[7px] rounded-[8px] outline-none'
+                  className='bg-[#F6F6F6] w-full px-3 lg:py-[11px] xs:py-[7px] -ms-1.5 rounded-[8px] outline-none'
                   required
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-              </div>
               <div className='flex mt-5'>
                 <span className='relative left-[3.5%] mt-[0.69rem] text-[20px]'>
                   <FaEnvelope />
