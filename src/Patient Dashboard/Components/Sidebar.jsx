@@ -52,7 +52,7 @@ const Sidebar = () => {
           </span>
         </div>
         <div className='relative group'>
-          <Link to='' className={location.pathname === '' ? 'text-blue-500' : 'text-[#707070]'}>
+          <Link to='/' className={location.pathname === '' ? 'text-blue-500' : 'text-[#707070]'}>
             <div className={`text-[25px] mt-[7rem] ${location.pathname === '' ? 'bg-[#17B978]' : ''}`}>
               <MdHelpOutline />
             </div>
