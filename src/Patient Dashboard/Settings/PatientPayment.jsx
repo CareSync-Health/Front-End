@@ -4,123 +4,88 @@ import bankcard from '../../assets/Icons/bankcard.svg'
 import stripe from '../../assets/Icons/stripe.svg'
 
 const PatientPayment = () => {
-    return (
-        <div className=''>
-            <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                <div className='px-[30px] mt-[4rem]'>
-                  <h1 className='text-[1.25rem] font-bold text-[#000000]'>My saved methods</h1>
-                  
-           <div className=' bg-[#D9D9D9] w-[21rem] h-[6rem] mt-[1rem] rounded-[0.5rem] flex gap-[2rem]'>
-            <div className='mt-[1.6rem] ml-[1rem]'>
-           <img src={vector80} className="w-[2rem] h-[2rem] mt-[0.4rem]" alt="vector80"/>
-           <h2 className='text-[0.9rem] font-bold text-[#000000] mb-[6rem]'>NGN</h2>
-           </div>
+  return (
+    <div className=''>
+      <div>
+        <div className='lg:px-[30px] xs:px-[10px] mt-[4rem]'>
+          <h1 className='lg:text-[23px] xs:text-[20px] font-Mulish font-bold text-[#000000]'>My saved methods</h1>
 
-<div className='mt-[0.5rem] ml-[1rem]'>
-    <h2  className='text-[1.1rem]  text-[#000000]'>Online Bank Transfer</h2>
-    <h2 className='text-[1.1rem] font-bold text-[#000000] '>08...23......2424</h2>
-</div>
-
-           </div>
-           
-           
-           {/*THIS IS THE ALL PAYMENT METHODS PART */}
- <h1 className='text-[1.25rem] font-bold text-[#000000] mt-[4rem]'>All payment methods</h1>
-
-<div className='flex flex-wrap justify-between mt-[2rem]'>
-
-<div className='border border-gray-400 h-[10rem] w-[22rem] rounded-[0.5rem]'>
-        <div className=' w-[21.6rem] border-b-2 border-b-gray-400 h-[4rem] mt-[1rem]  justify-center items-center flex gap-[1rem]'>
-                <img src={vector80} className="w-[2rem] h-[2rem]" alt="vector80"/>
-             <h2  className='text-[1.1rem]  text-[#000000]'>Online Bank Transfer</h2>
-             <button className='bg-[#17B978] w-[6rem] h-[1.6rem] mt-[3px] rounded-[1rem]'><p className='text-white'>Most used</p></button>
-           </div>
-
-           <div className=' w-[20rem] h-[6rem] ml-[1rem] '>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Processing - Instant 30 minutes</h2>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Fee   0%</h2> 
-           </div>
-
-
-</div>
-
-
-<div className='border border-gray-400 h-[10rem] w-[22rem] rounded-[0.5rem]'>
-        <div className=' w-[21.6rem] border-b-2 border-b-gray-400 h-[4rem]  mt-[1rem]  items-center flex gap-[1.3rem]'>
-                <img src={bankcard} className="w-[2rem] h-[2rem] ml-[1rem]" alt="bankcard"/>
-             <h2  className='text-[1.1rem]  text-[#000000]'>Bank Card</h2>
-           </div>
-
-           <div className=' w-[20rem] h-[6rem] ml-[1rem] '>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Processing - Instant 30 minutes</h2>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Fee   2%</h2> 
-           </div>
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div className='flex flex-wrap justify-between mt-[2rem]'>
-
-<div className='border border-gray-400 h-[10rem] w-[22rem] rounded-[0.5rem]'>
-        <div className=' w-[21.6rem] border-b-2 border-b-gray-400 h-[4rem] mt-[1rem]   items-center flex gap-[1rem]'>
-                <img src={stripe} className="ml-[0.9rem]" alt="stripe"/>
-             <h2  className='text-[1.1rem]  text-[#000000]'>Stripe</h2>
-           
-           </div>
-
-           <div className=' w-[20rem] h-[6rem] ml-[1rem] '>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Processing - Instant 30 minutes</h2>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Fee   5%</h2> 
-           </div>
-
-
-</div>
-
-
-<div className='border border-gray-400 h-[10rem] w-[22rem] rounded-[0.5rem]'>
-        <div className=' w-[21.6rem] border-b-2 border-b-gray-400 h-[4rem]  mt-[1rem]  items-center flex gap-[1.3rem]'>
-                <img src={bankcard} className="w-[2rem] h-[2rem] ml-[1rem]" alt="bankcard"/>
-             <h2  className='text-[1.1rem]  text-[#000000]'>Pay with Bank</h2>
-           </div>
-
-           <div className=' w-[20rem] h-[6rem] ml-[1rem] '>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Processing - 30 minutes</h2>
-           <h2 className='text-[1.1rem]  text-[#000000] '>Fee   0%</h2> 
-           </div>
-
-
-
-
-</div>
-
-</div>
-
-
-                </div>
+          <div className='bg-[rgba(0,0,0,0.15)] w-[21rem] p-6 mt-[1rem] rounded-[0.5rem] flex gap-[2rem] items-center'>
+            <div className='mt-2'>
+              <img src={vector80} className="w-[2rem]" alt="vector80" />
+              <h2 className='text-[15px] leading-[22.5px] mt-1 font-bold text-[#000000] font-Mulish'>NGN</h2>
             </div>
+
+            <div className=''>
+              <h2 className='text-[15px] text-[#000000] font-Mulish font-medium'>Online Bank Transfer</h2>
+              <h2 className='text-[15px] font-bold text-[#000000] font-Mulish'>08...23......2424</h2>
+            </div>
+          </div>
+
+          {/*THIS IS THE ALL PAYMENT METHODS PART */}
+          <h1 className='lg:text-[23px] xs:text-[20px] font-bold text-[#000000] mt-[4rem] font-Mulish'>All payment methods</h1>
+
+          <div className='flex flex-wrap justify-between lg:pr-[10rem] mt-[2rem]'>
+            <div className='border border-gray-400 lg:w-[375px] xs:w-full rounded-[0.5rem]'>
+              <div className='px-4 py-3 pt-[1.5rem] justify-between items-center flex '>
+                <img src={vector80} alt="vector80" />
+                <h2 className='text-[15px] text-[#000000] font-Mulish font-extrabold'>Online Bank Transfer</h2>
+                <p className='bg-[rgba(121,255,175,0.2)] w-[90px] rounded-[1rem] p-[3px] text-center text-[#17B978] text-[14px] font-normal font-Mulish'>Most used</p>
+              </div>
+              <hr className='w-full h-[2px] bg-gray-400' />
+
+              <div className='p-3'>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[10px]'>Processing - <span className='font-bold '>Instant 30 minutes</span></h2>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[15px] mt-2'>Fee  <span className='font-bold'>0%</span></h2>
+              </div>
+            </div>
+
+            <div className='border border-gray-400 lg:w-[375px] xs:w-full rounded-[0.5rem] lg:mt-0 xs:mt-[2rem]'>
+              <div className='px-4 py-3 pt-[1.5rem] gap-[1.5rem] items-center flex '>
+              <img src={bankcard} alt="bankcard" />
+              <h2 className='text-[15px] text-[#000000] font-Mulish font-extrabold'>Bank Card</h2>
+              </div>
+              <hr className='w-full h-[2px] bg-gray-400' />
+
+              <div className='p-3'>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[10px]'>Processing - <span className='font-bold '>Instant 30 minutes</span></h2>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[15px] mt-2'>Fee  <span className='font-bold'>2%</span></h2>
+              </div>
+            </div>
+          </div>
+
+          <div className='flex flex-wrap justify-between lg:pr-[10rem] mt-[2rem] mb-[3rem]'>
+            <div className='border border-gray-400 lg:w-[375px] xs:w-full rounded-[0.5rem]'>
+              <div className='px-4 py-[5px] gap-[1.5rem] items-center flex '>
+              <img src={stripe} alt="bankcard" />
+              <h2 className='text-[16px] text-[#000000] font-Mulish font-extrabold'>Stripe</h2>
+              </div>
+              <hr className='w-full h-[2px] bg-gray-400' />
+
+              <div className='p-3'>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[10px]'>Processing - <span className='font-bold '>Instant 30 minutes</span></h2>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[15px] mt-2'>Fee  <span className='font-bold'>5%</span></h2>
+              </div>
+            </div>
+
+            <div className='border border-gray-400 lg:w-[375px] xs:w-full rounded-[0.5rem] lg:mt-0 xs:mt-[2rem]'>
+              <div className='px-4 py-3 pt-[1.5rem] gap-[1.5rem] items-center flex '>
+              <img src={bankcard} alt="bankcard" />
+              <h2 className='text-[15px] text-[#000000] font-Mulish font-extrabold'>Pay with Bank</h2>
+              </div>
+              <hr className='w-full h-[2px] bg-gray-400' />
+
+              <div className='p-3'>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[10px]'>Processing - <span className='font-bold '>30 minutes</span></h2>
+                <h2 className='text-[15px] font-normal font-Mulish text-[#000000] flex items-center gap-[15px] mt-2'>Fee  <span className='font-bold'>0%</span></h2>
+              </div>
+            </div>
+
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default PatientPayment

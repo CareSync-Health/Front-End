@@ -14,7 +14,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className='mt-[3rem] px-[170px]'>
+        <div className='mt-[3rem] lg:px-[170px] xs:px-[8px]'>
             <nav >
                 <ul className='flex items-center justify-between'>
                     <NavLink
