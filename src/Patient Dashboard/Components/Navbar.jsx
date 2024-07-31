@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { RiMessage3Line, RiNotificationLine } from 'react-icons/ri';
 import avatar from '../../assets/avatar1.png';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const patient = useSelector((state) => state.patientAuth.patient);
@@ -19,7 +20,7 @@ const Navbar = () => {
         <div className="flex items-center justify-end gap-[1.5rem] lg:mt-0 xs:mt-[1.5rem]">
           <h2 className="bg-[#fff] shadow-2xl w-[45px] rounded-[12px] py-[7px] px-[10px] items-center text-[22px]"><RiMessage3Line /></h2> 
           <h2 className="bg-[#fff] shadow-2xl w-[45px] rounded-[12px] py-[7px] px-[10px] items-center text-[22px]"><RiNotificationLine /></h2> 
-          <img src={avatar} alt="avatar" />    
+          <Link to='/patient_settings/patient_profile'><img src={avatar} alt="avatar" /> </Link> 
         </div>
       </div>
 

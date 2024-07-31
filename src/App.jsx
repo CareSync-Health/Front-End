@@ -38,6 +38,7 @@ const PatientDashboard = lazy(() => import("./Patient Dashboard/Dashboard/Patien
 const PatientAppointments = lazy(() => import("./Patient Dashboard/Appointments/Appointments"));
 const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
 const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
+const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
 const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
             <Route path="/patient_appointment" element={patient ? <PatientAppointments /> : <Navigate to="/patientAuth" /> } />
             <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/patientAuth" />} />
             <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/patientAuth" /> } />
+            <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/patientAuth" /> } />
             <Route path='/patient_settings/*' element={patient ? <PatientSettings /> : <Navigate to='/patientAuth' />} />
           </Routes>
         </Suspense>
