@@ -23,7 +23,7 @@ const Sidebar = () => {
     { path: '/patient_dashboard', icon: <MdDashboard />, name: 'Dashboard' },
     { path: '/patient_calendar', icon: <RiCalendarEventLine />, name: 'Calendar' },
     { path: '/patient_message', icon: <RiMessage3Line />, name: 'Messages' },
-    { path: '/patient_appointment', icon: <FiPieChart />, name: 'Appointment' },
+    { path: '/patient_appointment/appointments', icon: <FiPieChart />, name: 'Appointment' },
     { path: '/patient_settings/patient_profile', icon: <IoSettingsOutline />, name: 'Settings' },
   ]
 
@@ -52,7 +52,7 @@ const Sidebar = () => {
           </span>
         </div>
         <div className='relative group'>
-          <Link to='' className={location.pathname === '' ? 'text-blue-500' : 'text-[#707070]'}>
+          <Link to='/' className={location.pathname === '' ? 'text-blue-500' : 'text-[#707070]'}>
             <div className={`text-[25px] mt-[7rem] ${location.pathname === '' ? 'bg-[#17B978]' : ''}`}>
               <MdHelpOutline />
             </div>

@@ -32,7 +32,7 @@ const BMICalculatorSettings = () => {
   };
 
   return (
-    <div className="flex justify-start ml-32 p-4">
+    <div className="flex justify-start lg:p-[50px] xs:p-[10px]">
       <style>{`
         .custom-select {
           width: 12rem;
@@ -44,16 +44,14 @@ const BMICalculatorSettings = () => {
           position: relative;
         }
         .custom-input {
-        width: 12rem;
-        height: 2.5rem;
-        border: 1px solid #000000;
-        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        color: black;
-        font-size: 1.2rem;
-        position: relative;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
+          width: 12rem;
+          height: 2.5rem;
+          border: 1px solid #000000;
+          background: transparent;
+          color: black;
+          font-size: 1.2rem;
+          position: relative;
+        }
         .custom-list {
           list-style: none;
         }
@@ -100,35 +98,33 @@ const BMICalculatorSettings = () => {
             Choose your preferred units for height and weight:
           </h3>
 
-          <div className="flex flex-col space-y-4 ml-24 p-4">
-            <div className="flex flex-row items-center space-x-10">
-              <label className="font-extrabold text-2xl">Height</label>
-              <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="custom-select mt-1 bg-gray-400 p-2 rounded-lg text-justify"
-              >
-                <option value="cm">Centimeters</option>
-                <option value="m">Meters</option>
-                <option value="ft">Feet</option>
-                <option value="in">Inches</option>
-              </select>
-            </div>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly">
+            <span className="font-extrabold text-2xl">Height</span>
+            <select
+              name="heightUnit"
+              value={formData.heightUnit}
+              onChange={handleChange}
+              className="custom-select flex justify-around w-full bg-gray-400 p-2 rounded-lg text-justify"
+            >
+              <option value="cm">Centimeters</option>
+              <option value="m">Meters</option>
+              <option value="ft">Feet</option>
+              <option value="in">Inches</option>
+            </select>
+          </label>
 
-            <div className="flex flex-row items-center space-x-10">
-              <label className="font-extrabold text-2xl">Weight</label>
-              <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="custom-select mt-1 bg-gray-400 p-2 rounded-lg text-justify"
-              >
-                <option value="kg">Kilograms</option>
-                <option value="lb">Pounds</option>
-              </select>
-            </div>
-          </div>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly">
+            <span className="font-extrabold text-2xl">Weight</span>
+            <select
+              name="weightUnit"
+              value={formData.weightUnit}
+              onChange={handleChange}
+              className="custom-select flex justify-around w-full bg-gray-400 p-2 rounded-lg text-justify"
+            >
+              <option value="kg">Kilograms</option>
+              <option value="lb">Pounds</option>
+            </select>
+          </label>
         </div>
 
         <div className="flex flex-col">
@@ -139,32 +135,30 @@ const BMICalculatorSettings = () => {
             Enter your age and gender for more accurate BMI calculations:
           </h3>
 
-          <div className="flex flex-col space-y-4 ml-24 p-4">
-            <div className="flex flex-row items-center space-x-20">
-              <label className="font-extrabold text-2xl">Age</label>
-              <input
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
-                className="custom-input mt-1 p-2 rounded-lg"
-                type="text"
-                placeholder="Input your age"
-              />
-            </div>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly gap-[5rem]">
+            <span className="font-extrabold text-2xl">Age</span>
+            <input
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              className="custom-input flex w-full mt-1 p-2 rounded-lg"
+              type="text"
+              placeholder="Input your age"
+            />
+          </label>
 
-            <div className="flex flex-row items-center space-x-10">
-              <label className="font-extrabold text-2xl">Gender</label>
-              <select
-                name="gender"
-                value={formData.gender}
-                onChange={handleChange}
-                className="custom-select mt-1 bg-gray-400 p-2 rounded-lg text-justify"
-              >
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-              </select>
-            </div>
-          </div>
+          <label className="flex flex-row items-center font-normal text-lg font-Nunito p-4 justify-evenly gap-[3rem]">
+            <span className="font-extrabold text-2xl">Gender</span>
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              className="custom-select flex justify-around w-full mt-1 bg-gray-400 p-2 rounded-lg text-justify"
+            >
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
+          </label>
         </div>
 
         <div className="flex flex-col">
@@ -175,28 +169,52 @@ const BMICalculatorSettings = () => {
             View BMI categories and corresponding ranges for interpretation:
           </h3>
 
-          <div className="flex flex-col justify-center ml-32">
-            <ul className="custom-list">
-              <li className="flex items-center w-full">
-                <span className="w-48">Underweight:</span>
-                <span className="text-blue-500 ml-2">BMI &lt; 18.5</span>
-              </li>
-              <li className="flex items-center w-full">
-                <span className="w-48">Normal weight:</span>
-                <span className="text-green-500 ml-2">
-                  18.5 ≤ BMI &lt; 24.9
-                </span>
-              </li>
-              <li className="flex items-center w-full">
-                <span className="w-48">Overweight:</span>
-                <span className="text-yellow-300 ml-2">25 ≤ BMI &lt; 29.9</span>
-              </li>
-              <li className="flex items-center w-full">
-                <span className="w-48">Obese:</span>
-                <span className="text-red-500 ml-2">BMI ≥ 30</span>
-              </li>
-            </ul>
-          </div>
+          <ul className="custom-list mt-3 lg:ms-5">
+            <li className="flex items-center gap-[3rem]">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Underweight:
+              </h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#254FE3]">BMI</h2>
+                <span className="text-black">&lt;</span>
+                <h2 className="text-[#254FE3]">18.5</h2>
+              </span>
+            </li>
+            <li className="flex items-center gap-[2rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Normal weight:
+              </h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#17B978]">18.5</h2>
+                <span className="text-black">&le;</span>
+                <h2 className="text-[#17B978]">BMI</h2>
+                <span className="text-black">&lt;</span>
+                <h2 className="text-[#17B978]">24.9</h2>
+              </span>
+            </li>
+            <li className="flex items-center gap-[3.7rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Overweight:
+              </h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#F4EB12]">25</h2>
+                <span className="text-black">&le;</span>
+                <h2 className="text-[#F4EB12]">BMI</h2>
+                <span className="text-black">&lt;</span>
+                <h2 className="text-[#F4EB12]">29.9</h2>
+              </span>
+            </li>
+            <li className="flex items-center gap-[6.5rem] mt-1">
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Obese:
+              </h2>
+              <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
+                <h2 className="text-[#BE0D0D]">BMI</h2>
+                <span className="text-black">&ge;</span>
+                <h2 className="text-[#BE0D0D]">30</h2>
+              </span>
+            </li>
+          </ul>
         </div>
 
         <div className="flex flex-col">

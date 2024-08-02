@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import avatar from '../../assets/av.jpeg'
 import { useSelector } from 'react-redux';
+import { FaEnvelope } from 'react-icons/fa';
 
 const PatientProfile = () => {
   const patient = useSelector((state) => state.patientAuth.patient);
@@ -12,8 +13,8 @@ const PatientProfile = () => {
   const [time, setTime] = useState("")
 
   return (
-    <div className='mt-[5rem]'>
-      <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+    <div className='mt-[3rem]'>
+      <div>
         <section className='md:px-7 px-4'>
           <div className='flex justify-between flex-wrap items-center'>
             <span className='flex items-center gap-5 md:gap-10'>
