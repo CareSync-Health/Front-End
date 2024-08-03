@@ -193,14 +193,6 @@ const Verification = () => {
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>gender</h2>
-                  {/* <input
-                    type='text'
-                    placeholder='Gender'
-                    className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
-                    required
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                  /> */}
                   <select 
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required

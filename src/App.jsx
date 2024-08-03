@@ -37,6 +37,8 @@ const Confetti = lazy(() => import("./Doctor Dashboard/Components/Confetti"));
 const PatientDashboard = lazy(() => import("./Patient Dashboard/Dashboard/PatientDashboard"));
 const PatientAppointments = lazy(() => import("./Patient Dashboard/Appointments/PatientAppointments"));
 const SearchDoctors = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/SearchDoctors"));
+const DoctorInfo = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"));
+const BookAppointment = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"));
 const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
 const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
 const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
@@ -101,11 +103,13 @@ function App() {
             {/* PATIENT ROUTE */}
             <Route path="/patient_dashboard" element={patient ? <PatientDashboard /> : <Navigate to="/patientAuth" /> } />
             <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/patientAuth" /> } />
+            <Route path='/search_doctor' element={patient ? <SearchDoctors /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/doctorInfo' element={patient ? <DoctorInfo /> : <Navigate to='/patientAuth' /> } />
+            <Route path='/book_appointment' element={patient ? <BookAppointment /> : <Navigate to='/patientAuth' /> } />
             <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/patientAuth" />} />
             <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/patientAuth" /> } />
             <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/patientAuth" /> } />
             <Route path='/patient_settings/*' element={patient ? <PatientSettings /> : <Navigate to='/patientAuth' />} />
-            <Route path='/search_doctor' element={patient ? <SearchDoctors /> : <Navigate to='/patientAuth' /> } />
           </Routes>
         </Suspense>
       </ErrorBoundary>
