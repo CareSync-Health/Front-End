@@ -30,6 +30,9 @@ function formatNumber(number) {
 }
 
 const Navbar = ({ messageCount, notificationCount }) => {
+
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+
   const { theme, appearance } = useTheme();
 
   const dispatch = useDispatch();
@@ -80,7 +83,7 @@ const Navbar = ({ messageCount, notificationCount }) => {
               </span>
                 )}
             </div>
-          <Link to='/doctor_profile/:id'>
+          <Link to={`/doctor_profile/${doctor?.id}`}>
             <img src={avatar} className='lg:w-[40px] xs:w-[30px]' />
           </Link>
         </div>
