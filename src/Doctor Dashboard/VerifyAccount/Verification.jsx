@@ -24,9 +24,9 @@ const Verification = () => {
   const [licenseNumber, setLicenseNumber] = useState('')
   const [licenseCountry, setLicenseCountry] = useState(null)
   const [licenseState, setLicenseState] = useState('')
-  const [licenseImage, setLicenseImage] = useState(null)
+  const [licenseImage, setLicenseImage] = useState([])
   const [licenseImageName, setLicenseImageName] = useState('')
-  const [idImage, setIdImage] = useState(null)
+  const [idImage, setIdImage] = useState([])
   const [idImageName, setIdImageName] = useState('')
 
   const professions = [
@@ -318,17 +318,28 @@ const Verification = () => {
     setCity(null);
   };
 
-  const handleFileChange = (event, field) => {
-    const file = event.target.files[0];
-    if (file) {
-      if (field === 'licenseImage') {
-        setLicenseImage(file);
-        setLicenseImageName(file.name);
-      } else if (field === 'idImage') {
-        setIdImage(file);
-        setIdImageName(file.name);
-      }
-    }
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    selectedFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setLicenseImage((prevImages) => [...prevImages, reader.result]);
+          };
+        setLicenseImageName((filename) => [...filename, file.name]);
+    });
+  };
+
+  const handleFileChange2 = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    selectedFiles.forEach((file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setIdImage((prevImages) => [...prevImages, reader.result]);
+        };
+        setIdImageName((filename) => [...filename, file.name]);
+    });
   };
 
   const dispatch = useDispatch();
@@ -352,15 +363,12 @@ const Verification = () => {
       licenseCountry: licenseCountry?.label,
       licenseState,
       licenseImage,
-      licenseImageName,
       idImage,
-      idImageName,
     };
 
     try {
-      await dispatch(doctor_verification(doctor?.id, body, navigate));
+      await dispatch(doctor_verification(doctor?.id, navigate, body));
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -632,7 +640,8 @@ const Verification = () => {
                         type="file"
                         accept='image/*'
                         className="hidden"
-                        onChange={(e) => handleFileChange(e, 'licenseImage')}
+                        multiple
+                        onChange={(e) => handleFileChange (e)}
                         />
                       <span>
                         {licenseImageName ? (
@@ -661,7 +670,8 @@ const Verification = () => {
                         type="file"
                         accept='image/*'
                         className="hidden"
-                        onChange={(e) => handleFileChange(e, 'idImage')}
+                        multiple
+                        onChange={(e) => handleFileChange2 (e)}
                       />
                      <span>
                         {idImageName ? (

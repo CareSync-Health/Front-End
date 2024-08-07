@@ -19,7 +19,7 @@ const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
     const [user, setUser] = useState(false);
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-    
+    const doctorVerification = useSelector(state => state.doctorVerification.doctorVeri);
 
     useEffect(() => {
         console.log(doctor);
