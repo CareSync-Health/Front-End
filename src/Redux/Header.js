@@ -6,7 +6,7 @@ const authHeader = (token) => ({
   
 const header = {
     Accept: 'application/json',
-    'content-type': 'application/json',
+    'Content-type': 'application/json',
 }
 
 export {header, authHeader}

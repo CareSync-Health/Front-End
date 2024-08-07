@@ -4,27 +4,270 @@ import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select'
 import { Country, State, City } from 'country-state-city';
 import { useNavigate } from 'react-router-dom';
+import { doctor_verification } from '../../Redux/Actions/DoctorActions';
 
 const Verification = () => {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
 
   const [showVideo, setShowVideo] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-  const [title, setTitle] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [profession, setProfession] = useState('');
-  const [areaOfSpecialization, setAreaOfSpecialization] = useState('');
-  const [country, setCountry] = useState(null);
-  const [licenseCountry, setLicenseCountry] = useState(null);
-  const [state, setState] = useState(null);
-  const [city, setCity] = useState(null);
-  const [licenseType, setLicenseType] = useState('');
-  const [licenseYear, setLicenseYear] = useState('');
-  const [licenseNumber, setLicenseNumber] = useState('');
-  const [licenseState, setLicenseState] = useState('');
-  const [licenseFile, setLicenseFile] = useState(null);
-  const [idFile, setIdFile] = useState(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    age: '',
+    gender: '',
+    profession: '',
+    areaOfSpecialization: '',
+    country: null,
+    licenseCountry: null,
+    state: null,
+    city: null,
+    licenseType: '',
+    licenseYear: '',
+    licenseNumber: '',
+    licenseState: '',
+    licenseImage: null,
+    licenseImageName: '', // Add a new state for the file name
+    idImage: null,
+    idImageName: '', // Add a new state for the file name
+  });
+
+  const professions = [
+    'Allergist',
+    'Anesthesiologist',
+    'Behavioral Health',
+    'Cardiologist',
+    'Certified Covid Test Provider',
+    'Clinical Psychologist',
+    'Counselor',
+    'Dentist',
+    'Dermatologist',
+    'Endochnologist',
+    'Gastroenterologist',
+    'General Practice',
+    'Gynecologist',
+    'Health Care Navigator',
+    'Hematologist',
+    'Home Care Nurse',
+    'Immunologist',
+    'Internal Medicine',
+    'Internist',
+    'Lab Technician',
+    'Medical Assistant',
+    'Mental Health Therapist',
+    'Naturopath',
+    'Naturopathic Doctor',
+    'Nephrologist',
+    'Neurologist',
+    'Neurosurgeon',
+    'Nurse Practitioner',
+    'Obstetrician',
+    'Obstetrician/Gynecologist',
+    'Occupational Therapist',
+    'Oncologist',
+    'Ophthalmologist',
+    'Optometrist',
+    'Osteopath',
+    'Otolaryngologist',
+    'Otorhinolaryngologist',
+    'Outreach Health Provider',
+    'Pathologist',
+    'Pediatrician',
+    'Pharmacist',
+    'Phychotherapist',
+    'Physiatrist',
+    'Physical Therapist',
+    'Physician',
+    'Physician Assistant',
+    'Physiotherapist',
+    'Podiatrist',
+    'Psychiatrist',
+    'Psychologist',
+    'Pulmonologist',
+    'Radiologist',
+    'Receptionist',
+    'Registered Dietitian',
+    'Registered Nurse',
+    'Rheumatologist',
+    'Registered Dietitian',
+    'Registered Nurse',
+    'Rheumatologist',
+    'Speech Language Pathologist',
+    'Surgeon',
+    'Urologist',
+    'Wellness Coach',
+  ]
+
+  const areaOfSpecializations = [
+    'Allergist',
+    'Immunologist',
+    'Internal Medicine (Neurology)',
+    'Naturopath',
+    'Naturopathic Doctor',
+    'Osteopath',
+    'Physiatrist',
+    'Podiatrist',
+    'Pulmonologist',
+    'Addiction Medicine',
+    'Aviation Medicine',
+    'Bipolar Disorders',
+    'Burn Care',
+    'Clinical Oncologist',
+    'Clinical Psychologist',
+    'Conduct Disorders',
+    'Ear, Nose And Throat',
+    'Eating Disorders',
+    'Existential Crisis',
+    'Gastroenterologist',
+    'Grief',
+    'Haematopathology',
+    'Hematologist',
+    'Hematology & Oncology',
+    'Histopathology (Forensic Pathology)',
+    'Intensivist',
+    'Internal Medicine (Cardiology)',
+    'Internal Medicine (Endocrinology)',
+    'Internal Medicine (Nephrology)',
+    'Internal Medicine (Respiratory)',
+    'Medical Aesthetics',
+    'Mood Disorders',
+    'Nephrology',
+    'Nurse Anesthesiologist',
+    'Occupational Health',
+    'Occupational Therapy',
+    'Ocd - Obsessive Compulsive Disorders',
+    'Paediatric Neurology',
+    'Paediatric Surgery',
+    'Paediatrics (Cardiology)',
+    'Paediatrics (Haematology)',
+    'Paediatrics (Infectious Disease)',
+    'Paediatrics (Nephrology)',
+    'Paediatrics (Neurology)',
+    'Paediatrics (Respiratory)',
+    'Panic Disorders',
+    'Pediatric Surgeon',
+    'Pediatrics (Gastroenterology)',
+    'Pediatrics (Neonatology)',
+    'Pharmacist',
+    'Plastic Surgery',
+    'Radiation Oncologist',
+    'Radiation Oncology',
+    'Radiologist',
+    'Reconstructive Procedures',
+    'Registered Dietician',
+    'Registered Social Worker (Rsw)',
+    'Rheumatology',
+    'Sleep Disorders',
+    'Surgery (Burns And Plastics)',
+    'Surgery (Cardiothoracic)',
+    'Surgery (Paediatric)',
+    'Traumatology',
+    'Anxiety Disorders',
+    'Chemical Pathologist',
+    'Consultant Family Practitioner',
+    'Depression',
+    'Family And Reproductive Health Specialist',
+    'Geriatrics',
+    'Gynecologist & Fertility Specialist',
+    'Hiv Counselling',
+    'Internal Medicine (Gastroenterology)',
+    'Internist',
+    'Ivf-In Vitro Fertilization',
+    'Neurology',
+    'Oncology',
+    'Orthopedic And Trauma Surgeon',
+    'Otolaryngologist',
+    'Paediatrics (Neonatology)',
+    'Pain And Palliative Medicine',
+    'Pathologist',
+    'Pediatrics (Hematology & Oncology)',
+    'Physical Therapist',
+    'Ptsd Posttraumatic Stress Disorder',
+    'Reproductive Medicine',
+    'Rheumatologist',
+    'Sexual Health',
+    'Sickle Cell Disease',
+    'Surgery (Neurology)',
+    'Venerology',
+    'Weight Loss',
+    'Wellness Coach',
+    'Cardiothoracic And Vascular Surgeon',
+    'Children And Adolescents',
+    'Clinical Pathologist',
+    'Counselor',
+    'Critical Care',
+    'General Dentistry',
+    'Gynecologist',
+    'Haematology',
+    'Hematology',
+    'Infectious Disease',
+    'Medical Microbiology',
+    'Obstetrician',
+    'Oncologist',
+    'Orthopaedics',
+    'Surgery (Urology)',
+    'Certified Covid Test Provider',
+    'Community Medicine',
+    'Dermatology',
+    'General Surgeon',
+    'Haematologist',
+    'Neurologist',
+    'Orthopaedic Surgeon & Traumatologist',
+    'Orthopaedics & Traumatology',
+    'Pediatrics',
+    'Psychiatrist',
+    'Surgeon',
+    'Surgery (General)',
+    'Acute Care',
+    'Cardiologist',
+    'Dentistry',
+    'Emergency Medicine',
+    'General Surgery',
+    'Histopathology',
+    'Neurosurgeon',
+    'Optometrist',
+    'Orthopedics',
+    'Physiotherapy',
+    'Womens Health',
+    'Orthopaedic Surgeon',
+    'Urologist',
+    'Adult Medicine',
+    'Community Health',
+    'Nephrologist',
+    'Nurse',
+    'Paediatrician',
+    'Psychiatry',
+    'Paediatrician',
+    'Psychiatry',
+    'Ophthalmologist',
+    'Pediatrician',
+    'Registered Nurse',
+    'Mental Health',
+    'Mental Health Provider',
+    'Public Health',
+    'Endocrinologist',
+    'General Nursing',
+    'Radiology',
+    'Anesthesiologist',
+    'Midwife',
+    'Internal Medicine',
+    'Physician',
+    'General Medicine',
+    'Family Medicine',
+    'Obstetrician & Gynecologist',
+    'General Practice',
+  ]
+
+  const licenseTypes = [
+    'Clinical Psychologist',
+    'Dea Number',
+    'Folio Number',
+    'Medical Board State',
+    'Medical License Number',
+    'Npi Number',
+    'Registration Number',
+    'Sk Covid Certificate Id'
+  ]
+
 
 
   useEffect(() => {
@@ -38,7 +281,7 @@ const Verification = () => {
     if (isSmallScreen) {
       const timer = setTimeout(() => {
         setShowVideo(false);
-      }, 4000); // 10 seconds
+      }, 4000);
 
       return () => clearTimeout(timer);
     }
@@ -46,97 +289,75 @@ const Verification = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, [isSmallScreen]);
 
-
   const countries = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
     label: country.name,
   }));
 
-  const countries2 = Country.getAllCountries().map((country) => ({
-    value: country.isoCode,
-    label: country.name,
-  }));
-
-  const states = country
-    ? State.getStatesOfCountry(country.value).map((state) => ({
+  const states = formData.country
+    ? State.getStatesOfCountry(formData.country.value).map((state) => ({
       value: state.isoCode,
       label: state.name,
     }))
     : [];
 
-  const cities = state
-    ? City.getCitiesOfState(country.value, state.value).map((city) => ({
+  const cities = formData.state
+    ? City.getCitiesOfState(formData.country.value, formData.state.value).map((city) => ({
       value: city.name,
       label: city.name,
     }))
     : [];
 
   const handleCountryChange = (country) => {
-    setCountry(country);
-    setState(null);
-    setCity(null);
+    setFormData((prevData) => ({
+      ...prevData,
+      country,
+      state: null,
+      city: null,
+    }));
   };
+
   const handleCountryChange2 = (country) => {
-    setLicenseCountry(country);
+    setFormData((prevData) => ({
+      ...prevData,
+      licenseCountry: country,
+    }));
   };
 
   const handleStateChange = (state) => {
-    setState(state);
-    setCity(null);
+    setFormData((prevData) => ({
+      ...prevData,
+      state,
+      city: null,
+    }));
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (event, field) => {
     const file = event.target.files[0];
     if (file) {
-      setLicenseFile(file.name);
-    } else {
-      setLicenseFile(null);
+      setFormData((prevData) => ({
+        ...prevData,
+        [field]: file,
+        [`${field}Name`]: file.name, // Store the file name
+      }));
     }
   };
-  const handleFileChange2 = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setIdFile(file.name);
-    } else {
-      setIdFile(null);
-    }
-  };
-
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.set("title", title)
-    formData.set("age", age)
-    formData.set("profession", profession)
-    formData.set("areaOfSpecialization", areaOfSpecialization)
-    formData.set("country", country)
-    formData.set("state", state)
-    formData.set("city", city)
-    formData.set("licenseType", licenseType)
-    formData.set("licenseYear", licenseYear)
-    formData.set("licenseNumber", licenseNumber)
-    formData.set("licenseCountry", licenseCountry)
-    formData.set("licenseState", licenseState)
-    formData.set("licenseFile", licenseFile)
-    formData.set("idFile", idFile)
+    const dataToSend = new FormData();
+    Object.keys(formData).forEach(key => {
+      if (formData[key]) {
+        dataToSend.append(key, formData[key]);
+      }
+    });
 
-    // images.forEach(image => {
-    //     formData.append('images', image)
-    // })
-
-    if (formData) {
-      alert('success submitted');
-      console.log(formData);
-      navigate('/congratulation')
-    }
-
-    // dispatch(newProduct(formData))
-    // navigate('/doctor_dashboard')
+    console.log(doctor?.id, dataToSend);
+    dispatch(doctor_verification(doctor?.id, navigate, dataToSend));
   };
 
   return (
@@ -176,8 +397,8 @@ const Verification = () => {
                     placeholder='Dr.'
                     className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
                     required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={formData.title}
+                    onChange={(e) => setFormData((prevData) => ({ ...prevData, title: e.target.value }))}
                   />
                 </div>
                 <div>
@@ -187,30 +408,22 @@ const Verification = () => {
                     placeholder='Age'
                     className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
                     required
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    value={formData.age}
+                    onChange={(e) => setFormData((prevData) => ({ ...prevData, age: e.target.value }))}
                   />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>gender</h2>
-                  {/* <input
-                    type='text'
-                    placeholder='Gender'
-                    className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
-                    required
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                  /> */}
-                  <select 
+                  <select
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
+                    value={formData.gender}
+                    onChange={(e) => setFormData((prevData) => ({ ...prevData, gender: e.target.value }))}
                   >
-                      <option>Select Gender</option>
-                      <option>Male</option>
-                      <option>Female</option>
-                      <option>Other</option>
+                    <option value=''>Select Gender</option>
+                    <option value='male'>Male</option>
+                    <option value='female'>Female</option>
+                    <option value='other'>Other</option>
                   </select>
                 </div>
                 <div>
@@ -218,14 +431,12 @@ const Verification = () => {
                   <select
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={profession}
-                    onChange={(e) => setProfession(e.target.value)}
+                    value={formData.profession}
+                    onChange={(e) => setFormData((prevData) => ({ ...prevData, profession: e.target.value }))}
                   >
-                    <option>Select Profession</option>
-                    <option>Dentist</option>
-                    <option>Care Giver</option>
-                    <option>Physoclogic</option>
-                    <option>Dentist</option>
+                    {professions.map(profess => (
+                      <option key={profess} value={profess}>{profess}</option>
+                    ))}
                   </select>
                 </div>
                 <div>
@@ -234,22 +445,22 @@ const Verification = () => {
                     type='text'
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={areaOfSpecialization}
-                    onChange={(e) => setAreaOfSpecialization(e.target.value)}
+                    value={formData.areaOfSpecialization}
+                    onChange={(e) => setFormData((prevData) => ({ ...prevData, areaOfSpecialization: e.target.value }))}
                   >
-                    <option>Select Area of Specialization</option>
-                    <option>Dentist</option>
-                    <option>Care Giver</option>
-                    <option>Physoclogic</option>
-                    <option>Dentist</option>
+                    {areaOfSpecializations.map(specialization => (
+                      <option key={specialization} value={specialization}>{specialization}</option>
+                    ))}
                   </select>
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
                   <Select
                     options={countries}
-                    value={country}
+                    value={formData.country}
                     onChange={handleCountryChange}
+                    placeholder='Select country'
+                    isClearable
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.4rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
                     styles={{
@@ -274,8 +485,10 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>state</h2>
                   <Select
                     options={states}
-                    value={state}
+                    value={formData.state}
                     onChange={handleStateChange}
+                    placeholder='Select state'
+                    isClearable
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.4rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
                     styles={{
@@ -300,8 +513,10 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>city</h2>
                   <Select
                     options={cities}
-                    value={city}
-                    onChange={(city) => setCity(city)}
+                    value={formData.city}
+                    onChange={(city) => setFormData((prevData) => ({ ...prevData, city }))}
+                    placeholder='Select city'
+                    isClearable
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
                     styles={{
@@ -333,48 +548,48 @@ const Verification = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-[1.5rem]'>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license type</h2>
-                    <select 
-                      type='text' 
-                      className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none' 
-                      required 
-                      value={licenseType}
-                      onChange={(e) => setLicenseType(e.target.value)}
+                    <select
+                      type='text'
+                      className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
+                      required
+                      value={formData.licenseType}
+                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseType: e.target.value }))}
                     >
-                      <option>Current State</option>
-                      <option>Lagos</option>
-                      <option>Anambra</option>
-                      <option>Osun</option>
-                      <option>Delta</option>
+                      {licenseTypes.map(type => (
+                        <option key={type} value={type}>{type}</option>
+                      ))}
                     </select>
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>year</h2>
-                    <input 
-                      type='text' 
-                      placeholder='Enter Year' 
-                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
-                      required 
-                      value={licenseYear}
-                      onChange={(e) => setLicenseYear(e.target.value)}
+                    <input
+                      type='text'
+                      placeholder='Enter Year'
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
+                      required
+                      value={formData.licenseYear}
+                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseYear: e.target.value }))}
                     />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license number</h2>
-                    <input 
-                      type='text' 
-                      placeholder='Enter Number' 
-                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
-                      required 
-                      value={licenseNumber}
-                      onChange={(e) => setLicenseNumber(e.target.value)}
+                    <input
+                      type='text'
+                      placeholder='Enter Number'
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
+                      required
+                      value={formData.licenseNumber}
+                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseNumber: e.target.value }))}
                     />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
                     <Select
-                      options={countries2}
-                      value={licenseCountry}
+                      options={countries}
+                      value={formData.licenseCountry}
                       onChange={handleCountryChange2}
+                      placeholder='Select country'
+                      isClearable
                       className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
                       required
                       styles={{
@@ -397,13 +612,13 @@ const Verification = () => {
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>license states / provinces (where applicable)</h2>
-                    <input 
-                      type='text' 
-                      placeholder='Enter State' 
-                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none' 
-                      required 
-                      value={licenseState}
-                      onChange={(e) => setLicenseState(e.target.value)}
+                    <input
+                      type='text'
+                      placeholder='Enter State'
+                      className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
+                      required
+                      value={formData.licenseState}
+                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseState: e.target.value }))}
                     />
                   </div>
                   <div>
@@ -411,12 +626,18 @@ const Verification = () => {
                     <label className='block bg-[#7ceafd] text-[#fff] text-[15px] font-Nunito font-bold px-3 py-[15px] mt-2 rounded-[8px] w-full text-center cursor-pointer'>
                       <input
                         type="file"
+                        accept='image/*'
                         className="hidden"
-                        onChange={handleFileChange}
-                      />
+                        onChange={(e) => handleFileChange(e, 'licenseImage')}
+                        />
                       <span>
-                        {licenseFile ? licenseFile : 'Tap to upload documents'}
+                        {formData.licenseImageName ? (
+                          formData.licenseImageName
+                        ) : (
+                          'Tap to upload documents'
+                        )}
                       </span>
+
                     </label>
                   </div>
                 </div>
@@ -434,11 +655,16 @@ const Verification = () => {
                     <label className='block bg-[#7ceafd] text-[#fff] text-[15px] font-Nunito font-bold px-3 py-[15px] mt-2 rounded-[8px] w-full text-center cursor-pointer'>
                       <input
                         type="file"
+                        accept='image/*'
                         className="hidden"
-                        onChange={handleFileChange2}
+                        onChange={(e) => handleFileChange(e, 'idImage')}
                       />
-                      <span>
-                        {idFile ? idFile : 'Tap to upload documents'}
+                     <span>
+                        {formData.idImageName ? (
+                          formData.idImageName
+                        ) : (
+                          'Tap to upload documents'
+                        )}
                       </span>
                     </label>
                     <p className='mt-1 ms-1 text-[13px] text-red-600 font-Nunito font-medium'>NIN, Driver's license, International Passport</p>

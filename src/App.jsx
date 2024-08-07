@@ -68,6 +68,16 @@ const SearchDoctors = lazy(() =>
     "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/SearchDoctors"
   )
 );
+const DoctorInfo = lazy(() =>
+  import(
+    "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"
+  )
+);
+const BookAppointment = lazy(() =>
+  import(
+    "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"
+  )
+);
 const PatientMessage = lazy(() =>
   import("./Patient Dashboard/Message/PatientMessage")
 );
@@ -248,6 +258,136 @@ function App() {
               path="/search_doctor"
               element={
                 patient ? <SearchDoctors /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/doctor_dashboard"
+              element={
+                doctor ? <DoctorDashboard /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/doctor_appointment"
+              element={
+                doctor ? <DoctorAppointment /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/doctor_message"
+              element={doctor ? <DoctorChat /> : <Navigate to="/doctorAuth" />}
+            />
+            <Route
+              path="/doctor_pages"
+              element={doctor ? <DoctorPages /> : <Navigate to="/doctorAuth" />}
+            />
+            <Route
+              path="/doctor_patient_page"
+              element={
+                doctor ? <DoctorPatientPages /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path={`/doctor_profile/${doctor?.id}`}
+              element={
+                doctor ? <DoctorProfile /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/edit_doctor_profile"
+              element={
+                doctor ? <EditDoctorProfile /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/doctor_payment_way"
+              element={
+                doctor ? <DoctorPayment /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/doctor_payment_withdraw"
+              element={
+                doctor ? <DoctorWithdraw /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/doctor_settings/*"
+              element={
+                doctor ? <DoctorSetting /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/verification_process"
+              element={
+                doctor ? <Verification /> : <Navigate to="/doctorAuth" />
+              }
+            />
+            <Route
+              path="/congratulation"
+              element={doctor ? <Confetti /> : <Navigate to="/doctorAuth" />}
+            />
+
+            {/* PATIENT ROUTE */}
+            <Route
+              path="/patient_dashboard"
+              element={
+                patient ? <PatientDashboard /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/patient_appointment/*"
+              element={
+                patient ? (
+                  <PatientAppointments />
+                ) : (
+                  <Navigate to="/patientAuth" />
+                )
+              }
+            />
+            <Route
+              path="/search_doctor"
+              element={
+                patient ? <SearchDoctors /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/doctorInfo"
+              element={
+                patient ? <DoctorInfo /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/book_appointment"
+              element={
+                patient ? <BookAppointment /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/patient_message"
+              element={
+                patient ? <PatientMessage /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/patient_calendar"
+              element={
+                patient ? <PatientCalendar /> : <Navigate to="/patientAuth" />
+              }
+            />
+            <Route
+              path="/patient_calendar_filter"
+              element={
+                patient ? (
+                  <PatientCalendarFilter />
+                ) : (
+                  <Navigate to="/patientAuth" />
+                )
+              }
+            />
+            <Route
+              path="/patient_settings/*"
+              element={
+                patient ? <PatientSettings /> : <Navigate to="/patientAuth" />
               }
             />
           </Routes>
