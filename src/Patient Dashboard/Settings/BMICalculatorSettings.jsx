@@ -171,15 +171,19 @@ const BMICalculatorSettings = () => {
 
           <ul className="custom-list mt-3 lg:ms-5">
             <li className="flex items-center gap-[3rem]">
-              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Underweight:</h2>
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Underweight:
+              </h2>
               <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
                 <h2 className="text-[#254FE3]">BMI</h2>
-                <span className="text-black">&lt;</span> 
+                <span className="text-black">&lt;</span>
                 <h2 className="text-[#254FE3]">18.5</h2>
               </span>
             </li>
             <li className="flex items-center gap-[2rem] mt-1">
-              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Normal weight:</h2>
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Normal weight:
+              </h2>
               <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
                 <h2 className="text-[#17B978]">18.5</h2>
                 <span className="text-black">&le;</span>
@@ -189,17 +193,21 @@ const BMICalculatorSettings = () => {
               </span>
             </li>
             <li className="flex items-center gap-[3.7rem] mt-1">
-              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Overweight:</h2>
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Overweight:
+              </h2>
               <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
                 <h2 className="text-[#F4EB12]">25</h2>
                 <span className="text-black">&le;</span>
                 <h2 className="text-[#F4EB12]">BMI</h2>
-                <span className="text-black">&lt;</span> 
+                <span className="text-black">&lt;</span>
                 <h2 className="text-[#F4EB12]">29.9</h2>
               </span>
             </li>
             <li className="flex items-center gap-[6.5rem] mt-1">
-              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">Obese:</h2>
+              <h2 className="text-[#000] text-[18px] font-bold font-Mulish">
+                Obese:
+              </h2>
               <span className="flex items-center gap-[5px] text-[15px] font-bold font-Mulish">
                 <h2 className="text-[#BE0D0D]">BMI</h2>
                 <span className="text-black">&ge;</span>
@@ -217,108 +225,112 @@ const BMICalculatorSettings = () => {
             Set custom BMI thresholds or goals tailored to your preferences:
           </h3>
 
-          <ul className="custom-list">
-            <li>
-              <label className="flex flex-row font-normal text-lg font-Nunito">
-                <span className="font-extrabold text-base mr-20">
-                  Underweight Threshold:
-                </span>
-                <input
-                  name="underweightThreshold"
-                  value={formData.underweightThreshold}
-                  onChange={handleChange}
-                  className="custom-input flex w-full mt-1 p-2 rounded-lg"
-                  type="number"
-                  placeholder="Input Threshold"
-                />
-              </label>
-            </li>
-            <li>
-              <label className="flex flex-row font-normal text-lg font-Nunito">
-                <span className="font-extrabold text-base mr-20">
-                  Normal Weight Threshold:
-                </span>
-                <input
-                  name="normalWeightThreshold"
-                  value={formData.normalWeightThreshold}
-                  onChange={handleChange}
-                  className="custom-input flex w-full mt-1 p-2 rounded-lg"
-                  type="number"
-                  placeholder="Input Threshold"
-                />
-              </label>
-            </li>
-            <li>
-              <label className="flex flex-row font-normal text-lg font-Nunito">
-                <span className="font-extrabold text-base mr-20">
-                  Overweight Threshold:
-                </span>
-                <input
-                  name="overweightThreshold"
-                  value={formData.overweightThreshold}
-                  onChange={handleChange}
-                  className="custom-input flex w-full mt-1 p-2 rounded-lg"
-                  type="number"
-                  placeholder="Input Threshold"
-                />
-              </label>
-            </li>
-            <li>
-              <label className="flex flex-row font-normal text-lg font-Nunito">
-                <span className="font-extrabold text-base mr-20">
-                  Obese Threshold:
-                </span>
-                <input
-                  name="obeseThreshold"
-                  value={formData.obeseThreshold}
-                  onChange={handleChange}
-                  className="custom-input flex w-full mt-1 p-2 rounded-lg"
-                  type="number"
-                  placeholder="Input Threshold"
-                />
-              </label>
-            </li>
-          </ul>
-        </div>
-
-        <div className="flex flex-col justify-items-center">
-          <h1 className="text-[25px] pt-[2rem] font-[700] leading-[46px] font-Nunito">
-            Color-Coding and Visual Feedback
-          </h1>
-          <h3 className="text-[18px] font-normal leading-[38px] font-Nunito">
-            Receive instant visual feedback on your BMI results:
-          </h3>
-
-          <div className="flex flex-row gap-x-10 justify-center p-4">
-            <div className="flex flex-col justify-center">
-              <p>Low Risk</p>
-              <div className="bg-green-500 rounded-md block h-16 w-16 mt-4"></div>
-            </div>
-            <div className="flex flex-col justify-center">
-              <p className="text-center">Moderate Risk</p>
-              <div className="bg-yellow-300 rounded-md block h-16 w-16 mt-4"></div>
-            </div>
-            <div className="flex flex-col justify-center">
-              <p>High Risk</p>
-              <div className="bg-red-500 rounded-md block h-16 w-16 mt-4"></div>
-            </div>
+          <div className="flex flex-col justify-center ml-32">
+            <ul className="custom-list">
+              <li>
+                <label className="flex flex-row font-normal text-lg font-Nunito items-center m-5">
+                  <span className="font-extrabold text-base mr-10 w-60">
+                    Underweight Threshold:
+                  </span>
+                  <input
+                    name="underweightThreshold"
+                    value={formData.underweightThreshold}
+                    onChange={handleChange}
+                    className="custom-input flex-grow mt-1 p-2 rounded-lg"
+                    type="number"
+                    placeholder="Input Threshold"
+                  />
+                </label>
+              </li>
+              <li>
+                <label className="flex flex-row font-normal text-lg font-Nunito items-center m-5">
+                  <span className="font-extrabold text-base mr-10 w-60">
+                    Normal Weight Threshold:
+                  </span>
+                  <input
+                    name="normalWeightThreshold"
+                    value={formData.normalWeightThreshold}
+                    onChange={handleChange}
+                    className="custom-input flex-grow mt-1 p-2 rounded-lg"
+                    type="number"
+                    placeholder="Input Threshold"
+                  />
+                </label>
+              </li>
+              <li>
+                <label className="flex flex-row font-normal text-lg font-Nunito items-center m-5">
+                  <span className="font-extrabold text-base mr-10 w-60">
+                    Overweight Threshold:
+                  </span>
+                  <input
+                    name="overweightThreshold"
+                    value={formData.overweightThreshold}
+                    onChange={handleChange}
+                    className="custom-input flex-grow mt-1 p-2 rounded-lg"
+                    type="number"
+                    placeholder="Input Threshold"
+                  />
+                </label>
+              </li>
+              <li>
+                <label className="flex flex-row font-normal text-lg font-Nunito items-center m-5">
+                  <span className="font-extrabold text-base mr-10 w-60">
+                    Obese Threshold:
+                  </span>
+                  <input
+                    name="obeseThreshold"
+                    value={formData.obeseThreshold}
+                    onChange={handleChange}
+                    className="custom-input flex-grow mt-1 p-2 rounded-lg"
+                    type="number"
+                    placeholder="Input Threshold"
+                  />
+                </label>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="flex space-x-4 flex-row justify-around mt-32">
-          <button
-            type="button"
-            onClick={handleCancel}
-            className="button-cancel flex-1 bg-[#a0efff] text-black rounded-md py-2 px-4 mt-4 border border-black hover:bg-[#8ed1e3]"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="button-save flex-1 bg-[#22D1EE] text-white rounded-md py-2 px-4 mt-4 ring-6 ring-[#22D1EE] ring-opacity-50 hover:bg-[#1cb3cd]"
-          >
-            Save Changes
-          </button>
+        <div className="w-full flex flex-col items-center justify-center">
+          <div className="flex flex-col justify-items-center">
+            <h1 className="text-[25px] pt-[2rem] font-[700] leading-[46px] font-Nunito text-center">
+              Color-Coding and Visual Feedback
+            </h1>
+            <h3 className="text-[18px] font-normal leading-[38px] font-Nunito text-center">
+              Receive instant visual feedback on your BMI results:
+            </h3>
+            <div className="flex flex-row gap-x-10 justify-center p-4">
+              <div className="flex flex-col items-center justify-center w-18">
+                <p className="text-center">Low Risk</p>
+                <div className="bg-green-500 rounded-md block h-16 w-16 mt-4"></div>
+              </div>
+              <div className="flex flex-col items-center justify-center w-18">
+                <p className="text-center">Moderate Risk</p>
+                <div className="bg-yellow-300 rounded-md block h-16 w-16 mt-4"></div>
+              </div>
+              <div className="flex flex-col items-center justify-center w-18">
+                <p className="text-center">High Risk</p>
+                <div className="bg-red-500 rounded-md block h-16 w-16 mt-4"></div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex space-x-4 flex-row justify-around mt-32 w-full">
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="button-cancel flex-1 bg-[#a0efff] text-black rounded-md py-2 px-4 mt-4 border border-black hover:bg-[#8ed1e3]"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="button-save flex-1 bg-[#22D1EE] text-white rounded-md py-2 px-4 mt-4 ring-6 ring-[#a0efff] ring-opacity-50 hover:bg-[#1cb3cd] border border-[#a0efff]"
+              style={{ borderColor: "#a0efff" }}
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
       </form>
     </div>
