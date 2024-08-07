@@ -11,25 +11,23 @@ const Verification = () => {
 
   const [showVideo, setShowVideo] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-  const [formData, setFormData] = useState({
-    title: '',
-    age: '',
-    gender: '',
-    profession: '',
-    areaOfSpecialization: '',
-    country: null,
-    licenseCountry: null,
-    state: null,
-    city: null,
-    licenseType: '',
-    licenseYear: '',
-    licenseNumber: '',
-    licenseState: '',
-    licenseImage: null,
-    licenseImageName: '', // Add a new state for the file name
-    idImage: null,
-    idImageName: '', // Add a new state for the file name
-  });
+  const [title, setTitle] = useState('')
+  const [age, setAge] = useState('')
+  const [gender, setGender] = useState('')
+  const [profession, setProfession] = useState('')
+  const [areaOfSpecialization, setAreaOfSpecialization] = useState('')
+  const [country, setCountry] = useState(null)
+  const [city, setCity] = useState(null)
+  const [state, setState] = useState(null)
+  const [licenseType, setLicenseType] = useState('')
+  const [licenseYear, setLicenseYear] = useState('')
+  const [licenseNumber, setLicenseNumber] = useState('')
+  const [licenseCountry, setLicenseCountry] = useState(null)
+  const [licenseState, setLicenseState] = useState('')
+  const [licenseImage, setLicenseImage] = useState(null)
+  const [licenseImageName, setLicenseImageName] = useState('')
+  const [idImage, setIdImage] = useState(null)
+  const [idImageName, setIdImageName] = useState('')
 
   const professions = [
     'Allergist',
@@ -289,75 +287,81 @@ const Verification = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, [isSmallScreen]);
 
+  
   const countries = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
     label: country.name,
   }));
 
-  const states = formData.country
-    ? State.getStatesOfCountry(formData.country.value).map((state) => ({
+  const states = country
+    ? State.getStatesOfCountry(country.value).map((state) => ({
       value: state.isoCode,
       label: state.name,
     }))
     : [];
 
-  const cities = formData.state
-    ? City.getCitiesOfState(formData.country.value, formData.state.value).map((city) => ({
+  const cities = state
+    ? City.getCitiesOfState(country.value, state.value).map((city) => ({
       value: city.name,
       label: city.name,
     }))
     : [];
 
   const handleCountryChange = (country) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      country,
-      state: null,
-      city: null,
-    }));
-  };
-
-  const handleCountryChange2 = (country) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      licenseCountry: country,
-    }));
+    setCountry(country);
+    setState(null);
+    setCity(null);
   };
 
   const handleStateChange = (state) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      state,
-      city: null,
-    }));
+    setState(state);
+    setCity(null);
   };
 
   const handleFileChange = (event, field) => {
     const file = event.target.files[0];
     if (file) {
-      setFormData((prevData) => ({
-        ...prevData,
-        [field]: file,
-        [`${field}Name`]: file.name, // Store the file name
-      }));
+      if (field === 'licenseImage') {
+        setLicenseImage(file);
+        setLicenseImageName(file.name);
+      } else if (field === 'idImage') {
+        setIdImage(file);
+        setIdImageName(file.name);
+      }
     }
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const dataToSend = new FormData();
-    Object.keys(formData).forEach(key => {
-      if (formData[key]) {
-        dataToSend.append(key, formData[key]);
-      }
-    });
+    const body = {
+      title,
+      age,
+      gender,
+      profession,
+      areaOfSpecialization,
+      country: country?.label,
+      state: state?.label,
+      city: city?.label,
+      licenseType,
+      licenseYear,
+      licenseNumber,
+      licenseCountry: licenseCountry?.label,
+      licenseState,
+      licenseImage,
+      licenseImageName,
+      idImage,
+      idImageName,
+    };
 
-    console.log(doctor?.id, dataToSend);
-    dispatch(doctor_verification(doctor?.id, navigate, dataToSend));
+    try {
+      await dispatch(doctor_verification(doctor?.id, body, navigate));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -397,8 +401,8 @@ const Verification = () => {
                     placeholder='Dr.'
                     className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
                     required
-                    value={formData.title}
-                    onChange={(e) => setFormData((prevData) => ({ ...prevData, title: e.target.value }))}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
                 <div>
@@ -408,8 +412,8 @@ const Verification = () => {
                     placeholder='Age'
                     className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
                     required
-                    value={formData.age}
-                    onChange={(e) => setFormData((prevData) => ({ ...prevData, age: e.target.value }))}
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
                   />
                 </div>
                 <div>
@@ -417,8 +421,8 @@ const Verification = () => {
                   <select
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={formData.gender}
-                    onChange={(e) => setFormData((prevData) => ({ ...prevData, gender: e.target.value }))}
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
                   >
                     <option value=''>Select Gender</option>
                     <option value='male'>Male</option>
@@ -431,8 +435,8 @@ const Verification = () => {
                   <select
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={formData.profession}
-                    onChange={(e) => setFormData((prevData) => ({ ...prevData, profession: e.target.value }))}
+                    value={profession}
+                    onChange={(e) => setProfession(e.target.value)}
                   >
                     {professions.map(profess => (
                       <option key={profess} value={profess}>{profess}</option>
@@ -445,8 +449,8 @@ const Verification = () => {
                     type='text'
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                     required
-                    value={formData.areaOfSpecialization}
-                    onChange={(e) => setFormData((prevData) => ({ ...prevData, areaOfSpecialization: e.target.value }))}
+                    value={areaOfSpecialization}
+                    onChange={(e) => setAreaOfSpecialization(e.target.value)}
                   >
                     {areaOfSpecializations.map(specialization => (
                       <option key={specialization} value={specialization}>{specialization}</option>
@@ -457,7 +461,7 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
                   <Select
                     options={countries}
-                    value={formData.country}
+                    value={country}
                     onChange={handleCountryChange}
                     placeholder='Select country'
                     isClearable
@@ -485,7 +489,7 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>state</h2>
                   <Select
                     options={states}
-                    value={formData.state}
+                    value={state}
                     onChange={handleStateChange}
                     placeholder='Select state'
                     isClearable
@@ -513,8 +517,8 @@ const Verification = () => {
                   <h2 className='text-[15px] font-Nunito font-medium'>city</h2>
                   <Select
                     options={cities}
-                    value={formData.city}
-                    onChange={(city) => setFormData((prevData) => ({ ...prevData, city }))}
+                    value={city}
+                    onChange={(city) => setCity(city)}
                     placeholder='Select city'
                     isClearable
                     className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
@@ -552,8 +556,8 @@ const Verification = () => {
                       type='text'
                       className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none appearance-none'
                       required
-                      value={formData.licenseType}
-                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseType: e.target.value }))}
+                      value={licenseType}
+                      onChange={(e) => setLicenseType(e.target.value)}
                     >
                       {licenseTypes.map(type => (
                         <option key={type} value={type}>{type}</option>
@@ -567,8 +571,8 @@ const Verification = () => {
                       placeholder='Enter Year'
                       className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
                       required
-                      value={formData.licenseYear}
-                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseYear: e.target.value }))}
+                      value={licenseYear}
+                      onChange={(e) => setLicenseYear(e.target.value)}
                     />
                   </div>
                   <div>
@@ -578,16 +582,16 @@ const Verification = () => {
                       placeholder='Enter Number'
                       className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
                       required
-                      value={formData.licenseNumber}
-                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseNumber: e.target.value }))}
+                      value={licenseNumber}
+                      onChange={(e) => setLicenseNumber(e.target.value)}
                     />
                   </div>
                   <div>
                     <h2 className='text-[15px] font-Nunito font-medium'>country</h2>
                     <Select
                       options={countries}
-                      value={formData.licenseCountry}
-                      onChange={handleCountryChange2}
+                      value={licenseCountry}
+                      onChange={(country) => setLicenseCountry(country)}
                       placeholder='Select country'
                       isClearable
                       className='text-[#B1B7C1] bg-[#F7F9FC] text-[15px] font-Nunito font-bold py-[0.5rem] mt-2 rounded-[8px] w-full outline-none appearance-none'
@@ -617,8 +621,8 @@ const Verification = () => {
                       placeholder='Enter State'
                       className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-3 mt-2 rounded-[8px] w-full outline-none'
                       required
-                      value={formData.licenseState}
-                      onChange={(e) => setFormData((prevData) => ({ ...prevData, licenseState: e.target.value }))}
+                      value={licenseState}
+                      onChange={(e) => setLicenseState(e.target.value)}
                     />
                   </div>
                   <div>
@@ -631,8 +635,8 @@ const Verification = () => {
                         onChange={(e) => handleFileChange(e, 'licenseImage')}
                         />
                       <span>
-                        {formData.licenseImageName ? (
-                          formData.licenseImageName
+                        {licenseImageName ? (
+                          licenseImageName
                         ) : (
                           'Tap to upload documents'
                         )}
@@ -660,8 +664,8 @@ const Verification = () => {
                         onChange={(e) => handleFileChange(e, 'idImage')}
                       />
                      <span>
-                        {formData.idImageName ? (
-                          formData.idImageName
+                        {idImageName ? (
+                          idImageName
                         ) : (
                           'Tap to upload documents'
                         )}
