@@ -179,7 +179,7 @@ export const doctor_logout = (navigate) => (dispatch) => {
 	// Clear stored email on logout
 	localStorage.removeItem('doctorEmail');
 	toast.success("Logged out successfully");
-	navigate('/doctorAuth');
+	navigate('/login');
 };
 
 // Load Doctor
