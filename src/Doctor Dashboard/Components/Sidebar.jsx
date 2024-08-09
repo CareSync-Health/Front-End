@@ -29,9 +29,8 @@ const Sidebar = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-          dispatch(doctor_logout(navigate));
-          navigate('/doctorAuth')
-      };
+        dispatch(doctor_logout(navigate));
+    };
 
     const Menus = [
         { title: "Dashboard", Link: '/doctor_dashboard', icon: <img src={dash} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
@@ -85,11 +84,11 @@ const Sidebar = () => {
                                     className={`font-Lato font-bold flex items-center gap-x-0 cursor-pointer w-[125%] p-2 hover:bg-light-white mt-2 
                                         ${menu.spacing ? "mt-6 border-t pt-[2rem] rounded-0" : "mt-2"} 
                                         ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : 'bg-gray-100'} 
-                                        ${activeIndex === index 
-                                            ? (appearance === 'green' ? 'text-[#17B978]' : 
-                                               appearance === 'blue' ? 'text-[#22D1EE]' : 
-                                               appearance === 'accent' ? 'text-[#A6FFF2]' : 
-                                               'text-[#22D1EE]') // Active color
+                                        ${activeIndex === index
+                                            ? (appearance === 'green' ? 'text-[#17B978]' :
+                                                appearance === 'blue' ? 'text-[#22D1EE]' :
+                                                    appearance === 'accent' ? 'text-[#A6FFF2]' :
+                                                        'text-[#22D1EE]') // Active color
                                             : (theme === 'dark' ? 'text-white' : 'text-gray-800')} // Non-active color
                                     `}
                                     onClick={() => handleMenuClick(index, menu.Link)}
@@ -97,7 +96,7 @@ const Sidebar = () => {
                                     <span className={`text-4xl block float-left lg:ms-[15px] xs:ms-[5px]`}>
                                         {menu.icon ? menu.icon : <RiDashboardFill />}
                                     </span>
-                                    
+
                                     <span className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>
                                         {menu.title}
                                     </span>
@@ -105,7 +104,7 @@ const Sidebar = () => {
                             ))}
                             <li className='flex items-center gap-x-0 cursor-pointer mt-4 ms-2' onClick={handleLogout}>
                                 <span className='text-4xl block float-left lg:ms-[15px] xs:ms-[5px]'><img src={logout} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /></span>
-                                <h2  className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>Logout</h2>
+                                <h2 className={`font-medium flex-1 duration-200 ms-[18px] text-[14px] ${!open && 'hidden'}`}>Logout</h2>
                             </li>
                         </ul>
                     </div>
@@ -114,28 +113,28 @@ const Sidebar = () => {
 
             {/* SMALL SCREEN SIDEBAR */}
             <div className={`lg:hidden fixed flex justify-between items-center z-50 insert-0 shadow-2xl bottom-0 w-full h-[65px] px-5 py-2 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                    {Menus.slice(0, 4).map((menu, index) => (
-                        <li
-                            key={index}
-                            onClick={() => handleMenuClick(index, menu.Link)}
-                            className={`list-none mx-2 mt-2 ${activeIndex === index 
-                                ? (appearance === 'green' ? 'text-[#17B978]' : 
-                                   appearance === 'blue' ? 'text-[#22D1EE]' : 
-                                   appearance === 'accent' ? 'text-[#A6FFF2]' : 
-                                   'text-[#22D1EE]') // Active color
-                                : (theme === 'dark' ? 'text-white' : 'text-gray-800')}`} // Non-active color
-                        >
-                            <span className='text-[30px]'>
-                                {menu.icon ? menu.icon : <RiDashboardFill />}
-                            </span>
-                        </li>
-                    ))}
+                {Menus.slice(0, 4).map((menu, index) => (
                     <li
-                        onClick={() => setShowMore(!showMore)}
-                        className='list-none mx-2 text-gray-500 mt-2'
+                        key={index}
+                        onClick={() => handleMenuClick(index, menu.Link)}
+                        className={`list-none mx-2 mt-2 ${activeIndex === index
+                            ? (appearance === 'green' ? 'text-[#17B978]' :
+                                appearance === 'blue' ? 'text-[#22D1EE]' :
+                                    appearance === 'accent' ? 'text-[#A6FFF2]' :
+                                        'text-[#22D1EE]') // Active color
+                            : (theme === 'dark' ? 'text-white' : 'text-gray-800')}`} // Non-active color
                     >
-                        <FaEllipsisH className='text-[30px]' />
+                        <span className='text-[30px]'>
+                            {menu.icon ? menu.icon : <RiDashboardFill />}
+                        </span>
                     </li>
+                ))}
+                <li
+                    onClick={() => setShowMore(!showMore)}
+                    className='list-none mx-2 text-gray-500 mt-2'
+                >
+                    <FaEllipsisH className='text-[30px]' />
+                </li>
 
                 {/* More Menu for Mobile */}
                 {showMore && (
@@ -146,11 +145,11 @@ const Sidebar = () => {
                                     key={index}
                                     onClick={() => handleMenuClick(index + 4, menu.Link)}
                                     className={`list-none py-2 mx-2 mt-[2rem]                                     
-                                        ${activeIndex === index + 4 
-                                            ? (appearance === 'green' ? 'text-[#17B978]' : 
-                                               appearance === 'blue' ? 'text-[#22D1EE]' : 
-                                               appearance === 'accent' ? 'text-[#A6FFF2]' : 
-                                               'text-[#22D1EE]') // Active color
+                                        ${activeIndex === index + 4
+                                            ? (appearance === 'green' ? 'text-[#17B978]' :
+                                                appearance === 'blue' ? 'text-[#22D1EE]' :
+                                                    appearance === 'accent' ? 'text-[#A6FFF2]' :
+                                                        'text-[#22D1EE]') // Active color
                                             : (theme === 'dark' ? 'text-white' : 'text-gray-800')} // Non-active color
                                     `}
                                 >

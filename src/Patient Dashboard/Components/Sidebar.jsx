@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation, Link, useNavigate} from 'react-router-dom'
+import { useLocation, Link, useNavigate } from 'react-router-dom'
 import Caresync from '../../assets/CareSync.png'
 import { MdDashboard, MdHelpOutline } from "react-icons/md"
 import { RiCalendarEventLine, RiMessage3Line } from "react-icons/ri"
@@ -15,8 +15,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-          dispatch(patient_logout(navigate));
-          navigate('/patientAuth')
+    dispatch(patient_logout(navigate));
   };
 
   const navItems = [
