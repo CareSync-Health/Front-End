@@ -121,7 +121,7 @@ const Signup = () => {
             <label className='cursor-pointer'>
               <input type='checkbox' required className='bg-[#F6F6F6] mt-[2rem]' />
               <span className='ms-2'>
-                Yes, I understand and agree to the CareSync Terms of Service
+                Yes, I understand and agree to the CareSync <Link to='/terms&conditions' className='underline'>Terms of Service</Link>
               </span>
             </label>
             <button
@@ -138,7 +138,7 @@ const Signup = () => {
             <center>
               <h6 className='font-Roboto mt-8'>
                 Already have an account?{' '}
-                <Link to='/patientAuth' className='text-[#22D1EE]'>
+                <Link to='/auth' className='text-[#22D1EE]'>
                   Login
                 </Link>
               </h6>

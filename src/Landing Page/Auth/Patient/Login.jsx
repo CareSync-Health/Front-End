@@ -97,7 +97,7 @@ const Login = () => {
                   <span className="ms-3">Remember me</span>
                 </div>
                 <div>
-                  <Link to="" className="text-[#22D1EE]">
+                  <Link to="/auth/forgot_password" className="text-[#22D1EE]">
                     Forgot Password?
                   </Link>
                 </div>
@@ -108,15 +108,15 @@ const Login = () => {
                   className="font-Roboto bg-[#22D1EE] w-full mt-5 py-2 text-white rounded-md flex justify-center items-center"
                   disabled={loading}
                 >
-                   {loading ? (
-                            <ClipLoader size={24} color="#fff" /> // Show spinner when loading
-                        ) : (
-                            'Login'
-                        )}
+                  {loading ? (
+                    <ClipLoader size={24} color="#fff" /> // Show spinner when loading
+                  ) : (
+                    'Login'
+                  )}
                 </button>
                 <h6 className="font-Roboto mt-5">
                   Don’t have an account?{" "}
-                  <Link to="/patientSignup" className="text-[#22D1EE]">
+                  <Link to="/signup" className="text-[#22D1EE]">
                     Register
                   </Link>
                 </h6>

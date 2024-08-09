@@ -77,7 +77,7 @@ const Signup = () => {
               <img src={img2} alt="google-icon" className="w-6" />
               <h6 className='text-[18px] font-medium font-Inter'>Sign up with Google</h6>
             </div>
-            <h2 className='text-[#17B978] text-[15px] leading-[21.68px] font-[400] font-Poppins mt-[1.5rem] text-center'>Already have an account? <Link to='/doctorLogin'>Sign In</Link></h2>
+            <h2 className='text-[#17B978] text-[15px] leading-[21.68px] font-[400] font-Poppins mt-[1.5rem] text-center'>Already have an account? <Link to='/login'>Sign In</Link></h2>
           </form>
         </div>
       </div>

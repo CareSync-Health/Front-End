@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import { appointmentReducer, patientAuthReducer, patientVerifyOtpReducer } from "./PatientReducers";
-import { doctorAuthReducer, doctorVerificationReducer, doctorVerifyOtpReducer, getAllDoctorsReducer, loadDoctorReducer, searchDoctorsReducer } from "./DoctorReducers";
+import { doctorAuthReducer, doctorForgetPasswordReducer, doctorVerificationReducer, doctorVerifyOtpReducer, getAllDoctorsReducer, loadDoctorReducer, searchDoctorsReducer } from "./DoctorReducers";
 
 const rootReducer = combineReducers({
     doctorAuth: doctorAuthReducer,
     doctorVerifyOtp: doctorVerifyOtpReducer,
+    doctorForgetPassword: doctorForgetPasswordReducer,
     doctorVerification: doctorVerificationReducer,
     loadDoctor: loadDoctorReducer,
     searchDoctors: searchDoctorsReducer,
