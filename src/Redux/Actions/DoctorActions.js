@@ -16,8 +16,6 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			// Store email in local storage
-			localStorage.setItem('doctorEmail', data.data.email);
 			navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
 		} else {
 			throw new Error(data.message);
@@ -39,6 +37,8 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
+			// Store email in local storage
+			localStorage.setItem('doctorEmail', data.data.email);
 			navigate('/verification_process'); // Navigate to the dashboard page
 		} else {
 			throw new Error(data.message);
