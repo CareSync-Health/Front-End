@@ -6,6 +6,7 @@ import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
 import { useSelector } from "react-redux";
 
+// LANDING PAGE IMPORTS
 const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
 const About = lazy(() => import("./Landing Page/About/About"));
 const UserPage = lazy(() => import("./Landing Page/Auth/UserPage"));
@@ -13,88 +14,44 @@ const Login = lazy(() => import("./Landing Page/Auth/Patient/Login"));
 const Signup = lazy(() => import("./Landing Page/Auth/Patient/Signup"));
 const Login2 = lazy(() => import("./Landing Page/Auth/Doctor/Login"));
 const Signup2 = lazy(() => import("./Landing Page/Auth/Doctor/Signup"));
+const Doctor_Forget_Password = lazy(() => import("./Landing Page/Auth/Doctor/ForgotPassword"));
+const Doctor_Reset_Password = lazy(() => import("./Landing Page/Auth/Doctor/ResetPassword"));
+const Patient_Forget_Password = lazy(() => import("./Landing Page/Auth/Patient/ForgotPassword"));
+const Patient_Reset_Password = lazy(() => import("./Landing Page/Auth/Patient/ResetPassword"));
 const Contact = lazy(() => import("./Landing Page/Contact/Contact"));
-const VerifyAccount = lazy(() =>
-  import("./Landing Page/Auth/Patient/VerifyAccount")
-);
-const VerifyAccount2 = lazy(() =>
-  import("./Landing Page/Auth/Doctor/VerifyAccount")
-);
+const VerifyAccount = lazy(() => import("./Landing Page/Auth/Patient/VerifyAccount"));
+const VerifyAccount2 = lazy(() => import("./Landing Page/Auth/Doctor/VerifyAccount"));
 const Terms_Conditions = lazy(() => import("./Components/Terms_Conditions"));
 const Privacy_Policy = lazy(() => import("./Components/Privacy_Policy"));
 
 // DOCTOR IMPORTS
-const DoctorDashboard = lazy(() =>
-  import("./Doctor Dashboard/DoctorDashboard")
-);
-const DoctorAppointment = lazy(() =>
-  import("./Doctor Dashboard/DoctorAppointment")
-);
+const DoctorDashboard = lazy(() => import("./Doctor Dashboard/DoctorDashboard"));
+const DoctorAppointment = lazy(() => import("./Doctor Dashboard/DoctorAppointment"));
 const DoctorChat = lazy(() => import("./Doctor Dashboard/Message/DoctorChat"));
 const DoctorPages = lazy(() => import("./Doctor Dashboard/DoctorPages"));
-const DoctorPatientPages = lazy(() =>
-  import("./Doctor Dashboard/PatientPages")
-);
-const DoctorProfile = lazy(() =>
-  import("./Doctor Dashboard/Profile/DcotorProfile")
-);
-const EditDoctorProfile = lazy(() =>
-  import("./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile")
-);
+const DoctorPatientPages = lazy(() => import("./Doctor Dashboard/PatientPages"));
+const DoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/DcotorProfile"));
+const EditDoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile"));
 const DoctorPayment = lazy(() => import("./Doctor Dashboard/Payment/Payment"));
-const OnlineWithdrawal = lazy(() =>
-  import("./Doctor Dashboard/Payment/OnlineWithdrawal")
-);
-const DoctorSetting = lazy(() =>
-  import("./Doctor Dashboard/Settings/SettingPage")
-);
-const Verification = lazy(() =>
-  import("./Doctor Dashboard/VerifyAccount/Verification")
-);
+const OnlineWithdrawal = lazy(() => import("./Doctor Dashboard/Payment/OnlineWithdrawal"));
+const DoctorSetting = lazy(() => import("./Doctor Dashboard/Settings/SettingPage"));
+const Verification = lazy(() => import("./Doctor Dashboard/VerifyAccount/Verification"));
 const Confetti = lazy(() => import("./Doctor Dashboard/Components/Confetti"));
 
 // PATIENT IMPORTS
-const PatientDashboard = lazy(() =>
-  import("./Patient Dashboard/Dashboard/PatientDashboard")
-);
-const PatientAppointments = lazy(() =>
-  import("./Patient Dashboard/Appointments/PatientAppointments")
-);
-const SearchDoctors = lazy(() =>
-  import(
-    "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/SearchDoctors"
-  )
-);
-const DoctorInfo = lazy(() =>
-  import(
-    "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"
-  )
-);
-const BookAppointment = lazy(() =>
-  import(
-    "./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"
-  )
-);
-const PatientMessage = lazy(() =>
-  import("./Patient Dashboard/Message/PatientMessage")
-);
-const PatientCalendar = lazy(() =>
-  import("./Patient Dashboard/Calendar/PatientCalendar")
-);
-const PatientCalendarFilter = lazy(() =>
-  import("./Patient Dashboard/Calendar/PatientCalendarFilter")
-);
-const PatientSettings = lazy(() =>
-  import("./Patient Dashboard/Settings/PatientSettings")
-);
+const PatientDashboard = lazy(() => import("./Patient Dashboard/Dashboard/PatientDashboard"));
+const PatientAppointments = lazy(() => import("./Patient Dashboard/Appointments/PatientAppointments"));
+const SearchDoctors = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/SearchDoctors"));
+const DoctorInfo = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"));
+const BookAppointment = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"));
+const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
+const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
+const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
+const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
 
 function App() {
-  const doctor = useSelector(
-    (state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor
-  );
-  const patient = useSelector(
-    (state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor
-  );
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+  const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
 
   return (
     <ThemeProvider>
@@ -125,10 +82,14 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="user" element={<UserPage />} />
-            <Route path="patientAuth" element={<Login />} />
-            <Route path="patientSignup" element={<Signup />} />
-            <Route path="doctorAuth" element={<Login2 />} />
-            <Route path="doctorSignup" element={<Signup2 />} />
+            <Route path="auth" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login2 />} />
+            <Route path="register" element={<Signup2 />} />
+            <Route path='login/forgot_password' element={ <Doctor_Forget_Password /> } />
+            <Route path='reset_password' element={ <Doctor_Reset_Password /> } />
+            <Route path='auth/forgot_password' element={ <Patient_Forget_Password /> } />
+            <Route path='reset_your_password' element={ <Patient_Reset_Password /> } />
             <Route path="patient_verify_otp" element={<VerifyAccount />} />
             <Route path="doctor_verify_otp" element={<VerifyAccount2 />} />
             <Route path="terms&conditions" element={<Terms_Conditions />} />

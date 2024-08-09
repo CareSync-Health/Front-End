@@ -64,8 +64,8 @@ const Login = () => {
                         <img src={img2} alt="google-icon" className="w-6" />
                         <h6 className='text-[18px] font-medium font-Inter'>Login with Google</h6>
                     </div>
-                    <h2 className='text-[#17B978] text-[15px] leading-[21.68px] font-[400] font-Poppins mt-[1.5rem] text-center'><Link to=''>Forgot Password?</Link></h2>
-                    <h2 className='text-[15px] leading-[21.68px] font-[400] font-Poppins text-center mt-[1rem]'>Don't have an account? <Link to='/doctorSignup' className='text-[#17B978]'>Register</Link></h2>
+                    <h2 className='text-[#17B978] text-[15px] leading-[21.68px] font-[400] font-Poppins mt-[1.5rem] text-center'><Link to='/login/forgot_password'>Forgot Password?</Link></h2>
+                    <h2 className='text-[15px] leading-[21.68px] font-[400] font-Poppins text-center mt-[1rem]'>Don't have an account? <Link to='/register' className='text-[#17B978]'>Register</Link></h2>
                 </form>
             </div>
         </div>

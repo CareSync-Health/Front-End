@@ -16,7 +16,8 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			console.log('Signup Data', data)
+			// Store email in local storage
+			localStorage.setItem('doctorEmail', data.data.email);
 			navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
 		} else {
 			throw new Error(data.message);
@@ -38,7 +39,6 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			console.log('VerifyOtp Data', data)
 			navigate('/verification_process'); // Navigate to the dashboard page
 		} else {
 			throw new Error(data.message);
@@ -105,7 +105,8 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			console.log('VerifyOtp Data', data)
+			// Store email in local storage
+			localStorage.setItem('doctorEmail', data.data.email);
 			navigate('/doctor_dashboard');
 		} else {
 			throw new Error(data.message);
@@ -117,9 +118,66 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 	}
 };
 
+export const forgot_password = (navigate) => async (dispatch) => {
+	try {
+		dispatch({ type: types.FORGOT_PASSWORD_REQUEST });
+
+		// Retrieve email from local storage
+		const email = localStorage.getItem('doctorEmail');
+
+		if (!email) {
+			navigate('/register');
+			throw new Error("Email not found. Please signup first.");
+		}
+
+		const { data } = await axios.post(`${url}/doctor/forgot-password`, { email }, header);
+
+		if (data.status === 'Ok') {
+			dispatch({ type: types.FORGOT_PASSWORD_SUCCESS });
+			toast.success(data.message, {
+				position: 'top-right',
+			});
+			navigate('/reset_password');
+		} else {
+			throw new Error(data.message);
+		}
+	} catch (error) {
+		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+		toast.error(message);
+		dispatch({ type: types.FORGOT_PASSWORD_FAIL, payload: message });
+	}
+};
+
+export const reset_password = (resetToken, newPassword, navigate) => async (dispatch) => {
+    try {
+        dispatch({ type: types.RESET_PASSWORD_REQUEST });
+
+        // Make an API call to reset the password
+        const { data } = await axios.post(`${url}/doctor/reset-password`, { resetToken, newPassword }, header);
+
+        if (data.status === 'Ok') {
+            dispatch({ type: types.RESET_PASSWORD_SUCCESS });
+            toast.success(data.message, {
+                position: 'top-right',
+            });
+            navigate('/login'); // Redirect to login or another appropriate page
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+        toast.error(message);
+        dispatch({ type: types.RESET_PASSWORD_FAIL, payload: message });
+    }
+};
+
+
 export const doctor_logout = (navigate) => (dispatch) => {
 	dispatch({ type: types.DOCTOR_SIGNIN_LOGOUT });
 	dispatch({ type: types.DOCTOR_AUTH_LOGOUT });
+
+	// Clear stored email on logout
+	localStorage.removeItem('doctorEmail');
 	toast.success("Logged out successfully");
 	navigate('/doctorAuth');
 };
