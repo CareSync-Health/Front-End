@@ -3,6 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { config } from "../Config";
 import { authHeader, header } from "../Header";
+import { data } from "autoprefixer";
 
 const url = config.liveUrl;
 
@@ -18,12 +19,13 @@ export const doctor_register = (body, navigate) => async (dispatch) => {
 			});
 			navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message);
-		dispatch({ type: types.DOCTOR_AUTH_FAIL, payload: message });
+		dispatch({ type: types.DOCTOR_AUTH_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 };
 
@@ -41,14 +43,13 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 			localStorage.setItem('doctorEmail', data.data.email);
 			navigate('/verification_process'); // Navigate to the dashboard page
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message, {
+		dispatch({ type: types.VERIFY_OTP_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
 			position: 'top-right',
 		});
-		dispatch({ type: types.VERIFY_OTP_FAIL, payload: message });
 	}
 };
 
@@ -63,14 +64,13 @@ export const resend_otp = (email) => async (dispatch) => {
 				position: 'top-right',
 			});
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message, {
+		dispatch({ type: types.RESEND_OTP_FAIL, payload: error.message || error  });
+		toast.error(error.message || 'An error occurred', {
 			position: 'top-right',
 		});
-		dispatch({ type: types.RESEND_OTP_FAIL, payload: message });
 	}
 };
 
@@ -86,12 +86,13 @@ export const doctor_verification = (id, navigate, dataToSend) => async (dispatch
 			});
 			navigate('/congratulation');
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message);
-		dispatch({ type: types.DOCTOR_VERIFY_FAIL, payload: message });
+		dispatch({ type: types.DOCTOR_VERIFY_FAIL, payload: error.message || error  });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 }
 
@@ -101,20 +102,21 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 
 		const { data } = await axios.post(`${url}/doctor/Signin`, body, header);
 		if (data.status === 'Ok') {
-			dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data });
+			dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data, token: data.data.token });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
 			// Store email in local storage
-			localStorage.setItem('doctorEmail', data.data.email);
+			localStorage.setItem('doctorEmail', data.data.email, 'token', data.data.token);
 			navigate('/doctor_dashboard');
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message);
-		dispatch({ type: types.DOCTOR_SIGNIN_FAIL, payload: message });
+		dispatch({ type: types.DOCTOR_SIGNIN_FAIL, payload: error.message || error  });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 };
 
@@ -130,59 +132,68 @@ export const forgot_password = (navigate) => async (dispatch) => {
 			throw new Error("Email not found. Please signup first.");
 		}
 
-		const { data } = await axios.post(`${url}/doctor/forgot-password`, { email }, header);
+		const { data } = await axios.post(`${url}/doctor/request-password-reset`, { email }, header);
 
-		if (data.status === 'Ok') {
+		if (data.success) {
 			dispatch({ type: types.FORGOT_PASSWORD_SUCCESS });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			navigate('/reset_password');
+			// navigate('/reset_password');
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message);
-		dispatch({ type: types.FORGOT_PASSWORD_FAIL, payload: message });
+		dispatch({ type: types.FORGOT_PASSWORD_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 };
 
-export const reset_password = (resetToken, newPassword, navigate) => async (dispatch) => {
+// export const resetPassword = ( token, id, newPassword) => async (dispatch) => {
+// 	try {
+// 	  dispatch({ type: types.RESET_PASSWORD_REQUEST });
+  
+// 	  const { data } = await axios.post(`${url}/doctor/reset-password`, { token, id, newPassword }, header);
+// 		console.log(token, id, newPassword)
+// 	  if (data.success) {
+// 		dispatch({ type: types.RESET_PASSWORD_SUCCESS, payload: data });
+// 		toast.success(data.message, {
+// 			position: 'top-right',
+// 		});
+// 	} else {
+// 		throw new Error(data.error);
+// 	}
+// 	} catch (error) {
+// 		dispatch({ type: types.RESET_PASSWORD_FAIL, payload: error.message || error });
+// 		toast.error(error.message || 'An error occurred', {
+// 			position: 'top-right',
+// 		});
+//   	}
+//   };
+
+export const resetPassword = (token, newPassword) => async (dispatch) => {
     try {
-        dispatch({ type: types.RESET_PASSWORD_REQUEST });
+        dispatch({ type: types.RESET_PASSWORD_REQUEST })
 
-        // Make an API call to reset the password
-        const { data } = await axios.post(`${url}/doctor/reset-password`, { resetToken, newPassword }, header);
+        const { data } = await axios.put(`${url}/doctor/reset-password${token}`, newPassword, header)
 
-        if (data.status === 'Ok') {
-            dispatch({ type: types.RESET_PASSWORD_SUCCESS });
-            toast.success(data.message, {
-                position: 'top-right',
-            });
-            navigate('/login'); // Redirect to login or another appropriate page
-        } else {
-            throw new Error(data.message);
-        }
+        dispatch({ 
+            type: types.RESET_PASSWORD_SUCCESS,
+            payload: data.success,
+         })
+
     } catch (error) {
-        const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-        toast.error(message);
-        dispatch({ type: types.RESET_PASSWORD_FAIL, payload: message });
+        dispatch({
+            type: types.RESET_PASSWORD_FAIL,
+            payload: error.response.data.message
+        })
     }
-};
+}
 
+  
 
-export const doctor_logout = (navigate) => (dispatch) => {
-	dispatch({ type: types.DOCTOR_SIGNIN_LOGOUT });
-	dispatch({ type: types.DOCTOR_AUTH_LOGOUT });
-
-	// Clear stored email on logout
-	localStorage.removeItem('doctorEmail');
-	toast.success("Logged out successfully");
-	navigate('/login');
-};
-
-// Load Doctor
 export const loadDoctor = (id) => async (dispatch) => {
 	try {
 
@@ -194,28 +205,32 @@ export const loadDoctor = (id) => async (dispatch) => {
 			dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data });
 			return data.data;
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		dispatch({ type: types.LOAD_DOCTOR_FAIL, payload: error.response ? error.response.data.message : error.message });
+		dispatch({ type: types.LOAD_DOCTOR_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 };
 
-// Search Doctors
 export const searchDoctors = (query) => async (dispatch) => {
 	try {
 		dispatch({ type: types.SEARCH_DOCTORS_REQUEST });
-
+		
 		const { data } = await axios.get(`${url}/doctor/search?query=${query}`, header);
 
 		if (data.success) {
 			dispatch({ type: types.SEARCH_DOCTORS_SUCCESS, payload: data.doctors });
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		dispatch({ type: types.SEARCH_DOCTORS_FAIL, payload: message });
+		dispatch({ type: types.SEARCH_DOCTORS_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 };
 
@@ -227,21 +242,45 @@ export const getAllDoctors = (body) => async (dispatch) => {
 		if (data.status === 'OK') {
 			dispatch({ type: types.GET_ALL_DOCTORS_SUCCESS, payload: data.data });
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		dispatch({ type: types.GET_ALL_DOCTORS_FAIL, payload: message });
+		dispatch({ type: types.GET_ALL_DOCTORS_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
 	}
 }
 
-// Action Creator
-// export const fetchDoctorDetails = (id) => async (dispatch) => {
-// 	dispatch({ type: types.FETCH_DOCTOR_DETAILS_REQUEST });
-// 	try {
-// 		const response = await axios.get(`${url}/doctor/${id}`); // Replace with your API endpoint
-// 		dispatch({ type: types.FETCH_DOCTOR_DETAILS_SUCCESS, payload: response.data });
-// 	} catch (error) {
-// 		dispatch({ type: types.FETCH_DOCTOR_DETAILS_FAIL, payload: error.message });
-// 	}
-// };
+export const updateDoctorProfile = (id, profileData) => async (dispatch) => {
+	try {
+		dispatch({ type: types.UPDATE_DOCTOR_PROFILE_REQUEST });
+
+		const { data } = await axios.put(`${url}/doctor/update/${id}`, profileData, header);
+
+		if (data.status === 'Ok') {
+			dispatch({ type: types.UPDATE_DOCTOR_PROFILE_SUCCESS, payload: data.data });
+			toast.success(data.message, {
+				position: 'top-right',
+			});
+		} else {
+			throw new Error(data.error);
+		}
+	} catch (error) {
+		dispatch({ type: types.UPDATE_DOCTOR_PROFILE_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
+	}
+};
+
+export const doctor_logout = (navigate) => (dispatch) => {
+	dispatch({ type: types.DOCTOR_SIGNIN_LOGOUT });
+	dispatch({ type: types.DOCTOR_AUTH_LOGOUT });
+
+	// Clear stored email on logout
+	// localStorage.removeItem('doctorEmail');
+	localStorage.removeItem('token');
+	toast.success("Logged out successfully");
+	navigate('/login');
+};

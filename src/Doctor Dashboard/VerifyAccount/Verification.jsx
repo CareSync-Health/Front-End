@@ -367,7 +367,7 @@ const Verification = () => {
     };
 
     try {
-      await dispatch(doctor_verification(doctor?.id, navigate, body));
+      await dispatch(doctor_verification(doctor?._id, navigate, body));
     } catch (error) {
     }
   };

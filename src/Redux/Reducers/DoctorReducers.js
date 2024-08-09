@@ -1,4 +1,3 @@
-import { Turtle } from "lucide-react";
 import * as types from "../Types";
 
 export const doctorAuthReducer = (state = {}, action) => {
@@ -107,3 +106,18 @@ export const loadDoctorReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const updateDoctorReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.UPDATE_DOCTOR_PROFILE_REQUEST:
+      return { ...state, loading: true };
+    case types.UPDATE_DOCTOR_PROFILE_SUCCESS:
+      return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
+    case types.UPDATE_DOCTOR_PROFILE_FAIL:
+      return { ...state, loading: false, error: action.payload, message: action.message };
+    case types.CLEAR_ERRORS:
+      return { ...state, error: null };
+    default:
+      return state;
+  }
+}

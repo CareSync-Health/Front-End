@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import img from '../../../assets/Rectangle 35.png';
 import { HiMiniLockClosed } from 'react-icons/hi2';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { reset_password } from '../../../Redux/Actions/DoctorActions';
+import { resetPassword } from '../../../Redux/Actions/DoctorActions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -12,22 +12,24 @@ const ResetPassword = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
-    const { resetToken } = useParams(); // Assuming the token is in the URL
+  
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { loading, error } = useSelector(state => state.doctorForgetPassword); // Access state
+    const params = useParams();
+    // const { doctor, loading, error, success } = useSelector(state => state.doctorAuth);
+  
+    const { doctor, loading } = useSelector((state) => state.doctorForgetPassword);
+
+//   useEffect(() => {
+//     dispatch(resetPassword(token, id));
+//   }, [dispatch, token, id]);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            toast.error('Passwords do not match.');
-            return;
-        }
-        if (resetToken && newPassword) {
-            dispatch(reset_password(resetToken, newPassword, navigate));
-        } else {
-            toast.error('Reset token or new password is missing.');
-        }
+      e.preventDefault();
+      if (newPassword !== confirmPassword) {
+        toast.error('Passwords do not match.');
+        return;
+    }
+      dispatch(resetPassword(params.token, newPassword));
     };
 
     return (
@@ -87,7 +89,6 @@ const ResetPassword = () => {
                             >
                                 {loading ? 'Processing...' : 'Reset password'}
                             </button>
-                            {error && <p className='text-red-500 text-center mt-2'>{error}</p>}
                             <p className='text-[14px] text-center mt-5 font-Inter'>
                                 Never mind! <Link to='/login' className='text-[#17B978] underline'>Take me back to login</Link>
                             </p>
