@@ -23,17 +23,17 @@ import Twitch from '../../assets/Icons/Twitch.svg'
 const DcotorProfile = () => {
   const { theme, appearance } = useTheme();
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+  const { id } = useParams(); // Get doctor ID from URL
+
+  // Get doctor data from Redux store
+  const doctor = useSelector((state) => state.loadDoctor.doctor);
+
+  useEffect(() => {
+    dispatch(loadDoctor(id));
+  }, [dispatch, id]);
 
   const [showShareModal, setShowShareModal] = useState(false);
   const [copyMessageVisible, setCopyMessageVisible] = useState(false);
-
-  useEffect(() => {
-    if (id) {
-      dispatch(loadDoctor(id));
-    }
-  }, [id, dispatch]);
 
   const handleShareClick = () => {
     setShowShareModal(true);
@@ -44,7 +44,7 @@ const DcotorProfile = () => {
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/doctorid=${doctor?.id}`);
+    navigator.clipboard.writeText(`http://localhost:5173/doctorid=${doctor?._id}`);
     setCopyMessageVisible(true);
     setTimeout(() => {
       setCopyMessageVisible(false);
@@ -57,7 +57,6 @@ const DcotorProfile = () => {
       <div className={`flex-1 lg:h-[99.9vh] xs:h-[85vh] w-full overflow-y-auto ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <Navbar messageCount={5} notificationCount={12} />
         <div>
-          {/* {doctor && ( */}
             <div className='lg:px-[15px] lg:mt-[1rem]'>
               <div className={`pb-[2rem] rounded-[10px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 <div style={{ backgroundImage: `url(${profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
@@ -65,7 +64,7 @@ const DcotorProfile = () => {
                   <div className='flex items-center justify-between lg:px-[50px] xs:px-[10px] pt-[8rem]'>
                     <img src={profileavatar} className='rounded-[100px] object-contain w-[180px]' />
                     <button className='bg-[#fff] w-[172px] py-[10px] px-[10px] text-center text-[#17B978] hover:bg-[#17B978] hover:text-[#fff] duration-300 text-[16px] font-Poppins font-semibold rounded-[10px] lg:block xs:hidden'>
-                      <Link to='/edit_doctor_profile'>Edit Cover Photo</Link>
+                      <Link to='/edit_doctor_profile/:id'>Edit Cover Photo</Link>
                     </button>
                   </div>
                 </div>
@@ -76,15 +75,14 @@ const DcotorProfile = () => {
                   </div>
                   <div className='flex items-center justify-end gap-[2rem] lg:mt-0 xs:mt-5'>
                     <button className='lg:text-[20px] xs:text-[16px] bg-[#22D1EE] p-2.5 rounded-[100px]' onClick={handleShareClick}><FaShare /></button>
-                    <button className='border-[#22D1EE] border-[1px] border-solid rounded-[10px] w-[172px] h-[44px] py-[5px] px-[10px] text-center text-[#22D1EE] hover:bg-[#22D1EE] hover:text-[#fff] duration-300 text-[16px] font-Poppins font-semibold lg:block xs:hidden'><Link to='/edit_doctor_profile'>Edit Profile</Link></button>
-                    <button className='text-[#22D1EE] text-[21px] lg:hidden xs:block'><Link to='/edit_doctor_profile'><FaPencil /></Link></button>
+                    <button className='border-[#22D1EE] border-[1px] border-solid rounded-[10px] w-[172px] h-[44px] py-[5px] px-[10px] text-center text-[#22D1EE] hover:bg-[#22D1EE] hover:text-[#fff] duration-300 text-[16px] font-Poppins font-semibold lg:block xs:hidden'><Link to={`/edit_doctor_profile/${doctor?._id}`}>Edit Profile</Link></button>
+                    <button className='text-[#22D1EE] text-[21px] lg:hidden xs:block'><Link to={`/edit_doctor_profile/${doctor?._id}`}><FaPencil /></Link></button>
                   </div>
                 </div>
               </div>
 
               <ProfilePost doctor={doctor} />
             </div>
-          {/* )} */}
         </div>
       </div>
 
@@ -99,31 +97,31 @@ const DcotorProfile = () => {
             <div className='mt-[2rem]'>
               <h2 className='lg:text-[20px] xs:text-[18px] font-Nunito font-semibold'>Share to Social Media</h2>
               <div className='flex flex-wrap justify-around gap-[2rem] mt-[2rem] lg:px-[170px] lg:ms-[-11rem]'>
-                <a href={`https://wa.me/?text=Check%20out%20this%20doctor%20profile%3A%20https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://wa.me/?text=Check%20out%20this%20doctor%20profile%3A%20https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Whatsapp} alt='WhatsApp' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal'>WhatsApp</h2>
                 </a>
-                <a href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20doctor%20profile%3A%20https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20doctor%20profile%3A%20https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Twitter} alt='Twitter' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>X</h2>
                 </a>
-                <a href={`https://www.instagram.com/?url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://www.instagram.com/?url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Instagram} alt='Instagram' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>Instagram</h2>
                 </a>
-                <a href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Facebook} alt='Facebook' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>Facebook</h2>
                 </a>
-                <a href={`mailto:?subject=Check%20out%20this%20doctor%20profile&body=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`mailto:?subject=Check%20out%20this%20doctor%20profile&body=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Email} alt='Email' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>Email</h2>
                 </a>
-                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Linkedin} alt='LinkedIn' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>LinkedIn</h2>
                 </a>
-                <a href={`https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?.id}`} target='_blank' rel='noopener noreferrer'>
+                <a href={`https://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Fcaresyncmed%2Fdoctorid%3D${doctor?._id}`} target='_blank' rel='noopener noreferrer'>
                   <img src={Pinintrest} alt='Pinterest' className='w-[50px]' />
                   <h2 className='text-[14px] mt-3 font-Nunito font-normal text-center'>Pinintrest</h2>
                 </a>
@@ -136,7 +134,7 @@ const DcotorProfile = () => {
               <div className={`flex justify-between gap-[10px] items-center border rounded-[10px] w-full lg:pl-[30px] lg:px-[20px] xs:px-[10px] lg:mb-[2rem] mt-[3rem] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#D8F6F9]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 <input
                   type='text'
-                  value={`http://localhost:5173/doctorid=${doctor?.id}`}
+                  value={`http://localhost:5173/doctorid=${doctor?._id}`}
                   readOnly
                   className='lg:w-[95%] xs:w-[77%] py-3 bg-transparent outline-none cursor-pointer'
                   onClick={handleCopyLink}

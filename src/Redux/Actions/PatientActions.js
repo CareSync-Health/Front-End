@@ -103,6 +103,57 @@ export const patient_logout = (navigate) => (dispatch) => {
 	navigate('/patientAuth');
 }; 
 
+export const loadDoctor = (id) => async (dispatch) => {
+	try {
+
+		dispatch({ type: types.LOAD_DOCTOR_REQUEST });
+
+		const { data } = await axios.get(`${url}/doctor/${id}`, header);
+
+		if (data.status === 'OK') {
+			dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data });
+			return data.data;
+		} else {
+			throw new Error(data.message);
+		}
+	} catch (error) {
+		dispatch({ type: types.LOAD_DOCTOR_FAIL, payload: error.response ? error.response.data.message : error.message });
+	}
+};
+
+export const searchDoctors = (query) => async (dispatch) => {
+	try {
+		dispatch({ type: types.SEARCH_DOCTORS_REQUEST });
+
+		const { data } = await axios.get(`${url}/doctor/search?query=${query}`, header);
+
+		if (data.success) {
+			dispatch({ type: types.SEARCH_DOCTORS_SUCCESS, payload: data.doctors });
+		} else {
+			throw new Error(data.message);
+		}
+	} catch (error) {
+		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+		dispatch({ type: types.SEARCH_DOCTORS_FAIL, payload: message });
+	}
+};
+
+export const getAllDoctors = (body) => async (dispatch) => {
+	try {
+		dispatch({ type: types.GET_ALL_DOCTORS_REQUEST });
+
+		const { data } = await axios.get(`${url}/doctor/`, body, header)
+		if (data.status === 'OK') {
+			dispatch({ type: types.GET_ALL_DOCTORS_SUCCESS, payload: data.data });
+		} else {
+			throw new Error(data.message);
+		}
+	} catch (error) {
+		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
+		dispatch({ type: types.GET_ALL_DOCTORS_FAIL, payload: message });
+	}
+}
+
 
 // APPOINTMENT
 export const fetchAppointments = () => {

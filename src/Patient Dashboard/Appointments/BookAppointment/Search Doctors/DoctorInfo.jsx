@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from './../../../Components/Sidebar';
 import Navbar from './../../../Components/Navbar';
 import profileavatar from '../../../../assets/profile_avatar.png'
 import profilebg from '../../../../assets/profile-bg.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaEnvelope, FaLocationDot, FaPencil, FaUser } from 'react-icons/fa6';
 import { FaPhoneAlt, FaShare } from "react-icons/fa";
 import { MdCake, MdMessage, MdOutlineCalendarMonth } from "react-icons/md";
@@ -11,9 +11,22 @@ import Ellipse1 from '../../../../assets/Ellipse 96.png'
 import Ellipse2 from '../../../../assets/Ellipse 64.png'
 import Ellipse3 from '../../../../assets/Ellipse 92.png'
 import Ellipse4 from '../../../../assets/image.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { loadDoctor } from '../../../../Redux/Actions/PatientActions';
 
 const DoctorInfo = () => {
   const [activeTab, setActiveTab] = useState('consult');
+
+  const { id } = useParams(); // Get doctor ID from URL
+  const dispatch = useDispatch();
+
+  // Get doctor data from Redux store
+  const doctor = useSelector((state) => state.loadDoctor.doctor);
+
+  useEffect(() => {
+    dispatch(loadDoctor(id));
+  }, [dispatch, id]);
+
 
   const Similar = [
     {
@@ -89,13 +102,13 @@ const shuffledSimilar = shuffleArray([...Similar]);
             <div className='pb-[2rem] rounded-[10px] bg-[#fff] shadow-lg'>
               <div style={{ backgroundImage: `url(${profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
                 <div className='flex items-center justify-between lg:px-[50px] xs:px-[10px] pt-[9rem]'>
-                  <img src={profileavatar} className='rounded-[100px] object-contain w-[180px]' />
+                  <img src={doctor?.image || profileavatar} className='rounded-[100px] object-contain w-[180px]' />
                 </div>
               </div>
               <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] pt-[1rem]'>
                 <div className='lg:ms-[11rem]'>
-                  <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>firstName lastName</h2>
-                  <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>Doctor Profession</h3>
+                  <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.firstName} {doctor?.lastName}</h2>
+                  <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>{doctor?.profession}</h3>
                 </div>
                 <div className='flex items-center gap-[1rem] justify-end lg:mt-0 xs:mt-[2rem]'>
                   <button className='text-[#fff] lg:text-[22px] xs:text-[19px] bg-[#22D1EE] p-2.5 rounded-[100px]'><FaShare /></button>

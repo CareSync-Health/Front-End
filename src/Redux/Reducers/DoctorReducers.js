@@ -11,9 +11,9 @@ export const doctorAuthReducer = (state = {}, action) => {
       return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
     case types.DOCTOR_AUTH_FAIL:
     case types.DOCTOR_SIGNIN_FAIL:
-      return { ...state, loading: false, error: action.payload, message: action.message};
+      return { ...state, loading: false, error: action.payload, message: action.message };
     case types.DOCTOR_AUTH_LOGOUT:
-      return { ...state, doctor: null};
+      return { ...state, doctor: null };
     case types.CLEAR_ERRORS:
       return { ...state, error: null };
     default:
@@ -38,7 +38,7 @@ export const doctorVerificationReducer = (state = {}, action) => {
   switch (action.type) {
     case types.DOCTOR_VERIFY_REQUEST:
       return { ...state, loading: true };
-    case types.DOCTOR_VERIFY_SUCCESS: 
+    case types.DOCTOR_VERIFY_SUCCESS:
       return { ...state, loading: false, doctorVeri: action.payload };
     case types.DOCTOR_VERIFY_FAIL:
       return { ...state, loading: false, error: action.payload }
@@ -95,15 +95,30 @@ export const searchDoctorsReducer = (state = { doctors: [] }, action) => {
   }
 };
 
-export const singleDoctorReducer = (state = {}, action) => {
+export const getAllDoctorsReducer = (state = { doctors: [] }, action) => {
   switch (action.type) {
-    case types.FETCH_DOCTOR_DETAILS_REQUEST:
+    case types.GET_ALL_DOCTORS_REQUEST:
       return { ...state, loading: true };
-    case types.FETCH_DOCTOR_DETAILS_SUCCESS:
-      return { ...state, loading: false, doctor: action.payload };
-    case types.FETCH_DOCTOR_DETAILS_FAIL:
+    case types.GET_ALL_DOCTORS_SUCCESS:
+      return { ...state, loading: false, doctors: action.payload };
+    case types.GET_ALL_DOCTORS_FAIL:
       return { ...state, loading: false, error: action.payload };
+    case types.CLEAR_ERRORS:
+      return { ...state, error: null };
     default:
       return state;
   }
-};
+}
+
+// export const singleDoctorReducer = (state = {}, action) => {
+//   switch (action.type) {
+//     case types.FETCH_DOCTOR_DETAILS_REQUEST:
+//       return { ...state, loading: true };
+//     case types.FETCH_DOCTOR_DETAILS_SUCCESS:
+//       return { ...state, loading: false, doctor: action.payload };
+//     case types.FETCH_DOCTOR_DETAILS_FAIL:
+//       return { ...state, loading: false, error: action.payload };
+//     default:
+//       return state;
+//   }
+// };

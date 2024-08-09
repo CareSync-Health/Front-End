@@ -33,3 +33,116 @@ const AppointmentType = () => {
 }
 
 export default AppointmentType
+
+// const data = [
+//     {
+//       id: 1,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 2,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 3,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 4,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 5,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 6,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 7,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 8,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 9,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     },
+//     {
+//       id: 10,
+//       image: Ellipse ? Ellipse : CareSync,
+//       title: 'Dr.',
+//       firstName: patient?.firstName,
+//       lastName: patient?.lastName,
+//       profession: 'Dermatologist',
+//       experience: '5 years',
+//       location: 'Department of Medicine UCH, Ibadan, Oyo, 200221, Nigeria',
+//       description: 'Dr. Shakirat Gold-Olufadi is a consultant Physician and dermatologist at the University College Hospital in ibadan, Oyo state, Nigeria. She has been practicing for over 20 years and has a vast experience in treating various skin conditions. She is well-known for her patient-centric approach and dedication to continuous learning.'
+//     }
+//   ]
