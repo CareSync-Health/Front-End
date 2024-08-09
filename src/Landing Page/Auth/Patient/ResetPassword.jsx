@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HiMiniLockClosed } from 'react-icons/hi2';
+import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { reset_password } from '../../../Redux/Actions/DoctorActions';
@@ -8,6 +9,8 @@ import toast from 'react-hot-toast';
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
     const { resetToken } = useParams(); // Assuming the token is in the URL
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,28 +42,42 @@ const ResetPassword = () => {
                                     <HiMiniLockClosed />
                                 </span>
                                 <input
-                                    type='password'
+                                    type={showPassword ? 'text' : 'password'}
                                     placeholder='New password'
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className='pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
+                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
                                 />
+                                <button
+                                    type='button'
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
                             </label>
                             <label className='block relative mt-[1rem]'>
                                 <span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
                                     <HiMiniLockClosed />
                                 </span>
                                 <input
-                                    type='password'
+                                    type={showConfirmPassword ? 'text' : 'password'}
                                     placeholder='Confirm new password'
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className='pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
+                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
                                 />
+                                <button
+                                    type='button'
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+                                >
+                                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
                             </label>
                             <button
                                 type='submit'
