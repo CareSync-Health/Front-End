@@ -87,7 +87,7 @@ function App() {
             <Route path="login" element={<Login2 />} />
             <Route path="register" element={<Signup2 />} />
             <Route path='login/forgot_password' element={ <Doctor_Forget_Password /> } />
-            <Route path='reset_password/:id/:token' element={ <Doctor_Reset_Password /> } />
+            <Route path='reset_password' element={ <Doctor_Reset_Password /> } />
             <Route path='auth/forgot_password' element={ <Patient_Forget_Password /> } />
             <Route path='reset_your_password' element={ <Patient_Reset_Password /> } />
             <Route path="patient_verify_otp" element={<VerifyAccount />} />
@@ -104,9 +104,9 @@ function App() {
             />
             <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }
             /> 
-            <Route path='/doctor_profile/:id' element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }
+            <Route path={`/doctor_profile/:id`} element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }
             />
-            <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }
+            <Route path={`/edit_doctor_profile/:id`} element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }
             />
             <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}
             />

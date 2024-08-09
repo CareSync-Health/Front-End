@@ -151,48 +151,27 @@ export const forgot_password = (navigate) => async (dispatch) => {
 	}
 };
 
-// export const resetPassword = ( token, id, newPassword) => async (dispatch) => {
-// 	try {
-// 	  dispatch({ type: types.RESET_PASSWORD_REQUEST });
+export const resetPassword = (email, resetCode, newPassword) => async (dispatch) => {
+	try {
+	  dispatch({ type: types.RESET_PASSWORD_REQUEST });
   
-// 	  const { data } = await axios.post(`${url}/doctor/reset-password`, { token, id, newPassword }, header);
-// 		console.log(token, id, newPassword)
-// 	  if (data.success) {
-// 		dispatch({ type: types.RESET_PASSWORD_SUCCESS, payload: data });
-// 		toast.success(data.message, {
-// 			position: 'top-right',
-// 		});
-// 	} else {
-// 		throw new Error(data.error);
-// 	}
-// 	} catch (error) {
-// 		dispatch({ type: types.RESET_PASSWORD_FAIL, payload: error.message || error });
-// 		toast.error(error.message || 'An error occurred', {
-// 			position: 'top-right',
-// 		});
-//   	}
-//   };
-
-export const resetPassword = (token, newPassword) => async (dispatch) => {
-    try {
-        dispatch({ type: types.RESET_PASSWORD_REQUEST })
-
-        const { data } = await axios.put(`${url}/doctor/reset-password${token}`, newPassword, header)
-
-        dispatch({ 
-            type: types.RESET_PASSWORD_SUCCESS,
-            payload: data.success,
-         })
-
-    } catch (error) {
-        dispatch({
-            type: types.RESET_PASSWORD_FAIL,
-            payload: error.response.data.message
-        })
-    }
-}
-
-  
+	  const { data } = await axios.post(`${url}/doctor/reset-password`, { email, resetCode, newPassword }, header);
+	  if (data.success) {
+		dispatch({ type: types.RESET_PASSWORD_SUCCESS });
+		toast.success(data.message, {
+			position: 'top-right',
+		});
+	} else {
+		throw new Error(data.error);
+	}
+} catch (error) {
+	console.log(error)
+	dispatch({ type: types.RESET_PASSWORD_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
+  	}
+  };  
 
 export const loadDoctor = (id) => async (dispatch) => {
 	try {

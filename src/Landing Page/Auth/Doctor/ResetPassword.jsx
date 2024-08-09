@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import img from '../../../assets/Rectangle 35.png';
 import { HiMiniLockClosed } from 'react-icons/hi2';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { resetPassword } from '../../../Redux/Actions/DoctorActions';
+import { loadDoctor, resetPassword } from '../../../Redux/Actions/DoctorActions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -10,26 +10,24 @@ import toast from 'react-hot-toast';
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
-  
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const { resetCode, email } = useParams(); // Extract resetCode and email from URL
     const dispatch = useDispatch();
-    const params = useParams();
-    // const { doctor, loading, error, success } = useSelector(state => state.doctorAuth);
-  
-    const { doctor, loading } = useSelector((state) => state.doctorForgetPassword);
+    const navigate = useNavigate();
+    const { loading, error } = useSelector((state) => state.doctorForgetPassword);
 
-//   useEffect(() => {
-//     dispatch(resetPassword(token, id));
-//   }, [dispatch, token, id]);
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      if (newPassword !== confirmPassword) {
-        toast.error('Passwords do not match.');
-        return;
-    }
-      dispatch(resetPassword(params.token, newPassword));
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (newPassword !== confirmPassword) {
+            toast.error('Passwords do not match.');
+            return;
+        }
+        try {
+            await dispatch(resetPassword(email, resetCode, newPassword));
+        } catch (error) {
+        }
     };
 
     return (
