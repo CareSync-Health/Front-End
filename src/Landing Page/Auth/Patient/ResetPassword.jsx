@@ -48,7 +48,7 @@ const ResetPassword = () => {
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
+                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent text-[15px] font-Inter font-normal'
                                 />
                                 <button
                                     type='button'
@@ -69,7 +69,7 @@ const ResetPassword = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                     disabled={loading}
-                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent'
+                                    className='pl-10 pr-12 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent text-[15px] font-Inter font-normal'
                                 />
                                 <button
                                     type='button'

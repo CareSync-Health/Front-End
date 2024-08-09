@@ -16,8 +16,6 @@ export const patient_register = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			})
-			// Store email in local storage
-			localStorage.setItem('patientEmail', data.data.email);
 			navigate('/patient_verify_otp');
 		} else {
 			throw new Error(data.message);
@@ -41,7 +39,8 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			console.log('VerifyOtp Data', data)
+			// Store email in local storage
+			localStorage.setItem('patientEmail', data.data.email);
 			navigate('/patient_dashboard'); // Navigate to the dashboard page
 		} else {
 			throw new Error(data.message);
@@ -133,8 +132,11 @@ export const forgot_password = (navigate) => async (dispatch) => {
 export const patient_logout = (navigate) => (dispatch) => {
 	dispatch({ type: types.PATIENT_SIGNIN_LOGOUT });
 	dispatch({ type: types.PATIENT_AUTH_LOGOUT });
+
+	// Clear stored email on logout
+	localStorage.removeItem('patientEmail');
 	toast.success("Logged out successfully");
-	navigate('/patientAuth');
+	navigate('/auth');
 };
 
 export const loadDoctor = (id) => async (dispatch) => {
