@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor, resetPassword } from '../../../Redux/Actions/DoctorActions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
@@ -13,10 +14,14 @@ const ResetPassword = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const { resetCode, email } = useParams(); // Extract resetCode and email from URL
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, error } = useSelector((state) => state.doctorForgetPassword);
+    const location = useLocation();
+    const { loading, error, doctor } = useSelector((state) => state.doctorForgetPassword);
+
+    const query = new URLSearchParams(location.search);
+    const token = query.get('token');
+    const id = query.get('id');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,10 +29,16 @@ const ResetPassword = () => {
             toast.error('Passwords do not match.');
             return;
         }
-        try {
-            await dispatch(resetPassword(email, resetCode, newPassword));
-        } catch (error) {
+        if (!token ||!id) {
+            toast.error('Invalid reset password link.');
+            return;
         }
+        const body = {
+            token,
+            id,
+            newPassword,
+        };
+        dispatch(resetPassword( body, navigate));
     };
 
     return (

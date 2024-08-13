@@ -34,6 +34,7 @@ const DoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/DoctorProfil
 const EditDoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile"));
 const DoctorPayment = lazy(() => import("./Doctor Dashboard/Payment/Payment"));
 const OnlineWithdrawal = lazy(() => import("./Doctor Dashboard/Payment/OnlineWithdrawal"));
+const PaymentMethod = lazy(() => import("./Doctor Dashboard/Payment/PaymentMethod"));
 const DoctorSetting = lazy(() => import("./Doctor Dashboard/Settings/SettingPage"));
 const Verification = lazy(() => import("./Doctor Dashboard/VerifyAccount/Verification"));
 const Confetti = lazy(() => import("./Doctor Dashboard/Components/Confetti"));
@@ -87,7 +88,7 @@ function App() {
             <Route path="login" element={<Login2 />} />
             <Route path="register" element={<Signup2 />} />
             <Route path='login/forgot_password' element={ <Doctor_Forget_Password /> } />
-            <Route path='reset_password' element={ <Doctor_Reset_Password /> } />
+            <Route path='/reset_password' element={ <Doctor_Reset_Password /> } />
             <Route path='auth/forgot_password' element={ <Patient_Forget_Password /> } />
             <Route path='reset_your_password' element={ <Patient_Reset_Password /> } />
             <Route path="patient_verify_otp" element={<VerifyAccount />} />
@@ -110,7 +111,8 @@ function App() {
             />
             <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}
             />
-            <Route path="/doctor_payment_online_withdrawal" element={<OnlineWithdrawal /> } />
+            <Route path="/doctor_payment_online_withdrawal" element={doctor ? <OnlineWithdrawal /> : <Navigate to="/login" /> } />
+            <Route path="/payment_method" element={doctor ? <PaymentMethod /> : <Navigate to="/login" /> } />
             <Route path="/doctor_settings/*" element={doctor ? <DoctorSetting /> : <Navigate to="/login" /> }
             />
             <Route path="/verification_process" element={doctor ? <Verification /> : <Navigate to="/login" /> }

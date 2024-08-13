@@ -116,19 +116,11 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 	}
 };
 
-export const forgot_password = (navigate) => async (dispatch) => {
+export const forgot_password = (email, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.FORGOT_PASSWORD_REQUEST });
 
-		// Retrieve email from local storage
-		const email = localStorage.getItem('doctorEmail');
-
-		if (!email) {
-			navigate('/register');
-			throw new Error("Email not found. Please signup first.");
-		}
-
-		const { data } = await axios.post(`${url}/doctor/request-password-reset`, { email }, header);
+		const { data } = await axios.post(`${url}/doctor/request-password-reset`, email, header);
 
 		if (data.success) {
 			dispatch({ type: types.FORGOT_PASSWORD_SUCCESS });
@@ -147,16 +139,17 @@ export const forgot_password = (navigate) => async (dispatch) => {
 	}
 };
 
-export const resetPassword = (email, resetCode, newPassword) => async (dispatch) => {
+export const resetPassword = ( body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.RESET_PASSWORD_REQUEST });
 
-		const { data } = await axios.post(`${url}/doctor/reset-password`, { email, resetCode, newPassword }, header);
+		const { data } = await axios.post(`${url}/doctor/reset-password`, body);
 		if (data.success) {
 			dispatch({ type: types.RESET_PASSWORD_SUCCESS });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
+			navigate('/login');
 		} else {
 			throw new Error(data.error);
 		}

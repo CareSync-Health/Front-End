@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import img from '../../../assets/Rectangle 35.png';
 import { FaEnvelope } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { forgot_password } from '../../../Redux/Actions/DoctorActions';
 
@@ -9,14 +9,24 @@ const ForgotPassword = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Fetch the doctor email from local storage or state
-    const email = localStorage.getItem('doctorEmail');
+    const doctor = useSelector((state) => state.loadDoctor.doctor);
+    // const email = doctor?.email;
+    const [email, setEmail] = useState(doctor?.email || '');
 
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+        const body = {
+            email: ''
+        }
+
         if (email) {
-            dispatch(forgot_password(navigate));
+            const body = {
+                email: email.trim(),
+            };
+            dispatch(forgot_password(body, navigate));
+        } else {
+            toast.error('Please enter your email address.');
         }
     };
 
@@ -34,8 +44,9 @@ const ForgotPassword = () => {
                                 </span>
                                 <input
                                     type='email'
-                                    value={email || 'Enter your email'}
-                                    readOnly
+                                    placeholder='Enter your email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className='pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#17B978] focus:border-transparent text-[15px] font-Inter font-normal'
                                 />
                             </label>
