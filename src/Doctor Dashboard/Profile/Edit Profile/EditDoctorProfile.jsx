@@ -144,6 +144,9 @@ const EditProfile = () => {
       educationDescription,
     }
     dispatch(updateDoctorProfile(doctor?._id, body));
+
+    // Reload the page after updating the profile
+    window.location.reload();
   };
 
   return (
