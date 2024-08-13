@@ -195,7 +195,7 @@ const SearchDoctors = () => {
                     {expandedDescriptions[doctor._id] ? 'Read less' : 'Read more'}
                   </button>
                 </div>
-                <Link to={`/doctor/${doctor._id}`} className='flex items-center mt-4 text-[#22D1EE]'>
+                <Link to={`/doctorInfo/${doctor._id}`} className='flex items-center mt-4 text-[#22D1EE]'>
                   View Profile <FaArrowRightLong className='ml-2' />
                 </Link>
               </div>

@@ -50,8 +50,10 @@ const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/Pa
 const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
 
 function App() {
-  const {doctor} = useSelector((state) => state.doctorAuth || state.doctorVerifyOtp);
+  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
   const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
+
+  console.log(doctor)
 
   return (
     <ThemeProvider>
@@ -104,9 +106,9 @@ function App() {
             />
             <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }
             /> 
-            <Route path={`/doctor_profile/:id`} element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }
+            <Route path="/doctor_profile/:id" element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }
             />
-            <Route path={`/edit_doctor_profile/:id`} element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }
+            <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }
             />
             <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}
             />

@@ -8,7 +8,6 @@ import { FaPencil, FaShare } from 'react-icons/fa6';
 import { useTheme } from '../Components/ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { loadDoctor } from '../../Redux/Actions/DoctorActions';
 import Whatsapp from '../../assets/Icons/whatsapp.svg'
 import Twitter from '../../assets/Icons/X.svg'
 import Instagram from '../../assets/Icons/Ig.svg'
@@ -17,6 +16,7 @@ import Email from '../../assets/Icons/Email.svg'
 import Linkedin from '../../assets/Icons/Linkedin.svg'
 import Pinintrest from '../../assets/Icons/Pinintrest.svg'
 import Twitch from '../../assets/Icons/Twitch.svg'
+import { loadDoctor } from '../../Redux/Actions/DoctorActions';
 
 
 
@@ -29,7 +29,9 @@ const DcotorProfile = () => {
   const doctor = useSelector((state) => state.loadDoctor.doctor);
 
   useEffect(() => {
-    dispatch(loadDoctor(id));
+    if (id) {
+      dispatch(loadDoctor(id));
+    }
   }, [dispatch, id]);
 
   const [showShareModal, setShowShareModal] = useState(false);
@@ -70,8 +72,8 @@ const DcotorProfile = () => {
                 </div>
                 <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] pt-[1rem]'>
                   <div className='lg:ms-[11rem]'>
-                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.firstName || 'Charles'} {doctor?.lastName || 'Doe'}</h2>
-                    <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>Doctor Profession</h3>
+                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.firstName} {doctor?.lastName}</h2>
+                    <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>{doctor?.profession}</h3>
                   </div>
                   <div className='flex items-center justify-end gap-[2rem] lg:mt-0 xs:mt-5'>
                     <button className='lg:text-[20px] xs:text-[16px] bg-[#22D1EE] p-2.5 rounded-[100px]' onClick={handleShareClick}><FaShare /></button>

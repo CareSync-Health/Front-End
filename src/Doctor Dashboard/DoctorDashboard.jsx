@@ -12,18 +12,15 @@ import DashboardTable from './DasboardTable';
 import { useTheme } from './Components/ThemeContext';
 import Chatbot from './Components/Chatbot';
 import { IoHelpOutline } from "react-icons/io5";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { loadDoctor } from '../Redux/Actions/DoctorActions';
 
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
-    const [user, setUser] = useState(false);
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
     const doctorVerification = useSelector(state => state.doctorVerification.doctorVeri);
-
-    useEffect(() => {
-        console.log(doctor);
-    }, [doctor]);
 
     const [isOpen, setIsOpen] = useState(false);
 

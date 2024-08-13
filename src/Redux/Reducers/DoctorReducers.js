@@ -12,6 +12,7 @@ export const doctorAuthReducer = (state = {}, action) => {
     case types.DOCTOR_SIGNIN_FAIL:
       return { ...state, loading: false, error: action.payload, message: action.message };
     case types.DOCTOR_AUTH_LOGOUT:
+    case types.DOCTOR_SIGNIN_FAIL:
       return { ...state, doctor: null };
     case types.CLEAR_ERRORS:
       return { ...state, error: null };
@@ -19,6 +20,24 @@ export const doctorAuthReducer = (state = {}, action) => {
       return state;
   }
 };
+
+// export const doctorSigninReducer = (state = {}, action) => {
+//   switch (action.type) {
+//     case types.DOCTOR_SIGNIN_REQUEST:
+//       return { ...state, loading: true };
+//     case types.DOCTOR_SIGNIN_SUCCESS:
+//       return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
+//     case types.DOCTOR_SIGNIN_FAIL:
+//       return { ...state, loading: false, error: action.payload, message: action.message };
+//     case types.DOCTOR_AUTH_LOGOUT:
+//     case types.DOCTOR_SIGNIN_FAIL:
+//       return { ...state, doctor: null };
+//     case types.CLEAR_ERRORS:
+//       return { ...state, error: null };
+//     default:
+//       return state;
+//   }
+// }
 
 export const doctorForgetPasswordReducer = (state = {}, action) => {
   switch (action.type) {
@@ -112,7 +131,7 @@ export const updateDoctorReducer = (state = {}, action) => {
     case types.UPDATE_DOCTOR_PROFILE_REQUEST:
       return { ...state, loading: true };
     case types.UPDATE_DOCTOR_PROFILE_SUCCESS:
-      return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
+      return { ...state, loading: false, updatedDoctor: action.payload, success: true, message: action.message };
     case types.UPDATE_DOCTOR_PROFILE_FAIL:
       return { ...state, loading: false, error: action.payload, message: action.message };
     case types.CLEAR_ERRORS:

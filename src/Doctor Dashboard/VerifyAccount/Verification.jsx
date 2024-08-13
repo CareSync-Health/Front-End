@@ -8,14 +8,16 @@ import { doctor_verification } from '../../Redux/Actions/DoctorActions';
 
 const Verification = () => {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+  const doctorVerification = useSelector((state) => state.doctorVerification);
+  const {loading, success, error} = doctorVerification;
 
   const [showVideo, setShowVideo] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
   const [title, setTitle] = useState('')
-  const [age, setAge] = useState('')
+  const [dob, setDob] = useState('')
   const [gender, setGender] = useState('')
   const [profession, setProfession] = useState('')
-  const [areaOfSpecialization, setAreaOfSpecialization] = useState('')
+  const [areaOfSpecialization, setAreaOfSpecialization] = useState([])
   const [country, setCountry] = useState(null)
   const [city, setCity] = useState(null)
   const [state, setState] = useState(null)
@@ -350,7 +352,7 @@ const Verification = () => {
 
     const body = {
       title,
-      age,
+      dob,
       gender,
       profession,
       areaOfSpecialization,
@@ -414,14 +416,14 @@ const Verification = () => {
                   />
                 </div>
                 <div>
-                  <h2 className='text-[15px] font-Nunito font-medium'>age</h2>
+                  <h2 className='text-[15px] font-Nunito font-medium'>date of birth</h2>
                   <input
                     type='text'
-                    placeholder='Age'
+                    placeholder='dd / mm / yy'
                     className=' bg-[#F7F9FC] text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none'
                     required
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
                   />
                 </div>
                 <div>
@@ -688,7 +690,9 @@ const Verification = () => {
             </div>
           </div>
           <div className='mt-[2rem] relative flex items-end justify-end px-[10px] lg:left-[22.5rem]'>
-            <button type='submit' className='bg-[#22D1EE] py-[13px] px-6 rounded-[12px] text-white font-Nunito font-bold'>Submit Documents</button>
+            <button type='submit'  disabled={loading} className={`bg-[#22D1EE] py-[13px] px-6 rounded-[12px] text-white font-Nunito font-bold ${loading ? 'cursor-not-allowed' : ''}`}>
+              {loading ? 'Submitting...' : 'Submit Documents'}
+            </button>
           </div>
         </form>
       </div>

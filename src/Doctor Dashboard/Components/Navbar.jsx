@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { BsSearch } from 'react-icons/bs'
 import MessageIcon from '../../assets/Icons/messageIcon.svg'
 import Notification from '../../assets/Icons/notification.svg'
 import avatar from '../../assets/avatar.png'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Chatbot from './Chatbot'
 import { useTheme } from './ThemeContext'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchDoctors } from '../../Redux/Actions/DoctorActions'
+import { loadDoctor, searchDoctors } from '../../Redux/Actions/DoctorActions'
 
 
 function formatNumber(number) {
@@ -32,9 +32,9 @@ function formatNumber(number) {
 const Navbar = ({ messageCount, notificationCount }) => {
 
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-
+  
   const { theme, appearance } = useTheme();
-
+  
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -83,7 +83,7 @@ const Navbar = ({ messageCount, notificationCount }) => {
               </span>
                 )}
             </div>
-          <Link to={`/doctor_profile/${doctor?.id}`}>
+          <Link to={`/doctor_profile/${doctor?._id}`}>
             <img src={avatar} className='lg:w-[40px] xs:w-[30px]' />
           </Link>
         </div>
