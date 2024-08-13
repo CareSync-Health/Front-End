@@ -208,11 +208,11 @@ export const searchDoctors = (query) => async (dispatch) => {
 	}
 };
 
-export const getAllDoctors = (body) => async (dispatch) => {
+export const getAllDoctors = () => async (dispatch) => {
 	try {
 		dispatch({ type: types.GET_ALL_DOCTORS_REQUEST });
 
-		const { data } = await axios.get(`${url}/doctor/`, body, header)
+		const { data } = await axios.get(`${url}/doctor/`, {headers: header})
 		if (data.status === 'OK') {
 			dispatch({ type: types.GET_ALL_DOCTORS_SUCCESS, payload: data.data });
 		} else {
@@ -230,7 +230,7 @@ export const updateDoctorProfile = (id, body) => async (dispatch) => {
 	try {
 		dispatch({ type: types.UPDATE_DOCTOR_PROFILE_REQUEST });
 
-		const { data } = await axios.put(`${url}/doctor/${id}`, body, authHeader);
+		const { data } = await axios.put(`${url}/doctor/${id}`, body, header);
 
 		if (data.status === 'OK') {
 			dispatch({ type: types.UPDATE_DOCTOR_PROFILE_SUCCESS, payload: data.data });
