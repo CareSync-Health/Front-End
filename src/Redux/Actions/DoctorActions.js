@@ -230,7 +230,7 @@ export const updateDoctorProfile = (id, body) => async (dispatch) => {
 	try {
 		dispatch({ type: types.UPDATE_DOCTOR_PROFILE_REQUEST });
 
-		const { data } = await axios.put(`${url}/doctor/${id}`, body, header);
+		const { data } = await axios.put(`${url}/doctor/${id}`, body, authHeader);
 
 		if (data.status === 'OK') {
 			dispatch({ type: types.UPDATE_DOCTOR_PROFILE_SUCCESS, payload: data.data });
