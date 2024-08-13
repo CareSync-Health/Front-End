@@ -3,8 +3,8 @@ import { HiMiniLockClosed } from 'react-icons/hi2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { reset_password } from '../../../Redux/Actions/DoctorActions';
 import toast from 'react-hot-toast';
+import { resetPassword } from './../../../Redux/Actions/DoctorActions';
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
@@ -23,7 +23,7 @@ const ResetPassword = () => {
             return;
         }
         if (resetToken && newPassword) {
-            dispatch(reset_password(resetToken, newPassword, navigate));
+            dispatch(resetPassword(resetToken, newPassword, navigate));
         } else {
             toast.error('Reset token or new password is missing.');
         }
