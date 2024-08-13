@@ -1,6 +1,6 @@
 // App.js
 import React, { Suspense, lazy } from "react";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
@@ -30,7 +30,7 @@ const DoctorAppointment = lazy(() => import("./Doctor Dashboard/DoctorAppointmen
 const DoctorChat = lazy(() => import("./Doctor Dashboard/Message/DoctorChat"));
 const DoctorPages = lazy(() => import("./Doctor Dashboard/DoctorPages"));
 const DoctorPatientPages = lazy(() => import("./Doctor Dashboard/PatientPages"));
-const DoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/DcotorProfile"));
+const DoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/DoctorProfile"));
 const EditDoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile"));
 const DoctorPayment = lazy(() => import("./Doctor Dashboard/Payment/Payment"));
 const OnlineWithdrawal = lazy(() => import("./Doctor Dashboard/Payment/OnlineWithdrawal"));
@@ -52,8 +52,6 @@ const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientS
 function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
   const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
-
-  console.log(doctor)
 
   return (
     <ThemeProvider>
