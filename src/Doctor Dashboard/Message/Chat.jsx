@@ -19,12 +19,12 @@ const Chat = () => {
                 <div className='mt-1'>
                     <div className='flex h-screen items-start overflow-hidden'>
                         {/* ContactsContainer should be visible on large screens or when no chat is selected on small screens */}
-                        <div className={`${selectedChatType !== undefined ? 'hidden' : 'flex'} w-full md:w-1/3 lg:w-1/4`}>
+                        <div className={`${selectedChatType !== undefined ? 'lg:block xs:hidden' : 'flex'} xs:w-full md:w-1/3 lg:w-[31.4%]`}>
                             <ContactsContainer />
                         </div>
 
                         {/* ChatContainer should be visible only when a chat is selected */}
-                        <div className={`${selectedChatType !== undefined ? 'flex' : 'hidden'} w-full md:flex-1`}>
+                        <div className={`${selectedChatType !== undefined ? 'flex' : 'lg:block xs:hidden'} w-full md:flex-1`}>
                             {selectedChatType === undefined ? (
                                 <EmptyChatContainer />
                             ) : (
