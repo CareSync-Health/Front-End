@@ -47,7 +47,7 @@ const NewDm = () => {
 
     return (
         <>
-            <div className='absolute lg:bottom-5 right-0 lg:text-[22px] xs:text-[25px] lg:left-[32rem] lg:block xs:flex items-end justify-end pr-[2rem]'>
+            <div className='absolute lg:bottom-5 right-0 lg:text-[22px] xs:text-[25px] lg:block xs:flex items-end justify-end pr-[2rem]'>
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger>

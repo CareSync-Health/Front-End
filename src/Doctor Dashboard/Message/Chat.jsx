@@ -16,7 +16,7 @@ const Chat = () => {
             <Sidebar />
             <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 {/* <Navbar messageCount={5} notificationCount={12} /> */}
-                <div className='mt-1'>
+                <div className='mt-1 ms-1'>
                     <div className='flex h-screen items-start overflow-hidden'>
                         {/* ContactsContainer should be visible on large screens or when no chat is selected on small screens */}
                         <div className={`${selectedChatType !== undefined ? 'lg:block xs:hidden' : 'flex'} xs:w-full md:w-1/3 lg:w-[31.4%]`}>

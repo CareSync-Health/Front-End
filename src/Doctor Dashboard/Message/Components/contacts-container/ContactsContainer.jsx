@@ -68,7 +68,7 @@ const ContactsContainer = () => {
     };
 
     return (
-        <div className={`border-r-[1px] lg:w-[361px] xs:w-full h-screen shadow-lg py-3 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+        <div className={`border-r-[1px] fixed top-0 lg:w-[361px] xs:w-full h-screen shadow-lg py-3 ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             <div className='flex items-center justify-between px-4'>
                 <h2 className='text-[18px] font-bold font-Nunito'>Messages</h2>
                 <div className='flex items-center gap-[1rem]'>
