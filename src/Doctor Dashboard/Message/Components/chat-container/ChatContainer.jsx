@@ -294,7 +294,7 @@ const ChatContainer = () => {
 
     return (
         <div className='h-screen w-full'>
-            <div className={`flex items-center justify-between shadow-2xl border-b-2 py-3 lg:px-3 xs:px-2 fixed top-0 right-0 z-[1000] w-[58%] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-white'}`}>
+            <div className={`flex items-center justify-between shadow-2xl border-b-2 py-3 lg:px-3 xs:px-2 fixed top-0 right-0 z-[1000] lg:w-[58%] xs:w-full ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-white'}`}>
                 {/* HEADER */}
                 {showSearch ? (
                     <div className='flex items-center gap-[1rem]'>
