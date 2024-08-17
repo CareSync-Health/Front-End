@@ -29,7 +29,7 @@ const EditProfile = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState(doctor?.email)
+  const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
   const [dob, setDob] = useState('');
   const [country, setCountry] = useState('');
@@ -51,6 +51,8 @@ const EditProfile = () => {
   const [educationEndDate, setEducationEndDate] = useState('');
   const [educationActivities, setEducationActivities] = useState('');
   const [educationDescription, setEducationDescription] = useState('');
+  const [profilePic, setProfilePic] = useState('');
+  const [headerPic, setHeaderPic] = useState('');
 
   const employmentTypes = [
     'full time',
@@ -62,91 +64,113 @@ const EditProfile = () => {
     'other'
   ]
 
-  const defaultBanner = CareSyncBanner;  // Default banner image path
-  const defaultAvatar = CareSync;  // Default profile image path
 
-  const [profilebg, setProfilebg] = useState(defaultBanner);
-  const [profileavatar, setProfileavatar] = useState(defaultAvatar);
+  const [profilebg, setProfilebg] = useState(CareSyncBanner);
+  const [profileavatar, setProfileavatar] = useState(CareSync);
 
-  const bannerMaxWidth = 1200; // Max width for banner in pixels
-  const bannerMaxHeight = 300; // Max height for banner in pixels
-  const avatarMaxWidth = 180;  // Max width for avatar in pixels
-  const avatarMaxHeight = 180; // Max height for avatar in pixels
-  const maxFileSize = 2 * 1024 * 1024; // Max file size in bytes (2MB)
+  useEffect(() => {
+    if (doctor) {
+      setProfilebg(doctor.headerPic || CareSyncBanner);
+      setProfileavatar(doctor.profilePic || CareSync);
+      setFirstName(doctor.firstName || '');
+      setLastName(doctor.lastName || '');
+      setUserName(doctor.userName || '');
+      setEmail(doctor.email || '');
+      setGender(doctor.gender || '');
+      setDob(doctor.dob || '');
+      setCountry(doctor.country || '');
+      setState(doctor.state || '');
+      setCity(doctor.city || '');
+      setPhoneNumber(doctor.phoneNumber || '');
+      setExperienceTitle(doctor.experienceTitle || '');
+      setEmploymentType(doctor.employmentType || '');
+      setHospitalName(doctor.hospitalName || '');
+      setExperienceLocation(doctor.experienceLocation || '');
+      setExperienceStartDate(doctor.experienceStartDate || '');
+      setExperienceEndDate(doctor.experienceEndDate || '');
+      setExperienceDescription(doctor.experienceDescription || '');
+      setSchool(doctor.school || '');
+      setDegree(doctor.degree || '');
+      setFieldOfStudy(doctor.fieldOfStudy || '');
+      setGrade(doctor.grade || '');
+      setEducationStartDate(doctor.educationStartDate || '');
+      setEducationEndDate(doctor.educationEndDate || '');
+      setEducationActivities(doctor.educationActivities || '');
+      setEducationDescription(doctor.educationDescription || '');
+    }
+  }, [doctor]);
 
-  const handleImageUpload = (event, setImage, maxWidth, maxHeight) => {
+  const handleImageUpload = (event, setter) => {
     const file = event.target.files[0];
     if (file) {
-      if (file.size > maxFileSize) {
-        toast("File size exceeds 2MB. Please upload a smaller image.");
-        return;
-      }
-
-      const img = new Image();
-      img.onload = () => {
-        if (img.width > maxWidth || img.height > maxHeight) {
-          toast(`Image dimensions should be within ${maxWidth}x${maxHeight} pixels.`);
-        } else {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            setImage(reader.result); // Set the uploaded image
-          };
-          reader.readAsDataURL(file);
-        }
-      };
-      img.src = URL.createObjectURL(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setter(reader.result);
+      reader.readAsDataURL(file);
     }
   };
 
   const handleBannerUpload = (event) => {
-    handleImageUpload(event, setProfilebg, bannerMaxWidth, bannerMaxHeight);
+    handleImageUpload(event, setProfilebg);
+    setHeaderPic(event.target.files[0]);
   };
 
   const handleAvatarUpload = (event) => {
-    handleImageUpload(event, setProfileavatar, avatarMaxWidth, avatarMaxHeight);
+    handleImageUpload(event, setProfileavatar);
+    setProfilePic(event.target.files[0]);
   };
 
-  const handleBannerDelete = () => {
-    setProfilebg(defaultBanner); // Reset to default banner
-  };
-
-  const handleAvatarDelete = () => {
-    setProfileavatar(defaultAvatar); // Reset to default avatar
+  const handleDeleteImage = (type) => {
+    if (type === 'banner') {
+      setProfilebg(CareSyncBanner);
+      setHeaderPic('');
+    } else if (type === 'avatar') {
+      setProfileavatar(CareSync);
+      setProfilePic('');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const body = {
-      firstName,
-      lastName,
-      userName,
-      gender,
-      dob,
-      country,
-      state,
-      city,
-      phoneNumber,
-      experienceTitle,
-      employmentType,
-      hospitalName,
-      experienceLocation,
-      experienceStartDate,
-      experienceEndDate,
-      experienceDescription,
-      school,
-      degree,
-      fieldOfStudy,
-      grade,
-      educationStartDate,
-      educationEndDate,
-      educationActivities,
-      educationDescription,
+    const formData = new FormData();
+    formData.append('firstName', firstName);
+    formData.append('lastName', lastName);
+    formData.append('userName', userName);
+    formData.append('email', email);
+    formData.append('gender', gender);
+    formData.append('dob', dob);
+    formData.append('country', country);
+    formData.append('state', state);
+    formData.append('city', city);
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('experienceTitle', experienceTitle);
+    formData.append('employmentType', employmentType);
+    formData.append('hospitalName', hospitalName);
+    formData.append('experienceLocation', experienceLocation);
+    formData.append('experienceStartDate', experienceStartDate);
+    formData.append('experienceEndDate', experienceEndDate);
+    formData.append('experienceDescription', experienceDescription);
+    formData.append('school', school);
+    formData.append('degree', degree);
+    formData.append('fieldOfStudy', fieldOfStudy);
+    formData.append('grade', grade);
+    formData.append('educationStartDate', educationStartDate);
+    formData.append('educationEndDate', educationEndDate);
+    formData.append('educationActivities', educationActivities);
+    formData.append('educationDescription', educationDescription);
+    
+    if (headerPic) {
+      formData.append('headerPic', headerPic);
     }
-    dispatch(updateDoctorProfile(doctor?._id, body));
-
-    // Reload the page after updating the profile
-    window.location.reload();
+    
+    if (profilePic) {
+      formData.append('profilePic', profilePic);
+    }
+    
+    dispatch(updateDoctorProfile(doctor?._id, formData));
+    console.log(updateDoctorProfile);
+    console.log(formData);
+    toast.success('Profile updated successfully!');
   };
 
   return (
@@ -156,64 +180,64 @@ const EditProfile = () => {
         <Navbar messageCount={5} notificationCount={12} />
         <div className='mb-[5rem]'>
           {/* starting coding from here don't touch any other thing from the navbar and sidebar please. if you touch am... YOU DIE 🔪😤 */}
-          <div
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilebg})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              height: 300,
-              maxWidth: 1200,
-              margin: '0 auto',
-            }}
-            className='w-full'
-          >
-            <div className='flex items-center justify-center h-full gap-[2rem]'>
-              <label className='bg-[#00000073] p-3 rounded-full cursor-pointer'>
-                <TbCameraStar className='text-[24px] text-[#ffffffbe]' />
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleBannerUpload}
-                  className="hidden"
-                />
-              </label>
-              <div
-                className='bg-[#00000073] p-3 rounded-full cursor-pointer'
-                onClick={handleBannerDelete}
-              >
-                <FaTimes className='text-[22px] text-[#ffffffbe]' />
-              </div>
-            </div>
+          <form onSubmit={handleSubmit}>
             <div
-              className='mt-[-5rem] w-[180px] object-contain rounded-full h-[64%] lg:ms-[4rem] xs:ms-[1rem]'
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profileavatar})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilebg})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
-                width: 180,
-                height: 180,
+                height: 300,
+                maxWidth: 1200,
+                margin: '0 auto',
               }}
+              className='w-full'
             >
-              <div className='flex items-center justify-center gap-[10px] h-full'>
+              <div className='flex items-center justify-center h-full gap-[2rem]'>
                 <label className='bg-[#00000073] p-3 rounded-full cursor-pointer'>
                   <TbCameraStar className='text-[24px] text-[#ffffffbe]' />
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={handleAvatarUpload}
+                    onChange={handleBannerUpload}
                     className="hidden"
                   />
                 </label>
                 <div
                   className='bg-[#00000073] p-3 rounded-full cursor-pointer'
-                  onClick={handleAvatarDelete}
+                  onClick={() => handleDeleteImage('banner')}
                 >
                   <FaTimes className='text-[22px] text-[#ffffffbe]' />
                 </div>
               </div>
+              <div
+                className='mt-[-5rem] w-[180px] object-contain rounded-full h-[64%] lg:ms-[4rem] xs:ms-[1rem]'
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profileavatar})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  width: 180,
+                  height: 180,
+                }}
+              >
+                <div className='flex items-center justify-center gap-[10px] h-full'>
+                  <label className='bg-[#00000073] p-3 rounded-full cursor-pointer'>
+                    <TbCameraStar className='text-[24px] text-[#ffffffbe]' />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarUpload}
+                      className="hidden"
+                    />
+                  </label>
+                  <div
+                    className='bg-[#00000073] p-3 rounded-full cursor-pointer'
+                    onClick={() => handleDeleteImage('avatar')}
+                  >
+                    <FaTimes className='text-[22px] text-[#ffffffbe]' />
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <form onSubmit={handleSubmit}>
             <div>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-[10rem] lg:px-[90px] xs:px-[10px]'>
                 <div>

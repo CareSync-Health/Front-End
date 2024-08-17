@@ -27,10 +27,11 @@ const Privacy_Policy = lazy(() => import("./Components/Privacy_Policy"));
 // DOCTOR IMPORTS
 const DoctorDashboard = lazy(() => import("./Doctor Dashboard/DoctorDashboard"));
 const DoctorAppointment = lazy(() => import("./Doctor Dashboard/DoctorAppointment"));
-const DoctorChat = lazy(() => import("./Doctor Dashboard/Message/DoctorChat"));
+const DoctorChat = lazy(() => import("./Doctor Dashboard/Message/Chat"));
 const DoctorPages = lazy(() => import("./Doctor Dashboard/DoctorPages"));
 const DoctorPatientPages = lazy(() => import("./Doctor Dashboard/PatientPages"));
 const DoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/DoctorProfile"));
+const ViewDoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/ViewDoctorProfile"));
 const EditDoctorProfile = lazy(() => import("./Doctor Dashboard/Profile/Edit Profile/EditDoctorProfile"));
 const DoctorPayment = lazy(() => import("./Doctor Dashboard/Payment/Payment"));
 const OnlineWithdrawal = lazy(() => import("./Doctor Dashboard/Payment/OnlineWithdrawal"));
@@ -99,46 +100,29 @@ function App() {
             {/* DOCTOR ROUTE */}
             <Route path="/doctor_dashboard" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
             <Route path="/doctor_appointment" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> }
-            />
-            <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }
-            />
-            <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }
-            /> 
-            <Route path="/doctor_profile/:id" element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }
-            />
-            <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }
-            />
-            <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}
-            />
+            <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> } />
+            <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }/>
+            <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }/> 
+            <Route path="/view_doctor_profile/:id" element={doctor ? <ViewDoctorProfile /> : <Navigate to="/login" /> }/>
+            <Route path="/doctor_profile/:id" element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }/>
+            <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }/>
+            <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}/>
             <Route path="/doctor_payment_online_withdrawal" element={doctor ? <OnlineWithdrawal /> : <Navigate to="/login" /> } />
             <Route path="/payment_method" element={doctor ? <PaymentMethod /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_settings/*" element={doctor ? <DoctorSetting /> : <Navigate to="/login" /> }
-            />
-            <Route path="/verification_process" element={doctor ? <Verification /> : <Navigate to="/login" /> }
-            />
-            <Route path="/congratulation" element={doctor ? <Confetti /> : <Navigate to="/login" />}
-            />
+            <Route path="/doctor_settings/*" element={doctor ? <DoctorSetting /> : <Navigate to="/login" /> }/>
+            <Route path="/verification_process" element={doctor ? <Verification /> : <Navigate to="/login" /> }/>
+            <Route path="/congratulation" element={doctor ? <Confetti /> : <Navigate to="/login" />}/>
 
             {/* PATIENT ROUTE */}
-            <Route path="/patient_dashboard" element={patient ? <PatientDashboard /> : <Navigate to="/auth" />}
-            />
-            <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/auth" />}
-            />
-            <Route path="/search_doctor" element={patient ? <SearchDoctors /> : <Navigate to="/auth" />}
-            />
-            <Route path="/doctorInfo/:id" element={patient ? <DoctorInfo /> : <Navigate to="/auth" />}
-            />
-            <Route path="/book_appointment" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}
-            />
-            <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/auth" />}
-            />
-            <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/auth" />}
-            />
-            <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/auth" />}
-            />
-            <Route path="/patient_settings/*" element={patient ? <PatientSettings /> : <Navigate to="/auth" />}
-            />
+            <Route path="/patient_dashboard" element={patient ? <PatientDashboard /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/auth" />}/>
+            <Route path="/search_doctor" element={patient ? <SearchDoctors /> : <Navigate to="/auth" />}/>
+            <Route path="/doctorInfo/:id" element={patient ? <DoctorInfo /> : <Navigate to="/auth" />}/>
+            <Route path="/book_appointment" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_settings/*" element={patient ? <PatientSettings /> : <Navigate to="/auth" />}/>
           </Routes>
         </Suspense>
       </ErrorBoundary>

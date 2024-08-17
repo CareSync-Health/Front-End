@@ -3,14 +3,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { config } from "../Config";
 import { authHeader, header } from "../Header";
-import { data } from "autoprefixer";
 
 const url = config.liveUrl;
 
 export const doctor_register = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.DOCTOR_AUTH_REQUEST });
-
+		
 		const { data } = await axios.post(`${url}/doctor/Signup`, body, header); // Assuming the endpoint is /doctor/register
 		if (data) {
 			dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
@@ -36,6 +35,7 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 		const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
 		if (data) {
 			dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
+			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});
@@ -101,6 +101,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 		const { data } = await axios.post(`${url}/doctor/Signin`, body, header);
 		if (data.status === 'Ok') {
 			dispatch({ type: types.DOCTOR_SIGNIN_SUCCESS, payload: data.data.data });
+			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});
@@ -139,7 +140,7 @@ export const forgot_password = (email, navigate) => async (dispatch) => {
 	}
 };
 
-export const resetPassword = ( body, navigate) => async (dispatch) => {
+export const resetPassword = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.RESET_PASSWORD_REQUEST });
 
@@ -205,7 +206,7 @@ export const getAllDoctors = () => async (dispatch) => {
 	try {
 		dispatch({ type: types.GET_ALL_DOCTORS_REQUEST });
 
-		const { data } = await axios.get(`${url}/doctor/`, {headers: header})
+		const { data } = await axios.get(`${url}/doctor/`, { headers: header })
 		if (data.status === 'OK') {
 			dispatch({ type: types.GET_ALL_DOCTORS_SUCCESS, payload: data.data });
 		} else {
@@ -241,10 +242,58 @@ export const updateDoctorProfile = (id, body) => async (dispatch) => {
 	}
 };
 
+export const searchContact = (searchTerm, options) => async (dispatch) => {
+	try {
+		dispatch({ type: types.SEARCH_CONTACTS_REQUEST });
+
+		const { data } = await axios.post(`${url}/contacts/search`, { searchTerm }, options);
+
+		if (data.status === 'Ok') {
+			dispatch({ type: types.SEARCH_CONTACTS_SUCCESS, payload: data.data });
+		} else {
+			throw new Error(data.error);
+		}
+	} catch (error) {
+		dispatch({ type: types.SEARCH_CONTACTS_FAIL, payload: error.message || error });
+	}
+};
+
+export const setSelectedChatType = (selectedChatType) => ({
+	type: types.SET_SELECTED_CHAT_TYPE,
+	payload: selectedChatType
+});
+
+export const setSelectedChatData = (selectedChatData) => ({
+	type: types.SET_SELECTED_CHAT_DATA,
+	payload: selectedChatData
+});
+
+export const setSelectedChatMessages = (messages) => ({
+	type: types.SET_SELECTED_CHAT_MESSAGES,
+	payload: messages
+});
+export const setDirectMessagesContacts = (directMessagesContacts) => ({
+	type: types.SET_DIRECT_MESSAGES_CONTACTS,
+	payload: directMessagesContacts
+});
+
+export const addMessage = (message) => {
+    return {
+        type: types.ADD_MESSAGE,
+        payload: message
+    };
+};
+
+export const closeChat = () => ({
+	type: types.CLOSE_CHAT
+});
+
+
 export const doctor_logout = (navigate) => (dispatch) => {
 	dispatch({ type: types.DOCTOR_SIGNIN_LOGOUT });
 	dispatch({ type: types.DOCTOR_AUTH_LOGOUT });
 
+	localStorage.removeItem('token');
 	toast.success("Logged out successfully");
 	navigate('/login');
 };

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
 import MessageIcon from '../../assets/Icons/messageIcon.svg'
 import Notification from '../../assets/Icons/notification.svg'
@@ -8,6 +8,7 @@ import Chatbot from './Chatbot'
 import { useTheme } from './ThemeContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDoctor, searchDoctors } from '../../Redux/Actions/DoctorActions'
+import { FaArrowRight } from 'react-icons/fa'
 
 
 function formatNumber(number) {
@@ -32,9 +33,11 @@ function formatNumber(number) {
 const Navbar = ({ messageCount, notificationCount }) => {
 
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-  
+
   const { theme, appearance } = useTheme();
-  
+  const [notification, setNotification] = useState(false);
+
+
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -56,6 +59,54 @@ const Navbar = ({ messageCount, notificationCount }) => {
     }
   }
 
+  const toggleNotification = () => {
+    setNotification(!notification);
+  };
+
+  const notifs = [
+    {
+      // image: notif1,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif2,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif3,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif4,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif1,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif2,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif3,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    },
+    {
+      // image: notif4,
+      title: "Dr sultads Send you Photo",
+      time: "29 July 2020 - 02:26 PM"
+    }
+  ]
+
+
   return (
     <div className={`lg:px-[30px] xs:px-[10px] shadow-lg py-[20px] ${theme === 'dark' ? 'bg-gray-800 text-white' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : 'text-gray-800'}`}>
       <div className='flex justify-between items-center'>
@@ -67,31 +118,49 @@ const Navbar = ({ messageCount, notificationCount }) => {
           </form>
         </div>
         <div className='flex items-center lg:gap-[2rem] xs:gap-[1rem]'>
-        <div className='flex items-center relative'>
+          <div className='flex items-center relative'>
             <img src={MessageIcon} className='lg:w-25 xs:w-[22px]' alt='Notification' />
             {messageCount != null && (
-            <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full lg:w-[25px] lg:h-[25px] xs:w-[20px] xs:h-[20px] lg:text-[12px] xs:text-[10px] text-white font-Inter lg:pt-[5px] xs:pt-[2.6px] font-bold leading-[12px] text-center absolute left-[15px] lg:-top-4 xs:-top-3'>
+              <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full lg:w-[25px] lg:h-[25px] xs:w-[20px] xs:h-[20px] lg:text-[12px] xs:text-[10px] text-white font-Inter lg:pt-[5px] xs:pt-[2.6px] font-bold leading-[12px] text-center absolute left-[15px] lg:-top-4 xs:-top-3'>
                 {formatNumber(messageCount)}
-            </span>
+              </span>
             )}
           </div>
-            <div className='flex items-center relative'>
-              <img src={Notification} className='lg:w-25 xs:w-[22px]' alt='Notification' />
-              {notificationCount != null && (
-                <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full lg:w-[25px] lg:h-[25px] xs:w-[20px] xs:h-[20px] lg:text-[12px] xs:text-[10px] text-white font-Inter lg:pt-[5px] xs:pt-[2.6px] font-bold leading-[12px] text-center absolute left-[15px] lg:-top-4 xs:-top-3'>
+          <div className='flex items-center relative'>
+            <img src={Notification} className='lg:w-25 xs:w-[22px]' alt='Notification' onClick={toggleNotification} />
+            {notificationCount != null && (
+              <span className='bg-[#FF6760] border-2 border-[#F6F8FB] border-solid rounded-full lg:w-[25px] lg:h-[25px] xs:w-[20px] xs:h-[20px] lg:text-[12px] xs:text-[10px] text-white font-Inter lg:pt-[5px] xs:pt-[2.6px] font-bold leading-[12px] text-center absolute left-[15px] lg:-top-4 xs:-top-3'>
                 {formatNumber(notificationCount)}
               </span>
-                )}
+            )}
+            <div>
+              {notification && <div className={`bg-white py-1 dark:bg-[rgb(17,26,56)] shadow mt-8 md:left-auto md:-ml-[17rem] left-0 rounded-md md:w-80 w-screen absolute z-20`}>
+                <div className='max-h-[50vh] overflow-y-scroll bestSeller'>
+                  {notifs?.map((noti, index) => (
+                    <div key={index} className='px-3'>
+                      <a className={`flex items-center py-3 gap-3 dark:border-gray-600 ${index !== 0 && "border-t"}`}>
+                        {/* <img src={noti.image} alt="" className='w-14 h-14 rounded-lg' /> */}
+                        <span>
+                          <p style={{ wordBreak: "break-word" }} className='font-semibold text-md text-gray-700 dark:text-white'>{noti.title}</p>
+                          <p style={{ wordBreak: "break-word" }} className='text-sm text-gray-500'>{noti.time}</p>
+                        </span>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+                <a className='flex cursor-pointer border-t border-solid text-[#0099FF] gap-4 py-3 justify-center rounded-b-md dark:border-gray-600'>See all notifications<img className='w-5' src={FaArrowRight} alt="" /></a>
+              </div>}
             </div>
+          </div>
           <Link to={`/doctor_profile/${doctor?._id}`}>
             <img src={avatar} className='lg:w-[40px] xs:w-[30px]' />
           </Link>
         </div>
         <div className='fixed z-40 lg:right-[3rem] xs:right-[1.5rem] lg:bottom-[2rem] xs:bottom-[6rem]'>
-          <Chatbot/>
+          <Chatbot />
         </div>
       </div>
-  </div>
+    </div>
   )
 }
 

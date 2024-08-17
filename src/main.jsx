@@ -9,20 +9,23 @@ import { persistStore } from 'redux-persist'
 import './index.css'
 import './App.css'
 import './Doctor Dashboard/Components/Language_Locales/i18n'; // Import the i18n configuration
+import { SocketProvider } from './Redux/context/SocketContext.jsx'
 
 const store = configureStore()
 const persistor = persistStore(store)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <BrowserRouter>
-        <Routes>
-          {/* <React.StrictMode> */}
-            <Route path='*' element={ <App /> } />
-          {/* </React.StrictMode> */}
-        </Routes>
-      </BrowserRouter>
-    </PersistGate>
+    <SocketProvider>
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            {/* <React.StrictMode> */}
+            <Route path='*' element={<App />} />
+            {/* </React.StrictMode> */}
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
+    </SocketProvider>
   </Provider>
 )

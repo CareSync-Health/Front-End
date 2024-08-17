@@ -140,3 +140,90 @@ export const updateDoctorReducer = (state = {}, action) => {
       return state;
   }
 }
+
+export const searchContactsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case types.SEARCH_CONTACTS_REQUEST:
+      return { ...state, loading: true };
+    case types.SEARCH_CONTACTS_SUCCESS:
+      return { ...state, loading: false, contacts: action.payload };
+    case types.SEARCH_CONTACTS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+const initialState = {
+  selectedChatType: undefined,
+  selectedChatData: undefined,
+  selectedChatMessages: []
+};
+
+export const chatReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.SET_SELECTED_CHAT_TYPE:
+      return {
+        ...state,
+        selectedChatType: action.payload
+      };
+    case types.SET_SELECTED_CHAT_DATA:
+      return {
+        ...state,
+        selectedChatData: action.payload
+      };
+    case types.SET_SELECTED_CHAT_MESSAGES:
+      return {
+        ...state,
+        selectedChatMessages: action.payload
+      };
+      case types.SET_DIRECT_MESSAGES_CONTACTS:
+      return {
+        ...state,
+        directMessagesContacts: action.payload
+      };
+    case types.GET_MESSAGES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+    case types.GET_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        selectedChatMessages: action.payload,
+      };
+    case types.GET_MESSAGES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    case types.ADD_MESSAGE:
+      const newMessage = {
+        ...action.payload,
+        recipient:
+          state.selectedChatType === "channel"
+            ? action.payload.recipient
+            : action.payload.recipient._id,
+        sender:
+          state.selectedChatType === "channel"
+            ? action.payload.sender
+            : action.payload.sender._id,
+      };
+      return {
+        ...state,
+        selectedChatMessages: [...state.selectedChatMessages, newMessage],
+      };
+    case types.CLOSE_CHAT:
+      return {
+        ...state,
+        selectedChatData: undefined,
+        selectedChatType: undefined,
+        selectedChatMessages: []
+      };
+    default:
+      return state;
+  }
+};

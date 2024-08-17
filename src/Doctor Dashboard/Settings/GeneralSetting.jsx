@@ -5,7 +5,7 @@ import theme1 from '../../assets/theme1.png';
 import theme2 from '../../assets/theme2.png';
 import theme3 from '../../assets/theme3.png';
 import { useTranslation } from 'react-i18next';
-import i18n from '@i18n/i18n';  // Use the alias to import i18n
+// import i18n from '@i18n/i18n';  // Use the alias to import i18n
 
 const Circle = ({ id, selected, onClick, bgColor, markColor }) => {
   return (

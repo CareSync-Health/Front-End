@@ -46,7 +46,7 @@ const DcotorProfile = () => {
   };
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/doctorid=${doctor?._id}`);
+    navigator.clipboard.writeText(`http://localhost:5173/view_doctor_profile/${doctor?._id}`);
     setCopyMessageVisible(true);
     setTimeout(() => {
       setCopyMessageVisible(false);
@@ -136,7 +136,7 @@ const DcotorProfile = () => {
               <div className={`flex justify-between gap-[10px] items-center border rounded-[10px] w-full lg:pl-[30px] lg:px-[20px] xs:px-[10px] lg:mb-[2rem] mt-[3rem] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#D8F6F9]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 <input
                   type='text'
-                  value={`http://localhost:5173/doctorid=${doctor?._id}`}
+                  value={`http://localhost:5173/view_doctor_profile/${doctor?._id}`}
                   readOnly
                   className='lg:w-[95%] xs:w-[77%] py-3 bg-transparent outline-none cursor-pointer'
                   onClick={handleCopyLink}

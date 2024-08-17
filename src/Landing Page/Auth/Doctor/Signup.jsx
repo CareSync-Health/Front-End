@@ -21,7 +21,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const body = { firstName, lastName, email, password };
+    const body = { firstName, lastName, email, password};
 
     try {
       await dispatch(doctor_register(body, navigate));

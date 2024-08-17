@@ -10,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@i18n': path.resolve(__dirname, './src/Doctor Dashboard/Components/Language_Locales'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 });

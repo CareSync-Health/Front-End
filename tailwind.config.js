@@ -1,13 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-/* eslint-disable max-len */
 const colors = require("tailwindcss/colors");
 module.exports = {
+  darkMode: ["class"],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
   ],
+  prefix: "",
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+    },
     screens: {
       xml: "412px",
       // => @media (min-width: 412px) { ... }
@@ -34,6 +39,39 @@ module.exports = {
     current: "currentColor",
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
         // light mode
         tremor: {
           brand: {
@@ -113,6 +151,9 @@ module.exports = {
         "tremor-small": "0.375rem",
         "tremor-default": "0.5rem",
         "tremor-full": "9999px",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
         Roboto: ["Roboto", "sans-serif"],
@@ -131,59 +172,78 @@ module.exports = {
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
       },
       keyframes: {
-        "popup-bounce-to-top": {
-          "0%": {
-            transform: "translateY(500px)",
-            opacity: "0",
-            "animation-timing-function": "ease-in",
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+          "popup-bounce-to-top": {
+            "0%": {
+              transform: "translateY(500px)",
+              opacity: "0",
+              "animation-timing-function": "ease-in",
+            },
+            "38%": {
+              transform: "translateY(0)",
+              opacity: "1",
+              "animation-timing-function": "ease-out",
+            },
+            "55%": {
+              transform: "translateY(65px)",
+              "animation-timing-function": "ease-in",
+            },
+            "72%": {
+              transform: "translateY(0)",
+              "animation-timing-function": "ease-out",
+            },
+            "81%": {
+              transform: "translateY(28px)",
+              "animation-timing-function": "ease-in",
+            },
+            "90%": {
+              transform: "translateY(0)",
+              "animation-timing-function": "ease-out",
+            },
+            "95%": {
+              transform: "translateY(8px)",
+              "animation-timing-function": "ease-in",
+            },
+            "100%": {
+              transform: "translateY(0)",
+              "animation-timing-function": "ease-out",
+            },
           },
-          "38%": {
-            transform: "translateY(0)",
-            opacity: "1",
-            "animation-timing-function": "ease-out",
-          },
-          "55%": {
-            transform: "translateY(65px)",
-            "animation-timing-function": "ease-in",
-          },
-          "72%": {
-            transform: "translateY(0)",
-            "animation-timing-function": "ease-out",
-          },
-          "81%": {
-            transform: "translateY(28px)",
-            "animation-timing-function": "ease-in",
-          },
-          "90%": {
-            transform: "translateY(0)",
-            "animation-timing-function": "ease-out",
-          },
-          "95%": {
-            transform: "translateY(8px)",
-            "animation-timing-function": "ease-in",
-          },
-          "100%": {
-            transform: "translateY(0)",
-            "animation-timing-function": "ease-out",
+          "gb-popup-slide-zoom-left": {
+            "0%": {
+              opacity: "0",
+              transformOrigin: "100% 50%",
+              transform: "scale(0.2) translate(200%, 0%)",
+            },
+            "100%": {
+              opacity: "1",
+              transformOrigin: "100% 50%",
+              transform: "scale(1) translate(0%, 0%)",
+            },
           },
         },
-        "gb-popup-slide-zoom-left": {
-          "0%": {
-            opacity: "0",
-            transformOrigin: "100% 50%",
-            transform: "scale(0.2) translate(200%, 0%)",
-          },
-          "100%": {
-            opacity: "1",
-            transformOrigin: "100% 50%",
-            transform: "scale(1) translate(0%, 0%)",
-          },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        shine: {
+          '0%': { backgroundPosition: '0' },
+          '60%': { backgroundPosition: '180px' },
+          '100%': { backgroundPosition: '180px' },
         },
       },
       animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
         "popup-bounce-to-top": "popup-bounce-to-top 1.1s both",
         "gb-popup-slide-zoom-left":
           "gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+        shine: 'shine 3s infinite linear',
+      },
+      backgroundImage: {
+        'shine-gradient': 'linear-gradient(to right, #9f9f9f 0%, #fff 10%, #868686 20%)',
       },
     },
   },
@@ -216,5 +276,5 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
-  // plugins: [require('@headlessui/tailwindcss'), require('@tailwindcss/forms')],
-};
+  plugins: [require("tailwindcss-animate")],
+}
