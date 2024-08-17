@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BiMessageAdd } from 'react-icons/bi';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-  } from "@/components/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../../../../Components/ui/tooltip";
    
 import { useTheme } from '@/Doctor Dashboard/Components/ThemeContext';
 import {
@@ -13,11 +8,11 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-  } from "@/components/ui/dialog"
+  } from "../../../../../Components/ui/dialog"
   
 import { searchContact, setSelectedChatType, setSelectedChatData } from '@/Redux/Actions/DoctorActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { ScrollArea } from '@/Components/ui/scroll-area';
+import { ScrollArea } from '../../../../../Components/ui/scroll-area';
 import caresync from '../../../../../assets/CareSync.png'
 
 
