@@ -378,7 +378,9 @@ const ChatContainer = () => {
                 showImage && (
                     <div className='fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg flex-col'>
                         <div>
-                            <img src={imageUrl} className='h-[80vh] w-full bg-cover' />
+                           <div className='flex items-center justify-center'>
+                           <img src={imageUrl} className='lg:h-[80vh] lg:w-full xs:w-[95%] xs:h-[60vh] bg-cover' />
+                           </div>
                             <div className='flex gap-5 fixed top-0 right-0 mt-5 px-5'>
                                 <button className='bg-black/20 p-3 text-2xl rounded-full hover:bg-black/50 cursor-pointer transition-all duration-300' onClick={() => downloadFile(imageUrl)}>
                                     <FiDownload />
