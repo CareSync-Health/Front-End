@@ -13,7 +13,8 @@ import { setDirectMessagesContacts, setSelectedChatData, setSelectedChatMessages
 const ContactsContainer = () => {
     const { theme, appearance } = useTheme();
     const dispatch = useDispatch();
-    const directMessagesContacts = useSelector((state) => state.createChat.directMessagesContacts);
+    const directMessagesContacts = useSelector((state) => state.createChat.directMessagesContacts || []);
+    const contactStatuses = useSelector((state) => state.createChat.contactStatuses);
     const url = config.liveUrl;
     const { selectedChatData, selectedChatType } = useSelector((state) => state.createChat);
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
@@ -54,8 +55,6 @@ const ContactsContainer = () => {
         const fullName = `${contact.firstName.trim()} ${contact.lastName.trim()}`.toLowerCase();
         return fullName.includes(searchQuery.trim().toLowerCase());
     });
-
-    // const contacts = directMessagesContacts;
 
     const handleClick = (contact) => {
         if (contact) {
@@ -98,8 +97,7 @@ const ContactsContainer = () => {
                             <div>
                                 <h1 className='text-[14px] leading-[20px] font-normal font-Nunito capitalize'>{contact.firstName} {contact.lastName}</h1>
                                 <h1 className='text-[12px] leading-[20px] text-gray-400 font-normal font-Nunito capitalize'>{contact.profession}</h1>
-                                <div className='flex items-center gap-[10px] mt-[4px]'>
-                                </div>
+                                <p className={`text-[10px]`}>{contactStatuses[contact._id] === 'online' ? 'Online' : 'Offline'}</p>
                             </div>
                         </div>
                     ))

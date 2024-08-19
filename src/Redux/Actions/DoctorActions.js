@@ -277,6 +277,11 @@ export const setDirectMessagesContacts = (directMessagesContacts) => ({
 	payload: directMessagesContacts
 });
 
+export const updateContactStatus = (userId, status) => ({
+    type: types.UPDATE_CONTACT_STATUS,
+    payload: { userId, status }
+});
+
 export const addMessage = (message) => {
     return {
         type: types.ADD_MESSAGE,

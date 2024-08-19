@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { config } from "../Config";
-import { addMessage } from "../Actions/DoctorActions";
+import { addMessage, updateContactStatus } from "../Actions/DoctorActions";
 
 const SocketContext = createContext(null);
 
@@ -25,13 +25,13 @@ export const SocketProvider = ({children}) => {
                 withCredentials: true,
                 query: { userId: doctor?._id }
             });
-
+    
             setSocket(newSocket);
-
+    
             newSocket.on("connect", () => {
                 console.log("Connected to socket server");
             });
-
+    
             newSocket.on("receiveMessage", (message) => {
                 if (
                     selectedChatType !== undefined && 
@@ -41,14 +41,19 @@ export const SocketProvider = ({children}) => {
                     dispatch(addMessage(message));
                 }
             });
-
+    
+            // Listen for user status changes
+            newSocket.on("userStatus", ({ userId, status }) => {
+                dispatch(updateContactStatus(userId, status));
+            });
+    
             return () => {
                 if (newSocket) {
                     newSocket.disconnect();
                 }
             };
         }
-    }, [doctor, selectedChatData, selectedChatType, dispatch]);
+    }, [doctor, selectedChatData, selectedChatType, dispatch]);    
 
     return (
         <SocketContext.Provider value={socket}>
