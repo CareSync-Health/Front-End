@@ -26,6 +26,7 @@ const ChatContainer = () => {
     const scrollRef = useRef();
     const socket = useSocket();
     const searchRef = useRef(null);
+    const url = config.liveUrl;
     const [showSearch, setShowSearch] = useState(true);
     const [searchQuery, setSearchQuery] = useState(""); // State for search query
     const { theme, appearance } = useTheme();
@@ -39,6 +40,10 @@ const ChatContainer = () => {
     const [isSocketConnected, setIsSocketConnected] = useState(false);
     const [showImage, setShowImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null); // State for image preview
+    const [fileStatus, setFileStatus] = useState(null); // New state for file status
+    const [fileError, setFileError] = useState(false); // New state for file upload errors
 
 
     const handleCloseChat = () => {
@@ -120,7 +125,7 @@ const ChatContainer = () => {
 
     const fetchMessages = async (senderId, recipientId) => {
         try {
-            const { data } = await axios.get(`${config.liveUrl}/messages/${senderId}/${recipientId}`);
+            const { data } = await axios.get(`${url}/messages/${senderId}/${recipientId}`);
             if (data.status === 'Ok') {
                 dispatch(setSelectedChatMessages(data.data));
             } else {
@@ -170,15 +175,75 @@ const ChatContainer = () => {
         return obj;
     };
 
-    const url = config.liveUrl;
+
+    // const handleAttachmentChange = async (event) => {
+    //     try {
+    //         const token = localStorage.getItem('token');
+    //         const file = event.target.files[0];
+
+    //         if (file) {
+    //             const reader = new FileReader();
+
+    //             reader.onloadend = async () => {
+    //                 const base64String = reader.result.split(',')[1];
+    //                 const formData = new FormData();
+    //                 formData.append('file', base64String);
+    //                 formData.append('senderId', doctor?._id);
+    //                 formData.append('recipientId', selectedChatData._id);
+    //                 formData.append('messageType', 'file');
+
+    //                 try {
+    //                     const { data } = await axios.post(`${url}/messages/upload-file`, formData, {
+    //                         headers: {
+    //                             'Authorization': `Bearer ${token}`,
+    //                             'Content-Type': 'multipart/form-data',
+    //                         },
+    //                     });
+
+    //                     if (data.status === 'Ok') {
+    //                         socket.emit(('sendMessage', messageToSend) ({
+    //                             sender: doctor?._id,  // Make sure this is set to the correct sender ID
+    //                             content: undefined,
+    //                             recipient: selectedChatData._id,  // Make sure this is set to the correct recipient ID
+    //                             messageType: 'file',
+    //                             fileUrl: data.data.fileUrl,
+    //                         }));
+
+    //                         dispatch(setSelectedChatMessages([...selectedChatMessages, messageToSend]));
+    //                         setFileStatus('sent');
+    //                         setFileError(false);
+    //                     } else {
+    //                         throw new Error(data.error);
+    //                     }
+    //                 } catch (error) {
+    //                     console.error('Error sending file:', error);
+    //                     setFileStatus('failed');
+    //                     setFileError(true);
+    //                 }
+    //             };
+
+    //             reader.readAsDataURL(file);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error handling attachment change:', error);
+    //     }
+    // };
 
     const handleAttachmentChange = async (event) => {
         try {
+            const file = event.target.files[0];
+            if (file) {
+                setSelectedFile(file);
+    
+                // Create a preview URL for the selected file
+                const fileUrl = URL.createObjectURL(file);
+                setPreviewUrl(fileUrl);
+            }
+
             // Retrieve the token from localStorage
             const token = localStorage.getItem('token');
-            const file = event.target.files[0];
 
-            if (file) {
+            if (selectedFile) {
                 // Create a FileReader to convert the file to base64
                 const reader = new FileReader();
 
@@ -207,28 +272,25 @@ const ChatContainer = () => {
                     console.log("File upload response:", data);
 
                     if (data.status === 'Ok') {
-                        // if (selectedChatType === 'contact') {
-                        socket.emit('sendMessage', {
-                            sender: doctor?._id,  // Make sure this is set to the correct sender ID
+                        const newMessage = {
+                            sender: doctor?._id,
                             content: undefined,
-                            recipient: selectedChatData._id,  // Make sure this is set to the correct recipient ID
+                            recipient: selectedChatData._id,
                             messageType: 'file',
                             fileUrl: data.data.fileUrl,
-                        });
-
-                        // // Emit the message through socket
-                        // socket.emit('sendMessage', newMessage);
-
-                        // // Update the local state directly
-                        // dispatch(setSelectedChatMessages([...selectedChatMessages, newMessage]));
-                        // }
+                        };
+        
+                        if (selectedChatType === 'contact') {
+                            socket.emit('sendMessage', newMessage);
+                            dispatch(setSelectedChatMessages([...selectedChatMessages, newMessage]));
+                        }
                     } else {
                         throw new Error(data.error);
                     }
-                };
+                }
 
                 // Start reading the file as a data URL
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(selectedFile);
             }
         } catch (error) {
             console.error('Error handling attachment change:', error);
@@ -242,15 +304,15 @@ const ChatContainer = () => {
 
     const downloadFile = async (fileUrl) => {
         const response = await axios.get(fileUrl, { responseType: "blob" });
-    
+
         const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = urlBlob;
-        
+
         // Extract file name from the URL or set a default name
         const fileName = fileUrl.split('/').pop() || 'downloaded-file';
         link.setAttribute("download", fileName);
-        
+
         document.body.appendChild(link);
         link.click();
         link.remove();
@@ -267,7 +329,9 @@ const ChatContainer = () => {
 
     useEffect(() => {
         if (scrollRef.current) {
-            scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+            }, 0); // Delay by 0ms to ensure all updates are done
         }
     }, [selectedChatMessages]);
 
@@ -301,7 +365,7 @@ const ChatContainer = () => {
                         <FaArrowLeft className='text-[18px] text-[#22D1EE] font-bold font-Nunito xs:block cursor-pointer' onClick={handleCloseChat} />
                         <Link to={selectedChatType === "contact" && `/view_doctor_profile/${selectedChatData._id}`}>
                             <div className='flex items-center gap-[10px]'>
-                                <img src={selectedChatData?.avatar || avatar} alt={`${selectedChatData?.firstName} ${selectedChatData?.lastName}`} className='w-[40px] rounded-full' />
+                                <img src={selectedChatType === "contact" && selectedChatData?.profilePic || avatar} alt={`${selectedChatData?.firstName} ${selectedChatData?.lastName}`} className='w-[40px] h-[40px] object-cover rounded-full' />
                                 <div>
                                     <h2 className='text-[14px] font-Nunito font-bold capitalize'>
                                         {selectedChatType === "contact" && `${selectedChatData?.firstName} ${selectedChatData?.lastName}`}
@@ -341,34 +405,37 @@ const ChatContainer = () => {
                             <div className='text-center text-gray-400 text-xs font-nunito py-1'>
                                 {getDisplayTimestamp(date)}
                             </div>
-                            {groupMessagesByDate(filteredMessages)[date].map((message) => (
-                                <>
-                                    <div key={message._id} ref={scrollRef} className={`max-w-xs flex ${message.sender._id === doctor?._id ? 'self-end' : ''}`}>
-                                        <div className={`rounded-[18px] ${message.sender._id === doctor?._id ? 'bg-[#22D1EE] rounded-br-none text-white' : 'self-end rounded-bl-none bg-[#E4E6EB] text-black'}`}>
-                                            {message.messageType === "file" ? (
-                                                checkIfImage(message.fileUrl) ? (
-                                                    <>
-                                                        <div className='p-2' onClick={() => { setShowImage(true); setImageUrl(message.fileUrl) }}>
-                                                            <img src={message.fileUrl} alt="Sent file" className="rounded-lg" height={200} width={200} />
-                                                        </div>
-                                                    </>
+                            {groupMessagesByDate(filteredMessages)[date].map((message) => {
+                                const isSentByDoctor = String(message.sender._id) === String(doctor?._id);
+                                return (
+                                    <>
+                                        <div key={message._id} ref={scrollRef} className={`max-w-xs flex ${isSentByDoctor ? 'self-end' : ''}`}>
+                                            <div className={`rounded-[18px] ${isSentByDoctor ? 'bg-[#22D1EE] rounded-br-none text-white' : 'self-end rounded-bl-none bg-[#E4E6EB] text-black'}`}>
+                                                {message.messageType === "file" ? (
+                                                    checkIfImage(message.fileUrl) ? (
+                                                        <>
+                                                            <div className='p-2 cursor-pointer' onClick={() => { setShowImage(true); setImageUrl(message.fileUrl) }}>
+                                                                <img src={message.fileUrl} alt="Sent file" className="rounded-lg" height={200} width={200} />
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                        <a href={message.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[#f1f1f1] underline">
+                                                            Open File
+                                                        </a>
+                                                    )
                                                 ) : (
-                                                    <a href={message.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[#f1f1f1] underline">
-                                                        Open File
-                                                    </a>
-                                                )
-                                            ) : (
-                                                <div className='p-3'>
-                                                    <p>{message.content}</p>
-                                                </div>
-                                            )}
+                                                    <div className='p-3'>
+                                                        <p>{message.content}</p>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <span className={`text-xs font-Nunito font-medium text-gray-500 ${message.sender._id === doctor?._id ? "text-right" : ""}`}>
-                                        {moment(message.timestamp || message.createdAt).format('LT')}
-                                    </span>
-                                </>
-                            ))}
+                                        <span className={`text-xs font-Nunito font-medium text-gray-500 ${message.sender._id === doctor?._id ? "text-right" : ""}`}>
+                                            {moment(message.timestamp || message.createdAt).format('LT')}
+                                        </span>
+                                    </>
+                                )
+                            })}
                         </div>
                     ))}
                 </div>
@@ -378,9 +445,9 @@ const ChatContainer = () => {
                 showImage && (
                     <div className='fixed z-[1000] top-0 left-0 h-[100vh] w-[100vw] flex items-center justify-center backdrop-blur-lg flex-col'>
                         <div>
-                           <div className='flex items-center justify-center'>
-                           <img src={imageUrl} className='lg:h-[80vh] lg:w-full xs:w-[95%] xs:h-[60vh] bg-cover' />
-                           </div>
+                            <div className='flex items-center justify-center'>
+                                <img src={imageUrl} className='lg:h-[80vh] lg:w-full xs:w-[95%] xs:h-[60vh] bg-cover' />
+                            </div>
                             <div className='flex gap-5 fixed top-0 right-0 mt-5 px-5'>
                                 <button className='bg-black/20 p-3 text-2xl rounded-full hover:bg-black/50 cursor-pointer transition-all duration-300' onClick={() => downloadFile(imageUrl)}>
                                     <FiDownload />

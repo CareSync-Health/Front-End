@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BsSearch, BsThreeDots } from "react-icons/bs";
 import { RiVideoAddFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
-import Ellipse from '../../../../assets/Ellipse 1.png';
+import Avatar from '../../../../assets/avatar.png';
+import { RxAvatar } from "react-icons/rx";
 import { useTheme } from '../../../Components/ThemeContext';
 import axios from 'axios';
 import { config } from '@/Redux/Config';
@@ -93,7 +94,7 @@ const ContactsContainer = () => {
                 {filteredContacts.length > 0 ? (
                     filteredContacts.map((contact) => (
                         <div key={contact._id} onClick={() => handleClick(contact)} className={`flex items-center gap-[10px] mt-[1rem] px-4 py-2 cursor-pointer ${selectedChatData && selectedChatData._id === contact._id ? "bg-[#f1f1f111] hover:bg-[#f1f1f111]" : "hover:bg-[#f1f1f111]"}`}>
-                            <img src={Ellipse} alt="doctor" />
+                            <img src={contact?.profilePic || Avatar} alt="doctor" className={`w-[55px] h-[55px] object-cover rounded-full`} />
                             <div>
                                 <h1 className='text-[14px] leading-[20px] font-normal font-Nunito capitalize'>{contact.firstName} {contact.lastName}</h1>
                                 <h1 className='text-[12px] leading-[20px] text-gray-400 font-normal font-Nunito capitalize'>{contact.profession}</h1>

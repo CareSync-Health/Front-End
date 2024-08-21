@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { doctor_login } from '../../../Redux/Actions/DoctorActions';
 import { ClipLoader } from 'react-spinners'; // Import a spinner component
+import { config } from '@/Redux/Config';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,6 +30,12 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const URL = config.liveUrl
+
+  const googleLogin = () => {
+    window.location.href = `${URL}/auth/google?role=doctor`;
   };
 
   return (
@@ -60,7 +67,7 @@ const Login = () => {
                             <hr className="w-2/5 mt-3" />
                         </div>
                     </center>
-                    <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[130px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto">
+                    <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[130px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto cursor-pointer" onClick={googleLogin}>
                         <img src={img2} alt="google-icon" className="w-6" />
                         <h6 className='text-[18px] font-medium font-Inter'>Login with Google</h6>
                     </div>

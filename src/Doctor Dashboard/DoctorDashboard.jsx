@@ -13,7 +13,7 @@ import { useTheme } from './Components/ThemeContext';
 import Chatbot from './Components/Chatbot';
 import { IoHelpOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '../Redux/Actions/DoctorActions';
 
 
@@ -27,6 +27,30 @@ const DoctorDashboard = () => {
     const toggleChat = () => {
         setIsOpen(!isOpen);
     };
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams(); // Get doctor ID from URL
+
+    // Get doctor data from Redux store
+    const loadDoc = useSelector((state) => state.loadDoctor.doctor);
+  
+    useEffect(() => {
+      if (id) {
+        dispatch(loadDoctor(id));
+      }
+    }, [dispatch, id]);
+
+//   useEffect(() => {
+//     const query = new URLSearchParams(window.location.search);
+//     const token = query.get('token');
+
+//     if (token) {
+//       localStorage.setItem('authToken', token);
+//       navigate('/doctor_dashboard');
+//     } else {
+//       navigate('/login');
+//     }
+//   }, [navigate]);
 
     return (
         <>
@@ -35,7 +59,7 @@ const DoctorDashboard = () => {
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                            <Navbar messageCount={5} notificationCount={12} />
+                            <Navbar messageCount={5} notificationCount={12} loadDoc={loadDoc} />
                             <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                                 <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>
                                     <div className={`lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem] ${theme === 'dark' ? "bg-gray-800" : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>

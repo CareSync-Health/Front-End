@@ -223,6 +223,16 @@ module.exports = {
               transform: "scale(1) translate(0%, 0%)",
             },
           },
+          'gb-popup-bounce-to-left': {
+          '0%': { transform: 'translateX(600px)', animationTimingFunction: 'ease-in', opacity: '0' },
+          '38%': { transform: 'translateX(0)', animationTimingFunction: 'ease-out', opacity: '1' },
+          '55%': { transform: 'translateX(68px)', animationTimingFunction: 'ease-in' },
+          '72%': { transform: 'translateX(0)', animationTimingFunction: 'ease-out' },
+          '81%': { transform: 'translateX(32px)', animationTimingFunction: 'ease-in' },
+          '90%': { transform: 'translateX(0)', animationTimingFunction: 'ease-out' },
+          '95%': { transform: 'translateX(8px)', animationTimingFunction: 'ease-in' },
+          '100%': { transform: 'translateX(0)', animationTimingFunction: 'ease-out' },
+        },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
@@ -231,7 +241,7 @@ module.exports = {
         shine: {
           '0%': { backgroundPosition: '0' },
           '60%': { backgroundPosition: '180px' },
-          '100%': { backgroundPosition: '180px' },
+          '100%': { backgroundPosition: '550px' },
         },
       },
       animation: {
@@ -241,9 +251,10 @@ module.exports = {
         "gb-popup-slide-zoom-left":
           "gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
         shine: 'shine 3s infinite linear',
+        'gb-popup-bounce-to-left': 'gb-popup-bounce-to-left 5s both',
       },
       backgroundImage: {
-        'shine-gradient': 'linear-gradient(to right, #9f9f9f 0%, #fff 10%, #868686 20%)',
+        'shine-gradient': 'linear-gradient(to right, #9f9f9f 0%, #fff 10%, #868686 50%)',
       },
     },
   },

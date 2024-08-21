@@ -61,16 +61,12 @@ const DcotorProfile = () => {
         <div>
             <div className='lg:px-[15px] lg:mt-[1rem]'>
               <div className={`pb-[2rem] rounded-[10px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                <div style={{ backgroundImage: `url(${profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
-                  <button className='text-[#22D1EE] bg-[#fff] mt-4 mr-5 p-[10px] rounded-[100px] text-[22px] lg:hidden xs:block float-end'><Link to='/edit_doctor_profile'><FaPencil /></Link></button>
-                  <div className='flex items-center justify-between lg:px-[50px] xs:px-[10px] pt-[8rem]'>
-                    <img src={doctor?.image || profileavatar} className='rounded-[100px] object-contain w-[180px]' />
-                    <button className='bg-[#fff] w-[172px] py-[10px] px-[10px] text-center text-[#17B978] hover:bg-[#17B978] hover:text-[#fff] duration-300 text-[16px] font-Poppins font-semibold rounded-[10px] lg:block xs:hidden'>
-                      <Link to='/edit_doctor_profile/:id'>Edit Cover Photo</Link>
-                    </button>
+                <div style={{ backgroundImage: `url(${doctor?.headerPic})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='lg:h-[280px] w-full'>
+                  <div className='flex items-center justify-start lg:block xs:relative lg:top-0 xs:top-[4rem] lg:px-[30px] xs:px-[10px] pt-[8rem]'>
+                    <img src={doctor?.profilePic || profileavatar} className='rounded-[100px] object-cover w-[200px] h-[200px]' />
                   </div>
                 </div>
-                <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] pt-[1rem]'>
+                <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] lg:pt-[1rem] xs:pt-[5rem]'>
                   <div className='lg:ms-[11rem]'>
                     <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.firstName} {doctor?.lastName}</h2>
                     <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>{doctor?.profession}</h3>

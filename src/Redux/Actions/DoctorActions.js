@@ -35,7 +35,6 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 		const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
 		if (data) {
 			dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
-			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});

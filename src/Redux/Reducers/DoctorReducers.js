@@ -184,15 +184,14 @@ export const chatReducer = (state = initialState, action) => {
         ...state,
         directMessagesContacts: action.payload
       };
-    case types.UPDATE_CONTACT_STATUS:
-      const { userId, status } = action.payload;
-      return {
-        ...state,
-        contactStatuses: {
-          ...state.contactStatuses,
-          [userId]: status
-        }
-      };
+      case types.UPDATE_CONTACT_STATUS:
+        return {
+            ...state,
+            contactStatuses: {
+                ...state.contactStatuses,
+                [action.payload.userId]: action.payload.status,
+            },
+        };
     case types.GET_MESSAGES_REQUEST:
       return {
         ...state,

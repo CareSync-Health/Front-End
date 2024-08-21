@@ -13,8 +13,6 @@ import toast from 'react-hot-toast'
 import CareSyncBanner from '../../../assets/CareSync Banner.jpg'
 import CareSync from '../../../assets/CareSync Logo.png'
 
-
-
 const EditProfile = () => {
 
   const { theme, appearance } = useTheme();
@@ -51,8 +49,8 @@ const EditProfile = () => {
   const [educationEndDate, setEducationEndDate] = useState('');
   const [educationActivities, setEducationActivities] = useState('');
   const [educationDescription, setEducationDescription] = useState('');
-  const [profilePic, setProfilePic] = useState('');
-  const [headerPic, setHeaderPic] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
+  const [headerPic, setHeaderPic] = useState(null);
 
   const employmentTypes = [
     'full time',
@@ -65,13 +63,10 @@ const EditProfile = () => {
   ]
 
 
-  const [profilebg, setProfilebg] = useState(CareSyncBanner);
-  const [profileavatar, setProfileavatar] = useState(CareSync);
-
   useEffect(() => {
     if (doctor) {
-      setProfilebg(doctor.headerPic || CareSyncBanner);
-      setProfileavatar(doctor.profilePic || CareSync);
+      setHeaderPic(doctor.headerPic || "");
+      setProfilePic(doctor.profilePic || "");
       setFirstName(doctor.firstName || '');
       setLastName(doctor.lastName || '');
       setUserName(doctor.userName || '');
@@ -101,31 +96,31 @@ const EditProfile = () => {
   }, [doctor]);
 
   const handleImageUpload = (event, setter) => {
-    const file = event.target.files[0];
+    const file = Array.from(event.target.files[0]);
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setter(reader.result);
-      reader.readAsDataURL(file);
+      setter(file); // Save the file object
     }
   };
 
-  const handleBannerUpload = (event) => {
-    handleImageUpload(event, setProfilebg);
-    setHeaderPic(event.target.files[0]);
+  const handleAvatarUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfilePic(file); // Save the file object
+    }
   };
 
-  const handleAvatarUpload = (event) => {
-    handleImageUpload(event, setProfileavatar);
-    setProfilePic(event.target.files[0]);
+  const handleHeaderUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setHeaderPic(file); // Save the file object
+    }
   };
 
   const handleDeleteImage = (type) => {
-    if (type === 'banner') {
-      setProfilebg(CareSyncBanner);
-      setHeaderPic('');
-    } else if (type === 'avatar') {
-      setProfileavatar(CareSync);
-      setProfilePic('');
+    if (type === 'avatar') {
+      setProfilePic(null);
+    } else if (type === 'header') {
+      setHeaderPic(null);
     }
   };
 
@@ -158,19 +153,27 @@ const EditProfile = () => {
     formData.append('educationEndDate', educationEndDate);
     formData.append('educationActivities', educationActivities);
     formData.append('educationDescription', educationDescription);
-    
-    if (headerPic) {
-      formData.append('headerPic', headerPic);
-    }
-    
-    if (profilePic) {
-      formData.append('profilePic', profilePic);
+
+    if (headerPic) formData.append('headerPic', doctor?.headerPic);
+    if (profilePic) formData.append('profilePic', doctor?.profilePic);
+  
+    // Log FormData entries
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
     }
     
     dispatch(updateDoctorProfile(doctor?._id, formData));
     console.log(updateDoctorProfile);
     console.log(formData);
-    toast.success('Profile updated successfully!');
+    // toast.success('Profile updated successfully!');
+  };
+
+   // Helper function to get image URL if it's a valid File object
+   const getImageUrl = (image) => {
+    if (image && image instanceof File) {
+      return URL.createObjectURL(image);
+    }
+    return image || ''; // Return existing URL or empty string
   };
 
   return (
@@ -183,7 +186,7 @@ const EditProfile = () => {
           <form onSubmit={handleSubmit}>
             <div
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilebg})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${getImageUrl(headerPic)})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 height: 300,
@@ -198,13 +201,13 @@ const EditProfile = () => {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={handleBannerUpload}
+                    onChange={handleHeaderUpload}
                     className="hidden"
                   />
                 </label>
                 <div
                   className='bg-[#00000073] p-3 rounded-full cursor-pointer'
-                  onClick={() => handleDeleteImage('banner')}
+                  onClick={() => handleDeleteImage('header')}
                 >
                   <FaTimes className='text-[22px] text-[#ffffffbe]' />
                 </div>
@@ -212,7 +215,7 @@ const EditProfile = () => {
               <div
                 className='mt-[-5rem] w-[180px] object-contain rounded-full h-[64%] lg:ms-[4rem] xs:ms-[1rem]'
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profileavatar})`,
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${getImageUrl(profilePic)})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   width: 180,
@@ -272,7 +275,7 @@ const EditProfile = () => {
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Email</h2>
-                  <h2 className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}>{doctor?.email}</h2>
+                  <h2 className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}>{doctor?.email || 'Email Address'}</h2>
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Gender</h2>
