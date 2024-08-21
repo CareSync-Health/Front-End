@@ -9,6 +9,8 @@ import { useTheme } from './ThemeContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadDoctor, searchDoctors } from '../../Redux/Actions/DoctorActions'
 import { FaArrowRight } from 'react-icons/fa'
+import { config } from '@/Redux/Config'
+import { io } from 'socket.io-client'
 
 
 function formatNumber(number) {
@@ -33,16 +35,17 @@ function formatNumber(number) {
 const Navbar = ({ messageCount, notificationCount }) => {
 
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-
   const { theme, appearance } = useTheme();
-  const [notification, setNotification] = useState(false);
-
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const notifications = useSelector((state) => state.createChat.notifications);
 
   const dispatch = useDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  // const [notifs, setNotifs] = useState([]);
+
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -60,51 +63,51 @@ const Navbar = ({ messageCount, notificationCount }) => {
   }
 
   const toggleNotification = () => {
-    setNotification(!notification);
+    setNotificationOpen(!notificationOpen);
   };
 
-  const notifs = [
-    {
-      // image: notif1,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif2,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif3,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif4,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif1,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif2,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif3,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    },
-    {
-      // image: notif4,
-      title: "Dr sultads Send you Photo",
-      time: "29 July 2020 - 02:26 PM"
-    }
-  ]
+  // const notifs = [
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a photo",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a photo",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a message",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a photo",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a message",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a photo",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a message",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   },
+  //   {
+  //     image: avatar,
+  //     title: "Dr sultads sends you a photo",
+  //     time: "29 July 2020 - 02:26 PM"
+  //   }
+  // ]
 
 
   return (
@@ -134,21 +137,28 @@ const Navbar = ({ messageCount, notificationCount }) => {
               </span>
             )}
             <div className='gb-popup-bounce-to-left'>
-              {notification && <div className={`py-1 mt-8 md:left-auto shadow-2xl md:-ml-[17rem] left-0 rounded-md md:w-80 w-screen absolute z-20 ${theme === 'dark' ? 'bg-gray-900 text-white' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : 'text-gray-800'}`}>
-                <div className='max-h-[50vh] bestSeller overflow-y-auto' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                  {notifs?.map((noti, index) => (
-                    <div key={index} className='px-3'>
-                      <a className={`flex items-center py-3 gap-3 dark:border-gray-600 ${index !== 0 && "border-t"}`}>
-                        {/* <img src={noti.image} alt="" className='w-14 h-14 rounded-lg' /> */}
-                        <span>
-                          <p style={{ wordBreak: "break-word" }} className='font-semibold text-md'>{noti.title}</p>
-                          <p style={{ wordBreak: "break-word" }} className='text-sm'>{noti.time}</p>
-                        </span>
-                      </a>
-                    </div>
-                  ))}
+              {notificationOpen && (
+              <div className={`py-1 mt-8 md:left-auto shadow-2xl md:-ml-[17rem] left-0 rounded-md md:w-80 w-screen absolute z-20 ${theme === 'dark' ? 'bg-gray-900 text-white' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : 'text-gray-800'}`}>
+                <div className='max-h-[50vh] overflow-y-auto'>
+                  {notifications.length === 0 ? (
+                    <p className='p-2 font-Nunito font-bold text-[16px] text-center'>No notifications</p>
+                  ) : (
+                    notifications.map((noti, index) => (
+                      <div key={index} className='px-3'>
+                        <a className={`flex items-center py-3 gap-3 ${index !== 0 && "border-t"}`}>
+                          <img src={noti.senderImage} alt="" className='w-10 h-10 rounded-lg' />
+                          <span>
+                            <p style={{ wordBreak: "break-word" }} className='font-semibold text-[14px]'>{noti.title}</p>
+                            <p style={{ wordBreak: "break-word" }} className='font-semibold text-[14px]'>{noti.body}</p>
+                            <p style={{ wordBreak: "break-word" }} className='text-[12px] font-normal'>{noti.timestamp}</p>
+                          </span>
+                        </a>
+                      </div>
+                    ))
+                  )}
                 </div>
-              </div>}
+              </div>
+            )} 
             </div>
           </div>
           <Link to={`/doctor_profile/${doctor?._id}`}>

@@ -159,7 +159,8 @@ const initialState = {
   selectedChatData: undefined,
   selectedChatMessages: [],
   directMessagesContacts: [], // Initialize as an empty array
-  contactStatuses: {} // Add a new state to track statuses
+  contactStatuses: {}, // Add a new state to track statuses
+  notifications: [], // Add a new state to store notifications
 };
 
 export const chatReducer = (state = initialState, action) => {
@@ -184,14 +185,19 @@ export const chatReducer = (state = initialState, action) => {
         ...state,
         directMessagesContacts: action.payload
       };
-      case types.UPDATE_CONTACT_STATUS:
-        return {
-            ...state,
-            contactStatuses: {
-                ...state.contactStatuses,
-                [action.payload.userId]: action.payload.status,
-            },
-        };
+    case types.UPDATE_CONTACT_STATUS:
+      return {
+        ...state,
+        contactStatuses: {
+          ...state.contactStatuses,
+          [action.payload.userId]: action.payload.status,
+        },
+      };
+    case types.ADD_NOTIFICATION:
+      return {
+        ...state,
+        notifications: action.payload
+      };
     case types.GET_MESSAGES_REQUEST:
       return {
         ...state,

@@ -243,6 +243,10 @@ module.exports = {
           '60%': { backgroundPosition: '180px' },
           '100%': { backgroundPosition: '550px' },
         },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -252,6 +256,7 @@ module.exports = {
           "gb-popup-slide-zoom-left 1s cubic-bezier(0.215, 0.610, 0.355, 1.000)",
         shine: 'shine 3s infinite linear',
         'gb-popup-bounce-to-left': 'gb-popup-bounce-to-left 5s both',
+        blink: 'blink 1.5s infinite',
       },
       backgroundImage: {
         'shine-gradient': 'linear-gradient(to right, #9f9f9f 0%, #fff 10%, #868686 50%)',

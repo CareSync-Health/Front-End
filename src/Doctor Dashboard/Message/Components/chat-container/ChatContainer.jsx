@@ -19,6 +19,7 @@ import { config } from '@/Redux/Config';
 import { Link } from 'react-router-dom';
 import { IoMdArrowRoundDown } from 'react-icons/io';
 import { FiDownload } from 'react-icons/fi';
+import CaptureAudio from './CaptureAudio';
 
 const ChatContainer = () => {
     const emojiRef = useRef();
@@ -41,9 +42,7 @@ const ChatContainer = () => {
     const [showImage, setShowImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [previewUrl, setPreviewUrl] = useState(null); // State for image preview
-    const [fileStatus, setFileStatus] = useState(null); // New state for file status
-    const [fileError, setFileError] = useState(false); // New state for file upload errors
+    const [showAudioRecorder, setShowAudioRecorder] = useState(false);
 
 
     const handleCloseChat = () => {
@@ -234,7 +233,7 @@ const ChatContainer = () => {
             const file = event.target.files[0];
             if (file) {
                 setSelectedFile(file);
-    
+
                 // Create a preview URL for the selected file
                 const fileUrl = URL.createObjectURL(file);
                 setPreviewUrl(fileUrl);
@@ -279,7 +278,7 @@ const ChatContainer = () => {
                             messageType: 'file',
                             fileUrl: data.data.fileUrl,
                         };
-        
+
                         if (selectedChatType === 'contact') {
                             socket.emit('sendMessage', newMessage);
                             dispatch(setSelectedChatMessages([...selectedChatMessages, newMessage]));
@@ -461,7 +460,10 @@ const ChatContainer = () => {
                 )
             }
             {/* INPUT */}
-            <div className='w-full py-3 xs:px-[20px] flex items-center gap-[15px]'>
+            <div className='w-full py-3 xs:px-[10px] flex items-center gap-[15px]'>
+                {
+                    !showAudioRecorder && (
+                <>
                 <LuCamera onClick={handleAttachmentClick} className="cursor-pointer text-[25px]" />
                 <input
                     type="file"
@@ -471,7 +473,14 @@ const ChatContainer = () => {
                     style={{ display: 'none' }}
                 />
                 <RiEmojiStickerLine onClick={() => setEmojiPickerOpen(!emojiPickerOpen)} className='cursor-pointer text-[25px]' />
-                <AiFillAudio className='cursor-pointer text-[25px]' />
+                </>
+                    )
+                }
+                <AiFillAudio className='cursor-pointer text-[25px]' onClick={() => setShowAudioRecorder(true)} />
+                {
+                    showAudioRecorder && <CaptureAudio hide={setShowAudioRecorder} />
+                }
+
                 {emojiPickerOpen && (
                     <div ref={emojiRef} className="absolute bottom-[60px] z-50">
                         <EmojiPicker
@@ -480,15 +489,21 @@ const ChatContainer = () => {
                         />
                     </div>
                 )}
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="w-full rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-[#22D1EE] text-[#000] font-Nunito font-normal text-[16px]"
-                    placeholder="Type a message..."
-                />
-                <IoSend onClick={handleSendMessage} className='cursor-pointer text-[25px]' />
+                {
+                    !showAudioRecorder && (
+                        <>
+                            <input
+                                type="text"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                className="w-full rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-[#22D1EE] text-[#000] font-Nunito font-normal text-[16px]"
+                                placeholder="Type a message..."
+                            />
+                            <IoSend onClick={handleSendMessage} className='cursor-pointer text-[25px]' />
+                        </>
+                    )
+                }
             </div>
 
         </div>

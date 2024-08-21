@@ -281,6 +281,11 @@ export const updateContactStatus = (userId, status) => ({
     payload: { userId, status }
 });
 
+export const addNotification = (notification) => ({
+    type: types.ADD_NOTIFICATION,
+    payload: notification
+});
+
 export const addMessage = (message) => {
     return {
         type: types.ADD_MESSAGE,

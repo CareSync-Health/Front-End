@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { config } from "../Config";
-import { addMessage, updateContactStatus } from "../Actions/DoctorActions";
+import { addMessage, addNotification, updateContactStatus } from "../Actions/DoctorActions";
 
 const SocketContext = createContext(null);
 
@@ -40,6 +40,17 @@ export const SocketProvider = ({children}) => {
                     console.log("Message received:", message);
                     dispatch(addMessage(message));
                 }
+            });
+
+            const showNotification = (title, body) => {
+                // Example implementation using react-toastify
+                toast(`${title}: ${body}`);
+            };
+
+            newSocket.on("receiveNotification", (notification) => {
+                console.log("Notification received:", notification);
+                // Dispatch action or update state here
+                dispatch(addNotification(notification));
             });
     
             // Listen for user status changes
