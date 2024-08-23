@@ -6,7 +6,7 @@ import avatar from '../../../../assets/avatar.png';
 import { useSocket } from '@/Redux/context/SocketContext';
 import axios from 'axios';
 import { config } from '@/Redux/Config';
-import phoneCalling from '../../../../assets/phone-calling.mp3'
+// import phoneCalling from '../../../../assets/phone-calling.mp3'
 
 
 const Container = ({ data }) => {
@@ -169,9 +169,6 @@ const Container = ({ data }) => {
         }
 
         // Stop the audio when the call is accepted
-        if (audioRef.current) {
-            audioRef.current.pause();
-        }
     }, [callAccepted]);
 
     const endCall = () => {
@@ -219,11 +216,11 @@ const Container = ({ data }) => {
                     {callAccepted && data.callType !== "video" ? `On going call - ${formatTime(elapsedTime)}` : "Calling"}
                 </span>
             </div>
-            {callAccepted ? (
+            {/* {callAccepted ? (
                 <></>
             ) : (<>
                 <audio src={phoneCalling} autoPlay loop />
-            </>)}
+            </>)} */}
 
             {(callAccepted || data.callType === "audio") ? (
                 <div className='my-12'>
