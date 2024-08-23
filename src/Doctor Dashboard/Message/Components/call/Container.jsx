@@ -6,6 +6,7 @@ import avatar from '../../../../assets/avatar.png';
 import { useSocket } from '@/Redux/context/SocketContext';
 import axios from 'axios';
 import { config } from '@/Redux/Config';
+import {ZegoExpressEngine} from 'zego-express-engine-webrtc'
 
 // import phoneCalling from '../../../../assets/phone-calling.mp3'
 
@@ -63,7 +64,7 @@ const Container = ({ data }) => {
         const startCall = async () => {
             if (deviceError) return;
 
-            import("zego-express-engine-webrtc").then(async ({ ZegoExpressEngine }) => {
+            ZegoExpressEngine.then(async ({ ZegoExpressEngine }) => {
                 const zg = new ZegoExpressEngine(
                     parseInt("1786986022"), // Your appId
                     "c72d4e60a810f1922345a17b9044f399" // Your serverSecret or server URL
