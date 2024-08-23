@@ -49,7 +49,7 @@ const IncomingVideoCall = () => {
     }
 
     return (
-        <div className={`h-24 w-80 fixed lg:bottom-8 xs:bottom-24 mb-0 right-6 z-[10000] rounded-sm flex gap-5 items-center px-4 justify-start drop-shadow-2xl border-green-800 border-2 py-[4.2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+        <div className={`h-24 w-80 fixed lg:bottom-8 xs:bottom-24 mb-0 right-6 z-[1000] rounded-sm flex gap-5 items-center px-4 justify-start drop-shadow-2xl border-green-800 border-2 py-[4.2rem] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             <div>
                 <div className='flex items-center justify-start gap-[1rem]'>
                     <img
