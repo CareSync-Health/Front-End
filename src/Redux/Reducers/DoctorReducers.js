@@ -158,9 +158,13 @@ const initialState = {
   selectedChatType: undefined,
   selectedChatData: undefined,
   selectedChatMessages: [],
-  directMessagesContacts: [], // Initialize as an empty array
-  contactStatuses: {}, // Add a new state to track statuses
-  notifications: [], // Add a new state to store notifications
+  directMessagesContacts: [],
+  contactStatuses: {},
+  notifications: [],
+  videoCall: undefined,
+  voiceCall: undefined,
+  incomingVoiceCall: undefined,
+  incomingVideoCall: undefined,
 };
 
 export const chatReducer = (state = initialState, action) => {
@@ -239,6 +243,37 @@ export const chatReducer = (state = initialState, action) => {
         selectedChatType: undefined,
         selectedChatMessages: []
       };
+    case types.SET_VIDEO_CALL:
+      return {
+        ...state,
+        videoCall: action.videoCall
+      };
+    case types.SET_VOICE_CALL:
+      return {
+        ...state,
+        voiceCall: action.voiceCall
+      };
+    case types.SET_INCOMING_VOICE_CALL:
+      return {
+        ...state,
+        incomingVoiceCall: action.incomingVoiceCall
+      };
+    case types.SET_INCOMING_VIDEO_CALL:
+      return {
+        ...state,
+        incomingVideoCall: action.incomingVideoCall
+      };
+    case types.END_CALL:
+      return {
+        ...state,
+        videoCall: undefined,
+        voiceCall: undefined,
+        incomingVoiceCall: undefined,
+        incomingVideoCall: undefined,
+      };
+    case types.CLEAR_ERRORS:
+      return { ...state, error: null };
+
     default:
       return state;
   }

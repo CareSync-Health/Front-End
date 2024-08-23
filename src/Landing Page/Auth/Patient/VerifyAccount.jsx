@@ -12,7 +12,7 @@ const VerifyAccount = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading } = useSelector((state) => state.patientVerifyOtp); // assuming state name
-  const { email } = useSelector((state) => state.patientAuth.patient); // assuming state.auth contains the logged in user email
+  // const { email } = useSelector((state) => state.patientAuth.patient); // assuming state.auth contains the logged in user email
 
   useEffect(() => {
     setIsButtonDisabled(otp.some(val => val === ""));

@@ -35,7 +35,7 @@ const Login = () => {
   const URL = config.liveUrl
 
   const googleLogin = () => {
-    window.location.href = `${URL}/auth/google?role=doctor`;
+    window.location.href = `${URL}/auth/google?=role=doctor`;
   };
 
   return (

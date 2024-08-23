@@ -1,10 +1,12 @@
+import { addMessage } from '@/Redux/Actions/DoctorActions';
 import { config } from '@/Redux/Config';
+import { useSocket } from '@/Redux/context/SocketContext';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import { FaMicrophone, FaPauseCircle, FaPlay, FaStop, FaTrash } from 'react-icons/fa'
 import { FaPause } from "react-icons/fa6";
 import { MdSend } from 'react-icons/md'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import WaveSurfer from 'wavesurfer.js'
 
 const CaptureAudio = ({ hide }) => {
@@ -20,8 +22,10 @@ const CaptureAudio = ({ hide }) => {
     const [currentPlayBackTime, setCurrentPlayBackTime] = useState(0)
     const [totalDuration, setTotalDuration] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
-    const [renderedAudio, setRenderedAudio] = useState(null)
+    const [renderedAudio, setRenderedAudio] = useState('')
 
+    const dispatch = useDispatch();
+    const socket = useSocket();
     const audioRef = useRef(null)
     const mediaRecorderRef = useRef(null)
     const waveFormRef = useRef(null)
@@ -73,6 +77,7 @@ const CaptureAudio = ({ hide }) => {
         setCurrentPlayBackTime(0);
         setTotalDuration(0);
         setIsRecording(true);
+        setRecordedAudio(null);
         navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
             const mediaRecorder = new MediaRecorder(stream);
             mediaRecorderRef.current = mediaRecorder;
@@ -116,6 +121,14 @@ const CaptureAudio = ({ hide }) => {
     }
 
     useEffect(() => {
+        return () => {
+            if (mediaRecorderRef.current && isRecording) {
+                mediaRecorderRef.current.stop();
+            }
+        };
+    }, [isRecording]);
+
+    useEffect(() => {
         if (recordedAudio) {
             const updatePlayBackTime = () => {
                 setCurrentPlayBackTime(recordedAudio.currentTime);
@@ -147,47 +160,68 @@ const CaptureAudio = ({ hide }) => {
 
     const url = config.liveUrl
 
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const base64String = reader.result.replace(/^data:.+;base64,/, '');
+                resolve(base64String);
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
     const sendRecording = async () => {
         try {
-            // Retrieve the token from localStorage
             const token = localStorage.getItem('token');
-
-            const formData = new FormData();
-            formData.append('audio', renderedAudio);
-            formData.append('senderId', doctor?._id);
-            formData.append('recipientId', selectedChatData._id);
-            formData.append('messageType', 'file');
-
-            // Make the POST request to upload the file
-            const { data } = await axios.post(`${url}/messages/upload-audio`, formData, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-
-            if (data.status === 'Ok') {
-                const newMessage = {
-                    sender: doctor?._id,
-                    content: undefined,
-                    recipient: selectedChatData._id,
-                    messageType: 'file',
-                    fileUrl: data.data.fileUrl,
-                };
-
-                // Emit the message via socket
-                socket.emit('sendMessage', newMessage);
-
-                // Update the Redux state with the new message
-                dispatch(addMessage(newMessage));
-            } else {
-                throw new Error(data.error);
+            if (renderedAudio) {
+                const base64String = await convertFileToBase64(renderedAudio);
+    
+                const formData = new FormData();
+                formData.append('file', base64String);
+                formData.append('senderId', doctor?._id);
+                formData.append('recipientId', selectedChatData._id);
+                formData.append('messageType', 'file');
+    
+                const { data } = await axios.post(`${url}/messages/upload-audio`, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+    
+                if (data.status === 'Ok') {
+                    const newMessage = {
+                        sender: doctor?._id,
+                        content: undefined,
+                        recipient: selectedChatData._id,
+                        messageType: 'file',
+                        fileUrl: data.data.fileUrl,
+                    };
+    
+                    socket.emit('sendMessage', newMessage);
+                    dispatch(addMessage(newMessage));
+    
+                    console.log(newMessage, data.data.fileUrl);
+    
+                    // Clear the recorded audio after sending
+                    setRecordedAudio(null);
+                    setRenderedAudio(null);
+                    waveForm.clear();
+                    setTotalDuration(0);
+                    setCurrentPlayBackTime(0);
+                    setIsPlaying(false);
+                } else {
+                    throw new Error(data.error);
+                }
             }
+    
         } catch (error) {
             console.error('Error handling attachment change:', error);
         }
     }
-
+    
 
     const formatTime = (time) => {
         if (isNaN(time)) return "00:00";

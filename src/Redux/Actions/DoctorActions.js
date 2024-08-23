@@ -293,6 +293,30 @@ export const addMessage = (message) => {
     };
 };
 
+export const setVoiceCall = (data) => ({
+    type: types.SET_VOICE_CALL,
+    voiceCall: data,
+});
+
+export const setVideoCall = (data) => ({
+    type: types.SET_VIDEO_CALL,
+    videoCall: data,
+});
+
+export const setIncomingVideoCall = (data) => ({
+    type: types.SET_INCOMING_VIDEO_CALL,
+    incomingVideoCall: data,
+});
+
+export const setIncomingVoiceCall = (data) => ({
+    type: types.SET_INCOMING_VOICE_CALL,
+    incomingVoiceCall: data,
+});
+
+export const endCall = () => ({
+    type: types.END_CALL,
+});
+
 export const closeChat = () => ({
 	type: types.CLOSE_CHAT
 });

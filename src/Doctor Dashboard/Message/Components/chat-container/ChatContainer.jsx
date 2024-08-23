@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 import { IoMdArrowRoundDown } from 'react-icons/io';
 import { FiDownload } from 'react-icons/fi';
 import CaptureAudio from './CaptureAudio';
+import * as types from '../../../../Redux/Types.js'
 
 const ChatContainer = () => {
     const emojiRef = useRef();
@@ -36,6 +37,7 @@ const ChatContainer = () => {
     const [typing, setTyping] = useState(false);
     const dispatch = useDispatch();
     const { selectedChatData, selectedChatType } = useSelector((state) => state.createChat);
+    const { voiceCall, videoCall } = useSelector((state) => state.createChat);
     const { selectedChatMessages } = useSelector((state) => state.createChat);
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
     const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -174,60 +176,6 @@ const ChatContainer = () => {
         return obj;
     };
 
-
-    // const handleAttachmentChange = async (event) => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         const file = event.target.files[0];
-
-    //         if (file) {
-    //             const reader = new FileReader();
-
-    //             reader.onloadend = async () => {
-    //                 const base64String = reader.result.split(',')[1];
-    //                 const formData = new FormData();
-    //                 formData.append('file', base64String);
-    //                 formData.append('senderId', doctor?._id);
-    //                 formData.append('recipientId', selectedChatData._id);
-    //                 formData.append('messageType', 'file');
-
-    //                 try {
-    //                     const { data } = await axios.post(`${url}/messages/upload-file`, formData, {
-    //                         headers: {
-    //                             'Authorization': `Bearer ${token}`,
-    //                             'Content-Type': 'multipart/form-data',
-    //                         },
-    //                     });
-
-    //                     if (data.status === 'Ok') {
-    //                         socket.emit(('sendMessage', messageToSend) ({
-    //                             sender: doctor?._id,  // Make sure this is set to the correct sender ID
-    //                             content: undefined,
-    //                             recipient: selectedChatData._id,  // Make sure this is set to the correct recipient ID
-    //                             messageType: 'file',
-    //                             fileUrl: data.data.fileUrl,
-    //                         }));
-
-    //                         dispatch(setSelectedChatMessages([...selectedChatMessages, messageToSend]));
-    //                         setFileStatus('sent');
-    //                         setFileError(false);
-    //                     } else {
-    //                         throw new Error(data.error);
-    //                     }
-    //                 } catch (error) {
-    //                     console.error('Error sending file:', error);
-    //                     setFileStatus('failed');
-    //                     setFileError(true);
-    //                 }
-    //             };
-
-    //             reader.readAsDataURL(file);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error handling attachment change:', error);
-    //     }
-    // };
-
     const handleAttachmentChange = async (event) => {
         try {
             const file = event.target.files[0];
@@ -355,6 +303,39 @@ const ChatContainer = () => {
 
     const groupedMessages = groupMessagesByDate(selectedChatMessages || []);
 
+
+    // VIDEO CALL
+    const handleVideoCall = () => {
+        dispatch({
+            type: types.SET_VIDEO_CALL,
+            videoCall: {
+                type: "out-going",
+                id: selectedChatData._id,
+                firstName: selectedChatData.firstName,
+                lastName: selectedChatData.lastName,
+                profilePic: selectedChatData.profilePic,
+                callType: "video",
+                roomId: `video_${Date.now()}`,
+            },
+        });
+    };
+
+    // VOICE CALL
+    const handleVoiceCall = () => {
+        dispatch({
+            type: types.SET_VOICE_CALL,
+            voiceCall: {
+                type: "out-going",
+                id: selectedChatData._id,
+                firstName: selectedChatData.firstName,
+                lastName: selectedChatData.lastName,
+                profilePic: selectedChatData.profilePic,
+                callType: "audio",
+                roomId: `voice_${Date.now()}`,
+            },
+        });
+    };
+
     return (
         <div className='h-screen w-full'>
             <div className={`flex items-center justify-between shadow-2xl border-b-2 py-3 lg:px-3 xs:px-2 fixed top-0 right-0 z-[1000] lg:w-[58%] xs:w-full ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-white'}`}>
@@ -389,10 +370,16 @@ const ChatContainer = () => {
                 )
                 }
 
-                <div className='flex items-center gap-[1.5rem] text-[#22D1EE] text-[20px]'>
-                    <FaPhoneAlt />
-                    <BsCameraVideoFill />
-                    <LiaSearchSolid onClick={handleToggleSearch} className='cursor-pointer' />
+                <div className='flex items-center gap-[10px] text-[#22D1EE] text-[20px]'>
+                    <span className='cursor-pointer hover:bg-[#22cfee27] p-2 text-[20px] rounded-[5px]'>
+                        <FaPhoneAlt onClick={handleVoiceCall} />
+                    </span>
+                    <span className='cursor-pointer hover:bg-[#22cfee27] p-2 text-[20px] rounded-[5px]'>
+                        <BsCameraVideoFill onClick={handleVideoCall} />
+                    </span>
+                    <span className='cursor-pointer hover:bg-[#22cfee27] p-2 text-[20px] rounded-[5px]'>
+                        <LiaSearchSolid onClick={handleToggleSearch} className='cursor-pointer' />
+                    </span>
                 </div>
             </div>
 
@@ -405,31 +392,38 @@ const ChatContainer = () => {
                                 {getDisplayTimestamp(date)}
                             </div>
                             {groupMessagesByDate(filteredMessages)[date].map((message) => {
-                                const isSentByDoctor = String(message.sender._id) === String(doctor?._id);
+                                const isSentByDoctor = String(message.sender?._id) === String(doctor?._id);
                                 return (
                                     <>
                                         <div key={message._id} ref={scrollRef} className={`max-w-xs flex ${isSentByDoctor ? 'self-end' : ''}`}>
                                             <div className={`rounded-[18px] ${isSentByDoctor ? 'bg-[#22D1EE] rounded-br-none text-white' : 'self-end rounded-bl-none bg-[#E4E6EB] text-black'}`}>
                                                 {message.messageType === "file" ? (
                                                     checkIfImage(message.fileUrl) ? (
-                                                        <>
-                                                            <div className='p-2 cursor-pointer' onClick={() => { setShowImage(true); setImageUrl(message.fileUrl) }}>
-                                                                <img src={message.fileUrl} alt="Sent file" className="rounded-lg" height={200} width={200} />
-                                                            </div>
-                                                        </>
+                                                        <div className='p-2 cursor-pointer' onClick={() => { setShowImage(true); setImageUrl(message.fileUrl) }}>
+                                                            <img src={message.fileUrl} alt="Sent file" className="rounded-lg" height={200} width={200} />
+                                                        </div>
                                                     ) : (
-                                                        <a href={message.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[#f1f1f1] underline">
-                                                            Open File
-                                                        </a>
+                                                        message.fileUrl ? (
+                                                            <div className='p-1'>
+                                                                <audio controls>
+                                                                    <source src={message.fileUrl} type={message.fileUrl.endsWith('.mp3') ? "audio/mpeg" : "audio/wav"} />
+                                                                    Your browser does not support the audio element.
+                                                                </audio>
+                                                            </div>
+                                                        ) : (
+                                                            <a href={message.fileUrl} target="_blank" rel="noopener noreferrer" className="text-[#f1f1f1] underline">
+                                                                Open File
+                                                            </a>
+                                                        )
                                                     )
                                                 ) : (
-                                                    <div className='p-3'>
-                                                        <p>{message.content}</p>
+                                                    <div className='p-2'>
+                                                        {message.content}
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
-                                        <span className={`text-xs font-Nunito font-medium text-gray-500 ${message.sender._id === doctor?._id ? "text-right" : ""}`}>
+                                        <span className={`text-xs font-Nunito font-medium text-gray-500 ${isSentByDoctor ? "text-right" : ""}`}>
                                             {moment(message.timestamp || message.createdAt).format('LT')}
                                         </span>
                                     </>
@@ -460,38 +454,47 @@ const ChatContainer = () => {
                 )
             }
             {/* INPUT */}
-            <div className='w-full py-3 xs:px-[10px] flex items-center gap-[15px]'>
+            <div className='w-full py-3 lg:px-[10px] xs:px-[10px] flex items-center'>
                 {
                     !showAudioRecorder && (
-                <>
-                <LuCamera onClick={handleAttachmentClick} className="cursor-pointer text-[25px]" />
-                <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp,.svg,.ico,.heic,.heif"
-                    ref={fileInputRef}
-                    onChange={handleAttachmentChange}
-                    style={{ display: 'none' }}
-                />
-                <RiEmojiStickerLine onClick={() => setEmojiPickerOpen(!emojiPickerOpen)} className='cursor-pointer text-[25px]' />
-                </>
+                        <>
+                            <span className='cursor-pointer hover:bg-[#22cfee27] text-[20px] p-2 rounded-[5px]'>
+                            <LuCamera onClick={handleAttachmentClick} className="cursor-pointer" />
+                            </span>
+                            <input
+                                type="file"
+                                accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp,.svg,.ico,.heic,.heif"
+                                ref={fileInputRef}
+                                onChange={handleAttachmentChange}
+                                style={{ display: 'none' }}
+                            />
+                            <span className='cursor-pointer hover:bg-[#22cfee27] text-[20px] p-2 rounded-[5px]'>
+                                <RiEmojiStickerLine onClick={() => setEmojiPickerOpen(!emojiPickerOpen)} className='cursor-pointer' />
+                            </span>
+                        </>
                     )
                 }
-                <AiFillAudio className='cursor-pointer text-[25px]' onClick={() => setShowAudioRecorder(true)} />
+                <span className='cursor-pointer hover:bg-[#22cfee27] text-[20px] p-2 rounded-[5px] mr-2'>
+                    <AiFillAudio className='cursor-pointer' onClick={() => setShowAudioRecorder(true)} />
+                </span>
                 {
                     showAudioRecorder && <CaptureAudio hide={setShowAudioRecorder} />
                 }
 
                 {emojiPickerOpen && (
-                    <div ref={emojiRef} className="absolute bottom-[60px] z-50">
+                    <div ref={emojiRef} className="absolute lg:bottom-[60px] xs:bottom-[10rem] z-50">
                         <EmojiPicker
                             onEmojiClick={(event, emojiObject) => setMessage(message + emojiObject.emoji)}
                             theme={theme === 'dark' ? 'dark' : 'light'}
+                            width={350}
+                            height={350}
+                            msOverflowStyle
                         />
                     </div>
                 )}
                 {
                     !showAudioRecorder && (
-                        <>
+                        <div className='flex items-center w-full gap-[15px]'>
                             <input
                                 type="text"
                                 value={message}
@@ -500,8 +503,8 @@ const ChatContainer = () => {
                                 className="w-full rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-[#22D1EE] text-[#000] font-Nunito font-normal text-[16px]"
                                 placeholder="Type a message..."
                             />
-                            <IoSend onClick={handleSendMessage} className='cursor-pointer text-[25px]' />
-                        </>
+                            <IoSend onClick={handleSendMessage} className='cursor-pointer text-[25px] hover:text-[#22D1EE]' />
+                        </div>
                     )
                 }
             </div>

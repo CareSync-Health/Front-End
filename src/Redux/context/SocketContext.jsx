@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { config } from "../Config";
 import { addMessage, addNotification, updateContactStatus } from "../Actions/DoctorActions";
+import * as types from '../Types'
 
 const SocketContext = createContext(null);
 
@@ -56,6 +57,36 @@ export const SocketProvider = ({children}) => {
             // Listen for user status changes
             newSocket.on("userStatus", ({ userId, status }) => {
                 dispatch(updateContactStatus(userId, status));
+            });
+
+            newSocket.on("incoming-voice-call", ({ from, roomId, callType }) => {
+                // Handle incoming voice call
+                dispatch({
+                    type: types.SET_INCOMING_VOICE_CALL,
+                    incomingVoiceCall: { ...from, roomId, callType}
+                });
+            });
+
+            newSocket.on("incoming-video-call", ({ from, roomId, callType }) => {
+                // Handle incoming video call
+                dispatch({
+                    type: types.SET_INCOMING_VIDEO_CALL,
+                    incomingVideoCall: { ...from, roomId, callType },
+                });
+            });
+
+            newSocket.on("accept-incoming-call", () => {
+                setCallAccepted(true);
+            });
+    
+            newSocket.on("voice-call-rejected", () => {
+                // Handle voice call rejection
+                dispatch({ type: types.END_CALL });
+            });
+    
+            newSocket.on("video-call-rejected", () => {
+                // Handle video call rejection
+                dispatch({ type: types.END_CALL });
             });
     
             return () => {
