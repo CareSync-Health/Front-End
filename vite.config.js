@@ -8,11 +8,6 @@ export default defineConfig({
   server: {
     host: true,
   },
-  build: {
-    rollupOptions: {
-      external: ['protobufjs/minimal'],
-    },
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

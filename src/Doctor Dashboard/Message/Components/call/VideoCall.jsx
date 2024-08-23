@@ -11,7 +11,6 @@ const VideoCall = () => {
 
     useEffect(() => {
         if (!videoCall || !doctor) {
-            console.error("Missing videoCall or doctor information");
             return;
         }
 

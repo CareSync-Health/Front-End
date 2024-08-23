@@ -15,10 +15,6 @@ const Chat = () => {
     const { theme, appearance } = useTheme();
     const { selectedChatType, videoCall, voiceCall, incomingVideoCall, incomingVoiceCall } = useSelector((state) => state.createChat);
 
-    useEffect(() => {
-        console.log('Incoming Video Call state changed:', incomingVideoCall);
-    }, [incomingVideoCall]);
-
     return (
         <>
             {
