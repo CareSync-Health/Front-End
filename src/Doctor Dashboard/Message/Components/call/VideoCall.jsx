@@ -10,10 +10,6 @@ const VideoCall = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!videoCall || !doctor) {
-            return;
-        }
-
         if (videoCall.type === "out-going") {
             socket.emit("outgoing-video-call", {
                 to: videoCall.id,
@@ -26,24 +22,13 @@ const VideoCall = () => {
                 callType: videoCall.callType,
                 roomId: videoCall.roomId,
             });
-        }
-        
-        // Handle incoming calls if needed
-        // if (videoCall.type === "in-coming") {
-        //     // Handle incoming call logic here
+          }
+        //  else if (videoCall.type === "in-coming") {
+        //     // Handle incoming call, if necessary
         // }
+    }, [videoCall, socket, doctor]);
 
-        // Cleanup function to remove socket listeners if needed
-        return () => {
-            // Example cleanup (if any socket listeners were set up)
-            // socket.off("some-event");
-        };
-    }, [videoCall, socket, doctor, dispatch]);
-
-    return (
-        // Render the Container component with the videoCall data
-        <Container data={videoCall} />
-    );
+  return <Container data={videoCall} />;
 }
 
-export default VideoCall;
+export default VideoCall
