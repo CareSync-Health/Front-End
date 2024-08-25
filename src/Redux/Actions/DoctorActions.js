@@ -104,7 +104,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			navigate('/doctor_dashboard');
+			navigate(`/doctor_dashboard/${data.data.data._id}`);
 		} else {
 			throw new Error(data.error);
 		}

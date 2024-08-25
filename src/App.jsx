@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // LANDING PAGE IMPORTS
 const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
@@ -55,6 +55,7 @@ function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
   const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
 
+
   return (
     <ThemeProvider>
       <ErrorBoundary>
@@ -98,7 +99,7 @@ function App() {
             <Route path="privacy_policy" element={<Privacy_Policy />} />
 
             {/* DOCTOR ROUTE */}
-            <Route path="/doctor_dashboard" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
+            <Route path="/doctor_dashboard/:id" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
             <Route path="/doctor_appointment" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
             <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> } />
             <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }/>

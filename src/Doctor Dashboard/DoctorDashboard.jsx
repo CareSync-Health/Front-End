@@ -40,22 +40,10 @@ const DoctorDashboard = () => {
       }
     }, [dispatch, id]);
 
-//   useEffect(() => {
-//     const query = new URLSearchParams(window.location.search);
-//     const token = query.get('token');
-
-//     if (token) {
-//       localStorage.setItem('authToken', token);
-//       navigate('/doctor_dashboard');
-//     } else {
-//       navigate('/login');
-//     }
-//   }, [navigate]);
-
     return (
         <>
             {
-                doctor ? (
+                loadDoc ? (
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
