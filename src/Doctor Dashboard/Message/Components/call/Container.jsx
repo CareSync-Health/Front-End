@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdMic, MdMicOff, MdOutlineCallEnd, MdVideocam, MdVideocamOff } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import avatar from '../../../../assets/avatar.png';
 import { useSocket } from '@/Redux/context/SocketContext';
 import { config } from '@/Redux/Config';
-import * as types from "@/Redux/Types"
+import * as types from "@/Redux/Types";
 
 const Container = ({ data }) => {
     const [callAccepted, setCallAccepted] = useState(false);
@@ -14,7 +13,6 @@ const Container = ({ data }) => {
     const dispatch = useDispatch();
     const socket = useSocket();
     const url = config.liveUrl;
-    const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
 
     const [localStream, setLocalStream] = useState(null);
     const [remoteStream, setRemoteStream] = useState(null);
@@ -28,7 +26,7 @@ const Container = ({ data }) => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: isVideoOn,
-                    audio: !isMuted
+                    audio: !isMuted,
                 });
                 setLocalStream(stream);
 
@@ -61,10 +59,12 @@ const Container = ({ data }) => {
                     const answer = await peerConnection.createAnswer();
                     await peerConnection.setLocalDescription(answer);
                     socket.emit('answer', { answer });
+                    setCallAccepted(true);  // Set callAccepted to true
                 });
 
                 socket.on('answer', async (answer) => {
                     await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+                    setCallAccepted(true);  // Set callAccepted to true
                 });
 
                 socket.on('ice-candidate', async (candidate) => {
@@ -97,15 +97,15 @@ const Container = ({ data }) => {
         if (remoteStream) {
             remoteStream.getTracks().forEach(track => track.stop());
         }
-        
         if (data.callType === "voice") {
             socket.emit("reject-voice-call", { from: data.id });
         } else {
             socket.emit("reject-video-call", { from: data.id });
         }
 
-        dispatch({ type: types.END_CALL });
         socket.emit("end-call", { id: data.to, roomId: data.roomId });
+
+        dispatch({ type: types.END_CALL });
 
         if (peerConnectionRef.current) {
             peerConnectionRef.current.close();
@@ -115,38 +115,49 @@ const Container = ({ data }) => {
     const toggleMute = () => {
         setIsMuted(prev => !prev);
         localStream.getAudioTracks().forEach(track => {
-            track.enabled = !isMuted;
+            track.enabled = !isMuted; // Disable the audio track
         });
     };
 
     const toggleVideo = () => {
         setIsVideoOn(prev => !prev);
         localStream.getVideoTracks().forEach(track => {
-            track.enabled = isVideoOn;
+            track.enabled = !isVideoOn; // Disable the video track
         });
     };
 
     return (
         <div className='flex lg:h-[100vh] items-center justify-center'>
-            <div className=' text-white'>
+            <div className='text-white'>
                 {videoCallFailed && (
                     <div className="text-red-500 mb-4">Failed to start video call. Switching to voice call.</div>
                 )}
+                {(callAccepted || data.callType === "video") ? (
+                    <div className='mb-4 flex items-center justify-center xs:mt-[3rem]'>
+                        <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[80px] h-[80px] object-cover' />
+                    </div>
+                ) : null}
                 <div className='flex gap-3 items-center justify-center'>
                     <span className='text-3xl'>{`${data.firstName} ${data.lastName}`}</span>
                     <span className='text-lg'>
-                        {callAccepted ? "On going call" : ""}
+                        {callAccepted ? "On going call" : "Calling"}
                     </span>
                 </div>
-                {callAccepted && (
-                    <div className='flex items-center justify-center mt-[2rem]'>
+                {(callAccepted || data.callType === "audio") ? (
+                    <div className='my-12'>
+                        <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[300px] h-[300px] object-cover' />
+                    </div>
+                ) : null}
+                <div className='flex items-center justify-center mt-[1rem]'>
+                    {callAccepted && data.callType === "video" && (
                         <video ref={remoteVideoRef} className='lg:w-[80%] xs:w-full lg:h-[60%]' autoPlay playsInline />
+                    )}
+                </div>
+                {!callAccepted && data.callType === "video" && (
+                    <div className='flex items-center justify-center mt-[1rem]'>
+                        <video ref={localVideoRef} className='lg:w-[80%] xs:w-full lg:h-[60%]' autoPlay playsInline muted />
                     </div>
                 )}
-                <div className='flex items-center justify-center mt-[2rem]'>
-                    <video ref={localVideoRef} className='lg:w-[20%] xs:w-full lg:h-[20%]' autoPlay playsInline muted />
-                </div>
-
                 <div className="flex items-center justify-center fixed left-[50%] right-[50%] bottom-[3rem]">
                     <div className='flex items-center gap-[2rem]'>
                         <button
