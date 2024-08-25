@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { MdMic, MdMicOff, MdOutlineCallEnd, MdVideocam, MdVideocamOff } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSocket } from '@/Redux/context/SocketContext';
 import { config } from '@/Redux/Config';
 import * as types from "@/Redux/Types";
@@ -37,10 +37,12 @@ const Container = ({ data }) => {
                 const peerConnection = new RTCPeerConnection();
                 peerConnectionRef.current = peerConnection;
 
+                // Add local stream tracks to the peer connection
                 stream.getTracks().forEach(track => {
                     peerConnection.addTrack(track, stream);
                 });
 
+                // Handle incoming remote stream
                 peerConnection.ontrack = (event) => {
                     if (remoteVideoRef.current) {
                         remoteVideoRef.current.srcObject = event.streams[0];
@@ -48,23 +50,25 @@ const Container = ({ data }) => {
                     }
                 };
 
+                // Handle ICE candidates
                 peerConnection.onicecandidate = (event) => {
                     if (event.candidate) {
                         socket.emit('ice-candidate', { candidate: event.candidate });
                     }
                 };
 
+                // Listen for offer and answer
                 socket.on('offer', async (offer) => {
                     await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
                     const answer = await peerConnection.createAnswer();
                     await peerConnection.setLocalDescription(answer);
                     socket.emit('answer', { answer });
-                    setCallAccepted(true);  // Set callAccepted to true
+                    setCallAccepted(true);
                 });
 
                 socket.on('answer', async (answer) => {
                     await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-                    setCallAccepted(true);  // Set callAccepted to true
+                    setCallAccepted(true);
                 });
 
                 socket.on('ice-candidate', async (candidate) => {
@@ -115,14 +119,14 @@ const Container = ({ data }) => {
     const toggleMute = () => {
         setIsMuted(prev => !prev);
         localStream.getAudioTracks().forEach(track => {
-            track.enabled = !isMuted; // Disable the audio track
+            track.enabled = !isMuted;
         });
     };
 
     const toggleVideo = () => {
         setIsVideoOn(prev => !prev);
         localStream.getVideoTracks().forEach(track => {
-            track.enabled = !isVideoOn; // Disable the video track
+            track.enabled = !isVideoOn;
         });
     };
 
@@ -133,10 +137,10 @@ const Container = ({ data }) => {
                     <div className="text-red-500 mb-4">Failed to start video call. Switching to voice call.</div>
                 )}
                 {(callAccepted || data.callType === "video") ? (
-                    <div className='mb-4 flex items-center justify-center xs:mt-[3rem]'>
-                        <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[80px] h-[80px] object-cover' />
-                    </div>
-                ) : null}
+                <div className='mb-4 flex items-center justify-center'>
+                    <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[80px] h-[80px] object-cover' />
+                </div>
+            ) : null}
                 <div className='flex gap-3 items-center justify-center'>
                     <span className='text-3xl'>{`${data.firstName} ${data.lastName}`}</span>
                     <span className='text-lg'>
@@ -144,13 +148,16 @@ const Container = ({ data }) => {
                     </span>
                 </div>
                 {(callAccepted || data.callType === "audio") ? (
-                    <div className='my-12'>
-                        <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[300px] h-[300px] object-cover' />
-                    </div>
-                ) : null}
+                <div className='my-12'>
+                    <img src={data.profilePic || avatar} alt='avatar' className='rounded-full w-[300px] h-[300px] object-cover' />
+                </div>
+            ) : null}
                 <div className='flex items-center justify-center mt-[1rem]'>
                     {callAccepted && data.callType === "video" && (
-                        <video ref={remoteVideoRef} className='lg:w-[80%] xs:w-full lg:h-[60%]' autoPlay playsInline />
+                        <>
+                            <video ref={remoteVideoRef} className='lg:w-[80%] xs:w-full lg:h-[60%]' autoPlay playsInline />
+                            <video ref={localVideoRef} className='lg:w-[20%] xs:w-full lg:h-[20%] absolute bottom-0 right-0' autoPlay playsInline muted />
+                        </>
                     )}
                 </div>
                 {!callAccepted && data.callType === "video" && (
