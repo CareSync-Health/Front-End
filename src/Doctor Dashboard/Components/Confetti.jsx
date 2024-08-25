@@ -7,6 +7,8 @@ const Confetti = () => {
   const [showConfetti, setShowConfetti] = useState(false);
   const [countdown, setCountdown] = useState(10);
   const navigate = useNavigate();
+  const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+
 
   const detectSize = () => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -33,7 +35,7 @@ const Confetti = () => {
       setCountdown(prev => {
         if (prev === 1) {
           clearInterval(countdownTimer);
-          navigate('/doctor_dashboard', { replace: true });
+          navigate(`/doctor_dashboard${doctor._id}`, { replace: true });
         }
         return prev - 1;
       });
@@ -47,7 +49,7 @@ const Confetti = () => {
   }, [navigate]);
 
   const handleContinue = () => {
-    navigate('/doctor_dashboard', { replace: true });
+    navigate(`/doctor_dashboard${doctor._id}`, { replace: true });
   };
 
   return (
