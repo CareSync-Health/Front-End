@@ -384,8 +384,8 @@ const ChatContainer = () => {
             </div>
 
             {/* MESSAGES */}
-            <div className={`flex flex-col h-full overflow-y-auto z-50 px-[10px] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-gray-800'}`}>
-                <div className="flex-1 flex flex-col gap-2 py-6 px-2 overflow-y-auto" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+            <div className={`flex flex-col h-full overflow-y-auto z-50 px-[10px] pt-[120px] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-gray-800'}`}>
+                <div className="flex-1 flex flex-col gap-2 py-6 px-2 overflow-y-auto h-screen" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                     {Object.keys(groupMessagesByDate(filteredMessages)).map((date) => (
                         <div key={date} className="flex flex-col gap-2">
                             <div className='text-center text-gray-400 text-xs font-nunito py-1'>

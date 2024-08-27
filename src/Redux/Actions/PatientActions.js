@@ -34,23 +34,21 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 		dispatch({ type: types.VERIFY_OTP_REQUEST });
 
 		const { data } = await axios.post(`${url}/patient/Verifyotp`, { otp }, header);
-		if (data) {
+		if (data.success) {
 			dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
+			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			// Store email in local storage
-			localStorage.setItem('patientEmail', data.data.email);
 			navigate('/patient_dashboard'); // Navigate to the dashboard page
 		} else {
 			throw new Error(data.message);
 		}
 	} catch (error) {
-		const message = error.response && error.response.data.message ? error.response.data.message : 'Something went wrong';
-		toast.error(message, {
+		dispatch({ type: types.VERIFY_OTP_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
 			position: 'top-right',
 		});
-		dispatch({ type: types.VERIFY_OTP_FAIL, payload: message });
 	}
 };
 
@@ -83,11 +81,10 @@ export const patient_login = (body, navigate) => async (dispatch) => {
 		const { data } = await axios.post(`${url}/patient/Signin`, body, header);
 		if (data.status === 'Ok') {
 			dispatch({ type: types.PATIENT_SIGNIN_SUCCESS, payload: data.data });
+			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			// Store email in local storage
-			localStorage.setItem('patientEmail', data.data.email);
 			navigate('/patient_dashboard');
 		} else {
 			throw new Error(data.message);
@@ -189,18 +186,3 @@ export const getAllDoctors = (body) => async (dispatch) => {
 		dispatch({ type: types.GET_ALL_DOCTORS_FAIL, payload: message });
 	}
 }
-
-
-// APPOINTMENT
-export const fetchAppointments = () => {
-	return async (dispatch) => {
-		dispatch({ type: types.FETCH_APPOINTMENTS_REQUEST });
-		try {
-			const response = await fetch(`${url}/appointments`);
-			const data = await response.json();
-			dispatch({ type: types.FETCH_APPOINTMENTS_SUCCESS, payload: data });
-		} catch (error) {
-			dispatch({ type: types.FETCH_APPOINTMENTS_FAILURE, error });
-		}
-	};
-};

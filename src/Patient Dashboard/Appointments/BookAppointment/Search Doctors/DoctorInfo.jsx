@@ -97,12 +97,12 @@ const shuffledSimilar = shuffleArray([...Similar]);
       <Sidebar />
       <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
         <Navbar />
-        <div className='mt-[2rem] xs:px-[10px] lg:px-[30px] mb-[4rem]'>
+        <div className='mt-[1rem] xs:px-[10px] lg:px-[30px] mb-[4rem]'>
           <div className=''>
             <div className='pb-[2rem] rounded-[10px] bg-[#fff] shadow-lg'>
-              <div style={{ backgroundImage: `url(${profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
-                <div className='flex items-center justify-between lg:px-[50px] xs:px-[10px] pt-[9rem]'>
-                  <img src={doctor?.image || profileavatar} className='rounded-[100px] object-contain w-[180px]' />
+              <div style={{ backgroundImage: `url(${doctor?.headerPic || profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
+                <div className='flex items-center justify-between lg:px-[30px] xs:px-[10px] pt-[10rem]'>
+                  <img src={doctor?.profilePic || profileavatar} className='rounded-[100px] object-cover w-[190px] h-[190px]' />
                 </div>
               </div>
               <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] pt-[1rem]'>
@@ -113,7 +113,7 @@ const shuffledSimilar = shuffleArray([...Similar]);
                 <div className='flex items-center gap-[1rem] justify-end lg:mt-0 xs:mt-[2rem]'>
                   <button className='text-[#fff] lg:text-[22px] xs:text-[19px] bg-[#22D1EE] p-2.5 rounded-[100px]'><FaShare /></button>
                   <button className='text-[#fff] lg:text-[25px] xs:text-[22px] bg-[#22D1EE] p-2 rounded-[100px]'><Link to=''><MdMessage /></Link></button>
-                  <button className='border-[#22D1EE] border-[1px] border-solid rounded-[10px] w-[180px] py-[9px] px-[10px] text-center text-[#22D1EE] hover:bg-[#22D1EE] hover:text-[#fff] duration-300 text-[15px] font-Poppins font-semibold'><Link to='/book_appointment'>Schedule a meeting</Link></button>
+                  <button className='border-[#22D1EE] border-[1px] border-solid rounded-[10px] w-[180px] py-[9px] px-[10px] text-center text-[#22D1EE] hover:bg-[#22D1EE] hover:text-[#fff] duration-300 text-[15px] font-Poppins font-semibold'><Link to={`/book_appointment/${doctor?._id}`}>Schedule a meeting</Link></button>
                 </div>
               </div>
               <div className='mt-[3rem] lg:px-[50px] xs:px-[10px]'>

@@ -26,7 +26,7 @@ const Privacy_Policy = lazy(() => import("./Components/Privacy_Policy"));
 
 // DOCTOR IMPORTS
 const DoctorDashboard = lazy(() => import("./Doctor Dashboard/DoctorDashboard"));
-const DoctorAppointment = lazy(() => import("./Doctor Dashboard/DoctorAppointment"));
+const DoctorAppointment = lazy(() => import("./Doctor Dashboard/Appointments/DoctorAppointment"));
 const DoctorChat = lazy(() => import("./Doctor Dashboard/Message/Chat"));
 const DoctorPages = lazy(() => import("./Doctor Dashboard/DoctorPages"));
 const DoctorPatientPages = lazy(() => import("./Doctor Dashboard/PatientPages"));
@@ -100,7 +100,8 @@ function App() {
 
             {/* DOCTOR ROUTE */}
             <Route path="/doctor_dashboard/:id" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_appointment" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
+            {/* <Route path="/doctor_dashboard/:id" element={<DoctorDashboard />} /> */}
+            <Route path="/doctor_appointment/:id" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
             <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> } />
             <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }/>
             <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }/> 
@@ -119,7 +120,7 @@ function App() {
             <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/auth" />}/>
             <Route path="/search_doctor" element={patient ? <SearchDoctors /> : <Navigate to="/auth" />}/>
             <Route path="/doctorInfo/:id" element={patient ? <DoctorInfo /> : <Navigate to="/auth" />}/>
-            <Route path="/book_appointment" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}/>
+            <Route path="/book_appointment/:id" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}/>
             <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/auth" />}/>
             <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/auth" />}/>
             <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/auth" />}/>

@@ -11,6 +11,7 @@ import { FaTimes } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { getAllDoctors, searchDoctors } from '../../../../Redux/Actions/PatientActions';
 import caresync from '../../../../assets/CareSync.png';
+import avatar from '../../../../assets/avatar.png'
 
 const SearchDoctors = () => {
   const dispatch = useDispatch();
@@ -169,8 +170,8 @@ const SearchDoctors = () => {
           <div className='flex items-start flex-wrap justify-between gap-[2rem] mt-[2rem] mb-[4rem]'>
             {(doctorSearch.length > 0 ? doctorSearch : doctors.slice(0, visibleCount)).map((doctor) => (
               <div key={doctor._id} className='bg-[#fff] shadow-md border border-[#ddd] lg:w-[30%] xs:w-full rounded-[10px] p-4'>
-                <div className='flex items-center'>
-                  <img src={doctor?.image || caresync} alt='doctor' className='w-[90px] rounded-[100px] object-cover' />
+                <div className='flex items-start'>
+                  <img src={doctor?.profilePic || avatar} alt='doctor' className={`w-[70px] h-[70px] rounded-[100px] object-cover`} />
                   <div className='ml-4'>
                     <h2 className='text-[18px] font-semibold'>{doctor?.firstName} {doctor?.lastName}</h2>
                     <p className='text-[14px] text-[#666]'>{doctor?.profession}</p>
@@ -186,7 +187,7 @@ const SearchDoctors = () => {
                 </div>
                 <div className='mt-[1rem]'>
                   <p className={`text-[14px] ${expandedDescriptions[doctor._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
-                    {doctor?.description}
+                    {doctor?.description || 'No description available'}
                   </p>
                   <button
                     className='text-[14px] text-[#22D1EE] mt-2'

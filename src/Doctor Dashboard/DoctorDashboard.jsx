@@ -15,30 +15,53 @@ import { IoHelpOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '../Redux/Actions/DoctorActions';
+import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction';
 
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams(); // Get doctor ID from URL
+    const doctorId = id
+
     const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
     const doctorVerification = useSelector(state => state.doctorVerification.doctorVeri);
+    const { appointments = [] } = useSelector((state) => state.appointments);
+
+    useEffect(() => {
+        if (doctorId) {
+            dispatch(getAllAppointments(doctorId));
+        }
+    }, [dispatch, doctorId]);
 
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleChat = () => {
         setIsOpen(!isOpen);
     };
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { id } = useParams(); // Get doctor ID from URL
 
     // Get doctor data from Redux store
     const loadDoc = useSelector((state) => state.loadDoctor.doctor);
-  
+
     useEffect(() => {
-      if (id) {
-        dispatch(loadDoctor(id));
-      }
+        if (id) {
+            dispatch(loadDoctor(id));
+        }
     }, [dispatch, id]);
+
+    // Calculate the number of scheduled, pending, and canceled appointments
+    const scheduledCount = appointments.filter(appointment => appointment.status === 'Accepted').length;
+    const pendingCount = appointments.filter(appointment => appointment.status === 'Pending').length;
+    const canceledCount = appointments.filter(appointment => appointment.status === 'Rejected').length;
+
+    // Calculate total appointments
+    const totalAppointments = pendingCount + canceledCount + scheduledCount;
+
+      // Calculate unique patients count
+    // Ensure appointments array is not empty and patientId is valid
+    const uniquePatientsCount = new Set(appointments.map(appointment => appointment.patientId)).size;
+
 
     return (
         <>
@@ -55,7 +78,7 @@ const DoctorDashboard = () => {
                                         <img className='lg:w-[40px] xs:w-[30px]' src={firstaid} alt="first aid" />
                                         <div>
                                             <h1 className='xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>Appointments</h1>
-                                            <h2 className={`text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]`}>213</h2>
+                                            <h2 className={`text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]`}>{totalAppointments}</h2>
                                         </div>
                                     </div>
                                     <div className={`lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem]  ${theme === 'dark' ? "bg-gray-800" : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
@@ -63,7 +86,7 @@ const DoctorDashboard = () => {
                                         <img className='lg:w-[40px] xs:w-[30px]' src={crutch} alt="crutch" />
                                         <div>
                                             <h1 className='xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>New Patients</h1>
-                                            <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>104</h2>
+                                            <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>{uniquePatientsCount}</h2>
                                         </div>
                                     </div>
                                     <div className={`lg:w-[250px] xs:w-full lg:h-[88px] xs:h-[75px] rounded-[10px] px-[15px] flex items-center justify-start gap-[1rem] ${theme === 'dark' ? "bg-gray-800" : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
@@ -97,7 +120,7 @@ const DoctorDashboard = () => {
                                 </div>
                             </div>
                             <div>
-                                <DashboardTable />
+                                <DashboardTable appointments={appointments} />
                             </div>
                         </div>
                     </div>

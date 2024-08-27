@@ -68,7 +68,7 @@ const DcotorProfile = () => {
                 </div>
                 <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] lg:pt-[1rem] xs:pt-[5rem]'>
                   <div className='lg:ms-[11rem]'>
-                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.firstName} {doctor?.lastName}</h2>
+                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.title} {doctor?.firstName} {doctor?.lastName}</h2>
                     <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>{doctor?.profession}</h3>
                   </div>
                   <div className='flex items-center justify-end gap-[2rem] lg:mt-0 xs:mt-5'>

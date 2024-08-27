@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaUser, FaEnvelope, FaPhoneAlt, FaRegHeart, FaHeart } from "react-icons/fa";
 import { BiComment } from "react-icons/bi";
 import { MdCake } from "react-icons/md";
@@ -11,66 +11,33 @@ import Ellipse2 from '../../assets/Ellipse 64.png'
 import Ellipse3 from '../../assets/Ellipse 92.png'
 import Ellipse4 from '../../assets/image.png'
 import { useTheme } from '../Components/ThemeContext';
-// import { FaUserDoctor } from "react-icons/fa6";
-
-const Similar = [
-  {
-    id: 1,
-    image: Ellipse1,
-    name: "Eddie Lobanovskiy",
-    email: "laboanovskiy@gmail.com"
-  },
-  {
-    id: 2,
-    image: Ellipse2,
-    name: "alexeyst@gmail.com",
-    email: "laboanovskiy@gmail.com"
-  },
-  {
-    id: 3,
-    image: Ellipse4,
-    name: "Anton Tkacheve",
-    email: "tkacheveanton@gmail.com"
-  }
-];
-
-const Active = [
-  {
-    id: 1,
-    image: Ellipse1,
-    name: "Shelby Goode",
-    active: "Online",
-    activeTime: "1 min ago"
-  },
-  {
-    id: 2,
-    image: Ellipse2,
-    name: "Robert Bacins",
-    active: "Busy",
-    activeTime: "1 hrs ago"
-  },
-  {
-    id: 3,
-    image: Ellipse3,
-    name: "John Carilo",
-    active: "Online",
-    activeTime: "1 day ago"
-  },
-  {
-    id: 4,
-    image: Ellipse4,
-    name: "Adriene Watson",
-    active: "Online",
-    activeTime: "2 days ago"
-  }
-]
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllDoctors } from '@/Redux/Actions/DoctorActions';
+import avatar from '../../assets/avatar.png'
+import { Link } from 'react-router-dom';
 
 const ProfilePost = ({ doctor }) => {
   const { theme, appearance } = useTheme();
+  const dispatch = useDispatch();
 
   // Initialize state for active tab
   const [activeTab, setActiveTab] = useState('experience');
-  //  const [isClicked, setIsClicked] = useState(posts.map(() => false));
+  const { doctors = [] } = useSelector((state) => state.getAllDoctors);
+
+  useEffect(() => {
+    dispatch(getAllDoctors());
+  }, [dispatch]);
+
+
+   // Shuffle the array and select three random doctors
+   const randomDoctors = doctors
+   .sort(() => 0.5 - Math.random()) // Shuffle the array
+   .slice(0, 3); // Select the first three elements
+
+   // Shuffle the array and select three random doctors
+   const randomDoctor = doctors
+   .sort(() => 0.5 - Math.random()) // Shuffle the array
+   .slice(0, 5); // Select the first three elements
 
   const handleClick = (index) => {
     const newClickedState = isClicked.map((clicked, i) => (i === index ? !clicked : clicked));
@@ -139,39 +106,37 @@ const ProfilePost = ({ doctor }) => {
           </div>
         </div>
         <div>
-          <div className={`lg:w-[260px] xs:mt-[2rem] lg:mt-0 h-[234px] rounded-[10px] px-[20px] py-[20px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
+          <div className={`lg:w-[260px] xs:mt-[2rem] lg:mt-0 py-5 rounded-[10px] px-[20px] py-[20px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
             <h3 className='text-[18px] font-bold font-Nunito'>Similar Doctor’s</h3>
             <div className='mt-[1rem]'>
-              {Similar.map((simi, index) => (
-                <span className='flex items-center gap-[20px] mt-[1rem]' key={simi.id}>
-                  <img src={simi.image} className='w-[40px] rounded-[100px] object-contain' />
+              {randomDoctors.map((simi, index) => (
+                <Link to={`/view_doctor_profile/${simi?._id}`}>
+                  <span className='flex items-start gap-[20px] mt-[1rem]' key={simi?.id}>
+                  <img src={simi?.profilePic || avatar} className='w-[40px] h-[40px] rounded-[100px] object-cover' />
                   <span>
-                    <h2 className='text-[14px] font-normal font-Nunito'>{simi.name}</h2>
-                    <h3 className='text-[#17B978] text-[12px] font-Nunito font-normal'>{simi.email}</h3>
+                    <h2 className='text-[14px] font-normal font-Nunito'>{simi?.title} {simi?.firstName} {simi?.lastName}</h2>
+                    <h2 className='text-[12px] text-[#17B978] font-normal font-Nunito'>{simi?.profession}</h2>
+                    <h3 className='text-[#17B978] text-[12px] font-Nunito font-normal'>{simi?.email}</h3>
                   </span>
                 </span>
+                </Link>
               ))}
             </div>
           </div>
-          <div className={`lg:w-[260px] mt-[2rem] h-[333px] rounded-[10px] px-[20px] py-[20px] overflow-x-hidden overflow-y-hidden ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
-            <h1 className='text-[18px] font-bold font-Nunito'>Active</h1>
+          <div className={`lg:w-[260px] mt-[2rem] rounded-[10px] px-[20px] py-[20px] overflow-x-hidden overflow-y-hidden ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
+            <h1 className='text-[18px] font-bold font-Nunito'>Doctors you may know</h1>
             <div>
-              {Active.map((active, index) => (
-                <div key={active.id}>
-                  <div className='flex items-center justify-between'>
-                    <span className='flex items-center gap-[20px] mt-[1rem]'>
-                      <img src={active.image} className='w-[40px] rounded-[100px] object-contain' />
+              {randomDoctor.map((active, index) => (
+                <div key={active?.id}>
+                  <Link to={`/view_doctor_profile/${active?._id}`}>
+                    <span className='flex items-start gap-[20px] mt-[1rem]'>
+                      <img src={active?.profilePic || avatar} className='w-[40px] h-[40px] rounded-[100px] object-cover' />
                       <span>
-                        <h2 className='text-[13px] font-normal font-Nunito'>{active.name}</h2>
-                        <h3 className='text-[#17B978] text-[11px] font-Nunito font-normal'>{active.active}</h3>
+                        <h2 className='text-[13px] font-normal font-Nunito'>{active?.title} {active?.firstName} {active?.lastName}</h2>
+                        <h3 className='text-[#17B978] text-[11px] font-Nunito font-normal'>{active?.profession}</h3>
                       </span>
                     </span>
-                    <span>
-                      <span>
-                        <h3 className='text-[8px] font-Nunito font-normal'>{active.activeTime}</h3>
-                      </span>
-                    </span>
-                  </div>
+                  </Link>
                   <hr className='w-full h-[1px] mt-[10px] bg-[#17B978]' />
                 </div>
               ))}

@@ -33,11 +33,12 @@ const Signup = () => {
     }
   };
 
-  const url = config.liveUrl;
+  const URL = config.liveUrl;
 
-  const handleGoogleSignup = () => {
-    window.open(`${url}/doctor/google`, '_self');
-  }
+ 
+  const googleSignup = () => {
+    window.location.href = `${URL}/auth/google?role=doctor`;
+  };
 
   return (
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='lg:px-[50px] py-[40px]'>
@@ -73,7 +74,7 @@ const Signup = () => {
                 <hr className="w-2/5 mt-3" />
               </div>
             </center>
-            <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[120px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto cursor-pointer" onClick={handleGoogleSignup}>
+            <div className="flex gap-2 shadow-2xl mt-4 bg-white w-[100%] lg:px-[120px] xs:px-[70px] lg:py-[11px] xs:py-[15px] rounded-[8px] font-Roboto cursor-pointer" onClick={googleSignup}>
               <img src={img2} alt="google-icon" className="w-6" />
               <h6 className='text-[18px] font-medium font-Inter'>Sign up with Google</h6>
             </div>

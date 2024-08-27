@@ -182,11 +182,11 @@ export const loadDoctor = (id) => async (dispatch) => {
 	}
 };
 
-export const searchDoctors = (query) => async (dispatch) => {
+export const searchDoctors = (body) => async (dispatch) => {
 	try {
 		dispatch({ type: types.SEARCH_DOCTORS_REQUEST });
 
-		const { data } = await axios.get(`${url}/doctor/search?query=${query}`, header);
+		const { data } = await axios.get(`${url}/doctor/search`, body, header);
 
 		if (data.success) {
 			dispatch({ type: types.SEARCH_DOCTORS_SUCCESS, payload: data.doctors });

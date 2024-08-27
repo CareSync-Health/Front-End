@@ -27,14 +27,16 @@ const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const doctorId = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+
 
     const handleLogout = () => {
         dispatch(doctor_logout(navigate));
     };
 
     const Menus = [
-        { title: "Dashboard", Link: '/doctor_dashboard/:id', icon: <img src={dash} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
-        { title: "Appointments", Link: '/doctor_appointment', icon: <img src={appoint} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
+        { title: "Dashboard", Link: `/doctor_dashboard/${doctorId?._id}`, icon: <img src={dash} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
+        { title: "Appointments", Link: `/doctor_appointment/${doctorId?._id}`, icon: <img src={appoint} className={`lg:w-[22px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Messages", Link: '/doctor_message', icon: <img src={message} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Doctors", Link: '/doctor_pages', icon: <img src={doctor} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },
         { title: "Patients", Link: '/doctor_patient_page', icon: <img src={patient} className={`lg:w-[20px] xs:w-[35px] duration-200 ${!open && "lg:w-[22px] xs:w-[19px]"}`} /> },

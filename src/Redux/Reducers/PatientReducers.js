@@ -36,19 +36,6 @@ export const patientVerifyOtpReducer = (state = {}, action) => {
 	}
 };
 
-export const appointmentReducer = (state = [], action) => {
-	switch (action.type) {
-		case types.FETCH_APPOINTMENTS_REQUEST:
-			return { ...state, loading: true, };
-		case types.FETCH_APPOINTMENTS_SUCCESS:
-			return { ...state, loading: false, appointments: action.payload, };
-		case types.FETCH_APPOINTMENTS_FAILURE:
-			return { ...state, loading: false, error: action.error, };
-		default:
-			return state;
-	}
-};
-
 // export const patientSigninReducer = (state = {}, action) => {
 // 	switch (action.type) {
 // 		case types.PATIENT_SIGNIN_REQUEST:
