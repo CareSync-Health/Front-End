@@ -6,7 +6,7 @@ import { authHeader, header } from "../Header";
 
 const url = config.liveUrl;
 
-export const bookAppointment = (appointmentData) => async (dispatch) => {
+export const bookAppointment = (appointmentData, navigate) => async (dispatch) => {
     try {
         dispatch({ type: types.BOOK_APPOINTMENT_REQUEST });
 
@@ -27,6 +27,7 @@ export const bookAppointment = (appointmentData) => async (dispatch) => {
             toast.success(data.message, {
                 position: 'top-right',
             });
+            navigate(`/appointment_success/${data.data._id}`)
         }
     } catch (error) {
         dispatch({ type: types.BOOK_APPOINTMENT_FAIL, payload: error.message || error });
@@ -48,6 +49,21 @@ export const getAllAppointments = (doctorId) => {
             }
         } catch (error) {
             dispatch({ type: types.GET_ALL_APPOINTMENTS_FAIL, error });
+        }
+    };
+};
+
+export const getAllPatientAppointments = (patientId) => {
+    return async (dispatch) => {
+        dispatch({ type: types.GET_ALL_PATIENT_APPOINTMENTS_REQUEST });
+        try {
+            const { data } = await axios.get(`${url}/appointment/appointments/patient/${patientId}`, header);
+
+            if (data.success) {
+                dispatch({ type: types.GET_ALL_PATIENT_APPOINTMENTS_SUCCESS, payload: data.data });
+            }
+        } catch (error) {
+            dispatch({ type: types.GET_ALL_PATIENT_APPOINTMENTS_FAIL, error });
         }
     };
 };

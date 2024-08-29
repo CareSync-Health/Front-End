@@ -165,9 +165,9 @@ const Navbar = ({ messageCount, notificationCount }) => {
             <img src={doctor?.profilePic || avatar} className='lg:w-[40px] lg:h-[40px] rounded-full object-cover xs:w-[30px] xs:h-[30px]' />
           </Link>
         </div>
-        <div className='fixed z-40 lg:right-[3rem] xs:right-[1.5rem] lg:bottom-[2rem] xs:bottom-[6rem]'>
+        {/* <div className='fixed z-40 lg:right-[3rem] xs:right-[1.5rem] lg:bottom-[2rem] xs:bottom-[6rem]'>
           <Chatbot />
-        </div>
+        </div> */}
       </div>
     </div>
   )

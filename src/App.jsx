@@ -46,6 +46,7 @@ const PatientAppointments = lazy(() => import("./Patient Dashboard/Appointments/
 const SearchDoctors = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/SearchDoctors"));
 const DoctorInfo = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"));
 const BookAppointment = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"));
+const AppointmentSuccess = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/AppointmentSuccess"));
 const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
 const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
 const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
@@ -100,11 +101,10 @@ function App() {
 
             {/* DOCTOR ROUTE */}
             <Route path="/doctor_dashboard/:id" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
-            {/* <Route path="/doctor_dashboard/:id" element={<DoctorDashboard />} /> */}
             <Route path="/doctor_appointment/:id" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
             <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> } />
             <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }/>
-            <Route path="/doctor_patient_page" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }/> 
+            <Route path="/doctor_patient_page/:id" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }/> 
             <Route path="/view_doctor_profile/:id" element={doctor ? <ViewDoctorProfile /> : <Navigate to="/login" /> }/>
             <Route path="/doctor_profile/:id" element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }/>
             <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }/>
@@ -116,11 +116,12 @@ function App() {
             <Route path="/congratulation" element={doctor ? <Confetti /> : <Navigate to="/login" />}/>
 
             {/* PATIENT ROUTE */}
-            <Route path="/patient_dashboard" element={patient ? <PatientDashboard /> : <Navigate to="/auth" />}/>
+            <Route path="/patient_dashboard/:id" element={patient ? <PatientDashboard /> : <Navigate to="/auth" />}/>
             <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/auth" />}/>
             <Route path="/search_doctor" element={patient ? <SearchDoctors /> : <Navigate to="/auth" />}/>
             <Route path="/doctorInfo/:id" element={patient ? <DoctorInfo /> : <Navigate to="/auth" />}/>
             <Route path="/book_appointment/:id" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}/>
+            <Route path='/appointment_success/:id' element={patient ? <AppointmentSuccess /> : <Navigate to="/auth" />}/>
             <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/auth" />}/>
             <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/auth" />}/>
             <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/auth" />}/>

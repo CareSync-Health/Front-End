@@ -4,8 +4,8 @@ import { useTheme } from '../Components/ThemeContext'
 import { CiCalendar } from "react-icons/ci";
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAppointmentDetails, updateAppointmentStatus } from '@/Redux/Actions/BookAppointmentAction';
 import avatar from '../../assets/avatar.png'
+import { updateAppointmentStatus } from '@/Redux/Actions/BookAppointmentAction';
 
 
 const ApproveAppointment = ({appointment, onClose}) => {

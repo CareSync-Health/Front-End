@@ -42,49 +42,49 @@ const DashboardTable = () => {
     };
 
     // Function to handle opening the ApproveAppointment overlay with selected appointment
-  const handleScheduleClick = (appointment) => {
-    if (!isPastAppointment(appointment.appointmentDate)) {
-      setSelectedAppointment(appointment); // Set the selected appointment
-      setShowApproveAppointment(true);
-      document.body.style.overflow = 'hidden'; // Disable background scrolling
-    }
-  };
+    const handleScheduleClick = (appointment) => {
+        if (!isPastAppointment(appointment.appointmentDate)) {
+            setSelectedAppointment(appointment); // Set the selected appointment
+            setShowApproveAppointment(true);
+            document.body.style.overflow = 'hidden'; // Disable background scrolling
+        }
+    };
 
-   // Function to handle closing the ApproveAppointment overlay
-   const handleCloseOverlay = () => {
-    setShowApproveAppointment(false);
-    document.body.style.overflow = 'auto'; // Re-enable background scrolling
-  };
+    // Function to handle closing the ApproveAppointment overlay
+    const handleCloseOverlay = () => {
+        setShowApproveAppointment(false);
+        document.body.style.overflow = 'auto'; // Re-enable background scrolling
+    };
 
 
-   // Function to handle opening the ViewAppointmentDetail overlay with selected appointment
-  const handleViewDetailClick = (appointment) => {
-    setSelectedAppointment(appointment); // Set the selected appointment
-    setShowAppointmentDetail(true);
-    document.body.style.overflow = 'hidden'; // Disable background scrolling
-  };
-  // Function to handle closing the ViewAppointmentDetail overlay
-  const handleCloseViewDetailOverlay = () => {
-    setShowAppointmentDetail(false);
-    document.body.style.overflow = 'auto'; // Re-enable background scrolling
-  };
+    // Function to handle opening the ViewAppointmentDetail overlay with selected appointment
+    const handleViewDetailClick = (appointment) => {
+        setSelectedAppointment(appointment); // Set the selected appointment
+        setShowAppointmentDetail(true);
+        document.body.style.overflow = 'hidden'; // Disable background scrolling
+    };
+    // Function to handle closing the ViewAppointmentDetail overlay
+    const handleCloseViewDetailOverlay = () => {
+        setShowAppointmentDetail(false);
+        document.body.style.overflow = 'auto'; // Re-enable background scrolling
+    };
 
-  // Function to handle canceling the appointment
-  const handleCancelClick = (appointment) => {
-    if (!isPastAppointment(appointment.appointmentDate)) {
-      setAppointmentToCancel(appointment._id); // Set the appointment ID to be canceled
-      setShowModal(true); // Show the confirmation modal
-    }
-  };
+    // Function to handle canceling the appointment
+    const handleCancelClick = (appointment) => {
+        if (!isPastAppointment(appointment.appointmentDate)) {
+            setAppointmentToCancel(appointment._id); // Set the appointment ID to be canceled
+            setShowModal(true); // Show the confirmation modal
+        }
+    };
 
     const handleConfirmCancel = () => {
         dispatch(updateAppointmentStatus(appointmentToCancel, 'Rejected')); // Cancel the appointment
         setShowModal(false); // Hide the modal
-      };    
+    };
 
     const handleCloseModal = () => {
         setShowModal(false); // Close the modal
-      };
+    };
 
     const isPastAppointment = (appointmentDate) => {
         return moment(appointmentDate).isBefore(moment());
@@ -122,11 +122,11 @@ const DashboardTable = () => {
                 <table className='w-full'>
                     <thead>
                         <tr className='border-b'>
-                            <th className='font-medium px-5 py-4 align-middle text-[15px] font-Nunito'>Patient</th>
-                            <th className='font-medium px-5 py-4 align-middle text-[15px] font-Nunito'>Appointment Date</th>
-                            <th className='font-medium px-5 py-4 align-middle text-[15px] font-Nunito'>Doctor</th>
-                            <th className='font-medium px-5 py-4 align-middle text-[15px] font-Nunito'>Status</th>
-                            <th className='font-medium px-5 py-4 align-middle text-[15px] font-Nunito'>Actions</th>
+                            <th className='font-medium px-5 py-4 text-start text-[15px] font-Nunito'>Patient</th>
+                            <th className='font-medium px-5 py-4 text-start text-[15px] font-Nunito'>Appointment Date</th>
+                            <th className='font-medium px-5 py-4 text-start text-[15px] font-Nunito'>Doctor</th>
+                            <th className='font-medium px-5 py-4 text-start text-[15px] font-Nunito'>Status</th>
+                            <th className='font-medium px-5 py-4 text-start text-[15px] font-Nunito'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -87,7 +87,7 @@ const GeneralSetting = () => {
   const images = [
     { id: 1, src: theme1, themeName: 'dark', name: 'Dark Theme' },
     { id: 2, src: theme2, themeName: 'light', name: 'Light Theme' },
-    { id: 3, src: theme3, themeName: 'system', name: 'System Theme' },
+    // { id: 3, src: theme3, themeName: 'system', name: 'System Theme' },
   ];
 
   const { i18n } = useTranslation();

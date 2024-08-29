@@ -2,19 +2,20 @@ import React, { useEffect, useState, useRef } from 'react';
 import Sidebar from '../../../Components/Sidebar';
 import Navbar from '../../../Components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAllDoctors, loadDoctor } from '@/Redux/Actions/DoctorActions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; // Import the CSS for styling
 import avatar from '../../../../assets/avatar.png';
-import { bookAppointment } from '@/Redux/Actions/BookAppointmentAction';
 import toast from 'react-hot-toast';
 import moment from 'moment';
+import { bookAppointment } from '@/Redux/Actions/BookAppointmentAction';
 
 
 const BookAppointment = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [appointmentDate, setAppointmentDate] = useState(new Date());
     const [reason, setReason] = useState('');
@@ -47,7 +48,6 @@ const BookAppointment = () => {
     const handleDoctorChange = (doctor) => {
         setSelectedDoctor(doctor);
         setDropdownOpen(false);
-        console.log("Selected Doctor: ", doctor); // Inspect doctor object
     };
 
     const handleOutsideClick = (event) => {
@@ -94,8 +94,7 @@ const BookAppointment = () => {
             return;
 
         }
-        dispatch(bookAppointment(appointmentData));
-        console.log(appointmentData)
+        dispatch(bookAppointment(appointmentData, navigate));
     };
 
     return (

@@ -45,9 +45,9 @@ const OnlineWithdrawal = () => {
                 </h3>
               </Link>
               <div className="mt-[2rem] flex flex-wrap justify-between items-center bg-opacity-0">
-                <div className="grid grid-cols-3 gap-4 order-first">
+                <div className="lg:grid grid-cols-3 gap-4 order-first">
                   <form className="col-span-2 ...">
-                    <div className="grid grid-cols-3 gap-4">
+                    <div className="lg:grid grid-cols-3 gap-4">
                       <div className="col-span-2 ...">
                         <label className="flex flex-col items-left p-4 justify-left">
                           <span className="font-normal text-2xl text-left">
@@ -136,7 +136,7 @@ const OnlineWithdrawal = () => {
                     </div>
                   </form>
 
-                  <div className="grid grid-rows-3 grid-flow-col gap-4 order-last">
+                  <div className="grid grid-rows-3 grid-flow-col gap-4 order-last lg:mt-0 xs:mt-[3rem]">
                     <div className="row-span-2 col-span-3 ...">
                       <div className="pb-20">
                         <h3 className="flex flex-col items-left p-4 justify-left text-[20px] font-bold font-Lato">

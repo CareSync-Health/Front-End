@@ -32,6 +32,19 @@ export const getAllAppointmentReducer = (state = [], action) => {
 	}
 };
 
+export const getAllPatientAppointmentReducer = (state = [], action) => {
+	switch (action.type) {
+		case types.GET_ALL_PATIENT_APPOINTMENTS_REQUEST:
+			return { ...state, loading: true, };
+		case types.GET_ALL_PATIENT_APPOINTMENTS_SUCCESS:
+			return { ...state, loading: false, appointments: action.payload, };
+		case types.GET_ALL_PATIENT_APPOINTMENTS_FAIL:
+			return { ...state, loading: false, error: action.error, };
+		default:
+			return state;
+	}
+};
+
 export const getSingleAppointmentReducer = (state = {}, action) => {
 	switch (action.type) {
 		case types.GET_APPOINTMENT_DETAILS_REQUEST:

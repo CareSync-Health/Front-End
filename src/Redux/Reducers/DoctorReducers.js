@@ -21,24 +21,6 @@ export const doctorAuthReducer = (state = {}, action) => {
   }
 };
 
-// export const doctorSigninReducer = (state = {}, action) => {
-//   switch (action.type) {
-//     case types.DOCTOR_SIGNIN_REQUEST:
-//       return { ...state, loading: true };
-//     case types.DOCTOR_SIGNIN_SUCCESS:
-//       return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
-//     case types.DOCTOR_SIGNIN_FAIL:
-//       return { ...state, loading: false, error: action.payload, message: action.message };
-//     case types.DOCTOR_AUTH_LOGOUT:
-//     case types.DOCTOR_SIGNIN_FAIL:
-//       return { ...state, doctor: null };
-//     case types.CLEAR_ERRORS:
-//       return { ...state, error: null };
-//     default:
-//       return state;
-//   }
-// }
-
 export const doctorForgetPasswordReducer = (state = {}, action) => {
   switch (action.type) {
     case types.RESET_PASSWORD_REQUEST:

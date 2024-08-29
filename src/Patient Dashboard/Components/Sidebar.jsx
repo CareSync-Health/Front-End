@@ -6,7 +6,7 @@ import { RiCalendarEventLine, RiMessage3Line } from "react-icons/ri"
 import { IoSettingsOutline } from "react-icons/io5"
 import { TbLogout2 } from "react-icons/tb"
 import { FiPieChart } from "react-icons/fi"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { patient_logout } from '../../Redux/Actions/PatientActions';
 
 const Sidebar = () => {
@@ -18,11 +18,13 @@ const Sidebar = () => {
     dispatch(patient_logout(navigate));
   };
 
+  const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
+
   const navItems = [
-    { path: '/patient_dashboard', icon: <MdDashboard />, name: 'Dashboard' },
+    { path: `/patient_dashboard/${patient?._id}`, icon: <MdDashboard />, name: 'Dashboard' },
     { path: '/patient_calendar', icon: <RiCalendarEventLine />, name: 'Calendar' },
     { path: '/patient_message', icon: <RiMessage3Line />, name: 'Messages' },
-    { path: '/patient_appointment/appointments', icon: <FiPieChart />, name: 'Appointment' },
+    { path: `/patient_appointment/appointments/${patient?._id}`, icon: <FiPieChart />, name: 'Appointment' },
     { path: '/patient_settings/patient_profile', icon: <IoSettingsOutline />, name: 'Settings' },
   ]
 

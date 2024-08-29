@@ -15,7 +15,7 @@ import { IoHelpOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '../Redux/Actions/DoctorActions';
-import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction';
+import { getAllAppointments } from '../Redux/Actions/BookAppointmentAction';
 
 
 const DoctorDashboard = () => {

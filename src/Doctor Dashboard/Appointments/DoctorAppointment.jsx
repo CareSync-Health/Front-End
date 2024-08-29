@@ -8,13 +8,13 @@ import { FaRegHourglass } from "react-icons/fa6";
 import { IoWarningOutline } from "react-icons/io5";
 import { useTheme } from '../Components/ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllAppointments, updateAppointmentStatus } from '@/Redux/Actions/BookAppointmentAction';
 import { useParams } from 'react-router-dom';
 import { loadDoctor } from '@/Redux/Actions/DoctorActions';
 import moment from 'moment';
 import ApproveAppointment from './ApproveAppointment';
 import ViewAppointmentDetail from './ViewAppointmentDetail';
 import ConfirmationModal from './ConfirmationModal';
+import { getAllAppointments, updateAppointmentStatus } from '@/Redux/Actions/BookAppointmentAction';
 
 const DoctorAppointment = () => {
   const { theme, appearance } = useTheme();
@@ -91,23 +91,26 @@ const DoctorAppointment = () => {
     document.body.style.overflow = 'auto'; // Re-enable background scrolling
   };
 
-  const appointmentId = appointments._id
 
-  // Function to handle canceling the appointment
-  const handleCancelClick = (appointment) => {
-    if (!isPastAppointment(appointment.appointmentDate)) {
-      setAppointmentToCancel(appointmentId); // Set the appointment ID to be canceled
-      setShowModal(true); // Show the confirmation modal
+  const handleCancelClick = (appointmentId) => {
+    if (!isPastAppointment(appointments.find(a => a._id === appointmentId)?.appointmentDate)) {
+      setAppointmentToCancel(appointmentId);
+      setShowModal(true);
     }
   };
 
   const handleConfirmCancel = () => {
-    dispatch(updateAppointmentStatus(appointmentToCancel, 'Rejected')); // Cancel the appointment
-    setShowModal(false); // Hide the modal
+    if (appointmentToCancel) {
+      dispatch(updateAppointmentStatus(appointmentToCancel, 'Rejected'));
+      setShowModal(false);
+      setAppointmentToCancel(null);
+    }
   };
 
+  // Function to close the modal
   const handleCloseModal = () => {
     setShowModal(false); // Close the modal
+    setAppointmentToCancel(null); // Reset the appointment to cancel
   };
 
   // Helper function to determine status styling
@@ -127,13 +130,28 @@ const DoctorAppointment = () => {
   const filteredAppointments = appointments.filter(appointment => {
     const { firstName, lastName } = appointment.patient || {};
     const { appointmentDate, status } = appointment;
+
+    // Split search term into individual words
+    const searchWords = searchTerm.toLowerCase().split(/\s+/);
+
+    // Function to check if any of the search words are included in the field
+    const containsAllSearchWords = (field) => {
+      return searchWords.every(word => field.toLowerCase().includes(word));
+    };
+
+    // Combine firstName and lastName for the patient name
+    const patientFullName = `${firstName || ''} ${lastName || ''}`;
+
+    // Format appointment date/time
+    const formattedDateTime = moment(appointmentDate).format('DD/MM/YYYY - h:mm A').toLowerCase();
+
     return (
-      (firstName && firstName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (lastName && lastName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-      (moment(appointmentDate).format('DD/MM/YYYY h:mm A').includes(searchTerm.toLowerCase())) ||
-      (status && status.toLowerCase().includes(searchTerm.toLowerCase()))
+      (firstName && lastName && containsAllSearchWords(patientFullName)) || // Check full name
+      (formattedDateTime.includes(searchTerm.toLowerCase())) || // Check date/time
+      (status && containsAllSearchWords(status)) // Check status
     );
   });
+
 
   // Paginate appointments
   const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
@@ -231,7 +249,7 @@ const DoctorAppointment = () => {
                       <td className='px-5 py-4 align-middle whitespace-nowrap text-[13px] font-Mulish font-normal'>
                         <button
                           onClick={() => handleScheduleClick(appointment)}
-                          disabled={isPast && appointment.status === 'Accepted'} // Disable if accepted
+                          disabled={isPast || appointment.status === 'Accepted'} // Disable if accepted
                           className={`py-1.5 px-[20px] rounded-full text-[13px] font-Mulish font-normal ${appointment.status === 'Accepted' ? 'bg-gray-700 cursor-not-allowed' : 'bg-[#22D1EE] text-white hover:bg-[#22cfeeee]'} ${isPast ? 'cursor-not-allowed' : ''}`}
                         >
                           Schedule
@@ -241,7 +259,7 @@ const DoctorAppointment = () => {
                         className='px-5 py-4 align-middle whitespace-nowrap text-[14px] font-Mulish font-normal'>
                         <button
                           className={`${appointment.status === 'Rejected' ? 'cursor-not-allowed' : ''} ${isPast ? 'cursor-not-allowed' : ''}`}
-                          disabled={isPast && appointment.status === 'Rejected'}
+                          disabled={isPast || appointment.status === 'Rejected'}
                           onClick={() => handleCancelClick(appointment._id)}>
                           Cancel
                         </button>

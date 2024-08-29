@@ -10,9 +10,9 @@ import { FaAnglesLeft } from "react-icons/fa6";
 
 
 
-const BmiCalculator = ({setShowBmi}) => {
+const BmiCalculator = ({setShowBmi, patient}) => {
 
-    const [gender, setGender] = useState('man'); // Initial state can be 'man' or 'woman'
+    // const [gender, setGender] = useState(patient?.gender); // Initial state can be 'man' or 'woman'
 
 
   return (
@@ -31,14 +31,14 @@ const BmiCalculator = ({setShowBmi}) => {
                 <img src={vector} className='ms-[]' />
                 <h2 className='flex items-center gap-[18px] mt-2'>
                     <span className='text-[#272927] text-[14px] font-medium font-Mulish'>Height</span>
-                    <span className='text-[#272927] text-[14px] font-medium font-Mulish'>170 cm</span>
+                    <span className='text-[#272927] text-[14px] font-medium font-Mulish'>{patient?.height} cm</span>
                 </h2>
             </div>
             <div className='bg-[#D0FBFF] w-[130px] rounded-[12px] py-[15px] ps-[15px] mt-[1.5rem]'>
                 <img src={vector} className='ms-[]' />
                 <h2 className='flex items-center gap-[18px] mt-2'>
                     <span className='text-[#272927] text-[14px] font-medium font-Mulish'>Weight</span>
-                    <span className='text-[#272927] text-[14px] font-medium font-Mulish'>72 kg</span>
+                    <span className='text-[#272927] text-[14px] font-medium font-Mulish'>{patient?.weight} kg</span>
                 </h2>
             </div>
         </div>
@@ -59,30 +59,30 @@ const BmiCalculator = ({setShowBmi}) => {
                 <h2 className='bg-[#5E5E5E] w-[211px] py-[10px] px-[10px] rounded-[8px] text-[#fff] text-[14px] font-normal font-Mulish leading-[17px] mt-4'>Inverted Triangle Body Shape</h2>
                 <div className='mt-[15rem]'>
                     <div className='bg-[#fff] w-[130px] text-center rounded-[12px] py-[10px]'>
-                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Chest (in)</h1>
+                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Height (in)</h1>
                         <div className="flex gap-[0.5rem] ms-[2rem] mt-3">
-                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>44.5</h2>
+                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>{patient?.height}</h2>
                         <BiUpArrowAlt className='mt-[4px] text-[25px] fill-[#E95D5C]' />
                         </div>
                     </div>
                     <div className='bg-[#fff] w-[130px] text-center rounded-[12px] py-[10px] mt-[1.5rem]'>
-                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Waist (in)</h1>
+                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Weight (in)</h1>
                         <div className="flex gap-[0.5rem] ms-[2.5rem] mt-3">
-                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>34</h2>
+                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>{patient?.weight}</h2>
                         <BiDownArrowAlt className='mt-[4px] text-[25px] fill-[#90DF9E]' />
                         </div>
                     </div>
                     <div className='bg-[#fff] w-[130px] text-center rounded-[12px] py-[10px] mt-[1.5rem]'>
-                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Hip (in)</h1>
+                        <h1 className='text-[15px] text-[#5F5F5F] font-Mulish font-bold leading-[20px]'>Blood Type (in)</h1>
                         <div className="flex gap-[0.5rem] ms-[2rem] mt-3">
-                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>42.5</h2>
+                        <h2 className='text-[20px] font-Mulish font-normal leading-[24px] mt-[5px]'>{patient?.bloodType}</h2>
                         <BiDownArrowAlt className='mt-[4px] text-[25px] fill-[#90DF9E]' />
                         </div>
                     </div>
                 </div>
             </div>
             {/* <div className='mt-[1rem]'> */}
-                <img src={gender === 'man' ? Man : Woman} alt={gender === 'man' ? 'Man' : 'Woman'} className='mt-[10rem] ms-[-6rem]' />
+                <img src={patient?.gender === 'Male' ? Man : Woman} alt={patient?.gender === 'Male' ? 'Man' : 'Woman'} className='mt-[10rem] ms-[-6rem]' />
             {/* </div> */}
         </div>
 </div>

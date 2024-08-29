@@ -9,7 +9,7 @@ import { MdOutlineBusinessCenter } from "react-icons/md";
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { FaTimes } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
-import { getAllDoctors, searchDoctors } from '../../../../Redux/Actions/PatientActions';
+import { getAllDoctors, searchDoctors } from '@/Redux/Actions/PatientActions';
 import caresync from '../../../../assets/CareSync.png';
 import avatar from '../../../../assets/avatar.png'
 
@@ -167,7 +167,7 @@ const SearchDoctors = () => {
               </div>
             )}
           </form>
-          <div className='flex items-start flex-wrap justify-between gap-[2rem] mt-[2rem] mb-[4rem]'>
+          <div className='flex items-start flex-wrap gap-[2rem] mt-[2rem] mb-[4rem]'>
             {(doctorSearch.length > 0 ? doctorSearch : doctors.slice(0, visibleCount)).map((doctor) => (
               <div key={doctor._id} className='bg-[#fff] shadow-md border border-[#ddd] lg:w-[30%] xs:w-full rounded-[10px] p-4'>
                 <div className='flex items-start'>

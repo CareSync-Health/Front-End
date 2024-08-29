@@ -33,11 +33,20 @@ const DoctorPages = () => {
     setPage(1); // Reset to the first page on new search
   };
 
-  const filteredDoctors = doctors.filter(doctor =>
-    (doctor.firstName?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-    (doctor.lastName?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-    (doctor.profession?.toLowerCase() || '').includes(searchQuery.toLowerCase())
-  );
+
+  // Filter doctors based on search term
+  const filteredDoctors = doctors.filter(doctor => {
+    const { firstName, lastName, title, profession, gender, email } = doctor;
+
+    // Convert search query and fields to lowercase for case-insensitive comparison
+    const searchTerm = searchQuery.toLowerCase();
+    const fullName = `${title || ''} ${firstName || ''} ${lastName || ''} ${profession || ''} ${gender || ''}`.toLowerCase();
+
+    return (
+      fullName.includes(searchTerm) ||
+      (email?.toLowerCase() || '').includes(searchTerm)
+    );
+  });
 
   const indexOfLastItem = page * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -107,7 +116,7 @@ const DoctorPages = () => {
                       <th className='font-medium px-5 py-4 align-middle'>Email</th>
                       <th className='font-medium px-5 py-4 align-middle'>Profession</th>
                       <th className='font-medium px-5 py-4 align-middle'>Gender</th>
-                      <th className='font-medium px-5 py-4 align-middle'>Inbox</th>
+                      <th className='font-medium px-5 py-4 align-middle'>Profile</th>
                     </tr>
                   </thead>
                   <tbody>

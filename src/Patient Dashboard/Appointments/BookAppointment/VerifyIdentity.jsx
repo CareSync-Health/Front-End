@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
-import Avatar from '../../../assets/profile_avatar.png';
+import React, { useEffect, useState } from 'react';
+import avatar from '../../../assets/avatar.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaArrowRightLong } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { loadPatient, updatePatientProfile } from '@/Redux/Actions/PatientActions';
 
 const VerifyIdentity = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
-  const patient = useSelector((state) => state.patientAuth.patient);
+  const { id } = useParams();
+  const patient = useSelector((state) => state.loadPatient.patient);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(loadPatient(id));
+    }
+  }, [dispatch, id]);
 
   const handleEditClick = () => {
     setIsEditing(true);
     setFormData({
       phoneNumber: patient?.phoneNumber || '',
-      homePhoneNumber: patient?.homePhoneNumber || '',
-      address: patient?.address || '',
+      homeNumber: patient?.homeNumber || '',
+      addressLine1: patient?.addressLine1 || '',
+      addressLine2: patient?.addressLine2 || '',
       state: patient?.state || '',
       city: patient?.city || '',
-      postalCode: patient?.postalCode || '',
+      zipCode: patient?.zipCode || '',
     });
   };
 
@@ -32,7 +41,7 @@ const VerifyIdentity = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send data to backend
-    // dispatch(updatePatientData(formData)); // Example action to update patient data
+    dispatch(updatePatientProfile(patient?._id, formData)); // Example action to update patient data
 
     setIsEditing(false);
   };
@@ -48,11 +57,11 @@ const VerifyIdentity = () => {
         </center>
         </div>
         <div className='mt-[2rem] flex items-center gap-[1.5rem]'>
-          <img src={Avatar} className='lg:w-[8%] xs:w-[30%]' alt='Avatar' />
+          <img src={patient?.profilePic || avatar} className='lg:w-[130px] lg:h-[130px] xs:w-[30%] xs:h-[30%] rounded-full object-cover' alt='Avatar' />
           <div>
             <h1 className='text-[18px] font-medium font-Mulish'>{patient?.firstName} {patient?.lastName}</h1>
             <div className='flex items-center gap-[1rem]'>
-              <h1 className='text-[16px] font-normal font-Mulish'>{patient?.dob || 'September 25th, 2005'}</h1>
+              <h1 className='text-[16px] font-normal font-Mulish'>{patient?.dob || 'Date of birth'}</h1>
               <hr className='w-[2px] h-[17px] bg-[#bbb]' />
               <h2 className='text-[14px] font-normal font-Mulish'>Not Disclosed</h2>
             </div>
@@ -81,13 +90,13 @@ const VerifyIdentity = () => {
               {isEditing ? (
                 <input
                   type='text'
-                  name='homePhoneNumber'
-                  value={formData.homePhoneNumber}
+                  name='homeNumber'
+                  value={formData.homeNumber}
                   onChange={handleInputChange}
                   className='mt-3 text-[14px] font-Mulish font-normal bg-transparent py-[10px] px-2 w-full rounded-[10px] border border-[#000] outline-none'
                 />
               ) : (
-                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.homePhoneNumber || 'Not Provided'}</h3>
+                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.homeNumber || 'Not Provided'}</h3>
               )}
             </div>
             <div className='lg:w-[30%] lg:mt-0 xs:mt-[2rem]'>
@@ -95,13 +104,13 @@ const VerifyIdentity = () => {
               {isEditing ? (
                 <input
                   type='text'
-                  name='address'
-                  value={formData.address}
+                  name='addressLine1'
+                  value={formData.addressLine1}
                   onChange={handleInputChange}
                   className='mt-3 text-[14px] font-Mulish font-normal bg-transparent py-[10px] px-2 w-full rounded-[10px] border border-[#000] outline-none'
                 />
               ) : (
-                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.address || 'Not Provided'}</h3>
+                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.addressLine1 || 'Not Provided'}</h3>
               )}
             </div>
             <div className='lg:w-[30%] lg:mt-0 xs:mt-[2rem]'>
@@ -109,13 +118,13 @@ const VerifyIdentity = () => {
               {isEditing ? (
                 <input
                   type='text'
-                  name='address'
-                  value={formData.address}
+                  name='addressLine2'
+                  value={formData.addressLine2}
                   onChange={handleInputChange}
                   className='mt-3 text-[14px] font-Mulish font-normal bg-transparent py-[10px] px-2 w-full rounded-[10px] border border-[#000] outline-none'
                 />
               ) : (
-                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.address || 'Not Provided'}</h3>
+                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.addressLine2 || 'Not Provided'}</h3>
               )}
             </div>
             <div className='lg:w-[30%] lg:mt-0 xs:mt-[2rem]'>
@@ -151,13 +160,13 @@ const VerifyIdentity = () => {
               {isEditing ? (
                 <input
                   type='text'
-                  name='postalCode'
-                  value={formData.postalCode}
+                  name='zipCode'
+                  value={formData.zipCode}
                   onChange={handleInputChange}
                   className='mt-3 text-[14px] font-Mulish font-normal bg-transparent py-[10px] px-2 w-full rounded-[10px] border border-[#000] outline-none'
                 />
               ) : (
-                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.postalCode || 'Not Provided'}</h3>
+                <h3 className='mt-1 text-[14px] font-Mulish font-normal'>{patient?.zipCode || 'Not Provided'}</h3>
               )}
             </div>
           </div>
