@@ -51,6 +51,7 @@ const EditProfile = () => {
   const [educationDescription, setEducationDescription] = useState('');
   const [profilePic, setProfilePic] = useState(null);
   const [headerPic, setHeaderPic] = useState(null);
+  const [error, setError] = useState('');
 
   const employmentTypes = [
     'full time',
@@ -95,86 +96,130 @@ const EditProfile = () => {
     }
   }, [doctor]);
 
-  const handleImageUpload = (event, setter) => {
-    const file = Array.from(event.target.files[0]);
-    if (file) {
-      setter(file); // Save the file object
-    }
-  };
+  // const handleImageUpload = (event, setter) => {
+  //   const file = Array.from(event.target.files[0]);
+  //   if (file) {
+  //     setter(file); // Save the file object
+  //   }
+  // };
 
   const handleAvatarUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfilePic(file); // Save the file object
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfilePic(reader.result); // Set the profilePic state to the uploaded image
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleHeaderUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setHeaderPic(file); // Save the file object
+      const reader = new FileReader();
+      reader.onload = () => {
+        setHeaderPic(reader.result); // Set the headerPic state to the uploaded image
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const handleDeleteImage = (type) => {
-    if (type === 'avatar') {
-      setProfilePic(null);
-    } else if (type === 'header') {
-      setHeaderPic(null);
+    if (type === 'header') {
+      setHeaderPic(''); // Remove the header image
+    } else if (type === 'avatar') {
+      setProfilePic(''); // Remove the avatar image
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('firstName', firstName);
-    formData.append('lastName', lastName);
-    formData.append('userName', userName);
-    formData.append('email', email);
-    formData.append('gender', gender);
-    formData.append('dob', dob);
-    formData.append('country', country);
-    formData.append('state', state);
-    formData.append('city', city);
-    formData.append('phoneNumber', phoneNumber);
-    formData.append('experienceTitle', experienceTitle);
-    formData.append('employmentType', employmentType);
-    formData.append('hospitalName', hospitalName);
-    formData.append('experienceLocation', experienceLocation);
-    formData.append('experienceStartDate', experienceStartDate);
-    formData.append('experienceEndDate', experienceEndDate);
-    formData.append('experienceDescription', experienceDescription);
-    formData.append('school', school);
-    formData.append('degree', degree);
-    formData.append('fieldOfStudy', fieldOfStudy);
-    formData.append('grade', grade);
-    formData.append('educationStartDate', educationStartDate);
-    formData.append('educationEndDate', educationEndDate);
-    formData.append('educationActivities', educationActivities);
-    formData.append('educationDescription', educationDescription);
-
-    if (headerPic) formData.append('headerPic', doctor?.headerPic);
-    if (profilePic) formData.append('profilePic', doctor?.profilePic);
+    setError('');
   
-    // Log FormData entries
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
+    const updatedDoctor = {};
+  
+    if (firstName !== doctor.firstName) updatedDoctor.firstName = firstName;
+    if (lastName !== doctor.lastName) updatedDoctor.lastName = lastName;
+    if (userName !== doctor.userName) updatedDoctor.userName = userName;
+    if (gender !== doctor.gender) updatedDoctor.gender = gender;
+    if (dob !== doctor.dob) updatedDoctor.dob = dob;
+    if (country !== doctor.country) updatedDoctor.country = country;
+    if (state !== doctor.state) updatedDoctor.state = state;
+    if (city !== doctor.city) updatedDoctor.city = city;
+    if (headerPic !== doctor.headerPic) updatedDoctor.headerPic = headerPic;
+    if (profilePic !== doctor.profilePic) updatedDoctor.profilePic = profilePic;
+    if (experienceTitle!== doctor.experienceTitle) updatedDoctor.experienceTitle = experienceTitle;
+    if (employmentType!== doctor.employmentType) updatedDoctor.employmentType = employmentType;
+    if (hospitalName!== doctor.hospitalName) updatedDoctor.hospitalName = hospitalName;
+    if (experienceLocation!== doctor.experienceLocation) updatedDoctor.experienceLocation = experienceLocation;
+    if (experienceStartDate!== doctor.experienceStartDate) updatedDoctor.experienceStartDate = experienceStartDate;
+    if (experienceEndDate!== doctor.experienceEndDate) updatedDoctor.experienceEndDate = experienceEndDate;
+    if (experienceDescription!== doctor.experienceDescription) updatedDoctor.experienceDescription = experienceDescription;
+    if (school!== doctor.school) updatedDoctor.school = school;
+    if (degree!== doctor.degree) updatedDoctor.degree = degree;
+    if (fieldOfStudy!== doctor.fieldOfStudy) updatedDoctor.fieldOfStudy = fieldOfStudy;
+    if (grade!== doctor.grade) updatedDoctor.grade = grade;
+    if (educationStartDate!== doctor.educationStartDate) updatedDoctor.educationStartDate = educationStartDate;
+    if (educationEndDate!== doctor.educationEndDate) updatedDoctor.educationEndDate = educationEndDate;
+    if (educationActivities!== doctor.educationActivities) updatedDoctor.educationActivities = educationActivities;
+    if (educationDescription!== doctor.educationDescription) updatedDoctor.educationDescription = educationDescription;
+  
+    if (Object.keys(updatedDoctor).length === 0) {
+      toast.info('No changes detected.');
+      return;
     }
-    
-    dispatch(updateDoctorProfile(doctor?._id, formData));
-    console.log(updateDoctorProfile);
-    console.log(formData);
-    // toast.success('Profile updated successfully!');
+
+    try {
+      const response = await dispatch(updateDoctorProfile(id, updatedDoctor));
+      if (response.success) {
+        toast.success('Profile updated successfully!');
+
+        // Reset the form inputs
+        setFirstName('');
+        setLastName('');
+        setUserName('');
+        setGender('');
+        setDob('');
+        setCountry('');
+        setState('');
+        setCity('');
+        setPhoneNumber('');
+        setExperienceTitle('');
+        setEmploymentType('');
+        setHospitalName('');
+        setExperienceLocation('');
+        setExperienceStartDate('');
+        setExperienceEndDate('');
+        setExperienceDescription('');
+        setSchool('');
+        setDegree('');
+        setFieldOfStudy('');
+        setGrade('');
+        setEducationStartDate('');
+        setEducationEndDate('');
+        setEducationActivities('');
+        setEducationDescription('');
+        setProfilePic(null);
+        setHeaderPic(null);
+      } else {
+        setError(response.message || 'An error occurred. Please try again.');
+        // toast.error(response.message || 'An error occurred. Please try again.');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+      // toast.error('An unexpected error occurred. Please try again.');
+    }
   };
 
-   // Helper function to get image URL if it's a valid File object
-   const getImageUrl = (image) => {
-    if (image && image instanceof File) {
-      return URL.createObjectURL(image);
-    }
-    return image || ''; // Return existing URL or empty string
-  };
+  //  // Helper function to get image URL if it's a valid File object
+  //  const getImageUrl = (image) => {
+  //   if (image && image instanceof File) {
+  //     return URL.createObjectURL(image);
+  //   }
+  //   return image || ''; // Return existing URL or empty string
+  // };
 
   return (
     <div className='flex'>
@@ -186,7 +231,7 @@ const EditProfile = () => {
           <form onSubmit={handleSubmit}>
             <div
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${getImageUrl(headerPic)})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${headerPic || doctor?.headerPic})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 height: 300,
@@ -215,7 +260,7 @@ const EditProfile = () => {
               <div
                 className='mt-[-5rem] w-[180px] object-contain rounded-full h-[64%] lg:ms-[4rem] xs:ms-[1rem]'
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${getImageUrl(profilePic)})`,
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilePic || doctor?.profilePic})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   width: 180,

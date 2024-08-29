@@ -48,7 +48,7 @@ const Footer = () => {
         </div>
        </div>
        <hr className='w-full h-[1px] bg-[#fff] mt-[4rem]' />
-       <h3 className='text-[#fff] text-[20px] font-Inter font-light text-center mt-[2rem]'>Copyright 2023 | CareSync Health</h3>
+       <h3 className='text-[#fff] text-[20px] font-Inter font-light text-center mt-[2rem]'>Copyright 2024 | CareSync Health</h3>
     </div>
   )
 }
