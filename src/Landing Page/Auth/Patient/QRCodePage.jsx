@@ -7,7 +7,7 @@ const QRCodePage = ({ qrCodeUrl, handleQRCode, otp, setOtp, secret, error }) => 
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-[1000]">
-            <div className={`p-6 rounded-md bg-[#FFFCF8]`}>
+            <div className={`lg:p-6 xs:p-4 rounded-md lg:w-auto xs:w-[95vw] overflow-scroll bg-[#FFFCF8]`}>
                 <form onSubmit={handleQRCode}>
                     <h2 className="text-[19px] font-Mulish font-bold">Enable 2-Step Verification</h2>
                     <p className='mt-2 text-[13px] font-Mulish font-normal'>Scan the QR code below using your Google Authenticator app:</p>

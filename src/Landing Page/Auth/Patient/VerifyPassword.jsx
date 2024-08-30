@@ -42,7 +42,7 @@ const VerifyPassword = ({ setShowModal, handleEnable2SV, patient }) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-[1000]">
-            <div className={`p-6 rounded-md w-full max-w-md bg-[#FFFCF8]`}>
+            <div className={`lg:p-6 xs:p-4 rounded-md lg:w-full xs:w-[95vw] max-w-md bg-[#FFFCF8]`}>
                 <h2 className="text-xl font-semibold font-Mulish">CareSync Med Password</h2>
                 <h2 className='text-[12px] font-Mulish font-normal mt-1 mb-4'>To keep your account safe we need to confirm your password</h2>
                 {error && <p className="text-red-500 text-[13px] font-Mulish font-medium">{error}</p>}

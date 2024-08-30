@@ -17,7 +17,7 @@ const QRCodePage = ({ qrCodeUrl, handleQRCode, otp, setOtp, secret, error }) => 
                     <div className='mt-3'>
                         <h2 className='text-[13px] font-Mulish font-normal'>If you can't use the QR code. <span className='text-red-500 cursor-pointer' onClick={() => setShowCode(true)}>enter this text code</span> instead.</h2>
                         {showCode && (
-                            <h2 className='lg:text-[14px] xs:text-[12px] w-[20px] font-Mulish tracking-widest'>{secret}</h2>
+                            <h2 className='text-[14px] w-[20px] font-Mulish tracking-widest'>{secret}</h2>
                         )}
                     </div>
                     {error && <p className="text-red-500 text-[13px] font-Mulish font-medium">{error}</p>}
