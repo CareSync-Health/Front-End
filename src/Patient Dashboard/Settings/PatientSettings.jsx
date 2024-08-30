@@ -20,9 +20,9 @@ const PatientSettings = () => {
         <Navbar2 />
         <div>
           <Routes>
-            <Route path="patient_profile" element={<PatientProfile />} />
+            <Route path="patient_profile/:id" element={<PatientProfile />} />
             <Route path="patient_payment" element={<PatientPayment />} />
-            <Route path="patient_security" element={<PatientSecurity />} />
+            <Route path="patient_security/:id" element={<PatientSecurity />} />
             <Route path="patient_BmiCalculator" element={<BMICalculatorSettings />} />
           </Routes>
         </div>

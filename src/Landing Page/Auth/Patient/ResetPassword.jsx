@@ -2,31 +2,41 @@ import React, { useState } from 'react';
 import { HiMiniLockClosed } from 'react-icons/hi2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { resetPassword } from './../../../Redux/Actions/DoctorActions';
+import { resetPassword } from '@/Redux/Actions/PatientActions';
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
-    const { resetToken } = useParams(); // Assuming the token is in the URL
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { loading, error } = useSelector(state => state.doctorForgetPassword); // Access state
+    const location = useLocation();
+    const { loading, error, patient } = useSelector((state) => state.patientForgetPassword);
 
-    const handleSubmit = (e) => {
+    const query = new URLSearchParams(location.search);
+    const token = query.get('token');
+    const id = query.get('id');
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
             toast.error('Passwords do not match.');
             return;
         }
-        if (resetToken && newPassword) {
-            dispatch(resetPassword(resetToken, newPassword, navigate));
-        } else {
-            toast.error('Reset token or new password is missing.');
+        if (!token || !id) {
+            toast.error('Invalid reset password link.');
+            return;
         }
+        const body = {
+            token,
+            id,
+            newPassword,
+        };
+        dispatch(resetPassword( body, navigate));
     };
 
     return (

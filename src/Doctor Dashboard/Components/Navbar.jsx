@@ -34,12 +34,16 @@ function formatNumber(number) {
 
 const Navbar = ({ messageCount, notificationCount }) => {
 
-  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+  const doctor = useSelector((state) => state.loadDoctor.doctor);
   const { theme, appearance } = useTheme();
   const [notificationOpen, setNotificationOpen] = useState(false);
   const notifications = useSelector((state) => state.createChat.notifications);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadDoctor());
+  }, [dispatch])
 
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);

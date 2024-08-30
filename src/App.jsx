@@ -11,8 +11,10 @@ const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
 const About = lazy(() => import("./Landing Page/About/About"));
 const UserPage = lazy(() => import("./Landing Page/Auth/UserPage"));
 const Login = lazy(() => import("./Landing Page/Auth/Patient/Login"));
+const Verify2FA = lazy(() => import("./Landing Page/Auth/Patient/Verify2FA"));
 const Signup = lazy(() => import("./Landing Page/Auth/Patient/Signup"));
 const Login2 = lazy(() => import("./Landing Page/Auth/Doctor/Login"));
+const Verify2SV = lazy(() => import("./Landing Page/Auth/Doctor/Verify2SV"));
 const Signup2 = lazy(() => import("./Landing Page/Auth/Doctor/Signup"));
 const Doctor_Forget_Password = lazy(() => import("./Landing Page/Auth/Doctor/ForgotPassword"));
 const Doctor_Reset_Password = lazy(() => import("./Landing Page/Auth/Doctor/ResetPassword"));
@@ -54,8 +56,7 @@ const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientS
 
 function App() {
   const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-  const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
-
+  const patient = useSelector((state) => state.patientAuth.patient || state.patientVerifyOtp.patient);
 
   return (
     <ThemeProvider>
@@ -87,13 +88,15 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="user" element={<UserPage />} />
             <Route path="auth" element={<Login />} />
+            <Route path="verify2FA/:id" element={<Verify2FA />} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login2 />} />
+            <Route path="verify2SV/:id" element={<Verify2SV />} />
             <Route path="register" element={<Signup2 />} />
             <Route path='login/forgot_password' element={ <Doctor_Forget_Password /> } />
             <Route path='/reset_password' element={ <Doctor_Reset_Password /> } />
             <Route path='auth/forgot_password' element={ <Patient_Forget_Password /> } />
-            <Route path='reset_your_password' element={ <Patient_Reset_Password /> } />
+            <Route path='/reset_your_password' element={ <Patient_Reset_Password /> } />
             <Route path="patient_verify_otp" element={<VerifyAccount />} />
             <Route path="doctor_verify_otp" element={<VerifyAccount2 />} />
             <Route path="terms&conditions" element={<Terms_Conditions />} />

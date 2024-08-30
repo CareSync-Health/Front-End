@@ -30,10 +30,10 @@ const PatientDashboard = () => {
     const { appointments = [] } = useSelector((state) => state.patientAppointments);
 
     useEffect(() => {
-        if (id) {
-            dispatch(loadPatient(id));
-        }
-    }, [dispatch, id]);
+        // if (id) {
+            dispatch(loadPatient());
+        // }
+    }, [dispatch]);
 
     useEffect(() => {
         if (patientId) {

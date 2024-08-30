@@ -1,21 +1,41 @@
-import React from 'react'
+import { forgot_password } from '@/Redux/Actions/PatientActions';
+import React, { useState } from 'react'
+import toast from 'react-hot-toast';
 import { FaEnvelope } from 'react-icons/fa'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { forgot_password } from '../../../Redux/Actions/DoctorActions';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Fetch the doctor email from local storage or state
-  const email = localStorage.getItem('patientEmail');
+  const patient = useSelector((state) => state.loadPatient.patient);
+  // const email = doctor?.email;
+  const [email, setEmail] = useState(patient?.email || '');
+  const [loading, setLoading] = useState(false); // Loading state
 
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      dispatch(forgot_password(navigate));
+      e.preventDefault();
+      setLoading(true);
+
+      const body = {
+          email: ''
+      }
+
+      try {
+        if (email) {
+            const body = {
+                email: email.trim(),
+            };
+            dispatch(forgot_password(body, navigate));
+        } else {
+            toast.error('Please enter your email address.');
+        }
+      } catch (error) {
+
+      } finally {
+        setLoading(false); // Stop loading
     }
   };
 
@@ -33,15 +53,19 @@ const ForgotPassword = () => {
                 </span>
                 <input
                   type='email'
-                  value={email || 'Enter your email'}
-                  readOnly
-                  className='pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent text-[15px] font-Inter font-normal'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
+                  placeholder='Enter your email'
+                  className={`pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:border-transparent text-[15px] font-Inter font-normal ${loading ? "cursor-not-allowed" : ""}`}
                 />
               </label>
               <button
                 type='submit'
-                className='mt-6 w-full py-2 px-4 bg-[#22D1EE] text-white font-semibold rounded-md hover:bg-[#22D1EE] focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:ring-opacity-50'>
-                Send Reset Link
+                className='mt-6 w-full py-2 px-4 bg-[#22D1EE] text-white font-semibold rounded-md hover:bg-[#22D1EE] focus:outline-none focus:ring-2 focus:ring-[#22D1EE] focus:ring-opacity-50' 
+                disabled={loading}
+              >
+                {loading ? 'Submitting' : 'Send Reset Link'}
               </button>
               <p className='text-[14px] text-center mt-5 font-Inter'>Never mind! <Link to='/auth' className='text-[#22D1EE] underline'>Take me back to login</Link></p>
             </form>

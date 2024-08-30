@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import avatar from '../../assets/avatar.png'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaEnvelope } from 'react-icons/fa';
 import { State } from 'country-state-city';
+import { loadPatient } from '@/Redux/Actions/PatientActions';
 
 const PatientProfile = () => {
-  const patient = useSelector((state) => state.patientAuth.patient);
-
+  const patient = useSelector((state) => state.loadPatient.patient);
+    const dispatch = useDispatch();
+  
+    useEffect(() => {
+      dispatch(loadPatient());
+    }, [dispatch])
 
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")

@@ -4,12 +4,15 @@ export const doctorAuthReducer = (state = {}, action) => {
   switch (action.type) {
     case types.DOCTOR_AUTH_REQUEST:
     case types.DOCTOR_SIGNIN_REQUEST:
+    case types.VERIFY_2SV_REQUEST:
       return { ...state, loading: true };
     case types.DOCTOR_AUTH_SUCCESS:
     case types.DOCTOR_SIGNIN_SUCCESS:
+    case types.VERIFY_2SV_SUCCESS:
       return { ...state, loading: false, doctor: action.payload, success: true, message: action.message };
     case types.DOCTOR_AUTH_FAIL:
     case types.DOCTOR_SIGNIN_FAIL:
+    case types.VERIFY_2SV_FAIL:
       return { ...state, loading: false, error: action.payload, message: action.message };
     case types.DOCTOR_AUTH_LOGOUT:
     case types.DOCTOR_SIGNIN_FAIL:

@@ -45,10 +45,10 @@ const DoctorDashboard = () => {
     const loadDoc = useSelector((state) => state.loadDoctor.doctor);
 
     useEffect(() => {
-        if (id) {
-            dispatch(loadDoctor(id));
-        }
-    }, [dispatch, id]);
+        // if (id) {
+            dispatch(loadDoctor());
+        // }
+    }, [dispatch]);
 
     // Calculate the number of scheduled, pending, and canceled appointments
     const scheduledCount = appointments.filter(appointment => appointment.status === 'Accepted').length;
@@ -66,7 +66,7 @@ const DoctorDashboard = () => {
     return (
         <>
             {
-                loadDoc ? (
+                doctor ? (
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>

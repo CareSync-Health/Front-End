@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../Components/ThemeContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadDoctor } from '@/Redux/Actions/DoctorActions';
 
 const Navbar = () => {
   const { theme, appearance } = useTheme();
 
   const location = useLocation();
   const [activeLink, setActiveLink] = useState(location.pathname);
+  const doctor = useSelector((state) => state.loadDoctor.doctor);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadDoctor());
+  }, [dispatch])
+  
 
   const linkClasses = 'lg:text-[19px] xs:text-[13.5px] font-medium font-Inter pb-1';
   const activeClass = `border-b-2 ${appearance === 'green' ? 'border-[#17B978]' : appearance === 'blue' ? 'border-[#22D1EE]' : appearance === 'accent' ? 'border-[#A6FFF2]' : theme === 'dark' ? 'border-white' : 'border-black'}`;
@@ -54,7 +63,7 @@ const Navbar = () => {
         Notification
       </NavLink>
       <NavLink
-        to='security_setting'
+        to={`security_setting/${doctor?._id}`}
         className={({ isActive }) =>
           (isActive || activeLink.includes('security_setting')) ? `${linkClasses} ${activeClass}` : linkClasses
         }

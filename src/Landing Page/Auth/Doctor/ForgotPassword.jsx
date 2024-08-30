@@ -12,21 +12,29 @@ const ForgotPassword = () => {
     const doctor = useSelector((state) => state.loadDoctor.doctor);
     // const email = doctor?.email;
     const [email, setEmail] = useState(doctor?.email || '');
+    const [loading, setLoading] = useState();
 
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoading(true); 
         const body = {
             email: ''
         }
 
-        if (email) {
-            const body = {
-                email: email.trim(),
-            };
-            dispatch(forgot_password(body, navigate));
-        } else {
-            toast.error('Please enter your email address.');
+        try {
+            if (email) {
+                const body = {
+                    email: email.trim(),
+                };
+                dispatch(forgot_password(body, navigate));
+            } else {
+                toast.error('Please enter your email address.');
+            }
+        } catch(error) {
+
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -47,13 +55,16 @@ const ForgotPassword = () => {
                                     placeholder='Enter your email'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className='pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#17B978] focus:border-transparent text-[15px] font-Inter font-normal'
+                                    disabled={loading}
+                                    className={`pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#17B978] focus:border-transparent text-[15px] font-Inter font-normal ${loading ? 'cursor-not-allowed' : ''}`}
                                 />
                             </label>
                             <button
                                 type='submit'
-                                className='mt-6 w-full py-2 px-4 bg-[#17B978] text-white font-semibold rounded-md hover:bg-[#16a069] focus:outline-none focus:ring-2 focus:ring-[#16a069] focus:ring-opacity-50'>
-                                Send Reset Link
+                                className='mt-6 w-full py-2 px-4 bg-[#17B978] text-white font-semibold rounded-md hover:bg-[#16a069] focus:outline-none focus:ring-2 focus:ring-[#16a069] focus:ring-opacity-50'
+                                disabled={loading}
+                                >
+                                    {loading ? 'Submitting...' : 'Send Reset Link'}
                             </button>
                             <p className='text-[14px] text-center mt-5 font-Inter'>Never mind! <Link to='/login' className='text-[#17B978] underline'>Take me back to login</Link></p>
                         </form>

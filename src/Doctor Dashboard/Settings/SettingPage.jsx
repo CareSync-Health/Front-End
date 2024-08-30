@@ -9,6 +9,7 @@ import MessageSetting from './MessageSetting';
 import NotificationSetting from './NotificationSetting';
 import SecuritySetting from './SecuritySetting';
 import { useTheme } from '../Components/ThemeContext';
+import QRCodePage from '@/Landing Page/Auth/Doctor/QRCodePage';
 
 
 const SettingPage = () => {
@@ -32,7 +33,8 @@ const SettingPage = () => {
                             <Route path='account_setting' element={<AccountSetting />} />
                             <Route path='message_setting' element={<MessageSetting />} />
                             <Route path='notification_setting' element={<NotificationSetting />} />
-                            <Route path='security_setting' element={<SecuritySetting />} />
+                            <Route path='security_setting/:id' element={<SecuritySetting />} />
+                            <Route path='qrcode' element={<QRCodePage />} />
                         </Routes>
                     </div>
                 </div>

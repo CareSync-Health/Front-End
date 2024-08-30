@@ -16,7 +16,7 @@ import help from '../../assets/Icons/help.svg';
 import logout from '../../assets/Icons/logout.svg';
 import { useTheme } from './ThemeContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { doctor_logout } from '../../Redux/Actions/DoctorActions';
+import { doctor_logout, loadDoctor } from '../../Redux/Actions/DoctorActions';
 
 const Sidebar = () => {
 
@@ -27,8 +27,12 @@ const Sidebar = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const doctorId = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+    const doctorId = useSelector((state) => state.loadDoctor.doctor);
 
+    useEffect(() => {
+      dispatch(loadDoctor());
+    }, [dispatch])
+  
 
     const handleLogout = () => {
         dispatch(doctor_logout(navigate));

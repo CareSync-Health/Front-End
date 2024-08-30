@@ -71,53 +71,108 @@ export const resend_otp = (email) => async (dispatch) => {
 		});
 	}
 };
+// if (data.status === 'Ok') {
+// 	dispatch({ type: types.PATIENT_SIGNIN_SUCCESS, payload: data.data.data });
+
+// 	localStorage.setItem('token', data.data.token);
+// 	toast.success(data.message, {
+// 		position: 'top-right',
+// 	});
+// 	navigate(`/patient_dashboard/${data.data.data._id}`);
+// } else {
+// 	throw new Error(data.message);
+// }
 
 export const patient_login = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.PATIENT_SIGNIN_REQUEST });
 
 		const { data } = await axios.post(`${url}/patient/Signin`, body, header);
-		if (data.status === 'Ok') {
-			dispatch({ type: types.PATIENT_SIGNIN_SUCCESS, payload: data.data.data });
+		localStorage.setItem('token', data.token);
 
-			localStorage.setItem('token', data.data.token);
-			toast.success(data.message, {
-				position: 'top-right',
-			});
-			navigate(`/patient_dashboard/${data.data.data._id}`);
-		} else {
-			throw new Error(data.message);
+		// Check if 2SV is required
+		if (data.requires2SV) {
+			navigate(`/verify2FA/${data.data._id}`);
+			return;
 		}
+
+		dispatch({ type: types.PATIENT_SIGNIN_SUCCESS, payload: data.data });
+		navigate(`/patient_dashboard/${data.data._id}`)
 	} catch (error) {
 		dispatch({ type: types.PATIENT_SIGNIN_FAIL, payload: error.message || error });
 		toast.error(error.message || 'An error occurred', {
 			position: 'top-right',
 		});
+		// Return a default value or throw error to handle it in the component
+		return { requires2SV: false };
 	};
 };
 
-export const forgot_password = (navigate) => async (dispatch) => {
+export const verify2FA = (otp, id) => async (dispatch) => {
+	try {
+		dispatch({ type: types.VERIFY_2FA_REQUEST });
+		const response = await fetch(`${url}/patient/verify2FA/${id}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ otp }),
+		});
+		const data = await response.json();
+
+		if (!response.ok || !data.success) { // Check for success in response
+			dispatch({ type: types.VERIFY_2FA_FAIL, payload: data.error || 'Verification failed' });
+			return { error: data.error || 'Verification failed' };
+		}
+
+		dispatch({ type: types.VERIFY_2FA_SUCCESS, payload: data });
+		return { success: true };
+	} catch (error) {
+		dispatch({ type: types.VERIFY_2FA_FAIL, payload: error.message || error });
+		return { error: error.message || 'An unexpected error occurred' };
+	}
+};
+
+export const enable2SV = (id) => async (dispatch) => {
+	try {
+		const response = await fetch(`${url}/patient/enable2SV/${id}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({}),
+		});
+		const result = await response.json();
+		return result; // Return the QR code URL
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};
+
+export const disable2SV = (id) => async (dispatch) => {
+	try {
+		await fetch(`${url}/patient/disable2SV/${id}`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({}),
+		});
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+};
+
+export const forgot_password = (email, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.FORGOT_PASSWORD_REQUEST });
 
-		// Retrieve email from local storage
-		const email = localStorage.getItem('patientEmail');
+		const { data } = await axios.post(`${url}/patient/request-password-reset`, email, header);
 
-		if (!email) {
-			navigate('/register');
-			throw new Error("Email not found. Please signup first.");
-		}
-
-		const { data } = await axios.post(`${url}/patient/forgot-password`, { email }, header);
-
-		if (data.status === 'Ok') {
+		if (data.success) {
 			dispatch({ type: types.FORGOT_PASSWORD_SUCCESS });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			navigate('/reset_password');
+			// navigate('/reset_password');
 		} else {
-			throw new Error(data.message);
+			throw new Error(data.error);
 		}
 	} catch (error) {
 		dispatch({ type: types.FORGOT_PASSWORD_FAIL, payload: error.message || error });
@@ -127,12 +182,39 @@ export const forgot_password = (navigate) => async (dispatch) => {
 	}
 };
 
-export const loadPatient = (id) => async (dispatch) => {
+export const resetPassword = (body, navigate) => async (dispatch) => {
 	try {
+		dispatch({ type: types.RESET_PASSWORD_REQUEST });
 
+		const { data } = await axios.post(`${url}/patient/reset-password`, body);
+		if (data.success) {
+			dispatch({ type: types.RESET_PASSWORD_SUCCESS });
+			toast.success(data.message, {
+				position: 'top-right',
+			});
+			navigate('/auth');
+		} else {
+			throw new Error(data.error);
+		}
+	} catch (error) {
+		console.log(error)
+		dispatch({ type: types.RESET_PASSWORD_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+			position: 'top-right',
+		});
+	}
+};
+
+export const loadPatient = () => async (dispatch) => {
+	try {
 		dispatch({ type: types.LOAD_PATIENT_REQUEST });
 
-		const { data } = await axios.get(`${url}/patient/${id}`, authHeader);
+		// Assuming you have a way to get current user details or token
+		const { data } = await axios.get(`${url}/patient/profile`, {
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Adjust as needed
+			},
+		});
 
 		if (data.status === 'OK') {
 			dispatch({ type: types.LOAD_PATIENT_SUCCESS, payload: data.data });
@@ -227,15 +309,15 @@ export const updatePatientProfile = (id, formData) => async (dispatch) => {
 	try {
 		dispatch({ type: types.UPDATE_PATIENT_PROFILE_REQUEST });
 
-		 // Retrieve token and configure header
-		 const token = localStorage.getItem('token');
-		 const config = {
-			 headers: {
-				 'Content-Type': 'application/json',
-				 'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
-			 }
-		 };
-		
+		// Retrieve token and configure header
+		const token = localStorage.getItem('token');
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
+			}
+		};
+
 		const { data } = await axios.put(`${url}/patient/${id}`, formData, config);
 
 		if (data.status === 'OK') {

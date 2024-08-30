@@ -1,5 +1,5 @@
-import React from 'react'
-import { useLocation, Link, useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation, Link, useNavigate, useParams } from 'react-router-dom'
 import Caresync from '../../assets/CareSync.png'
 import { MdDashboard, MdHelpOutline } from "react-icons/md"
 import { RiCalendarEventLine, RiMessage3Line } from "react-icons/ri"
@@ -7,7 +7,7 @@ import { IoSettingsOutline } from "react-icons/io5"
 import { TbLogout2 } from "react-icons/tb"
 import { FiPieChart } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux"
-import { patient_logout } from '../../Redux/Actions/PatientActions';
+import { loadPatient, patient_logout } from '../../Redux/Actions/PatientActions';
 
 const Sidebar = () => {
   const location = useLocation()
@@ -18,14 +18,18 @@ const Sidebar = () => {
     dispatch(patient_logout(navigate));
   };
 
-  const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
+  const patient = useSelector((state) => state.loadPatient.patient);
+
+  useEffect(() => {
+    dispatch(loadPatient());
+  }, [dispatch])
 
   const navItems = [
     { path: `/patient_dashboard/${patient?._id}`, icon: <MdDashboard />, name: 'Dashboard' },
     { path: '/patient_calendar', icon: <RiCalendarEventLine />, name: 'Calendar' },
     { path: '/patient_message', icon: <RiMessage3Line />, name: 'Messages' },
     { path: `/patient_appointment/appointments/${patient?._id}`, icon: <FiPieChart />, name: 'Appointment' },
-    { path: '/patient_settings/patient_profile', icon: <IoSettingsOutline />, name: 'Settings' },
+    { path: `/patient_settings/patient_profile/${patient?._id}`, icon: <IoSettingsOutline />, name: 'Settings' },
   ]
 
   return (
