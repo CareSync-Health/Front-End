@@ -73,9 +73,9 @@ const OnlineWithdrawal = () => {
                             className={`flex justify-around p-2.5 text-left w-full border rounded-[5px] px-[10px] font-Nunito font-normal mt-4 bg-transparent outline-none  ${theme === "dark" ? "border-[#fff]" : theme === "light" ? "border-[rgba(0,0,0,0.2)]" : ""}`}
                           >
                             <option value="OnlineBank">NGN</option>
-                            <option value="Card">USD</option>
+                            {/* <option value="Card">USD</option>
                             <option value="Transfer">GBP</option>
-                            <option value="Transfer">EUR</option>
+                            <option value="Transfer">EUR</option> */}
                           </select>
                         </label>
                       </div>
