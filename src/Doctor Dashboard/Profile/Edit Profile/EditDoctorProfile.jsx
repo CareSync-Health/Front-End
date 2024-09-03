@@ -96,13 +96,6 @@ const EditProfile = () => {
     }
   }, [doctor]);
 
-  // const handleImageUpload = (event, setter) => {
-  //   const file = Array.from(event.target.files[0]);
-  //   if (file) {
-  //     setter(file); // Save the file object
-  //   }
-  // };
-
   const handleAvatarUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -203,23 +196,15 @@ const EditProfile = () => {
         setEducationDescription('');
         setProfilePic(null);
         setHeaderPic(null);
+
+        dispatch(loadDoctor());
       } else {
         setError(response.message || 'An error occurred. Please try again.');
-        // toast.error(response.message || 'An error occurred. Please try again.');
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
-      // toast.error('An unexpected error occurred. Please try again.');
     }
   };
-
-  //  // Helper function to get image URL if it's a valid File object
-  //  const getImageUrl = (image) => {
-  //   if (image && image instanceof File) {
-  //     return URL.createObjectURL(image);
-  //   }
-  //   return image || ''; // Return existing URL or empty string
-  // };
 
   return (
     <div className='flex'>
@@ -231,7 +216,7 @@ const EditProfile = () => {
           <form onSubmit={handleSubmit}>
             <div
               style={{
-                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${headerPic || doctor?.headerPic})`,
+                backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${headerPic || doctor?.headerPic || avatar})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 height: 300,

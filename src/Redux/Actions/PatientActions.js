@@ -71,17 +71,6 @@ export const resend_otp = (email) => async (dispatch) => {
 		});
 	}
 };
-// if (data.status === 'Ok') {
-// 	dispatch({ type: types.PATIENT_SIGNIN_SUCCESS, payload: data.data.data });
-
-// 	localStorage.setItem('token', data.data.token);
-// 	toast.success(data.message, {
-// 		position: 'top-right',
-// 	});
-// 	navigate(`/patient_dashboard/${data.data.data._id}`);
-// } else {
-// 	throw new Error(data.message);
-// }
 
 export const patient_login = (body, navigate) => async (dispatch) => {
 	try {
@@ -305,7 +294,7 @@ export const getAllPatients = (body) => async (dispatch) => {
 	}
 }
 
-export const updatePatientProfile = (id, formData) => async (dispatch) => {
+export const updatePatientProfile = (id, body) => async (dispatch) => {
 	try {
 		dispatch({ type: types.UPDATE_PATIENT_PROFILE_REQUEST });
 
@@ -318,24 +307,45 @@ export const updatePatientProfile = (id, formData) => async (dispatch) => {
 			}
 		};
 
-		const { data } = await axios.put(`${url}/patient/${id}`, formData, config);
+		const { data } = await axios.put(`${url}/patient/${id}`, body, config);
 
 		if (data.status === 'OK') {
 			dispatch({ type: types.UPDATE_PATIENT_PROFILE_SUCCESS, payload: data.data });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
+			// return { success: true };
+		} else {
+			throw new Error(data.message || data.error);
+		}
+	} catch (error) {
+		dispatch({ type: types.UPDATE_PATIENT_PROFILE_FAIL, payload: error.message || error });
+		toast.error(error.message || 'An error occurred', {
+		  position: 'top-right',
+		});
+		// return { success: false, message: error.message || 'An error occurred' };
+	}
+};
+
+export const loadHealthHistory = (id) => async (dispatch) => {
+	try {
+		dispatch({ type: types.LOAD_HEALTH_HISTORY_REQUEST });
+
+		const { data } = await axios.get(`${url}/patient/${id}/health-history`, authHeader);
+		console.log(data)
+		if (data.status === 'OK') {
+			dispatch({ type: types.LOAD_HEALTH_HISTORY_SUCCESS, payload: data.data });
+			return data.data;
 		} else {
 			throw new Error(data.error);
 		}
 	} catch (error) {
-		dispatch({ type: types.UPDATE_PATIENT_PROFILE_FAIL, payload: error.message || error });
+		dispatch({ type: types.LOAD_HEALTH_HISTORY_FAIL, payload: error.message || error });
 		toast.error(error.message || 'An error occurred', {
 			position: 'top-right',
 		});
 	}
 };
-
 
 export const patient_logout = (navigate) => (dispatch) => {
 	dispatch({ type: types.PATIENT_SIGNIN_LOGOUT });

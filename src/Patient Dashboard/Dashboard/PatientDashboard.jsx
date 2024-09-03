@@ -77,7 +77,7 @@ const PatientDashboard = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+            <div className='flex-1 lg:h-[99.9vh] xs:h-screen overflow-y-auto bg-[#FFFCF8] lg:mt-0 xs:mt-[1.5rem]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <div className='flex items-start gap-[10px]'>
                     <div className='lg:px-[20px] xs:px-[10px] pt-[1.5rem]'>
                         <div className='flex justify-between items-center'>

@@ -40,11 +40,11 @@ const Navbar = () => {
                         <h1>Payment</h1>
                     </NavLink>
                     <NavLink
-                        to='patient_BmiCalculator'
-                        className={({ isActive }) => (isActive || activeLink.includes('patient_BmiCalculator')) ? `${linkClasses} ${activeClass}` : linkClasses}
-                        onClick={() => handleLinkClick('/patient_BmiCalculator')}
+                        to={`patient_healthProfile/${patient?._id}`}
+                        className={({ isActive }) => (isActive || activeLink.includes('patient_healthProfile')) ? `${linkClasses} ${activeClass}` : linkClasses}
+                        onClick={() => handleLinkClick('/patient_healthProfile')}
                     >
-                        <h1>BMI Calculator</h1>
+                        <h1>Health Profile</h1>
                     </NavLink>
                     <NavLink
                         to={`patient_security/${patient?._id}`}

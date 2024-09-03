@@ -11,7 +11,7 @@ import { LuMessagesSquare } from "react-icons/lu";
 import bank from '../assets/bank.png'
 import avatar from '../assets/avatar.png';
 import { useTheme } from './Components/ThemeContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '@/Redux/Actions/DoctorActions';
 import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ const PatientPages = () => {
   const { id } = useParams();
   const doctorId = id;
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate
   const loadDoc = useSelector((state) => state.loadDoctor.doctor);
   const { appointments = [] } = useSelector((state) => state.appointments);
 

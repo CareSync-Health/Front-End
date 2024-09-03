@@ -6,7 +6,7 @@ import PatientProfile from "./PatientProfile";
 import PatientSecurity from "./PatientSecurity";
 import Navbar2 from "./Navbar";
 import Navbar from "../Components/Navbar";
-import BMICalculatorSettings from "./BMICalculatorSettings";
+import HealthProfile from "./HealthProfile";
 
 const PatientSettings = () => {
   return (
@@ -23,7 +23,7 @@ const PatientSettings = () => {
             <Route path="patient_profile/:id" element={<PatientProfile />} />
             <Route path="patient_payment" element={<PatientPayment />} />
             <Route path="patient_security/:id" element={<PatientSecurity />} />
-            <Route path="patient_BmiCalculator" element={<BMICalculatorSettings />} />
+            <Route path="patient_healthProfile/:id" element={<HealthProfile />} />
           </Routes>
         </div>
       </div>
