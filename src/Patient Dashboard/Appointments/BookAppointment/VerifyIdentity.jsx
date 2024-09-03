@@ -57,7 +57,7 @@ const VerifyIdentity = () => {
         </center>
         </div>
         <div className='mt-[2rem] flex items-center gap-[1.5rem]'>
-          <img src={patient?.profilePic || avatar} className='lg:w-[130px] lg:h-[130px] xs:w-[30%] xs:h-[30%] rounded-full object-cover' alt='Avatar' />
+          <img src={patient?.profilePic || avatar} className='lg:w-[130px] lg:h-[130px] xs:w-[100px] xs:h-[100px] rounded-full object-cover' alt='Avatar' />
           <div>
             <h1 className='text-[18px] font-medium font-Mulish'>{patient?.firstName} {patient?.lastName}</h1>
             <div className='flex items-center gap-[1rem]'>

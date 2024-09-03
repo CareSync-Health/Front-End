@@ -43,16 +43,21 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='lg:mr-[5rem] fixed'>
+    <div className=''>
       {/* Toggle Button for Small Screens */}
-      <div className="lg:hidden xs:flex mt-4 ps-2">
+      <div className="lg:hidden xs:flex pt-[2rem] ps-2">
         <button onClick={toggleSidebar} >
           <FaBars className="text-[22px]" />
         </button>
       </div>
 
       {/* Sidebar */}
-      <div className={`bg-[#fff] shadow-lg lg:w-20 xs:w-[13rem] lg:pt-[1.2rem] lg:block ${isOpen ? 'block' : 'hidden'} lg:h-full xs:h-screen z-50 lg:mt-0 xs:mt-2`}>
+      <div className={`bg-[#fff] shadow-lg lg:w-20 xs:w-[13rem] lg:pt-[1.2rem] lg:block ${isOpen ? 'block' : 'hidden'} lg:h-full xs:h-screen z-50 lg:pt-0 xs:pt-2 fixed top-0`}>
+        <div className="lg:hidden xs:flex items-end justify-end pt-4 pr-2">
+          <button onClick={toggleSidebar} >
+            <FaBars className="text-[22px]" />
+          </button>
+        </div>
         <div className=''>
           <img src={Caresync} className='lg:mx-auto lg:w-auto xs:w-[100px]' />
         </div>

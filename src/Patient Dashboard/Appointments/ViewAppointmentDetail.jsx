@@ -24,7 +24,7 @@ const ViewAppointmentDetail = ({appointment, onClose}) => {
 
     return (
         <div className='fixed inset-0 z-[1000] bg-black bg-opacity-50 flex items-center justify-center'>
-            <div className={`lg:w-[40%] xs:w-[95vw] h-[95vh] p-5 overflow-y-auto bg-[#FFFCF8]`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+            <div className={`lg:w-[40%] xs:w-[95vw] h-screen p-5 overflow-y-auto bg-[#FFFCF8]`} style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <div className='flex items-center justify-between'>
                     <h2 className='text-[18px] font-Mulish font-bold'>Appointment Details</h2>
                     <FaTimes className='text-[20px] cursor-pointer' onClick={onClose} />

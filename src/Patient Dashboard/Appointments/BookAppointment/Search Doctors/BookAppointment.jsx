@@ -100,7 +100,7 @@ const BookAppointment = () => {
     return (
         <div className='flex flex-col lg:flex-row'>
             <Sidebar />
-            <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+            <div className='flex-1 lg:h-[99.9vh] xs:h-screen overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                 <Navbar />
                 <div className='mt-4 lg:mt-8 xs:px-2 lg:px-6 mb-8'>
                     <h2 className='text-2xl lg:text-3xl font-Mulish font-bold tracking-wide'>New Appointment</h2>

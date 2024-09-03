@@ -19,7 +19,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className='flex items-end justify-end mt-2'>
+    <div className='xs:flex lg:block items-end justify-end pt-[1.5rem]'>
       <div className="lg:px-[30px] xs:px-[10px] lg:pt-[2rem] lg:flex items-center justify-between">
         <div>
           <h2 className="text-[#303030] text-[25px] font-bold font-Mulish leading-[35px]">Hello {patient?.firstName} {patient?.lastName}</h2>
