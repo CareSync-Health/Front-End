@@ -12,18 +12,20 @@ import { FaAnglesLeft } from "react-icons/fa6";
 
 const BmiCalculator = ({setShowBmi, patient}) => {
 
-    // const [gender, setGender] = useState(patient?.gender); // Initial state can be 'man' or 'woman'
-
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      };
 
   return (
     <div className='bg-[#303030] lg:w-[480px] xs:w-full py-[20px] px-[10px] absolute left-0  animate-gb-popup-slide-zoom-left'>
     <div className='flex items-center justify-between'>
         <h1 className='text-[20px] font-normal font-Mulish text-[#fff] flex items-center gap-[5px]' onClick={() => setShowBmi(false)}> <FaAnglesLeft /> BMI Calculator</h1>
-        <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
+        {/* <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
             <option>Last Week</option>
             <option>Last Month</option>
             <option>Last Year</option>
-        </select>
+        </select> */}
     </div>
     <div className='mt-[2.3rem] flex items-center gap-[20px]'>
         <div>
@@ -55,7 +57,7 @@ const BmiCalculator = ({setShowBmi, patient}) => {
         <div className='mt-[1rem] flex items-center justify-between'>
             <div>
                 <h1 className='text-[#fff] text-[22px] font-normal font-Mulish leading-[27px]'>Body Measurements</h1>
-                <h2 className='text-[#CACACA] text-[14px] font-bold font-Mulish leading-[20px] mt-2'>Last checked 2 Days Ago</h2>
+                <h2 className='text-[#CACACA] text-[14px] font-bold font-Mulish leading-[20px] mt-2'>Last updated {formatDate(patient?.created_date)}</h2>
                 <h2 className='bg-[#5E5E5E] w-[211px] py-[10px] px-[10px] rounded-[8px] text-[#fff] text-[14px] font-normal font-Mulish leading-[17px] mt-4'>Inverted Triangle Body Shape</h2>
                 <div className='mt-[15rem]'>
                     <div className='bg-[#fff] w-[130px] text-center rounded-[12px] py-[10px]'>

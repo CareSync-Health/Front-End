@@ -43,7 +43,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className=''>
+    <div className='lg:mr-[5rem]'>
       {/* Toggle Button for Small Screens */}
       <div className="lg:hidden xs:flex pt-[2rem] ps-2">
         <button onClick={toggleSidebar} >

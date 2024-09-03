@@ -9,24 +9,89 @@ import { MdOutlineBusinessCenter } from "react-icons/md";
 import { FaArrowRightLong } from 'react-icons/fa6';
 import { FaTimes } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
-import { getAllDoctors, searchDoctors } from '@/Redux/Actions/PatientActions';
+import { getAllDoctors } from '@/Redux/Actions/PatientActions';
 import caresync from '../../../../assets/CareSync.png';
-import avatar from '../../../../assets/avatar.png'
+import avatar from '../../../../assets/avatar.png';
 
 const SearchDoctors = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { doctors = [] } = useSelector((state) => state.getAllDoctors);
-  const { doctorSearch = [] } = useSelector((state) => state.searchDoctors);
 
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [visibleCount, setVisibleCount] = useState(6);
   const [showFilter, setShowFilter] = useState(false);
-  const [query, setQuery] = useState('');
   const [stateFilter, setStateFilter] = useState('');
   const [cityFilter, setCityFilter] = useState('');
   const [specialtyFilter, setSpecialtyFilter] = useState('');
   const [genderFilter, setGenderFilter] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const professions = [
+    'Allergist',
+    'Anesthesiologist',
+    'Behavioral Health',
+    'Cardiologist',
+    'Certified Covid Test Provider',
+    'Clinical Psychologist',
+    'Counselor',
+    'Dentist',
+    'Dermatologist',
+    'Endochnologist',
+    'Gastroenterologist',
+    'General Practice',
+    'Gynecologist',
+    'Health Care Navigator',
+    'Hematologist',
+    'Home Care Nurse',
+    'Immunologist',
+    'Internal Medicine',
+    'Internist',
+    'Lab Technician',
+    'Medical Assistant',
+    'Mental Health Therapist',
+    'Naturopath',
+    'Naturopathic Doctor',
+    'Nephrologist',
+    'Neurologist',
+    'Neurosurgeon',
+    'Nurse Practitioner',
+    'Obstetrician',
+    'Obstetrician/Gynecologist',
+    'Occupational Therapist',
+    'Oncologist',
+    'Ophthalmologist',
+    'Optometrist',
+    'Osteopath',
+    'Otolaryngologist',
+    'Otorhinolaryngologist',
+    'Outreach Health Provider',
+    'Pathologist',
+    'Pediatrician',
+    'Pharmacist',
+    'Phychotherapist',
+    'Physiatrist',
+    'Physical Therapist',
+    'Physician',
+    'Physician Assistant',
+    'Physiotherapist',
+    'Podiatrist',
+    'Psychiatrist',
+    'Psychologist',
+    'Pulmonologist',
+    'Radiologist',
+    'Receptionist',
+    'Registered Dietitian',
+    'Registered Nurse',
+    'Rheumatologist',
+    'Registered Dietitian',
+    'Registered Nurse',
+    'Rheumatologist',
+    'Speech Language Pathologist',
+    'Surgeon',
+    'Urologist',
+    'Wellness Coach',
+  ]
 
   const { ref, inView } = useInView({
     triggerOnce: false,
@@ -37,50 +102,46 @@ const SearchDoctors = () => {
     dispatch(getAllDoctors());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (query.trim() || stateFilter || cityFilter || specialtyFilter || genderFilter) {
-      dispatch(searchDoctors({ query, stateFilter, cityFilter, specialtyFilter, genderFilter }));
-    }
-  }, [query, stateFilter, cityFilter, specialtyFilter, genderFilter, dispatch]);
+  
+  const filteredDoctors = doctors
+  .filter(doctor => {
+    // Normalize and trim search query
+    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
-  const loadMoreItems = useCallback(() => {
-    if (inView && visibleCount < doctors.length) {
-      setVisibleCount((prevCount) => prevCount + 6);
-    }
-  }, [inView, visibleCount, doctors.length]);
+    // Combine first and last name for full name search
+    const doctorFullName = `${doctor.firstName || ''} ${doctor.lastName || ''}`.toLowerCase();
 
-  useEffect(() => {
-    loadMoreItems();
-  }, [loadMoreItems, inView]);
+    // Check if the full name or individual name parts match the search query
+    const matchesName = doctorFullName.includes(normalizedSearchQuery) ||
+                        (doctor.firstName?.toLowerCase().includes(normalizedSearchQuery) ||
+                        doctor.lastName?.toLowerCase().includes(normalizedSearchQuery));
+                        
+    const matchesProfession = (doctor.profession?.toLowerCase() || '').includes(specialtyFilter.toLowerCase());
+    const matchesGender = (doctor.gender?.toLowerCase() || '').includes(genderFilter.toLowerCase());
+    const matchesState = (doctor.state?.toLowerCase() || '').includes(stateFilter.toLowerCase());
+    const matchesCity = (doctor.city?.toLowerCase() || '').includes(cityFilter.toLowerCase());
+
+    return (
+      (searchQuery ? matchesName : true) &&
+      (specialtyFilter ? matchesProfession : true) &&
+      (genderFilter ? matchesGender : true) &&
+      (stateFilter ? matchesState : true) &&
+      (cityFilter ? matchesCity : true)
+    );
+  });
+
+
+    useEffect(() => {
+      if (inView && visibleCount < filteredDoctors.length) {
+        setVisibleCount((prevCount) => prevCount + 6);
+      }
+    }, [inView, visibleCount, filteredDoctors.length]);
 
   const toggleDescription = (id) => {
     setExpandedDescriptions((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
     }));
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (query.trim() || stateFilter || cityFilter || specialtyFilter || genderFilter) {
-        dispatch(searchDoctors({ query, stateFilter, cityFilter, specialtyFilter, genderFilter }));
-      }
-    }
-  };
-
-  const handleFilterApply = () => {
-    dispatch(searchDoctors({ query, stateFilter, cityFilter, specialtyFilter, genderFilter }));
-    setShowFilter(false);
-  };
-
-  const handleFilterClear = () => {
-    setStateFilter('');
-    setCityFilter('');
-    setSpecialtyFilter('');
-    setGenderFilter('');
-    dispatch(searchDoctors({ query }));
-    setShowFilter(false);
   };
 
   return (
@@ -94,10 +155,9 @@ const SearchDoctors = () => {
               <input
                 type='text'
                 placeholder='Search for a doctor'
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyPress={handleKeyPress}
                 className='border border-[#eee] rounded-[100px] py-[7px] px-4 lg:w-[600px] xs:w-full bg-[#fff] shadow-sm outline-none'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className='flex items-center justify-between mt-[1.5rem]'>
@@ -119,31 +179,34 @@ const SearchDoctors = () => {
                   <input
                     type='text'
                     placeholder='State'
+                    className='border border-[#000] w-full lg:py-[5px] xs:py-2 px-[10px] rounded-[12px] outline-none'
                     value={stateFilter}
                     onChange={(e) => setStateFilter(e.target.value)}
-                    className='border border-[#000] w-full lg:py-[5px] xs:py-2 px-[10px] rounded-[12px] outline-none'
                   />
                   <input
                     type='text'
                     placeholder='City'
+                    className='border border-[#000] w-full lg:py-[5px] xs:py-2 px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                     value={cityFilter}
                     onChange={(e) => setCityFilter(e.target.value)}
-                    className='border border-[#000] w-full lg:py-[5px] xs:py-2 px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                   />
                   <select
+                    className='border border-[#000] w-full lg:py-[6px] xs:py-[9px] px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                     value={specialtyFilter}
                     onChange={(e) => setSpecialtyFilter(e.target.value)}
-                    className='border border-[#000] w-full lg:py-[6px] xs:py-[9px] px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                   >
-                    <option value=''>Specialty</option>
+                    {professions.map(profess => (
+                      <option key={profess} value={profess}>{profess}</option>
+                    ))}
+                    {/* <option value=''>Specialty</option>
                     <option value='Dentist'>Dentist</option>
                     <option value='Care Giver'>Care Giver</option>
-                    <option value='Psychologist'>Psychologist</option>
+                    <option value='Psychologist'>Psychologist</option> */}
                   </select>
                   <select
+                    className='border border-[#000] w-full lg:py-[6px] xs:py-[9px] px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                     value={genderFilter}
                     onChange={(e) => setGenderFilter(e.target.value)}
-                    className='border border-[#000] w-full lg:py-[6px] xs:py-[9px] px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
                   >
                     <option value=''>Gender</option>
                     <option value='Male'>Male</option>
@@ -152,14 +215,21 @@ const SearchDoctors = () => {
                   <button
                     className='bg-[#22D1EE] w-full py-[7px] px-[10px] text-[16px] text-[#fff] font-medium font-Mulish rounded-[10px] lg:mt-[2rem] xs:mt-[4rem]'
                     type="button"
-                    onClick={handleFilterApply}
+                    onClick={() => {
+                      // Apply filter logic can be here
+                    }}
                   >
                     Apply Filter
                   </button>
                   <button
                     className='bg-[#22cfee60] w-full py-[7px] px-[10px] text-[16px] text-[#fff] font-medium font-Mulish rounded-[10px] lg:mt-3 xs:mt-[1rem]'
                     type="button"
-                    onClick={handleFilterClear}
+                    onClick={() => {
+                      setStateFilter('');
+                      setCityFilter('');
+                      setSpecialtyFilter('');
+                      setGenderFilter('');
+                    }}
                   >
                     Clear Filter
                   </button>
@@ -168,55 +238,38 @@ const SearchDoctors = () => {
             )}
           </form>
           <div className='flex items-start flex-wrap gap-[2rem] mt-[2rem] mb-[4rem]'>
-            {(doctorSearch.length > 0 ? doctorSearch : doctors.slice(0, visibleCount)).map((doctor) => (
+            {filteredDoctors.slice(0, visibleCount).map((doctor) => (
               <div key={doctor._id} className='bg-[#fff] shadow-md border border-[#ddd] lg:w-[30%] xs:w-full rounded-[10px] p-4'>
                 <div className='flex items-start'>
-                  <img src={doctor?.profilePic || avatar} alt='doctor' className={`w-[70px] h-[70px] rounded-[100px] object-cover`} />
+                  <img src={doctor.profilePic || avatar} alt='doctor' className={`w-[70px] h-[70px] rounded-[100px] object-cover`} />
                   <div className='ml-4'>
-                    <h2 className='text-[18px] font-semibold'>{doctor?.firstName} {doctor?.lastName}</h2>
-                    <p className='text-[14px] text-[#666]'>{doctor?.profession}</p>
+                    <h2 className='text-[18px] font-semibold'>{doctor.firstName} {doctor.lastName}</h2>
+                    <p className='text-[14px] text-[#666]'>{doctor.profession}</p>
                     <div className='flex items-center gap-[10px] mt-2'>
                       <SlLocationPin />
-                      <p className='text-[14px]'>{doctor?.city}, {doctor?.state}, {doctor?.country}</p>
+                      <p className='text-[14px]'>{doctor.city}, {doctor.state}, {doctor.country}</p>
                     </div>
                     <div className='flex items-center gap-[10px] mt-1'>
                       <MdOutlineBusinessCenter />
-                      <p className='text-[14px]'>{doctor?.gender}</p>
+                      <p className='text-[14px]'>{doctor.gender}</p>
                     </div>
                   </div>
                 </div>
                 <div className='mt-[1rem]'>
                   <p className={`text-[14px] ${expandedDescriptions[doctor._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
-                    {doctor?.description || 'No description available'}
+                    {(doctor.description || 'No description available').length > 100 ? (doctor.description || 'No description available').slice(0, 100) + '...' : doctor.description || 'No description available'}
                   </p>
                   <button
-                    className='text-[14px] text-[#22D1EE] mt-2'
                     onClick={() => toggleDescription(doctor._id)}
+                    className='text-[#22D1EE] text-[14px] mt-1'
                   >
-                    {expandedDescriptions[doctor._id] ? 'Read less' : 'Read more'}
+                    {expandedDescriptions[doctor._id] ? 'Read Less' : 'Read More'}
                   </button>
                 </div>
-                <Link to={`/doctorInfo/${doctor._id}`} className='flex items-center mt-4 text-[#22D1EE]'>
-                  View Profile <FaArrowRightLong className='ml-2' />
-                </Link>
               </div>
             ))}
-            {doctorSearch.length === 0 && doctors.length === 0 && (
-              <div className='w-full text-center text-[18px] font-semibold'>
-                No doctors found.
-              </div>
-            )}
           </div>
-          {visibleCount < doctors.length && (
-            <div ref={ref} className='text-center mb-[2rem]'>
-              <button
-                className='bg-[#22D1EE] text-[#fff] py-2 px-4 rounded-[10px]'
-                onClick={() => setVisibleCount(visibleCount + 6)}
-              >
-                Load more
-              </button>
-            </div>
-          )}
+          <div ref={ref} />
         </div>
       </div>
     </div>

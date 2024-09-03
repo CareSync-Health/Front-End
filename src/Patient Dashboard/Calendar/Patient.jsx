@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
-import { fetchAppointments } from '../../Redux/Actions/PatientActions';
 import MiniNavbar from '../Components/MiniNavbar';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
+import { getAllPatientAppointments } from '@/Redux/Actions/BookAppointmentAction';
+import { useParams } from 'react-router-dom';
 
 const PatientCalendar = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const patientId = id;
   const { appointments = [], loading, error } = useSelector((state) => state.appointments);
   const [currentDate, setCurrentDate] = useState(dayjs());
   const [showFullYear, setShowFullYear] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAppointments());
+    dispatch(getAllPatientAppointments(patientId));
   }, [dispatch]);
 
   useEffect(() => {

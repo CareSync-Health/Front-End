@@ -135,7 +135,7 @@ const EditProfile = () => {
   
     if (firstName !== doctor.firstName) updatedDoctor.firstName = firstName;
     if (lastName !== doctor.lastName) updatedDoctor.lastName = lastName;
-    if (userName !== doctor.userName) updatedDoctor.userName = userName;
+    if (userName && userName !== doctor.userName) updatedDoctor.userName = userName;
     if (gender !== doctor.gender) updatedDoctor.gender = gender;
     if (dob !== doctor.dob) updatedDoctor.dob = dob;
     if (country !== doctor.country) updatedDoctor.country = country;
@@ -143,21 +143,21 @@ const EditProfile = () => {
     if (city !== doctor.city) updatedDoctor.city = city;
     if (headerPic !== doctor.headerPic) updatedDoctor.headerPic = headerPic;
     if (profilePic !== doctor.profilePic) updatedDoctor.profilePic = profilePic;
-    if (experienceTitle!== doctor.experienceTitle) updatedDoctor.experienceTitle = experienceTitle;
-    if (employmentType!== doctor.employmentType) updatedDoctor.employmentType = employmentType;
-    if (hospitalName!== doctor.hospitalName) updatedDoctor.hospitalName = hospitalName;
-    if (experienceLocation!== doctor.experienceLocation) updatedDoctor.experienceLocation = experienceLocation;
-    if (experienceStartDate!== doctor.experienceStartDate) updatedDoctor.experienceStartDate = experienceStartDate;
-    if (experienceEndDate!== doctor.experienceEndDate) updatedDoctor.experienceEndDate = experienceEndDate;
-    if (experienceDescription!== doctor.experienceDescription) updatedDoctor.experienceDescription = experienceDescription;
-    if (school!== doctor.school) updatedDoctor.school = school;
-    if (degree!== doctor.degree) updatedDoctor.degree = degree;
-    if (fieldOfStudy!== doctor.fieldOfStudy) updatedDoctor.fieldOfStudy = fieldOfStudy;
-    if (grade!== doctor.grade) updatedDoctor.grade = grade;
-    if (educationStartDate!== doctor.educationStartDate) updatedDoctor.educationStartDate = educationStartDate;
-    if (educationEndDate!== doctor.educationEndDate) updatedDoctor.educationEndDate = educationEndDate;
-    if (educationActivities!== doctor.educationActivities) updatedDoctor.educationActivities = educationActivities;
-    if (educationDescription!== doctor.educationDescription) updatedDoctor.educationDescription = educationDescription;
+    if (experienceTitle !== doctor.experienceTitle) updatedDoctor.experienceTitle = experienceTitle;
+    if (employmentType !== doctor.employmentType) updatedDoctor.employmentType = employmentType;
+    if (hospitalName !== doctor.hospitalName) updatedDoctor.hospitalName = hospitalName;
+    if (experienceLocation !== doctor.experienceLocation) updatedDoctor.experienceLocation = experienceLocation;
+    if (experienceStartDate !== doctor.experienceStartDate) updatedDoctor.experienceStartDate = experienceStartDate;
+    if (experienceEndDate !== doctor.experienceEndDate) updatedDoctor.experienceEndDate = experienceEndDate;
+    if (experienceDescription !== doctor.experienceDescription) updatedDoctor.experienceDescription = experienceDescription;
+    if (school !== doctor.school) updatedDoctor.school = school;
+    if (degree !== doctor.degree) updatedDoctor.degree = degree;
+    if (fieldOfStudy !== doctor.fieldOfStudy) updatedDoctor.fieldOfStudy = fieldOfStudy;
+    if (grade !== doctor.grade) updatedDoctor.grade = grade;
+    if (educationStartDate !== doctor.educationStartDate) updatedDoctor.educationStartDate = educationStartDate;
+    if (educationEndDate !== doctor.educationEndDate) updatedDoctor.educationEndDate = educationEndDate;
+    if (educationActivities !== doctor.educationActivities) updatedDoctor.educationActivities = educationActivities;
+    if (educationDescription !== doctor.educationDescription) updatedDoctor.educationDescription = educationDescription;
   
     if (Object.keys(updatedDoctor).length === 0) {
       toast.info('No changes detected.');

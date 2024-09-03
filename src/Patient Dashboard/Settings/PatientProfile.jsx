@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadPatient, updatePatientProfile } from '@/Redux/Actions/PatientActions';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const PatientProfile = () => {
   const { id } = useParams();
@@ -79,22 +80,22 @@ const PatientProfile = () => {
 
     const updatedPatient = {};
 
-    if (firstName !== patient.firstName) updatedPatient.firstName = firstName;
-    if (lastName !== patient.lastName) updatedPatient.lastName = lastName;
-    if (phoneNumber !== patient.phoneNumber) updatedPatient.phoneNumber = phoneNumber;
-    if (homeNumber !== patient.homeNumber) updatedPatient.homeNumber = homeNumber;
-    if (occupation !== patient.occupation) updatedPatient.occupation = occupation;
-    if (userName !== patient.userName) updatedPatient.userName = userName;
-    if (addressLine1 !== patient.addressLine1) updatedPatient.addressLine1 = addressLine1;
-    if (addressLine2 !== patient.addressLine2) updatedPatient.addressLine2 = addressLine2;
-    if (country !== patient.country) updatedPatient.country = country;
-    if (state !== patient.state) updatedPatient.state = state;
-    if (city !== patient.city) updatedPatient.city = city;
-    if (zipCode !== patient.zipCode) updatedPatient.zipCode = zipCode;
-    if (dob !== patient.dob) updatedPatient.dob = dob;
-    if (age !== patient.age) updatedPatient.age = age;
-    if (gender !== patient.gender) updatedPatient.gender = gender;
-    if (profilePic !== patient.profilePic) updatedPatient.profilePic = profilePic;
+    if (firstName !== patient.firstName) {updatedPatient.firstName = firstName};
+    if (lastName !== patient.lastName) {updatedPatient.lastName = lastName};
+    if (phoneNumber && phoneNumber !== patient.phoneNumber) {updatedPatient.phoneNumber = phoneNumber};
+    if (homeNumber && homeNumber !== patient.homeNumber) {updatedPatient.homeNumber = homeNumber};
+    if (occupation !== patient.occupation) {updatedPatient.occupation = occupation};
+    if (userName && userName !== patient.userName) {updatedPatient.userName = userName};
+    if (addressLine1 !== patient.addressLine1) {updatedPatient.addressLine1 = addressLine1};
+    if (addressLine2 !== patient.addressLine2) {updatedPatient.addressLine2 = addressLine2};
+    if (country !== patient.country) {updatedPatient.country = country};
+    if (state !== patient.state) {updatedPatient.state = state};
+    if (city !== patient.city) {updatedPatient.city = city};
+    if (zipCode !== patient.zipCode) {updatedPatient.zipCode = zipCode};
+    if (dob !== patient.dob) {updatedPatient.dob = dob};
+    if (age !== patient.age) {updatedPatient.age = age};
+    if (gender !== patient.gender) {updatedPatient.gender = gender};
+    if (profilePic !== patient.profilePic) {updatedPatient.profilePic = profilePic};
 
     if (Object.keys(updatedPatient).length === 0) {
       toast.info('No changes detected.');

@@ -28,7 +28,7 @@ const Navbar = () => {
         <div className="flex items-center justify-end lg:gap-[1.5rem] xs:gap-[1rem] lg:mt-0 xs:mt-3">
           <h2 className="bg-[#fff] shadow-2xl w-[45px] rounded-[12px] py-[7px] px-[10px] items-center text-[22px]"><RiMessage3Line /></h2> 
           <h2 className="bg-[#fff] shadow-2xl w-[45px] rounded-[12px] py-[7px] px-[10px] items-center text-[22px]"><RiNotificationLine /></h2> 
-          <Link to='/patient_settings/patient_profile'><img src={patient.profilePic || avatar} className='w-[35px] h-[35px] object-cover rounded-full' alt="avatar" /> </Link> 
+          <Link to={`/patient_settings/patient_profile/${patient?._id}`}><img src={patient?.profilePic || avatar} className='w-[35px] h-[35px] object-cover rounded-full' alt="avatar" /> </Link> 
         </div>
       </div>
 

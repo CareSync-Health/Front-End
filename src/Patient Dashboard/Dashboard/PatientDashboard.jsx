@@ -74,6 +74,20 @@ const PatientDashboard = () => {
      const bloodPressureStatus = getStatus(patient?.bloodPressure, 'bloodPressure');
      const heartRateStatus = getStatus(patient?.heartRate, 'heartRate');
 
+     const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+      };
+
+      const [currentDate, setCurrentDate] = useState('');
+
+      useEffect(() => {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        setCurrentDate(formattedDate);
+      }, []);
+
     return (
         <div className='flex'>
             <Sidebar />
@@ -83,7 +97,7 @@ const PatientDashboard = () => {
                         <div className='flex justify-between items-center'>
                             <div>
                                 <h1 className='text-[#303030] text-[25px] font-bold font-Mulish leading-[35px]'>Health Overview</h1>
-                                <h2 className='text-[#6A6969] text-[14px] font-medium font-Mulish leading-[20px]'>October 12, 2023</h2>
+                                <h2 className='text-[#6A6969] text-[14px] font-medium font-Mulish leading-[20px]'>{currentDate}</h2>
                             </div>
                             <div className='bg-[#000] p-2 rounded-l-[30px] -mr-2.5 cursor-pointer lg:hidden xs:flex' onClick={() => setShowBmi(true)}>
                                 <h2 className='text-[17px] text-white font-Mulish font-bold'>BMI</h2>
@@ -142,11 +156,11 @@ const PatientDashboard = () => {
                     <div className='bg-[#303030] w-[480px] rounded-l-[30px] py-[20px] px-[20px] lg:block xs:hidden'>
                         <div className='flex items-center justify-between'>
                             <h1 className='text-[20px] font-normal font-Mulish text-[#fff]'>BMI Calculator</h1>
-                            <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
+                            {/* <select className='border border-[#CACACA] border-solid py-[6px] px-[10px] rounded-[10px] text-[#CACACA] text-[16px] font-normal font-Mulish bg-[#303030]'>
                                 <option>Last Week</option>
                                 <option>Last Month</option>
                                 <option>Last Year</option>
-                            </select>
+                            </select> */}
                         </div>
                         <div className='mt-[2.3rem] flex items-center gap-[20px]'>
                             <div>
@@ -178,7 +192,7 @@ const PatientDashboard = () => {
                         <div className='mt-[2rem] flex items-start justify-between'>
                             <div>
                                 <h1 className='text-[#fff] text-[22px] font-normal font-Mulish leading-[27px]'>Body Measurements</h1>
-                                <h2 className='text-[#CACACA] text-[14px] font-bold font-Mulish leading-[20px] mt-2'>Last checked 2 Days Ago</h2>
+                                <h2 className='text-[#CACACA] text-[14px] font-bold font-Mulish leading-[20px] mt-2'>Last updated {formatDate(patient?.created_date)}</h2>
                                 <h2 className='bg-[#5E5E5E] w-[211px] py-[10px] px-[10px] rounded-[8px] text-[#fff] text-[14px] font-normal font-Mulish leading-[17px] mt-4'>Inverted Triangle Body Shape</h2>
                                 <div className='mt-[8rem]'>
                                     <div className='bg-[#fff] w-[145px] text-center rounded-[12px] py-[15px]'>
