@@ -45,18 +45,22 @@ const ViewAppointmentDetail = ({appointment, onClose}) => {
                         <CiCalendar className='text-[20px]' />
                         <h2 className='text-[14px] font-Mulish font-normal'>{moment(appointment?.appointmentDate).format('DD/MM/YYYY - h:mm A')}</h2>
                     </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Appointment Checkup</h2>
+                    <div className='border bg-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.checkup}</h2>
+                    </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Appointment reason</h2>
                     <div className='border bg-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
-                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment.reason}</h2>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.reason}</h2>
                     </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Comments/notes</h2>
                     <div className='border bg-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
-                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment.description}</h2>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.description}</h2>
                     </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Appointment Status</h2>
                     <span className={`bg-${bgColor} text-${textColor} border-${textColor} text-[14px] font-Mulish font-normal border py-1.5 px-[10px] rounded-full flex items-center gap-2 mt-2 uppercase`}>
                           {icon}
-                          {appointment.status}
+                          {appointment?.status}
                     </span>
                 </div>
             </div>

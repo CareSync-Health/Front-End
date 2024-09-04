@@ -223,10 +223,10 @@ export const loadDoctor = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: types.LOAD_DOCTOR_REQUEST });
 
-		const { data } = await axios.get(`${url}/doctor/${id}`, header);
+		const { data } = await axios.get(`${url}/patient/doctorProfile/${id}`);
 
 		if (data.status === 'OK') {
-			dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data, authHeader });
+			dispatch({ type: types.LOAD_DOCTOR_SUCCESS, payload: data.data });
 			return data.data;
 		} else {
 			throw new Error(data.error);

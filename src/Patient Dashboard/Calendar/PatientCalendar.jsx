@@ -118,9 +118,9 @@ const PatientCalendar = () => {
                                                             </span>
                                                         </div>
                                                         <p className='text-[15px] text-[#3D3D3D] font-Mulish font-normal leading-[10px] mt-[2rem]'>{moment(appointment.appointmentDate).format('MMMM D, YYYY - h:mm A')}</p>
-                                                        <p className='text-[15px] text-[#000000] font-Mulish font-medium leading-[10px] mt-[4rem]'>Diabetes Control Appointment</p>
-                                                        <p className='text-[15px] text-[#3D3D3D] font-Mulish font-medium leading-[20px] mt-[2rem]'>{appointment?.description}</p>
-                                                        <p className='text-[15px] text-[#3D3D3D] font-Mulish font-medium leading-[20px] mt-[2rem]'>{appointment?.reason}</p>
+                                                        <p className='text-[16px] text-[#000000] font-Mulish font-bold leading-[10px] mt-[4rem]'>{appointment?.checkup}</p>
+                                                        <p className='text-[15px] text-[#3D3D3D] font-Mulish font-medium leading-[20px] mt-[1.5rem]'>{appointment?.description}</p>
+                                                        <p className='text-[15px] text-[#3D3D3D] font-Mulish font-medium leading-[20px] mt-[1rem]'>{appointment?.reason}</p>
                                                     </div>
                                                 ))}
                                             </div>

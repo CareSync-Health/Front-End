@@ -129,11 +129,14 @@ const PatientAppointments = () => {
   });
 
 
+  // Reverse the filtered appointments to display the newest first
+  const reversedAppointments = [...filteredAppointments].reverse();
+
   // Paginate appointments
-  const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
+  const totalPages = Math.ceil(reversedAppointments.length / itemsPerPage);
   const indexOfLastAppointment = page * itemsPerPage;
   const indexOfFirstAppointment = indexOfLastAppointment - itemsPerPage;
-  const currentAppointments = filteredAppointments.slice(indexOfFirstAppointment, indexOfLastAppointment);
+  const currentAppointments = reversedAppointments.slice(indexOfFirstAppointment, indexOfLastAppointment);
 
   // Change page
   const handlePageChange = (newPage) => {

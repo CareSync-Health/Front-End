@@ -5,6 +5,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 import avatar from '../../../../assets/avatar.png'
 import { CiCalendar } from "react-icons/ci";
+import { PiMedalFill } from "react-icons/pi";
+
 
 const AppointmentSuccess = () => {
   const { id } = useParams();
@@ -31,9 +33,14 @@ const AppointmentSuccess = () => {
   return (
     <div className='bg-[#FFFCF8] flex items-center justify-center h-screen'>
       <div>
-        <h1 className='text-center text-[35px] font-Mulish font-medium leading-[45px]'>Your <span className='text-[#22D1EE] font-medium'>appointment request</span> has <br /> been successfully submitted!</h1>
+        {/* SVG Animation for Congratulations */}
+      <div className='flex items-center justify-center'>
+        <PiMedalFill className='text-[150px] text-[#22D1EE]' />
+      </div>
+
+        <h1 className='text-center text-[35px] mt-[2rem] font-Mulish font-medium leading-[45px]'>Your <span className='text-[#22D1EE] font-medium'>appointment request</span> has <br /> been successfully submitted!</h1>
         <h2 className='text-[16px] mt-[1rem] font-Mulish font-medium text-center'>A message has been sent to the doctor for confirmation.</h2>
-        <div className='bg-[#fff] shadow-2xl w-full py-[25px] rounded-[12px] lg:px-[30px] xs:px-[15px] mt-[3rem]'>
+        <div className='bg-[#fff] shadow-2xl w-full py-[20px] rounded-[12px] lg:px-[30px] xs:px-[15px] mt-[3rem]'>
           <div className='flex items-center gap-[3rem] justify-between'>
             <h2 className='text-[#303030] lg:text-[20px] xs:text-[14px] font-bold font-Mulish leading-[25px]'>Requested appointment details:</h2>
             <h2 className='flex items-center gap-[15px]'><img src={recentAppointment?.doctor?.profilePic || avatar} className='w-[40px] h-[40px] object-cover rounded-full' /> <span className='text-[15px] font-Mulish font-bold'>{recentAppointment?.doctor?.title} {recentAppointment?.doctor?.firstName} {recentAppointment?.doctor?.lastName}</span></h2>

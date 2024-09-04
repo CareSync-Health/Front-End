@@ -3,13 +3,13 @@ import Sidebar from '../../../Components/Sidebar';
 import Navbar from '../../../Components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getAllDoctors, loadDoctor } from '@/Redux/Actions/DoctorActions';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; // Import the CSS for styling
 import avatar from '../../../../assets/avatar.png';
 import toast from 'react-hot-toast';
 import moment from 'moment';
 import { bookAppointment } from '@/Redux/Actions/BookAppointmentAction';
+import { loadDoctor, loadPatient } from '@/Redux/Actions/PatientActions';
 
 
 const BookAppointment = () => {
@@ -18,16 +18,26 @@ const BookAppointment = () => {
     const navigate = useNavigate();
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [appointmentDate, setAppointmentDate] = useState(new Date());
+    const [residentialAddress, setResidentialAddress] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [state, setState] = useState('')
+    const [city, setCity] = useState('')
+    const [zipCode, setZipCode] = useState('')
+    const [checkup, setCheckup] = useState('')
     const [reason, setReason] = useState('');
     const [description, setDescription] = useState('');
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const [checkupDescription, setCheckupDescription] = useState('')
 
     const doctor = useSelector((state) => state.loadDoctor.doctor);
-    const doctors = useSelector((state) => state.getAllDoctors.doctors || []);
     const appointmentState = useSelector((state) => state.appointment); // Access the appointment state
-    const patient = useSelector((state) => state.patientAuth.patient || state.doctorVerifyOtp.doctor);
+    const patient = useSelector((state) => state.loadPatient.patient);
 
-    const dropdownRef = useRef(null);
+    useEffect(() => {
+        if (id) {
+            dispatch(loadPatient(id));
+        }
+    }, [dispatch, id]);
 
     useEffect(() => {
         if (id) {
@@ -42,31 +52,50 @@ const BookAppointment = () => {
     }, [doctor]);
 
     useEffect(() => {
-        dispatch(getAllDoctors());
-    }, [dispatch]);
-
-    const handleDoctorChange = (doctor) => {
-        setSelectedDoctor(doctor);
-        setDropdownOpen(false);
-    };
-
-    const handleOutsideClick = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setDropdownOpen(false);
+        if (patient) {
+            setPhoneNumber(patient.phoneNumber || "");
+            setState(patient.state || "");
+            setCity(patient.city || "");
+            setZipCode(patient.zipCode || "");
+            setResidentialAddress(patient.addressLine1 || "");
         }
+    }, [patient]);
+
+    const checkupOptions = [
+        'General Checkup',
+        'Follow-up Visit',
+        'Specific Consultation',
+        'Pediatric Checkup',
+        'Chronic Condition Management',
+        'Vaccination',
+        'Prenatal Checkup',
+        'Postnatal Checkup',
+        'Mental Health Consultation',
+        'Skin Care Consultation',
+        'Physical Therapy Session',
+        'Nutritional Counseling',
+        'Home Care for the Elderly',
+        'Post-Surgery Follow-up',
+        'Emergency Consultation'
+    ]
+
+    const checkupDescriptions = {
+        'General Checkup': 'A routine health examination to assess overall wellness.',
+        'Follow-up Visit': 'A visit to review progress after a previous consultation or treatment.',
+        'Specific Consultation': 'A focused consultation for a particular health concern or symptom.',
+        'Pediatric Checkup': 'A checkup specifically for children to monitor growth and development.',
+        'Chronic Condition Management': 'Management and monitoring of ongoing chronic conditions like diabetes, hypertension, etc.',
+        'Vaccination': 'A visit specifically for administering vaccines.',
+        'Prenatal Checkup': 'A checkup for expectant mothers to monitor the health of the mother and baby.',
+        'Postnatal Checkup': 'A follow-up visit after childbirth to monitor the mother\'s recovery and the baby\'s health.',
+        'Mental Health Consultation': 'A consultation focusing on mental health concerns such as anxiety, depression, or stress.',
+        'Skin Care Consultation': 'A visit to address dermatological concerns like rashes, acne, or other skin issues.',
+        'Physical Therapy Session': 'A session focused on physical rehabilitation and therapy.',
+        'Nutritional Counseling': 'A consultation with a dietitian or nutritionist to discuss diet and nutrition.',
+        'Home Care for the Elderly': 'Specialized care for elderly patients, addressing mobility, medication, and overall health.',
+        'Post-Surgery Follow-up': 'A follow-up visit after surgery to check on recovery progress.',
+        'Emergency Consultation': 'A same-day or urgent visit for immediate medical attention.'
     };
-
-    useEffect(() => {
-        if (dropdownOpen) {
-            document.addEventListener('mousedown', handleOutsideClick);
-        } else {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleOutsideClick);
-        };
-    }, [dropdownOpen]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,19 +109,26 @@ const BookAppointment = () => {
         const formattedAppointmentDate = moment(appointmentDate).format('DD/MM/YYYY h:mm A');
 
         const appointmentData = {
-            patientId: patient.id,
+            patientId: patient?._id,
             doctorId: doctor?._id,
             appointmentDate: formattedAppointmentDate,
+            phoneNumber,
+            state,
+            city,
+            zipCode,
+            residentialAddress,
+            checkup,
             reason,
             description,
         };
 
+        console.log(appointmentData)
+
 
         // Ensure that appointmentData includes all required fields
-        if (!appointmentData.patientId || !appointmentData.doctorId || !appointmentData.appointmentDate || !appointmentData.reason || !appointmentData.description) {
+        if (!appointmentData.patientId || !appointmentData.doctorId || !appointmentData.appointmentDate || !appointmentData.reason || !appointmentData.description || !appointmentData.phoneNumber || !appointmentData.state || !appointmentData.city || !appointmentData.zipCode || !appointmentData.residentialAddress || !appointmentData.checkup) {
             toast("All fields are required");
             return;
-
         }
         dispatch(bookAppointment(appointmentData, navigate));
     };
@@ -101,7 +137,7 @@ const BookAppointment = () => {
         <div className='flex flex-col lg:flex-row'>
             <Sidebar />
             <div className='flex-1 lg:h-[99.9vh] xs:h-screen overflow-y-auto bg-[#FFFCF8]' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                <Navbar />
+                {/* <Navbar /> */}
                 <div className='mt-4 lg:mt-8 xs:px-2 lg:px-6 mb-8'>
                     <h2 className='text-2xl lg:text-3xl font-Mulish font-bold tracking-wide'>New Appointment</h2>
                     <h2 className='text-sm lg:text-base font-Mulish font-normal mt-1'>Request a new appointment in 10 seconds</h2>
@@ -127,11 +163,85 @@ const BookAppointment = () => {
                                     onChange={setAppointmentDate}
                                     showTimeSelect
                                     dateFormat="MM/dd/yyyy - h:mm aa"
-                                    className='outline-none font-Mulish text-sm lg:text-base w-[300px]'
+                                    className='outline-none font-Mulish text-sm lg:text-base w-[300px] cursor-pointer'
                                     calendarClassName='rounded-lg lg:ms-[2rem] xs:ms-[1.2rem]'
                                     popperPlacement="bottom"
                                     required
                                 />
+                            </div>
+                            <div>
+                                <label className="block text-sm lg:text-base font-Mulish font-bold">Phone Number</label>
+                                <input
+                                    type='text'
+                                    placeholder='state'
+                                    className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className='grid lg:grid-cols-2 gap-4'>
+                                <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">Street Address</label>
+                                    <input
+                                        type='text'
+                                        placeholder='residential address'
+                                        className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                        value={residentialAddress}
+                                        onChange={(e) => setResidentialAddress(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">State</label>
+                                    <input
+                                        type='text'
+                                        placeholder='state'
+                                        className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                        value={state}
+                                        onChange={(e) => setState(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">City</label>
+                                    <input
+                                        type='text'
+                                        placeholder='city'
+                                        className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">Zip code</label>
+                                    <input
+                                        type='text'
+                                        placeholder='zip / postal code'
+                                        className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                        value={zipCode}
+                                        onChange={(e) => setZipCode(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <select
+                                    className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                    value={checkup}
+                                    onChange={(e) => {
+                                        setCheckup(e.target.value);
+                                        setCheckupDescription(checkupDescriptions[e.target.value]);
+                                    }}
+                                    required
+                                >
+                                    <option value='' disabled>Select a checkup</option>
+                                    {checkupOptions.map(checkup => (
+                                        <option key={checkup} value={checkup}>{checkup}</option>
+                                    ))}
+                                </select>
+                                <p className='text-[14px] ms-1 mt-1 font-Mulish font-normal'>{checkupDescription}</p>
                             </div>
                             <div className='grid lg:grid-cols-2 gap-4'>
                                 <div>
@@ -157,7 +267,7 @@ const BookAppointment = () => {
                                     />
                                 </div>
                             </div>
-                            <button type='submit' className='bg-[#22cfeeb0] w-full p-3 rounded-lg font-Mulish font-bold text-sm lg:text-base text-white mt-5'>
+                            <button type='submit' className='bg-[#22cfeeb0] w-full p-3 rounded-lg font-Mulish font-bold text-sm lg:text-base text-white mt-5' disabled={appointmentState.loading }>
                                 {appointmentState.loading ? 'Submitting...' : 'Submit Appointment'}
                             </button>
                         </form>

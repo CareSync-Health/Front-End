@@ -10,8 +10,8 @@ import { FaArrowRightLong } from 'react-icons/fa6';
 import { FaTimes } from 'react-icons/fa';
 import { useInView } from 'react-intersection-observer';
 import { getAllDoctors } from '@/Redux/Actions/PatientActions';
-import caresync from '../../../../assets/CareSync.png';
 import avatar from '../../../../assets/avatar.png';
+import { FaSliders } from "react-icons/fa6";
 
 const SearchDoctors = () => {
   const dispatch = useDispatch();
@@ -102,40 +102,40 @@ const SearchDoctors = () => {
     dispatch(getAllDoctors());
   }, [dispatch]);
 
-  
+
   const filteredDoctors = doctors
-  .filter(doctor => {
-    // Normalize and trim search query
-    const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+    .filter(doctor => {
+      // Normalize and trim search query
+      const normalizedSearchQuery = searchQuery.trim().toLowerCase();
 
-    // Combine first and last name for full name search
-    const doctorFullName = `${doctor.firstName || ''} ${doctor.lastName || ''}`.toLowerCase();
+      // Combine first and last name for full name search
+      const doctorFullName = `${doctor.firstName || ''} ${doctor.lastName || ''}`.toLowerCase();
 
-    // Check if the full name or individual name parts match the search query
-    const matchesName = doctorFullName.includes(normalizedSearchQuery) ||
-                        (doctor.firstName?.toLowerCase().includes(normalizedSearchQuery) ||
-                        doctor.lastName?.toLowerCase().includes(normalizedSearchQuery));
-                        
-    const matchesProfession = (doctor.profession?.toLowerCase() || '').includes(specialtyFilter.toLowerCase());
-    const matchesGender = (doctor.gender?.toLowerCase() || '').includes(genderFilter.toLowerCase());
-    const matchesState = (doctor.state?.toLowerCase() || '').includes(stateFilter.toLowerCase());
-    const matchesCity = (doctor.city?.toLowerCase() || '').includes(cityFilter.toLowerCase());
+      // Check if the full name or individual name parts match the search query
+      const matchesName = doctorFullName.includes(normalizedSearchQuery) ||
+        (doctor.firstName?.toLowerCase().includes(normalizedSearchQuery) ||
+          doctor.lastName?.toLowerCase().includes(normalizedSearchQuery));
 
-    return (
-      (searchQuery ? matchesName : true) &&
-      (specialtyFilter ? matchesProfession : true) &&
-      (genderFilter ? matchesGender : true) &&
-      (stateFilter ? matchesState : true) &&
-      (cityFilter ? matchesCity : true)
-    );
-  });
+      const matchesProfession = (doctor.profession?.toLowerCase() || '').includes(specialtyFilter.toLowerCase());
+      const matchesGender = (doctor.gender?.toLowerCase() || '').includes(genderFilter.toLowerCase());
+      const matchesState = (doctor.state?.toLowerCase() || '').includes(stateFilter.toLowerCase());
+      const matchesCity = (doctor.city?.toLowerCase() || '').includes(cityFilter.toLowerCase());
+
+      return (
+        (searchQuery ? matchesName : true) &&
+        (specialtyFilter ? matchesProfession : true) &&
+        (genderFilter ? matchesGender : true) &&
+        (stateFilter ? matchesState : true) &&
+        (cityFilter ? matchesCity : true)
+      );
+    });
 
 
-    useEffect(() => {
-      if (inView && visibleCount < filteredDoctors.length) {
-        setVisibleCount((prevCount) => prevCount + 6);
-      }
-    }, [inView, visibleCount, filteredDoctors.length]);
+  useEffect(() => {
+    if (inView && visibleCount < filteredDoctors.length) {
+      setVisibleCount((prevCount) => prevCount + 6);
+    }
+  }, [inView, visibleCount, filteredDoctors.length]);
 
   const toggleDescription = (id) => {
     setExpandedDescriptions((prevState) => ({
@@ -151,6 +151,7 @@ const SearchDoctors = () => {
         <Navbar />
         <div className='mt-[3rem] xs:px-[10px] lg:px-[30px]'>
           <form>
+            <div className='flex items-center justify-between mt-[1.5rem]'>
             <div>
               <input
                 type='text'
@@ -160,17 +161,16 @@ const SearchDoctors = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <div className='flex items-center justify-between mt-[1.5rem]'>
               <h2
-                className='flex items-center gap-[1.5rem] bg-[#22cfeeb0] p-[7px] text-[14px] text-[#fff] font-normal font-Mulish rounded-[10px] cursor-pointer'
+                className='lg:flex xs:hidden items-center gap-[1.5rem] bg-[#22cfeeb0] p-[7px] text-[14px] text-[#fff] font-normal font-Mulish rounded-[10px] cursor-pointer'
                 onClick={() => setShowFilter(true)}
               >
                 Filter Results <IoIosArrowForward />
               </h2>
-              <Link to='' className='text-[15px] text-[#22D1EE] font-Mulish font-medium'>See all</Link>
+              <FaSliders className='lg:hidden xs:flex text-[22px] text-[#22cfeeb0]' onClick={() => setShowFilter(true)}/>
             </div>
             {showFilter && (
-              <div className='absolute lg:left-[16rem] xs:left-[-2px] lg:top-[12rem] xs:top-0 bg-[#fff] py-3 px-3 lg:w-[400px] xs:h-screen lg:h-[65vh] shadow-lg rounded-[10px]'>
+              <div className='absolute lg:right-[2rem] xs:right-[0] lg:top-[13rem] xs:top-0 bg-[#fff] py-3 px-3 lg:w-[400px] xs:h-screen lg:h-[65vh] shadow-lg rounded-[10px]'>
                 <FaTimes
                   className='float-end lg:text-[20px] xs:text-[22px] cursor-pointer lg:mt-0 xs:mt-[1rem]'
                   onClick={() => setShowFilter(false)}
@@ -198,10 +198,6 @@ const SearchDoctors = () => {
                     {professions.map(profess => (
                       <option key={profess} value={profess}>{profess}</option>
                     ))}
-                    {/* <option value=''>Specialty</option>
-                    <option value='Dentist'>Dentist</option>
-                    <option value='Care Giver'>Care Giver</option>
-                    <option value='Psychologist'>Psychologist</option> */}
                   </select>
                   <select
                     className='border border-[#000] w-full lg:py-[6px] xs:py-[9px] px-[10px] rounded-[12px] outline-none lg:mt-[1rem] xs:mt-[2rem]'
@@ -239,31 +235,35 @@ const SearchDoctors = () => {
           </form>
           <div className='flex items-start flex-wrap gap-[2rem] mt-[2rem] mb-[4rem]'>
             {filteredDoctors.slice(0, visibleCount).map((doctor) => (
-              <div key={doctor._id} className='bg-[#fff] shadow-md border border-[#ddd] lg:w-[30%] xs:w-full rounded-[10px] p-4'>
+              <div key={doctor?._id} className='bg-[#fff] shadow-md border border-[#ddd] lg:w-[30%] xs:w-full rounded-[10px] p-4'>
                 <div className='flex items-start'>
-                  <img src={doctor.profilePic || avatar} alt='doctor' className={`w-[70px] h-[70px] rounded-[100px] object-cover`} />
+                  <Link to={`/doctorInfo/${doctor?._id}`}>
+                    <img src={doctor?.profilePic || avatar} alt='doctor' className={`w-[70px] h-[70px] rounded-[100px] object-cover`} />
+                  </Link>
                   <div className='ml-4'>
-                    <h2 className='text-[18px] font-semibold'>{doctor.firstName} {doctor.lastName}</h2>
-                    <p className='text-[14px] text-[#666]'>{doctor.profession}</p>
+                    <Link to={`/doctorInfo/${doctor?._id}`}>
+                      <h2 className='text-[18px] font-semibold'>{doctor?.firstName} {doctor?.lastName}</h2>
+                      <p className='text-[14px] text-[#666]'>{doctor?.profession}</p>
+                    </Link>
                     <div className='flex items-center gap-[10px] mt-2'>
                       <SlLocationPin />
-                      <p className='text-[14px]'>{doctor.city}, {doctor.state}, {doctor.country}</p>
+                      <p className='text-[14px]'>{doctor?.city}, {doctor?.state}, {doctor?.country}</p>
                     </div>
                     <div className='flex items-center gap-[10px] mt-1'>
                       <MdOutlineBusinessCenter />
-                      <p className='text-[14px]'>{doctor.gender}</p>
+                      <p className='text-[14px]'>{doctor?.gender}</p>
                     </div>
                   </div>
                 </div>
                 <div className='mt-[1rem]'>
-                  <p className={`text-[14px] ${expandedDescriptions[doctor._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
-                    {(doctor.description || 'No description available').length > 100 ? (doctor.description || 'No description available').slice(0, 100) + '...' : doctor.description || 'No description available'}
+                  <p className={`text-[14px] ${expandedDescriptions[doctor?._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
+                    {(doctor?.description || 'No description available').length > 100 ? (doctor?.description || 'No description available').slice(0, 100) + '...' : doctor?.description || 'No description available'}
                   </p>
                   <button
-                    onClick={() => toggleDescription(doctor._id)}
+                    onClick={() => toggleDescription(doctor?._id)}
                     className='text-[#22D1EE] text-[14px] mt-1'
                   >
-                    {expandedDescriptions[doctor._id] ? 'Read Less' : 'Read More'}
+                    {expandedDescriptions[doctor?._id] ? 'Read Less' : 'Read More'}
                   </button>
                 </div>
               </div>

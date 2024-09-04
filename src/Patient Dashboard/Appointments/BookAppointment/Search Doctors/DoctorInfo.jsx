@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from './../../../Components/Sidebar';
 import Navbar from './../../../Components/Navbar';
-import profileavatar from '../../../../assets/profile_avatar.png'
+import avatar from '../../../../assets/avatar.png'
 import profilebg from '../../../../assets/profile-bg.png'
 import { Link, useParams } from 'react-router-dom';
 import { FaEnvelope, FaLocationDot, FaPencil, FaUser } from 'react-icons/fa6';
@@ -12,7 +12,7 @@ import Ellipse2 from '../../../../assets/Ellipse 64.png'
 import Ellipse3 from '../../../../assets/Ellipse 92.png'
 import Ellipse4 from '../../../../assets/image.png'
 import { useDispatch, useSelector } from 'react-redux';
-import { loadDoctor } from '../../../../Redux/Actions/PatientActions';
+import { loadDoctor } from '@/Redux/Actions/PatientActions';
 
 const DoctorInfo = () => {
   const [activeTab, setActiveTab] = useState('consult');
@@ -21,10 +21,10 @@ const DoctorInfo = () => {
   const dispatch = useDispatch();
 
   // Get doctor data from Redux store
-  const doctor = useSelector((state) => state.loadDoctor.doctor);
+  const {doctor} = useSelector((state) => state.loadPatientDoctor);
 
   useEffect(() => {
-    dispatch(loadDoctor(id));
+      dispatch(loadDoctor(id));
   }, [dispatch, id]);
 
 
@@ -102,7 +102,7 @@ const shuffledSimilar = shuffleArray([...Similar]);
             <div className='pb-[2rem] rounded-[10px] bg-[#fff] shadow-lg'>
               <div style={{ backgroundImage: `url(${doctor?.headerPic || profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: '' }} className='lg:h-[280px] w-full'>
                 <div className='flex items-center justify-between lg:px-[30px] xs:px-[10px] pt-[10rem]'>
-                  <img src={doctor?.profilePic || profileavatar} className='rounded-[100px] object-cover w-[190px] h-[190px]' />
+                  <img src={doctor?.profilePic || avatar} className='rounded-[100px] object-cover w-[190px] h-[190px]' />
                 </div>
               </div>
               <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] pt-[1rem]'>
@@ -124,7 +124,7 @@ const shuffledSimilar = shuffleArray([...Similar]);
                 {/* CONSULT */}
                 {activeTab === 'consult' && (
                   <div>
-                    <div className='mt-[2rem] '>
+                    {/* <div className='mt-[2rem] '>
                       <h1 className='text-[18px] font-Mulish font-bold'>Video Consultation</h1>
                       <div className='flex flex-wrap items-center justify-between gap-[2rem] lg:pr-[5rem] mt-2'>
                         <div className='bg-[#fff] shadow-lg lg:w-[320px] xs:w-full p-5 rounded-[5px]'>
@@ -149,7 +149,7 @@ const shuffledSimilar = shuffleArray([...Similar]);
                           <button className='float-end mt-[1.5rem] bg-[#22D1EE] text-center py-[6px] px-[10px] rounded-[10px] text-[#fff] text-[15px] font-medium font-Mulish'>see available dates</button>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className='mt-[3rem]'>
                       <h1 className='text-[18px] font-Mulish font-bold'>In-person Consultation</h1>
