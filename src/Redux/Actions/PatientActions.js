@@ -152,7 +152,7 @@ export const forgot_password = (email, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.FORGOT_PASSWORD_REQUEST });
 
-		const { data } = await axios.post(`${url}/patient/request-password-reset`, email, header);
+		const { data } = await axios.post(`${url}/patient/request-password-reset`, email);
 
 		if (data.success) {
 			dispatch({ type: types.FORGOT_PASSWORD_SUCCESS });
@@ -324,26 +324,6 @@ export const updatePatientProfile = (id, body) => async (dispatch) => {
 		  position: 'top-right',
 		});
 		// return { success: false, message: error.message || 'An error occurred' };
-	}
-};
-
-export const loadHealthHistory = (id) => async (dispatch) => {
-	try {
-		dispatch({ type: types.LOAD_HEALTH_HISTORY_REQUEST });
-
-		const { data } = await axios.get(`${url}/patient/${id}/health-history`, authHeader);
-		console.log(data)
-		if (data.status === 'OK') {
-			dispatch({ type: types.LOAD_HEALTH_HISTORY_SUCCESS, payload: data.data });
-			return data.data;
-		} else {
-			throw new Error(data.error);
-		}
-	} catch (error) {
-		dispatch({ type: types.LOAD_HEALTH_HISTORY_FAIL, payload: error.message || error });
-		toast.error(error.message || 'An error occurred', {
-			position: 'top-right',
-		});
 	}
 };
 

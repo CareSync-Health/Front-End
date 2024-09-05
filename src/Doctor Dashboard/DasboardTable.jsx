@@ -110,10 +110,13 @@ const DashboardTable = () => {
         appointment.status.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+     // Reverse the filtered appointments to display the newest first
+     const reversedAppointments = [...filteredAppointments].reverse();
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentAppointments = filteredAppointments.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredAppointments.length / itemsPerPage);
+    const currentAppointments = reversedAppointments.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(reversedAppointments.length / itemsPerPage);
 
     return (
         <div className='mt-[2rem]'>

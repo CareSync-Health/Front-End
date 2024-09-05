@@ -1,7 +1,7 @@
 import React from 'react'
-import Sidebar from '../Components/Sidebar'
-import Navbar from '../Components/Navbar'
-import MiniNavbar from '../Components/MiniNavbar'
+import Sidebar from '../../Patient Dashboard/Components/Sidebar'
+import Navbar from '../../Patient Dashboard/Components/Navbar'
+import MiniNavbar from '../../Patient Dashboard/Components/MiniNavbar'
 import { IoOptions } from "react-icons/io5";
 
 const PatientMessage = () => {

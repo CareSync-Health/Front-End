@@ -3,7 +3,6 @@ import { BsCameraVideoFill } from 'react-icons/bs';
 import { FaArrowLeft, FaPhoneAlt } from 'react-icons/fa';
 import avatar from '../../../../assets/avatar.png';
 import { LiaSearchSolid } from 'react-icons/lia';
-import { useTheme } from '../../../Components/ThemeContext';
 import { GrFormAttachment } from "react-icons/gr";
 import { LuCamera } from "react-icons/lu";
 import { RiEmojiStickerLine } from "react-icons/ri";
@@ -21,6 +20,7 @@ import { IoMdArrowRoundDown } from 'react-icons/io';
 import { FiDownload } from 'react-icons/fi';
 import CaptureAudio from './CaptureAudio';
 import * as types from '../../../../Redux/Types.js'
+import { loadPatient } from '@/Redux/Actions/PatientActions';
 
 const ChatContainer = () => {
     const emojiRef = useRef();
@@ -31,7 +31,6 @@ const ChatContainer = () => {
     const url = config.liveUrl;
     const [showSearch, setShowSearch] = useState(true);
     const [searchQuery, setSearchQuery] = useState(""); // State for search query
-    const { theme, appearance } = useTheme();
     const [message, setMessage] = useState("");
     const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
     const [typing, setTyping] = useState(false);
@@ -39,13 +38,19 @@ const ChatContainer = () => {
     const { selectedChatData, selectedChatType } = useSelector((state) => state.createChat);
     const { voiceCall, videoCall } = useSelector((state) => state.createChat);
     const { selectedChatMessages } = useSelector((state) => state.createChat);
-    const doctor = useSelector(state => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
+    const patient = useSelector((state) => state.loadPatient.patient);
     const [isSocketConnected, setIsSocketConnected] = useState(false);
     const [showImage, setShowImage] = useState(false);
     const [imageUrl, setImageUrl] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [showAudioRecorder, setShowAudioRecorder] = useState(false);
     const [sendMessage, setSendMessage] = useState();
+
+    useEffect(() => {
+        // if (id) {
+            dispatch(loadPatient());
+        // }
+    }, [dispatch]);
 
 
     const handleCloseChat = () => {
@@ -130,6 +135,7 @@ const ChatContainer = () => {
             const { data } = await axios.get(`${url}/messages/${senderId}/${recipientId}`);
             if (data.status === 'Ok') {
                 dispatch(setSelectedChatMessages(data.data));
+                console.log(data);
             } else {
                 throw new Error(data.error);
             }
@@ -139,15 +145,15 @@ const ChatContainer = () => {
     };
 
     useEffect(() => {
-        if (selectedChatData && doctor) {
-            fetchMessages(doctor?._id, selectedChatData._id);
+        if (selectedChatData && patient) {
+            fetchMessages(patient?._id, selectedChatData._id);
         }
-    }, [selectedChatData, doctor]);
+    }, [selectedChatData, patient]);
 
     const handleSendMessage = async () => {
         if (isSocketConnected && message.trim() !== "") {
             socket.emit("sendMessage", {
-                sender: doctor?._id,
+                sender: patient?._id,
                 content: message.trim(),
                 recipient: selectedChatData._id,
                 messageType: "text",
@@ -201,7 +207,7 @@ const ChatContainer = () => {
                     // Create FormData and append base64 string
                     const formData = new FormData();
                     formData.append('file', base64String); // Append file directly
-                    formData.append('senderId', doctor?._id);
+                    formData.append('senderId', patient?._id);
                     formData.append('recipientId', selectedChatData._id);
                     formData.append('messageType', 'file');
 
@@ -221,7 +227,7 @@ const ChatContainer = () => {
 
                     if (data.status === 'Ok') {
                         const newMessage = {
-                            sender: doctor?._id,
+                            sender: patient?._id,
                             content: undefined,
                             recipient: selectedChatData._id,
                             messageType: 'file',
@@ -339,7 +345,7 @@ const ChatContainer = () => {
 
     return (
         <div className='h-screen w-full'>
-            <div className={`flex items-center justify-between shadow-2xl border-b-2 py-3 lg:px-3 xs:px-2 fixed top-0 right-0 z-[1000] lg:w-[58%] xs:w-full ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-white'}`}>
+            <div className={`flex items-center justify-between shadow-2xl border-b-2 py-3 lg:px-3 xs:px-2 fixed top-0 right-0 z-[1000] lg:w-[66%] xs:w-full bg-[#FFFCF8]`}>
                 {/* HEADER */}
                 {showSearch ? (
                     <div className='flex items-center gap-[1rem]'>
@@ -385,7 +391,7 @@ const ChatContainer = () => {
             </div>
 
             {/* MESSAGES */}
-            <div className={`flex flex-col h-[90vh] overflow-y-auto z-50 px-[10px] pt-[55px] ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : 'bg-gray-100'} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : 'text-gray-800'}`}>
+            <div className={`flex flex-col h-[90vh] overflow-y-auto z-50 px-[10px] pt-[55px] -ms-6 `}>
                 <div className="flex-1 flex flex-col gap-2 py-6 px-2 overflow-y-auto h-screen" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
                     {Object.keys(groupMessagesByDate(filteredMessages)).map((date) => (
                         <div key={date} className="flex flex-col gap-2">
@@ -393,11 +399,11 @@ const ChatContainer = () => {
                                 {getDisplayTimestamp(date)}
                             </div>
                             {groupMessagesByDate(filteredMessages)[date].map((message) => {
-                                const isSentByDoctor = String(message.sender?._id) === String(doctor?._id);
+                                const isSentByPatient = String(message.sender?._id) === String(patient?._id);
                                 return (
                                     <>
-                                        <div key={message._id} ref={scrollRef} className={`max-w-xs flex ${isSentByDoctor ? 'self-end' : ''}`}>
-                                            <div className={`rounded-[18px] ${isSentByDoctor ? 'bg-[#22D1EE] rounded-br-none text-white' : 'self-end rounded-bl-none bg-[#E4E6EB] text-black'}`}>
+                                        <div key={message._id} ref={scrollRef} className={`max-w-xs flex ${isSentByPatient ? 'self-end' : ''}`}>
+                                            <div className={`rounded-[18px] ${isSentByPatient ? 'bg-[#22D1EE] rounded-br-none text-white' : 'self-end rounded-bl-none bg-[#E4E6EB] text-black'}`}>
                                                 {message.messageType === "file" ? (
                                                     checkIfImage(message.fileUrl) ? (
                                                         <div className='p-2 cursor-pointer' onClick={() => { setShowImage(true); setImageUrl(message.fileUrl) }}>
@@ -424,7 +430,7 @@ const ChatContainer = () => {
                                                 )}
                                             </div>
                                         </div>
-                                        <span className={`text-xs font-Nunito font-medium text-gray-500 ${isSentByDoctor ? "text-right" : ""}`}>
+                                        <span className={`text-xs font-Nunito font-medium text-gray-500 ${isSentByPatient ? "text-right" : ""}`}>
                                             {moment(message.timestamp || message.createdAt).format('LT')}
                                         </span>
                                     </>
@@ -455,7 +461,7 @@ const ChatContainer = () => {
                 )
             }
             {/* INPUT */}
-            <div className='w-full py-3 lg:px-[10px] xs:px-[10px] flex items-center'>
+            <div className='w-full py-3 lg:px-[10px] xs:px-[10px] flex items-center bg-[#f1f1f1] -ms-6'>
                 {
                     !showAudioRecorder && (
                         <>

@@ -111,21 +111,3 @@ export const updatePatientReducer = (state = {}, action) => {
 			return state;
 	}
 }
-
-// const initialState = {
-// 	patient: null,
-// 	histories: []
-// };
-
-export const getHealthProfileReducer = (state = {}, action) => {
-	switch (action.type) {
-		case types.LOAD_HEALTH_HISTORY_REQUEST:
-			return { ...state, loading: true };
-		case types.LOAD_HEALTH_HISTORY_SUCCESS:
-			return { ...state, loading: false, histories: action.payload };
-		case types.LOAD_HEALTH_HISTORY_FAIL:
-			return { ...state, loading: false, error: action.payload };
-		default:
-			return state;
-	}
-}

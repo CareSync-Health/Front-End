@@ -144,6 +144,7 @@ const initialState = {
   selectedChatData: undefined,
   selectedChatMessages: [],
   directMessagesContacts: [],
+  PatientDirectMessagesContacts: [],
   contactStatuses: {},
   notifications: [],
   videoCall: undefined,
@@ -173,6 +174,11 @@ export const chatReducer = (state = initialState, action) => {
       return {
         ...state,
         directMessagesContacts: action.payload
+      };
+    case types.SET_PATIENT_DIRECT_MESSAGES_CONTACTS:
+      return {
+        ...state,
+        patientDirectMessagesContacts: action.payload
       };
     case types.UPDATE_CONTACT_STATUS:
       return {

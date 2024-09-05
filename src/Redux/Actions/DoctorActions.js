@@ -335,6 +335,11 @@ export const setDirectMessagesContacts = (directMessagesContacts) => ({
 	payload: directMessagesContacts
 });
 
+export const setPatientDirectMessagesContacts = (patientDirectMessagesContacts) => ({
+	type: types.SET_PATIENT_DIRECT_MESSAGES_CONTACTS,
+	payload: patientDirectMessagesContacts
+});
+
 export const updateContactStatus = (userId, status) => ({
 	type: types.UPDATE_CONTACT_STATUS,
 	payload: { userId, status }

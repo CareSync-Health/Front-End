@@ -31,7 +31,7 @@ const PatientSecurity = () => {
 
     if (email) {
       const body = {
-        email: email.trim(),
+        email,
       };
       dispatch(forgot_password(body, navigate));
     } else {
@@ -63,35 +63,20 @@ const PatientSecurity = () => {
     }
   };
 
-  // const handleQRCode = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     await dispatch(verify2FA(otp, patient?._id)); // Dispatch 2SV verification action
-  //     setShowQRCode(false);
-  //     setTimeout(() => {
-  //       toast.success('you have successfully turned ON Two-Factor Authentication.')
-  //     }, 5000);
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleQRCode = async (e) => {
     e.preventDefault();
     setError(null); // Reset any previous error
-  
+
     try {
       const result = await dispatch(verify2FA(otp, patient?._id));
-      
+
       // Check if the action was successful by checking for errors in the result
       if (result.error) {
         // The action dispatched an error
         throw new Error(result.error); // Use the error returned by the action
       }
-      
-      if (result.success) { 
+
+      if (result.success) {
         setShowQRCode(false);
         toast.success('You have successfully turned ON Two-Factor Authentication.');
         window.location.reload();
@@ -110,19 +95,31 @@ const PatientSecurity = () => {
           <p className='mt-[2rem] lg:text-[19px] xs:text-[17px] font-Nunito font-medium lg:leading-[40px]'>Information for login in to your Caresync account</p>
           <p className='lg:text-[19px] xs:text-[17px] lg:mt-0 xs:mt-3 font-Nunito font-medium lg:leading-[40px]'>Regularly change your password if you suspect it may have been compromised</p>
         </div>
-        <div className='border border-gray-400 rounded-lg mt-[3rem] mb-[3rem]'>
-
-          <div className='flex border-b-2 border-b-gray-400 lg:gap-[29rem] xs:gap-[9rem] py-4 px-4'>
-            <h2 className='text-[16px] font-Mulish font-semibold tracking-wide text-left'>Email</h2>
-            <h2 className='text-[16px] font-Mulish font-semibold tracking-wide text-left'>user....@gmail.com</h2>
+        <form onSubmit={handleSubmit}>
+          <div className='border border-gray-400 rounded-lg mt-[3rem] mb-[3rem]'>
+            <div className='flex border-b-2 border-b-gray-400 lg:gap-[29rem] xs:gap-[9rem] py-4 px-4'>
+              <h2 className='text-[16px] font-Mulish font-semibold tracking-wide text-left'>Email</h2>
+              {/* <h2 className='text-[16px] font-Mulish font-semibold tracking-wide text-left'>user....@gmail.com</h2> */}
+              <input type='email' value={email} className='bg-transparent w-[250px]' disabled />
+            </div>
+            <div className='flex justify-between items-center py-[10px] px-4'>
+              <h2 className='text-[14px] font-Mulish font-normal'>Password</h2>
+              <h2 className='text-[14px] font-Mulish font-normal'>************</h2>
+              {/* <button className='bg-[#A9A9A9] w-[100px] px-[10px] py-[5px] rounded-[6px]'><p className='text-white'>Change</p></button> */}
+              <button type='submit' className=''><p className={`text-white ${loading ? 'cursor-not-allowed' : ''}`}>
+                {loading ? (
+                  <div className='bg-[#A9A9A9] w-[100px] px-[10px] py-[5px] rounded-[6px] font-Mulish font-medium text-[15px]'>
+                    Changing...
+                  </div>
+                ) : (
+                  <div className='bg-[#22D1EE] w-[100px] px-[10px] py-[5px] rounded-[6px] font-Mulish font-medium text-[15px]'>
+                    Change
+                  </div>
+                )}
+              </p></button>
+            </div>
           </div>
-          <div className='flex justify-between items-center py-[10px] px-4'>
-            <h2 className='text-[14px] font-Mulish font-normal'>Password</h2>
-            <h2 className='text-[14px] font-Mulish font-normal'>************</h2>
-            <button className='bg-[#A9A9A9] w-[100px] px-[10px] py-[5px] rounded-[6px]'><p className='text-white'>Change</p></button>
-          </div>
-
-        </div>
+        </form>
 
         <div className='mt-[3.5rem]'>
           <h1 className='text-[25px] font-Mulish font-bold leading-[10px]'>2-Step verification</h1>
@@ -150,13 +147,13 @@ const PatientSecurity = () => {
       )}
 
       {showQRCode && (
-        <QRCodePage 
-          setShowQRCode={setShowQRCode} 
-          qrCodeUrl={qrCodeUrl} 
-          handleQRCode={handleQRCode} 
-          setOtp={setOtp} 
-          otp={otp} 
-          secret={secret} 
+        <QRCodePage
+          setShowQRCode={setShowQRCode}
+          qrCodeUrl={qrCodeUrl}
+          handleQRCode={handleQRCode}
+          setOtp={setOtp}
+          otp={otp}
+          secret={secret}
           error={error}
         />
       )}

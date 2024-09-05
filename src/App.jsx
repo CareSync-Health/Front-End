@@ -49,7 +49,8 @@ const SearchDoctors = lazy(() => import("./Patient Dashboard/Appointments/BookAp
 const DoctorInfo = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/DoctorInfo"));
 const BookAppointment = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/BookAppointment"));
 const AppointmentSuccess = lazy(() => import("./Patient Dashboard/Appointments/BookAppointment/Search Doctors/AppointmentSuccess"));
-const PatientMessage = lazy(() => import("./Patient Dashboard/Message/PatientMessage"));
+// const PatientMessage = lazy(() => import("./Landing Page/Message/PatientMessage"));
+const PatientMessage = lazy(() => import("./Patient Dashboard/Message/Chat"));
 const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
 const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
 const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
