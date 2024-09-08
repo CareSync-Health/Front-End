@@ -1,13 +1,15 @@
-// App.js
 import React, { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { DoctorPrivateRoute, PatientPrivateRoute } from "./Components/ProtectedRoute";
+// import { TutorialProvider } from "./Components/TutorialContext";
 
 // LANDING PAGE IMPORTS
 const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
+const Unauthorized = lazy(() => import("./Components/Unauthorized"));
 const About = lazy(() => import("./Landing Page/About/About"));
 const UserPage = lazy(() => import("./Landing Page/Auth/UserPage"));
 const Login = lazy(() => import("./Landing Page/Auth/Patient/Login"));
@@ -62,76 +64,83 @@ function App() {
   return (
     <ThemeProvider>
       <ErrorBoundary>
-        <Suspense
-          fallback={
-            <div
-              id="preloader-active"
-              className="fixed inset-0 z-50 flex items-center justify-center bg-white"
-            >
-              <div className="preloader flex items-center justify-center">
-                <div className="preloader-inner relative">
-                  <div className="superballs flex space-x-2">
-                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
-                    <div
-                      className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"
-                      style={{ animationDelay: "0.5s" }}
-                    ></div>
-                    <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
+        {/* <TutorialProvider> */}
+          <Suspense
+            fallback={
+              <div
+                id="preloader-active"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-white"
+              >
+                <div className="preloader flex items-center justify-center">
+                  <div className="preloader-inner relative">
+                    <div className="superballs flex space-x-2">
+                      <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
+                      <div
+                        className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"
+                        style={{ animationDelay: "0.5s" }}
+                      ></div>
+                      <div className="superballs__dot w-4 h-4 bg-[#22D1EE] rounded-full animate-bounce"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="user" element={<UserPage />} />
-            <Route path="auth" element={<Login />} />
-            <Route path="verify2FA/:id" element={<Verify2FA />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="login" element={<Login2 />} />
-            <Route path="verify2SV/:id" element={<Verify2SV />} />
-            <Route path="register" element={<Signup2 />} />
-            <Route path='login/forgot_password' element={ <Doctor_Forget_Password /> } />
-            <Route path='/reset_password' element={ <Doctor_Reset_Password /> } />
-            <Route path='auth/forgot_password' element={ <Patient_Forget_Password /> } />
-            <Route path='/reset_your_password' element={ <Patient_Reset_Password /> } />
-            <Route path="patient_verify_otp" element={<VerifyAccount />} />
-            <Route path="doctor_verify_otp" element={<VerifyAccount2 />} />
-            <Route path="terms&conditions" element={<Terms_Conditions />} />
-            <Route path="privacy_policy" element={<Privacy_Policy />} />
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
+              <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="user" element={<UserPage />} />
+              <Route path="auth" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login2 />} />
+              <Route path="register" element={<Signup2 />} />
+              <Route path='login/forgot_password' element={<Doctor_Forget_Password />} />
+              <Route path='/reset_password' element={<Doctor_Reset_Password />} />
+              <Route path='auth/forgot_password' element={<Patient_Forget_Password />} />
+              <Route path='/reset_your_password' element={<Patient_Reset_Password />} />
+              <Route path="patient_verify_otp" element={<VerifyAccount />} />
+              <Route path="doctor_verify_otp" element={<VerifyAccount2 />} />
+              <Route path="terms&conditions" element={<Terms_Conditions />} />
+              <Route path="privacy_policy" element={<Privacy_Policy />} />
 
-            {/* DOCTOR ROUTE */}
-            <Route path="/doctor_dashboard/:id" element={doctor ? <DoctorDashboard /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_appointment/:id" element={doctor ? <DoctorAppointment /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_message" element={doctor ? <DoctorChat /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_pages" element={doctor ? <DoctorPages /> : <Navigate to="/login" /> }/>
-            <Route path="/doctor_patient_page/:id" element={doctor ? <DoctorPatientPages /> : <Navigate to="/login" /> }/> 
-            <Route path="/view_doctor_profile/:id" element={doctor ? <ViewDoctorProfile /> : <Navigate to="/login" /> }/>
-            <Route path="/doctor_profile/:id" element={doctor ? <DoctorProfile /> : <Navigate to="/login" /> }/>
-            <Route path="/edit_doctor_profile/:id" element={doctor ? <EditDoctorProfile /> : <Navigate to="/login" /> }/>
-            <Route path="/doctor_payment_way" element={doctor ? <DoctorPayment /> : <Navigate to="/login" />}/>
-            <Route path="/doctor_payment_online_withdrawal" element={doctor ? <OnlineWithdrawal /> : <Navigate to="/login" /> } />
-            <Route path="/payment_method" element={doctor ? <PaymentMethod /> : <Navigate to="/login" /> } />
-            <Route path="/doctor_settings/*" element={doctor ? <DoctorSetting /> : <Navigate to="/login" /> }/>
-            <Route path="/verification_process" element={doctor ? <Verification /> : <Navigate to="/login" /> }/>
-            <Route path="/congratulation" element={doctor ? <Confetti /> : <Navigate to="/login" />}/>
+              {/* DOCTOR ROUTE */}
+              <Route element={<DoctorPrivateRoute />}>
+                <Route path="verify2SV/:id" element={<Verify2SV />} />
+                <Route path="/doctor_dashboard/:id" element={<DoctorDashboard />} />
+                <Route path="/doctor_appointment/:id" element={<DoctorAppointment />} />
+                <Route path="/doctor_message" element={<DoctorChat />} />
+                <Route path="/doctor_pages" element={<DoctorPages />} />
+                <Route path="/doctor_patient_page/:id" element={<DoctorPatientPages />} />
+                <Route path="/view_doctor_profile/:id" element={<ViewDoctorProfile />} />
+                <Route path="/doctor_profile/:id" element={<DoctorProfile />} />
+                <Route path="/edit_doctor_profile/:id" element={<EditDoctorProfile />} />
+                <Route path="/doctor_payment_way" element={<DoctorPayment />} />
+                <Route path="/doctor_payment_online_withdrawal" element={<OnlineWithdrawal />} />
+                <Route path="/payment_method" element={<PaymentMethod />} />
+                <Route path="/doctor_settings/*" element={<DoctorSetting />} />
+                <Route path="/verification_process" element={<Verification />} />
+                <Route path="/congratulation" element={<Confetti />} />
+              </Route>
 
-            {/* PATIENT ROUTE */}
-            <Route path="/patient_dashboard/:id" element={patient ? <PatientDashboard /> : <Navigate to="/auth" />}/>
-            <Route path="/patient_appointment/*" element={patient ? <PatientAppointments /> : <Navigate to="/auth" />}/>
-            <Route path="/search_doctor" element={patient ? <SearchDoctors /> : <Navigate to="/auth" />}/>
-            <Route path="/doctorInfo/:id" element={patient ? <DoctorInfo /> : <Navigate to="/auth" />}/>
-            <Route path="/book_appointment/:id" element={patient ? <BookAppointment /> : <Navigate to="/auth" />}/>
-            <Route path='/appointment_success/:id' element={patient ? <AppointmentSuccess /> : <Navigate to="/auth" />}/>
-            <Route path="/patient_message" element={patient ? <PatientMessage /> : <Navigate to="/auth" />}/>
-            <Route path="/patient_calendar" element={patient ? <PatientCalendar /> : <Navigate to="/auth" />}/>
-            <Route path="/patient_calendar_filter" element={patient ? <PatientCalendarFilter /> : <Navigate to="/auth" />}/>
-            <Route path="/patient_settings/*" element={patient ? <PatientSettings /> : <Navigate to="/auth" />}/>
-          </Routes>
-        </Suspense>
+              {/* PATIENT ROUTE */}
+              <Route element={<PatientPrivateRoute />}>
+                <Route path="verify2FA/:id" element={<Verify2FA />} />
+                <Route path="/patient_dashboard/:id" element={<PatientDashboard />} />
+                <Route path="/patient_appointment/*" element={<PatientAppointments />} />
+                <Route path="/search_doctor" element={<SearchDoctors />} />
+                <Route path="/doctorInfo/:id" element={<DoctorInfo />} />
+                <Route path="/book_appointment/:id" element={<BookAppointment />} />
+                <Route path='/appointment_success/:id' element={<AppointmentSuccess />} />
+                <Route path="/patient_message" element={<PatientMessage />} />
+                <Route path="/patient_calendar" element={<PatientCalendar />} />
+                <Route path="/patient_calendar_filter" element={<PatientCalendarFilter />} />
+                <Route path="/patient_settings/*" element={<PatientSettings />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        {/* </TutorialProvider> */}
       </ErrorBoundary>
       <Toaster />
     </ThemeProvider>

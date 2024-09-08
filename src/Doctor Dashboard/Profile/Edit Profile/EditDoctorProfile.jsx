@@ -3,7 +3,7 @@ import Sidebar from '../../Components/Sidebar'
 import Navbar from '../../Components/Navbar'
 import { useTheme } from '../../Components/ThemeContext'
 import profilebg from '../../../assets/profile-bg.png'
-import profileavatar from '../../../assets/profile_avatar.png'
+import avatar from '../../../assets/avatar.png'
 import { TbCameraStar } from "react-icons/tb";
 import { FaTimes } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,6 +34,8 @@ const EditProfile = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [consultationFee, setConsultationFee] = useState('');
+  const [consultationFeeError, setConsultationFeeError] = useState('');
   const [experienceTitle, setExperienceTitle] = useState('');
   const [employmentType, setEmploymentType] = useState('');
   const [hospitalName, setHospitalName] = useState('');
@@ -52,6 +54,7 @@ const EditProfile = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [headerPic, setHeaderPic] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false)
 
   const employmentTypes = [
     'full time',
@@ -62,6 +65,53 @@ const EditProfile = () => {
     'internship',
     'other'
   ]
+
+  const handleFeeChange = (e) => {
+    const value = e.target.value;
+
+    // Sanitize input by removing commas
+    const sanitizedValue = value.replace(/,/g, '');
+
+    // Convert to number and handle non-numeric values
+    const feeNumber = Number(sanitizedValue);
+
+    if (isNaN(feeNumber) || feeNumber <= 0) {
+      setConsultationFeeError('Consultation fee must be a valid number greater than 0.');
+      setConsultationFee(value); // Set the raw input value to display in the field
+      return;
+    }
+
+    // Determine fee limit based on doctor’s rank
+    let feeLimit;
+    let rankMessage = '';
+    switch (doctor?.level) {
+      case 'Gold':
+        feeLimit = Infinity; // No limit for Gold rank
+        break;
+      case 'Silver':
+        feeLimit = 500000; // 500,000 limit for Silver rank
+        rankMessage = 'Top up rank to Gold to increase consultation fee limit.';
+        break;
+      case '':
+        feeLimit = 200000; // 200,000 limit for Bronze rank
+        rankMessage = 'Top up rank to Silver to increase consultation fee limit.';
+        break;
+      default:
+        feeLimit = 0; // Default case, should not happen
+    }
+
+    // Validate fee
+    if (feeNumber > feeLimit) {
+      setConsultationFeeError(`Fee must not exceed ${feeLimit.toLocaleString()}. ${rankMessage}`);
+    } else if (feeNumber < 5000) {
+      setConsultationFeeError('Fee must be at least 5,000.');
+    } else {
+      setConsultationFeeError('');
+    }
+
+    // Update fee value with sanitized input
+    setConsultationFee(value);
+  };
 
 
   useEffect(() => {
@@ -78,6 +128,7 @@ const EditProfile = () => {
       setState(doctor.state || '');
       setCity(doctor.city || '');
       setPhoneNumber(doctor.phoneNumber || '');
+      setConsultationFee(doctor.consultationFee || '');
       setExperienceTitle(doctor.experienceTitle || '');
       setEmploymentType(doctor.employmentType || '');
       setHospitalName(doctor.hospitalName || '');
@@ -128,11 +179,47 @@ const EditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     setError('');
-  
+
+
+    // Sanitize and validate consultation fee
+    const sanitizedFee = consultationFee.replace(/,/g, ''); // Remove commas
+    const feeNumber = Number(sanitizedFee);
+
+    // Handle non-numeric input
+    if (isNaN(feeNumber) || feeNumber < 5000) {
+      setError('Consultation fee must be a valid number and at least 5,000.');
+      return; // Exit the function to prevent form submission
+    }
+
+    // Determine fee limit based on doctor’s rank
+    let feeLimit;
+    let rankMessage = '';
+    switch (doctor?.level) {
+      case 'Gold':
+        feeLimit = Infinity; // No limit for Gold rank
+        break;
+      case 'Silver':
+        feeLimit = 500000; // 500,000 limit for Silver rank
+        rankMessage = 'Top up rank to Gold to increase consultation fee limit.';
+        break;
+      case '':
+        feeLimit = 200000; // 200,000 limit for Bronze rank
+        rankMessage = 'Top up rank to Silver to increase consultation fee limit.';
+        break;
+      default:
+        feeLimit = 0; // Default case, should not happen
+    }
+
+    // Validate fee
+    if (feeNumber > feeLimit) {
+      setError(`Fee must not exceed ${feeLimit.toLocaleString()}. ${rankMessage}`);
+      return; // Exit the function to prevent form submission
+    }
+
     const updatedDoctor = {};
-  
+
     if (firstName !== doctor.firstName) updatedDoctor.firstName = firstName;
     if (lastName !== doctor.lastName) updatedDoctor.lastName = lastName;
     if (userName && userName !== doctor.userName) updatedDoctor.userName = userName;
@@ -141,6 +228,8 @@ const EditProfile = () => {
     if (country !== doctor.country) updatedDoctor.country = country;
     if (state !== doctor.state) updatedDoctor.state = state;
     if (city !== doctor.city) updatedDoctor.city = city;
+    if (phoneNumber !== doctor.phoneNumber) updatedDoctor.phoneNumber = phoneNumber;
+    if (consultationFee !== doctor.consultationFee) updatedDoctor.consultationFee = consultationFee;
     if (headerPic !== doctor.headerPic) updatedDoctor.headerPic = headerPic;
     if (profilePic !== doctor.profilePic) updatedDoctor.profilePic = profilePic;
     if (experienceTitle !== doctor.experienceTitle) updatedDoctor.experienceTitle = experienceTitle;
@@ -158,7 +247,7 @@ const EditProfile = () => {
     if (educationEndDate !== doctor.educationEndDate) updatedDoctor.educationEndDate = educationEndDate;
     if (educationActivities !== doctor.educationActivities) updatedDoctor.educationActivities = educationActivities;
     if (educationDescription !== doctor.educationDescription) updatedDoctor.educationDescription = educationDescription;
-  
+
     if (Object.keys(updatedDoctor).length === 0) {
       toast.info('No changes detected.');
       return;
@@ -179,6 +268,7 @@ const EditProfile = () => {
         setState('');
         setCity('');
         setPhoneNumber('');
+        setConsultationFee('');
         setExperienceTitle('');
         setEmploymentType('');
         setHospitalName('');
@@ -203,6 +293,8 @@ const EditProfile = () => {
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -245,9 +337,10 @@ const EditProfile = () => {
               <div
                 className='mt-[-5rem] w-[180px] object-contain rounded-full h-[64%] lg:ms-[4rem] xs:ms-[1rem]'
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilePic || doctor?.profilePic})`,
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${profilePic || doctor?.profilePic || avatar})`,
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                   width: 180,
                   height: 180,
                 }}
@@ -281,6 +374,7 @@ const EditProfile = () => {
                     placeholder={doctor?.firstName || 'First Name'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setFirstName(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -291,6 +385,7 @@ const EditProfile = () => {
                     placeholder={doctor?.lastName || 'Last Name'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setLastName(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -301,6 +396,7 @@ const EditProfile = () => {
                     placeholder={doctor?.userName || 'Username'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setUserName(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -315,6 +411,7 @@ const EditProfile = () => {
                     placeholder={doctor?.gender || 'Gender'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setGender(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -324,7 +421,9 @@ const EditProfile = () => {
                     value={dob}
                     placeholder={doctor?.dob || 'DD / MM / YY'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
-                    onChange={(e) => setDob(e.target.value)} />
+                    onChange={(e) => setDob(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Country</h2>
@@ -334,6 +433,7 @@ const EditProfile = () => {
                     placeholder={doctor?.country || 'Country'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setCountry(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -344,6 +444,7 @@ const EditProfile = () => {
                     placeholder={doctor?.state || 'State'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setState(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -354,6 +455,7 @@ const EditProfile = () => {
                     placeholder={doctor?.city || 'City'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setCity(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -364,11 +466,26 @@ const EditProfile = () => {
                     placeholder={doctor?.phoneNumber || 'Phone Number'}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     onChange={(e) => setPhoneNumber(e.target.value)}
+                    disabled={loading}
                   />
+                </div>
+                <div>
+                  <h2 className='text-[15px] font-Nunito font-medium'>In-Person Consultation Fee</h2>
+                  <input
+                    type='text'
+                    value={consultationFee}
+                    placeholder='Enter your fee'
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    onChange={handleFeeChange}
+                    disabled={loading}
+                  />
+                  {consultationFeeError && <p className='text-red-500 text-sm mt-1'>{consultationFeeError}</p>}
                 </div>
               </div>
               <div className='lg:flex items-end justify-end lg:px-[90px] xs:px-[10px] mt-[2rem]'>
-                <button type='submit' className='bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px]'>Save</button>
+                <button type='submit' className={`bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px] ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={loading}>
+                  {loading ? 'Saving...' : 'Save'}
+                </button>
               </div>
             </div>
           </form>
@@ -387,6 +504,7 @@ const EditProfile = () => {
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     required
                     onChange={(e) => setExperienceTitle(e.target.value)}
+                    disabled={loading}
                   />
                 </div>
                 <div>
@@ -394,7 +512,9 @@ const EditProfile = () => {
                   <select
                     value={employmentType}
                     onChange={(e) => setEmploymentType(e.target.value)}
-                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} >
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    disabled={loading}
+                  >
                     {employmentTypes.map(type => (
                       <option key={type} value={type}>{type}</option>
                     ))}
@@ -408,14 +528,18 @@ const EditProfile = () => {
                     placeholder='Ex: Eye Care'
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     required
-                    onChange={(e) => setHospitalName(e.target.value)} />
+                    onChange={(e) => setHospitalName(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Location</h2>
                   <input
                     type='text'
                     value={experienceLocation}
-                    placeholder='Ex: Nigeria, London' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setExperienceLocation(e.target.value)} />
+                    placeholder='Ex: Nigeria, London' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setExperienceLocation(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Start Date*</h2>
@@ -424,7 +548,9 @@ const EditProfile = () => {
                     value={experienceStartDate}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     required
-                    onChange={(e) => setExperienceStartDate(e.target.value)} />
+                    onChange={(e) => setExperienceStartDate(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>End Date*</h2>
@@ -433,7 +559,9 @@ const EditProfile = () => {
                     value={experienceEndDate}
                     className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
                     required
-                    onChange={(e) => setExperienceEndDate(e.target.value)} />
+                    onChange={(e) => setExperienceEndDate(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
               </div>
               <div>
@@ -443,11 +571,15 @@ const EditProfile = () => {
                   value={experienceDescription}
                   placeholder='Job Description'
                   className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
-                  onChange={(e) => setExperienceDescription(e.target.value)} />
+                  onChange={(e) => setExperienceDescription(e.target.value)}
+                  disabled={loading}
+                />
               </div>
             </div>
             <div className='lg:flex items-end justify-end lg:px-[90px] xs:px-[10px] mt-[2rem]'>
-              <button type='submit' className='bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px]'>Save</button>
+              <button type='submit' className={`bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px] ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={loading}>
+                {loading ? 'Saving...' : 'Save'}
+              </button>
             </div>
           </form>
 
@@ -458,40 +590,97 @@ const EditProfile = () => {
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-[2rem]'>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>School*</h2>
-                  <input type='text' value={school} placeholder='ex: University of Lagos' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} required onChange={(e) => setSchool(e.target.value)} />
+                  <input type='text'
+                    value={school}
+                    placeholder='ex: University of Lagos'
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    required
+                    onChange={(e) => setSchool(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Degree*</h2>
-                  <input type='text' value={degree} placeholder='ex: bachelors' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setDegree(e.target.value)} />
+                  <input
+                    type='text'
+                    value={degree}
+                    placeholder='ex: bachelors'
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    onChange={(e) => setDegree(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Field of study</h2>
-                  <input type='text' value={fieldOfStudy} placeholder='ex: Dentist' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setFieldOfStudy(e.target.value)} />
+                  <input
+                    type='text'
+                    value={fieldOfStudy}
+                    placeholder='ex: Dentist'
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    onChange={(e) => setFieldOfStudy(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Grade</h2>
-                  <input type='text' value={grade} className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setGrade(e.target.value)} />
+                  <input
+                    type='text'
+                    value={grade}
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    onChange={(e) => setGrade(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>Start Date*</h2>
-                  <input type='date' value={educationStartDate} className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} required onChange={(e) => setEducationStartDate(e.target.value)} />
+                  <input
+                    type='date'
+                    value={educationStartDate}
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    required
+                    onChange={(e) => setEducationStartDate(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
                 <div>
                   <h2 className='text-[15px] font-Nunito font-medium'>End Date*</h2>
-                  <input type='date' value={educationEndDate} className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} required onChange={(e) => setEducationEndDate(e.target.value)} />
+                  <input
+                    type='date'
+                    value={educationEndDate}
+                    className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none appearance-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                    required
+                    onChange={(e) => setEducationEndDate(e.target.value)}
+                    disabled={loading}
+                  />
                 </div>
               </div>
               <div>
                 <h2 className='text-[15px] font-Nunito font-medium mt-[2rem]'>Activities and societies</h2>
-                <textarea rows='6' value={educationActivities} placeholder='Activities Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setEducationActivities(e.target.value)} />
+                <textarea
+                  rows='6'
+                  value={educationActivities}
+                  placeholder='Activities Description'
+                  className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                  onChange={(e) => setEducationActivities(e.target.value)}
+                  disabled={loading}
+                />
               </div>
               <div>
                 <h2 className='text-[15px] font-Nunito font-medium mt-[2rem]'>Description</h2>
-                <textarea rows='6' value={educationDescription} placeholder='Job Description' className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`} onChange={(e) => setEducationDescription(e.target.value)} />
+                <textarea
+                  rows='6'
+                  value={educationDescription}
+                  placeholder='Job Description'
+                  className={`text-[15px] font-Nunito font-bold px-3 py-[0.85rem] mt-2 rounded-[8px] w-full outline-none resize-none ${theme === 'dark' ? 'bg-gray-900 border border-dashed border-gray-700' : theme === 'light' ? 'bg-[#F7F9FC]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#e6e6e6]' : 'text-gray-800'}`}
+                  onChange={(e) => setEducationDescription(e.target.value)}
+                  disabled={loading}
+                />
               </div>
             </div>
             <div className='lg:flex items-end justify-end lg:px-[90px] xs:px-[10px] mt-[2rem]'>
-              <button type='submit' className='bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px]'>Save</button>
+              <button type='submit' className={`bg-[#22D1EE] text-white text-[18px] font-Nunito font-bold lg:w-[18%] xs:w-[50%] py-[7px] px-2 rounded-[12px] ${loading ? 'cursor-not-allowed' : 'cursor-pointer'}`} disabled={loading}>
+                {loading ? 'Saving...' : 'Save'}
+              </button>
             </div>
           </form>
         </div>

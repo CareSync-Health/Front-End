@@ -16,7 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '../Redux/Actions/DoctorActions';
 import { getAllAppointments } from '../Redux/Actions/BookAppointmentAction';
-
+// import DoctorTutorialModal from './Components/DoctorTutorialModal'; // Import the tutorial modal
+// import { useTutorial } from '@/Components/TutorialContext';
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
@@ -45,9 +46,7 @@ const DoctorDashboard = () => {
     const loadDoc = useSelector((state) => state.loadDoctor.doctor);
 
     useEffect(() => {
-        // if (id) {
-            dispatch(loadDoctor());
-        // }
+        dispatch(loadDoctor());
     }, [dispatch]);
 
     // Calculate the number of scheduled, pending, and canceled appointments
@@ -58,9 +57,16 @@ const DoctorDashboard = () => {
     // Calculate total appointments
     const totalAppointments = pendingCount + canceledCount + scheduledCount;
 
-      // Calculate unique patients count
+    // Calculate unique patients count
     // Ensure appointments array is not empty and patientId is valid
     const uniquePatientsCount = new Set(appointments.map(appointment => appointment.patientId)).size;
+
+    // Tutorial Modal
+    // const { startTutorial } = useTutorial();
+
+    // useEffect(() => {
+    //   startTutorial('doctor');
+    // }, [startTutorial]);
 
 
     return (
@@ -70,6 +76,7 @@ const DoctorDashboard = () => {
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+                        {/* <DoctorTutorialModal isOpen={showTutorial} onClose={closeTutorial} /> */}
                             <Navbar messageCount={5} notificationCount={12} loadDoc={loadDoc} />
                             <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                                 <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>

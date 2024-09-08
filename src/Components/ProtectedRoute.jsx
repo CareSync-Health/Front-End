@@ -1,11 +1,17 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import { getUserRole } from "@/Redux/Actions/DoctorActions"; // The helper function to get the role
 
-const PrivateRoute = () => {
-  const { doctor } = useSelector((state) => state.doctorAuth);
-
-  return doctor ? <Outlet /> : <Navigate to='/doctorAuth' />;
+// For doctors
+const DoctorPrivateRoute = () => {
+    const role = getUserRole();
+    return role === "doctor" ? <Outlet /> : <Navigate to="/unauthorized" />;
 };
 
-export default PrivateRoute;
+// For patients
+const PatientPrivateRoute = () => {
+    const role = getUserRole();
+    return role === "patient" ? <Outlet /> : <Navigate to="/unauthorized" />;
+};
+
+export { DoctorPrivateRoute, PatientPrivateRoute };

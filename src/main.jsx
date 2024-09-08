@@ -19,11 +19,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <SocketProvider>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <Routes>
-            {/* <React.StrictMode> */}
-            <Route path='*' element={<App />} />
-            {/* </React.StrictMode> */}
-          </Routes>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
         </BrowserRouter>
       </PersistGate>
     </SocketProvider>

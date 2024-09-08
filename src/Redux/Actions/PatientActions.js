@@ -3,8 +3,18 @@ import { config } from "../Config"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { authHeader, header } from "../Header"
+import { jwtDecode } from "jwt-decode"
 
 const url = config.liveUrl
+
+export const getUserRole = () => {
+    const token = localStorage.getItem("token"); // or wherever you store your JWT
+    if (token) {
+        const decoded = jwtDecode(token);
+        return decoded.role; // return role from token
+    }
+    return null;
+};
 
 export const patient_register = (body, navigate) => async (dispatch) => {
 	try {
