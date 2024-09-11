@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Sidebar from './Components/Sidebar';
 import Navbar from './Components/Navbar';
 import firstaid from '../assets/first aid.png';
@@ -8,7 +8,7 @@ import bank from '../assets/bank.png';
 import AreaChartHero from './Components/Charts/AreaChartHero';
 import LineChartHero from './Components/Charts/LineChartHero';
 import LineChartHero2 from './Components/Charts/LineChartHero2';
-import DashboardTable from './DasboardTable';
+import DashboardTable from './DashboardTable';
 import { useTheme } from './Components/ThemeContext';
 import Chatbot from './Components/Chatbot';
 import { IoHelpOutline } from "react-icons/io5";
@@ -49,17 +49,14 @@ const DoctorDashboard = () => {
         dispatch(loadDoctor());
     }, [dispatch]);
 
-    // Calculate the number of scheduled, pending, and canceled appointments
-    const scheduledCount = appointments.filter(appointment => appointment.status === 'Accepted').length;
-    const pendingCount = appointments.filter(appointment => appointment.status === 'Pending').length;
-    const canceledCount = appointments.filter(appointment => appointment.status === 'Rejected').length;
+    const scheduledCount = useMemo(() => appointments.filter(appointment => appointment.status === 'Accepted').length, [appointments]);
+    const pendingCount = useMemo(() => appointments.filter(appointment => appointment.status === 'Pending').length, [appointments]);
+    const canceledCount = useMemo(() => appointments.filter(appointment => appointment.status === 'Rejected').length, [appointments]);
 
-    // Calculate total appointments
-    const totalAppointments = pendingCount + canceledCount + scheduledCount;
+    const totalAppointments = useMemo(() => pendingCount + canceledCount + scheduledCount, [pendingCount, canceledCount, scheduledCount]);
+    const uniquePatientsCount = useMemo(() => new Set(appointments.map(appointment => appointment.patientId)).size, [appointments]);
 
-    // Calculate unique patients count
-    // Ensure appointments array is not empty and patientId is valid
-    const uniquePatientsCount = new Set(appointments.map(appointment => appointment.patientId)).size;
+    const totalEarnings = doctor?.earnings || 0;
 
     // Tutorial Modal
     // const { startTutorial } = useTutorial();
@@ -76,7 +73,7 @@ const DoctorDashboard = () => {
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                        {/* <DoctorTutorialModal isOpen={showTutorial} onClose={closeTutorial} /> */}
+                            {/* <DoctorTutorialModal isOpen={showTutorial} onClose={closeTutorial} /> */}
                             <Navbar messageCount={5} notificationCount={12} loadDoc={loadDoc} />
                             <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                                 <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>
@@ -109,7 +106,7 @@ const DoctorDashboard = () => {
                                         <img className='lg:w-[40px] xs:w-[30px]' src={bank} alt="bank" />
                                         <div>
                                             <h1 className='xs:text-[13px] lg:text-[14px] font-Inter font-bold leading-[20px] text-start'>Your Earnings</h1>
-                                            <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>$ 12,174</h2>
+                                            <h2 className='text-[#22D1EE] xs:text-[14px] lg:text-[16px] font-Inter font-normal leading-[24px] text-start mt-[5px]'>₦ {totalEarnings.toLocaleString()}</h2>
                                         </div>
                                     </div>
                                 </div>

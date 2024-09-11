@@ -1,49 +1,81 @@
-import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { AreaChart } from '@tremor/react';
+import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction';
+import { useParams } from 'react-router-dom';
+import { getDoctorEarnings } from '@/Redux/Actions/DoctorActions';
 
+// Local dataFormatter function
 const dataFormatter = (number) =>
-  `₦${Intl.NumberFormat('us').format(number).toString()}`;
-
-const generateChartData = () => {
-  const currentYear = new Date().getFullYear();
-  const chartdata = [];
-
-  for (let i = 1; i <= 12; i++) {
-    const month = `${currentYear}-${i}`;
-    const patientsPrevYear = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000; // Example random data for previous year
-    const patientsCurrentYear = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000; // Example random data for current year
-
-    chartdata.push({
-      date: month,
-      [`Patients ${currentYear - 1}`]: patientsPrevYear,
-      [`Patients ${currentYear}`]: patientsCurrentYear,
-    });
-  }
-
-  return chartdata;
-};
+  `₦${Intl.NumberFormat('en-US').format(number).toString()}`;
 
 const AreaChartHero = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const doctorId = id;
   const [chartData, setChartData] = useState([]);
+  const { appointments = [] } = useSelector((state) => state.appointments);
+  const earnings = useSelector((state) => state.getTotalEarnings.earnings)
 
   useEffect(() => {
-    const newData = generateChartData();
-    setChartData(newData);
-  }, []); // Run once on mount to initialize
+    dispatch(getAllAppointments(doctorId));
+    dispatch(getDoctorEarnings(id));
+  }, [dispatch, doctorId, id]);
+
+  useEffect(() => {
+    if (appointments && appointments.length) {
+      console.log('Fetched Appointments:', appointments); // Log appointments data
+      try {
+        const formattedData = formatDataForChart(appointments, earnings);
+        console.log('Formatted Chart Data:', formattedData); // Log formatted data
+        setChartData(formattedData);
+      } catch (error) {
+        console.error('Error formatting chart data:', error);
+      }
+    }
+  }, [appointments, earnings]);
+
+  const formatDataForChart = (appointments, earnings) => {
+    const months = Array.from({ length: 12 }, (_, i) => `${new Date().getFullYear()}-${String(i + 1).padStart(2, '0')}`);
+    const data = months.map(month => {
+      const filteredAppointments = appointments.filter(app => {
+        const appointmentMonth = new Date(app.appointmentDate).toISOString().substring(0, 7); // YYYY-MM format
+        return appointmentMonth === month;
+      });
+
+      const totalAppointments = filteredAppointments.length;
+
+      // Compute total earnings for this month
+      const earningsForMonth = filteredAppointments.reduce((acc, app) => acc + parseFloat(app.pricing || 0), 0);
+
+      return {
+        date: month,
+        'Total Appointments': totalAppointments,
+        'Total Earnings': earningsForMonth,
+      };
+    });
+
+    console.log('Formatted Chart Data:', data);
+    return data;
+  };
 
   return (
     <div>
-      <h2 className="text-[20px] font-bold font-Inter mr-4 g-[5rem] ms-[0.6rem]">Hospital Survey</h2>
-      <AreaChart
-        className="h-80"
-        data={chartData}
-        index="date"
-        categories={[`Patients ${new Date().getFullYear() - 1}`, `Patients ${new Date().getFullYear()}`]}
-        colors={['yellow', 'blue']}
-        valueFormatter={dataFormatter}
-        yAxisWidth={58}
-        onValueChange={(v) => console.log(v)}
-      />
+      <h2 className="text-[20px] font-bold font-Inter mr-4 g-[5rem] ms-[0.6rem] mb-3">Hospital Survey</h2>
+      {/* {chartData.length > 0 ? ( */}
+        <AreaChart
+          className="h-80"
+          data={chartData}
+          index="date"
+          categories={['Total Appointments', 'Total Earnings']}
+          colors={['yellow', 'blue']}
+          valueFormatter={dataFormatter}
+          yAxisWidth={58}
+          onValueChange={(v) => console.log(v)}
+        />
+      {/* ) : ( */}
+        {/* <p>No data available</p> */}
+      {/* )} */}
     </div>
   );
 };

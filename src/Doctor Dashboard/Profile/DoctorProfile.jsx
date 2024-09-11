@@ -68,9 +68,8 @@ const DcotorProfile = () => {
                 </div>
                 <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] lg:pt-[0.5rem] xs:pt-[5rem]'>
                   <div className='lg:ms-[12rem]'>
-                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.title} {doctor?.firstName} {doctor?.lastName}</h2>
+                    <h2 className='text-[30px] text-[#22D1EE] font-bold font-Inter'>{doctor?.title} {doctor?.firstName} {doctor?.lastName} <span className={`text-[14px] ${doctor?.level === 'Gold' ? 'text-[#F7941D]' : doctor?.level === 'Silver' ? 'text-[#43BE83]' : ''}`}>{doctor?.level}</span></h2>
                     <h3 className='text-[#17B978] text-[15px] font-Inter font-normal'>{doctor?.profession}</h3>
-                    <h3 className='text-[#22D1EE] text-[15px] font-Inter font-normal'>Rank - <span className={`${doctor?.level === 'Gold' ? 'text-[#F7941D]' : doctor?.level === 'Silver' ? 'text-[#43BE83]' : ''}`}>{doctor?.level}</span></h3>
                   </div>
                   <div className='flex items-center justify-end gap-[2rem] lg:mt-0 xs:mt-5'>
                     <button className='lg:text-[20px] xs:text-[16px] bg-[#22D1EE] p-2.5 rounded-[100px]' onClick={handleShareClick}><FaShare /></button>

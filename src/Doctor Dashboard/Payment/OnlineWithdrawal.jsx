@@ -1,21 +1,96 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../Components/Sidebar";
 import Navbar from "../Components/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTheme } from "../Components/ThemeContext";
 import { CiWallet } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { getDoctorDebts, getDoctorEarnings, loadDoctor } from "@/Redux/Actions/DoctorActions";
+import { PaystackButton } from 'react-paystack'; // Import PaystackButton
+import { config } from "@/Redux/Config";
+import toast from "react-hot-toast";
 
 const OnlineWithdrawal = () => {
   const { theme, appearance } = useTheme();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const doctorId = id;
+  const { earnings = 0 } = useSelector((state) => state.getTotalEarnings)
+  const debts = useSelector((state) => state.doctorDebt.debts);
+  const doctor = useSelector((state) => state.loadDoctor.doctor);
+  const [amount, setAmount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    dispatch(loadDoctor(id));
+    dispatch(getDoctorEarnings(id));
+    dispatch(getDoctorDebts(id));
+  }, [dispatch, id]);
+
+  // Determine if debt should be displayed as red
+  const debtValue = debts?.debt || 0;
+  const isDebtNegative = debtValue >= 1;
+  const formattedDebt = isDebtNegative ? `- ${debtValue.toLocaleString()}` : `₦ ${debtValue.toLocaleString()}`;
+
+  const url = config.liveUrl
+
+  const handleAmountChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ''); // Allow only numbers
+    setAmount(value);
+  };
+
+  // Payment handler
+  const handlePaymentSuccess = async (reference) => {
+    console.log('Reference:', reference);
+    try {
+      const ref = reference.reference || reference; // Ensure reference is valid
+      console.log('Processed Reference:', ref);
+      setLoading(true);
+      const response = await fetch(`${url}/doctor/payment/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reference: ref, doctorId })
+      });
+      const data = await response.json();
+      console.log('Server Response:', data);
+
+      if (!doctor?.email || amount <= 0) {
+        toast.error('Please enter a valid email and amount.');
+        return;
+      }
+
+      if (data.success) {
+        toast.success('Payment successful and debt updated');
+        dispatch(getDoctorDebts(id));
+      } else {
+        toast.error(data.message || 'Payment failed');
+      }
+    } catch (error) {
+      console.error('Error during payment verification:', error);
+      toast.error('An error occurred during payment verification');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const paystackProps = {
+    email: doctor?.email,
+    amount: parseInt(amount) * 100, // Convert amount to kobo
+    publicKey: 'pk_test_44f282bcfc56981db8dfc4ed153f8c68741e5b3d', // Test public key
+    text: 'Pay Now',
+    onSuccess: handlePaymentSuccess,
+    onClose: () => toast.error('Transaction was not completed')
+  };
 
   return (
     <div>
       <div
         className={`flex ${theme === "dark"
-            ? "bg-gray-900"
-            : theme === "light"
-              ? "bg-[#E2F3F5]"
-              : "bg-gray-100"
+          ? "bg-gray-900"
+          : theme === "light"
+            ? "bg-[#E2F3F5]"
+            : "bg-gray-100"
           } ${appearance === "green"
             ? "text-[#17B978]"
             : appearance === "blue"
@@ -39,16 +114,16 @@ const OnlineWithdrawal = () => {
             <div className="lg:px-[30px] xs:px-[10px] mt-[1rem]">
               <h2 className="text-[32px] font-bold font-Lato">Withdrawal</h2>
               <hr className="w-full h-[1.5px] bg-[#C7C7C7] mt-[1rem]" />
-              <Link to="/payment_method" className="underline">
+              {/* <Link to="/payment_method" className="underline">
                 <h3 className="text-[16px] font-bold font-Nunito mt-[2rem] text-[#17B978]">
                   See all payment methods
                 </h3>
-              </Link>
+              </Link> */}
               <div className="mt-[2rem] flex flex-wrap justify-between items-center bg-opacity-0">
                 <div className="lg:grid grid-cols-3 gap-4 order-first">
-                  <form className="col-span-2 ...">
+                  <div className="col-span-2 ...">
                     <div className="lg:grid grid-cols-3 gap-4">
-                      <div className="col-span-2 ...">
+                      {/* <div className="col-span-2 ...">
                         <label className="flex flex-col items-left p-4 justify-left">
                           <span className="font-normal text-2xl text-left">
                             Payment Method
@@ -61,8 +136,8 @@ const OnlineWithdrawal = () => {
                             <option value="Transfer">Transfer</option>
                           </select>
                         </label>
-                      </div>
-                      <div className="...">
+                      </div> */}
+                      {/* <div className="...">
                         <label className="flex flex-col items-left p-4 justify-left">
                           <span className="font-normal text-2xl text-left">
                             Currency
@@ -73,20 +148,22 @@ const OnlineWithdrawal = () => {
                             className={`flex justify-around p-2.5 text-left w-full border rounded-[5px] px-[10px] font-Nunito font-normal mt-4 bg-transparent outline-none  ${theme === "dark" ? "border-[#fff]" : theme === "light" ? "border-[rgba(0,0,0,0.2)]" : ""}`}
                           >
                             <option value="NGN">NGN</option>
-                            {/* <option value="Card">USD</option>
+                            <option value="Card">USD</option>
                             <option value="Transfer">GBP</option>
-                            <option value="Transfer">EUR</option> */}
+                            <option value="Transfer">EUR</option>
                           </select>
                         </label>
-                      </div>
+                      </div> */}
                       <div className="col-span-3 ...">
                         <label className="flex flex-col items-left p-4 justify-left">
                           <span className="font-normal text-2xl text-left">
                             From account
                           </span>
                           <div className={`flex justify-between p-4 text-left w-full border rounded-[5px] px-[10px] font-Nunito font-normal mt-4 bg-transparent  ${theme === "dark" ? "border-[#fff]" : theme === "light" ? "border-[rgba(0,0,0,0.2)]" : ""}`}>
-                            <h2 className="text-[15px] font-Nunito font-bold flex items-center gap-[10px]"><CiWallet className="text-[28px] font-bold" /> Balance Available</h2>
-                            <h2 className="text-[18px] font-Nunito font-bold flex items-center gap-[10px]">0.00 <span>NGN</span></h2>
+                            <h2 className="text-[15px] font-Nunito font-bold flex items-center gap-[10px]"><CiWallet className="text-[28px] font-bold" />Available Debt</h2>
+                            <h2 className={`text-[18px] font-Nunito font-bold flex items-center gap-[10px] ${isDebtNegative ? 'text-red-500' : ''}`}>
+                              {formattedDebt}
+                              <span>NGN</span></h2>
                           </div>
                         </label>
                       </div>
@@ -97,15 +174,15 @@ const OnlineWithdrawal = () => {
                           </span>
                           <label className={`flex justify-between px-[10px] py-2.5 text-left w-full border rounded-[5px] font-Nunito font-normal mt-4 bg-transparent  ${theme === "dark" ? "border-[#fff]" : theme === "light" ? "border-[rgba(0,0,0,0.2)]" : ""}`}>
                             <input
-                              type="dropdown"
+                              type="text"
                               className="bg-transparent outline-none"
                               placeholder="0.00"
+                              value={amount}
+                              onChange={handleAmountChange}
+                              required
                             />
                             <h2 className="text-[16px] font-Nunito font-normal">NGN</h2>
                           </label>
-                          <span className="text-[14px] font-medium font-Nunito mt-2 text-[#17B978]">
-                            <p>5,000 - 100,000 NGN</p>
-                          </span>
                         </label>
                       </div>
                       <div className="col-span-3 flex items-left m-4 p-4 justify-left bg-teal-300 text-black rounded-[5px]">
@@ -120,21 +197,25 @@ const OnlineWithdrawal = () => {
                       <div className="col-span-3 ...">
                         <label className="flex flex-col items-left p-4 justify-left">
                           <div className={`w-full p-4 flex items-center justify-between rounded-[10px] ${theme === "dark" ? "bg-gray-800" : theme === "light" ? "bg-[#D6F6F9]" : ""}`}>
-                            <h2 className="text-[17px] font-bold font-Nunito">To be withdrawn </h2>
-                            <h2 className="text-[22px] font-Nunito font-bold flex items-center gap-[10px]">0.00 <span>NGN</span></h2>
+                            <h2 className="text-[17px] font-bold font-Nunito">To be paid </h2>
+                            <h2 className={`text-[22px] font-Nunito font-bold flex items-center gap-[10px] ${isDebtNegative ? 'text-red-500' : ''}`}>{formattedDebt} <span>NGN</span></h2>
                           </div>
                         </label>
                       </div>
                       <div className="col-span-1 flex items-left p-4 justify-left">
-                        <button
-                          type="submit"
-                          className={`w-full h-[40px] bg-[#22D1EE] text-white font-bold font-Lato rounded-[5px] mt-[1rem]`}
-                        >
-                          Continue
-                        </button>
+
+                        {loading ? (
+                          <button className="w-full h-[40px] bg-gray-400 text-white font-bold font-Lato rounded-[5px] mt-[1rem]" disabled>Processing...</button>
+                        ) : (
+                          <button
+                            className={`w-full h-[40px] bg-[#22D1EE] text-white font-bold font-Lato rounded-[5px] mt-[1rem]`}
+                          >
+                            <PaystackButton {...paystackProps} />
+                          </button>
+                        )}
                       </div>
                     </div>
-                  </form>
+                  </div>
 
                   <div className="grid grid-rows-3 grid-flow-col gap-4 order-last lg:mt-0 xs:mt-[3rem]">
                     <div className="row-span-2 col-span-3 ...">
@@ -162,7 +243,7 @@ const OnlineWithdrawal = () => {
                           How to withdraw with online bank transfer
                         </Link>
                       </div>
-                    {/* <div className="row-span-1 col-span-3 mt-[10rem]">
+                      {/* <div className="row-span-1 col-span-3 mt-[10rem]">
                       <p className="justify-left text-[19px] font-medium font-Nunito">
                         Conversion rate
                       </p>

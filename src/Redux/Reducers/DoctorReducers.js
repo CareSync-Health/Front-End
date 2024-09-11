@@ -1,5 +1,24 @@
 import * as types from "../Types";
 
+const initialState = {
+  selectedChatType: undefined,
+  selectedChatData: undefined,
+  selectedChatMessages: [],
+  directMessagesContacts: [],
+  PatientDirectMessagesContacts: [],
+  contactStatuses: {},
+  notifications: [],
+  videoCall: undefined,
+  voiceCall: undefined,
+  incomingVoiceCall: undefined,
+  incomingVideoCall: undefined,
+  earnings: 0,
+  debts: {
+    debt: 0,
+    paymentsMade: 0
+  }
+};
+
 export const doctorAuthReducer = (state = {}, action) => {
   switch (action.type) {
     case types.DOCTOR_AUTH_REQUEST:
@@ -126,6 +145,32 @@ export const updateDoctorReducer = (state = {}, action) => {
   }
 }
 
+export const getTotalEarningReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.GET_DOCTOR_EARNINGS_REQUEST:
+      return { ...state, loading: true, };
+    case types.GET_DOCTOR_EARNINGS_SUCCESS:
+      return { ...state, loading: false, earnings: action.payload };
+    case types.GET_DOCTOR_EARNINGS_FAIL:
+      return { ...state, loading: false, error: action.error, };
+    default:
+      return state;
+  }
+};
+
+export const doctorDebtReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.GET_DOCTOR_DEBTS_REQUEST:
+      return { ...state, loading: true };
+    case types.GET_DOCTOR_DEBTS_SUCCESS:
+      return { ...state, loading: false, debts: action.payload};
+    case types.GET_DOCTOR_DEBTS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const searchContactsReducer = (state = {}, action) => {
   switch (action.type) {
     case types.SEARCH_CONTACTS_REQUEST:
@@ -139,19 +184,6 @@ export const searchContactsReducer = (state = {}, action) => {
   }
 }
 
-const initialState = {
-  selectedChatType: undefined,
-  selectedChatData: undefined,
-  selectedChatMessages: [],
-  directMessagesContacts: [],
-  PatientDirectMessagesContacts: [],
-  contactStatuses: {},
-  notifications: [],
-  videoCall: undefined,
-  voiceCall: undefined,
-  incomingVoiceCall: undefined,
-  incomingVideoCall: undefined,
-};
 
 export const chatReducer = (state = initialState, action) => {
   switch (action.type) {

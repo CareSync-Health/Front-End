@@ -256,8 +256,8 @@ const SearchDoctors = () => {
                   </div>
                 </div>
                 <div className='mt-[1rem]'>
-                  <p className={`text-[14px] ${expandedDescriptions[doctor?._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
-                    {(doctor?.description || 'No description available').length > 100 ? (doctor?.description || 'No description available').slice(0, 100) + '...' : doctor?.description || 'No description available'}
+                  <p className={`text-[13px] ${expandedDescriptions[doctor?._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
+                    {(doctor?.aboutText || 'No description available').length > 100 ? (doctor?.aboutText || 'No description available').slice(0, 100) + '...' : doctor?.aboutText || 'No description available'}
                   </p>
                   <button
                     onClick={() => toggleDescription(doctor?._id)}

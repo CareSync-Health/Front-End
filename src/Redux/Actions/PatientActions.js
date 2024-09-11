@@ -8,12 +8,24 @@ import { jwtDecode } from "jwt-decode"
 const url = config.liveUrl
 
 export const getUserRole = () => {
-    const token = localStorage.getItem("token"); // or wherever you store your JWT
-    if (token) {
-        const decoded = jwtDecode(token);
-        return decoded.role; // return role from token
-    }
-    return null;
+    const token = localStorage.getItem("token");
+	if (token) {
+		try {
+			const decoded = jwtDecode(token);
+			const now = Date.now() / 1000; // Current time in seconds
+			if (decoded.exp < now) {
+				// Token is expired
+				localStorage.removeItem("token"); // Clear the expired token
+				return null; // Return null if the token is expired
+			}
+			return decoded.role;
+		} catch (error) {
+			// Token is invalid or decoding failed
+			localStorage.removeItem("token"); // Clear invalid token
+			return null;
+		}
+	}
+	return null;
 };
 
 export const patient_register = (body, navigate) => async (dispatch) => {

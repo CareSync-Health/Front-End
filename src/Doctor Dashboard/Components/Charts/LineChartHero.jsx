@@ -1,75 +1,78 @@
-import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { LineChart } from '@tremor/react';
+import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction';
+import { useParams } from 'react-router-dom';
+import { getDoctorEarnings } from '@/Redux/Actions/DoctorActions';
 
-const generateChartData = () => {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth(); // Get current month index (0 for January, 11 for December)
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const chartdata = [];
-
-  for (let i = 0; i <= currentMonth; i++) {
-    const month = months[i];
-    const date = `${month} ${currentYear}`;
-    const income = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000; // Example random income calculation
-
-    chartdata.push({
-      date,
-      "Income in current month": income,
-    });
-  }
-
-  return chartdata;
-};
+// Local dataFormatter function
+const dataFormatter = (number) =>
+  `₦${Intl.NumberFormat('en-NG').format(number).toString()}`; // Adjust locale for Naira
 
 const LineChartHero = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const doctorId = id;
   const [chartData, setChartData] = useState([]);
-  const [totalIncome, setTotalIncome] = useState(0);
+  const { appointments = []} = useSelector((state) => state.appointments);
+  const earnings = useSelector((state) => state.getTotalEarnings.earnings)
 
   useEffect(() => {
-    const newData = generateChartData();
-    setChartData(newData);
+    dispatch(getAllAppointments(doctorId));
+    dispatch(getDoctorEarnings(id));
+  }, [dispatch, doctorId, id]);
 
-    // Calculate total income from the beginning of the year up to the current month
-    const total = newData.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue["Income in current month"];
-    }, 0);
-    setTotalIncome(total);
-  }, []); // Run once on mount to initialize
+  useEffect(() => {
+    if (appointments && appointments.length) {
+      try {
+        const formattedData = formatDataForChart(appointments, earnings);
+        setChartData(formattedData);
+      } catch (error) {
+        console.error('Error formatting chart data:', error);
+      }
+    }
+  }, [appointments, earnings]);
 
-  const dataFormatter = (number) =>
-    `₦${Intl.NumberFormat('en-NG').format(number).toString()}`; // Formatting for Nigerian Naira
+  const formatDataForChart = (appointments) => {
+    const months = Array.from({ length: 12 }, (_, i) => `${new Date().getFullYear()}-${String(i + 1).padStart(2, '0')}`);
+    
+    const data = months.map(month => {
+      const filteredAppointments = appointments.filter(app => {
+        const appointmentMonth = new Date(app.appointmentDate).toISOString().substring(0, 7); // YYYY-MM format
+        return appointmentMonth === month;
+      });
 
-  const customTooltip = (props) => {
-    const { payload, active } = props;
-    if (!active || !payload || payload.length === 0) return null;
-    const dataKey = payload[0].dataKey;
-    const value = payload[0].value;
-    return (
-      <div className="w-56 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
-        <p className="text-tremor-content">{dataKey}</p>
-        <p className="font-medium text-tremor-content-emphasis">
-          {dataFormatter(value)}
-        </p>
-      </div>
-    );
+      const totalAppointments = filteredAppointments.length;
+
+      // Compute total earnings for this month
+      const earningsForMonth = filteredAppointments.reduce((acc, app) => acc + parseFloat(app.pricing || 0), 0);
+
+      return {
+        date: month,
+        'Total Appointments': totalAppointments,
+        'Income in current month': earningsForMonth,
+      };
+    });
+
+    console.log('Formatted Chart Data:', data);
+    return data;
   };
 
   return (
     <div>
       <h3 className="text-[19px] font-Inter font-bold text-start">
-        Total Income: {dataFormatter(totalIncome)}
+        Total Income: {dataFormatter(earnings)}
       </h3>
-        <LineChart
-          className="mt-4 h-72"
-          data={chartData}
-          index="date"
-          categories={['Income in current month']}
-          colors={['blue']}
-          yAxisWidth={30}
-          valueFormatter={dataFormatter}
-        //   customTooltip={customTooltip}
-          yAxisFormatter={(value) => dataFormatter(value)}
-        />
+      <LineChart
+        className="mt-4 h-72"
+        data={chartData}
+        index="date"
+        categories={['Income in current month']}
+        colors={['blue']}
+        yAxisWidth={30}
+        valueFormatter={dataFormatter}
+        yAxisFormatter={(value) => dataFormatter(value)}
+      />
     </div>
   );
 };

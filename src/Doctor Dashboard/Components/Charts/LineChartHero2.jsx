@@ -1,48 +1,62 @@
 import { useState, useEffect } from 'react';
 import { LineChart } from '@tremor/react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getAllAppointments } from '@/Redux/Actions/BookAppointmentAction'; // Adjust import path as needed
 
 const LineChartHero2 = () => {
+  const dispatch = useDispatch();
   const [chartData, setChartData] = useState([]);
   const [totalIncome, setTotalIncome] = useState(0);
 
+  const { appointments = [] } = useSelector((state) => state.appointments);
+
+  useEffect(() => {
+    dispatch(getAllAppointments());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (appointments && appointments.length) {
+      const newData = generateChartData(appointments);
+      setChartData(newData);
+
+      // Calculate total income for all weeks up to the current week
+      const total = newData.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue["Income in current week"];
+      }, 0);
+      setTotalIncome(total);
+    }
+  }, [appointments]);
+
   // Generate data for all weeks up to the current week
-  const generateChartData = () => {
+  const generateChartData = (appointments) => {
     const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth();
     const currentWeek = getWeekNumber(new Date());
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const weeksInMonth = getWeeksInMonth(currentMonth, currentYear);
-    const chartdata = [];
+    const chartData = [];
 
-    for (let week = 1; week <= weeksInMonth; week++) {
-      const date = `Week ${week}, ${months[currentMonth]} ${currentYear}`;
-      const income = week <= currentWeek ? Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000 : 0; // Generate income only for weeks up to current week
+    for (let week = 1; week <= 52; week++) {
+      const date = `Week ${week}, ${currentYear}`;
+      const income = week <= currentWeek
+        ? calculateWeeklyIncome(appointments, week, currentYear)
+        : 0; // Generate income only for weeks up to current week
 
-      chartdata.push({
+      chartData.push({
         date,
         "Income in current week": income,
       });
     }
 
-    return chartdata;
+    return chartData;
   };
 
-  // Helper function to get the number of weeks in a given month
-  const getWeeksInMonth = (month, year) => {
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const firstDayOfWeek = firstDay.getDay(); // 0 (Sunday) to 6 (Saturday)
-    const lastDayOfWeek = lastDay.getDay();
-
-    // Calculate number of weeks
-    let weeks = Math.ceil((daysInMonth + firstDayOfWeek) / 7);
-    if (firstDayOfWeek === 0 && lastDayOfWeek === 6) {
-      weeks++;
-    } else if (firstDayOfWeek === 0 || (lastDayOfWeek === 6 && firstDayOfWeek !== 0)) {
-      weeks--;
-    }
-    return weeks;
+  // Calculate income for a specific week
+  const calculateWeeklyIncome = (appointments, week, year) => {
+    return appointments
+      .filter(app => {
+        const appDate = new Date(app.appointmentDate);
+        const appWeek = getWeekNumber(appDate);
+        return appWeek === week && appDate.getFullYear() === year;
+      })
+      .reduce((acc, app) => acc + parseFloat(app.pricing || 0), 0);
   };
 
   // Helper function to get the week number of a given date
@@ -51,17 +65,6 @@ const LineChartHero2 = () => {
     const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
   };
-
-  useEffect(() => {
-    const newData = generateChartData();
-    setChartData(newData);
-
-    // Calculate total income for all weeks up to the current week
-    const total = newData.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue["Income in current week"];
-    }, 0);
-    setTotalIncome(total);
-  }, []); // Run once on mount to initialize
 
   const dataFormatter = (number) =>
     `₦${Intl.NumberFormat('en-NG').format(number)}`;
@@ -86,17 +89,17 @@ const LineChartHero2 = () => {
       <h3 className="text-[19px] font-Inter font-bold text-start">
         Total Income: {dataFormatter(totalIncome)}
       </h3>
-        <LineChart
-          className="mt-4 h-72"
-          data={chartData}
-          index="date"
-          categories={['Income in current week']}
-          colors={['yellow']}
-          yAxisWidth={30}
-          valueFormatter={dataFormatter}
-        //   customTooltip={customTooltip}
-          yAxisFormatter={(value) => dataFormatter(value)}
-        />
+      <LineChart
+        className="mt-4 h-72"
+        data={chartData}
+        index="date"
+        categories={['Income in current week']}
+        colors={['yellow']}
+        yAxisWidth={30}
+        valueFormatter={dataFormatter}
+        customTooltip={customTooltip}
+        yAxisFormatter={(value) => dataFormatter(value)}
+      />
     </div>
   );
 };

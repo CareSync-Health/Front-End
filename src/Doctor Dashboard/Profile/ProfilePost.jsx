@@ -106,7 +106,7 @@ const ProfilePost = ({ doctor }) => {
           </div>
         </div>
         <div>
-          <div className={`lg:w-[260px] xs:mt-[2rem] lg:mt-0 py-5 rounded-[10px] px-[20px] py-[20px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
+          <div className={`lg:w-[260px] xs:mt-[2rem] lg:mt-0 rounded-[10px] px-[20px] py-[20px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-[#22D1EE]' : 'text-[#22D1EE]'}`}>
             <h3 className='text-[18px] font-bold font-Nunito'>Similar Doctor’s</h3>
             <div className='mt-[1rem]'>
               {randomDoctors.map((simi, index) => (

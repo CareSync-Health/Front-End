@@ -13,7 +13,7 @@ export const appointmentReducer = (state = initialState, action) => {
         case types.BOOK_APPOINTMENT_SUCCESS:
             return { ...state, loading: false, success: true };
         case types.BOOK_APPOINTMENT_FAIL:
-            return { ...state, loading: false, error: action.payload };
+            return { ...state, loading: false, error: action.payload };		
         default:
             return state;
     }

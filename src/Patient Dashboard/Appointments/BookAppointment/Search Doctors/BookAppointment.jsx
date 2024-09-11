@@ -16,6 +16,9 @@ const BookAppointment = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const doctor = useSelector((state) => state.loadDoctor.doctor);
+    const appointmentState = useSelector((state) => state.appointment); // Access the appointment state
+    const patient = useSelector((state) => state.loadPatient.patient);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [appointmentDate, setAppointmentDate] = useState(new Date());
     const [residentialAddress, setResidentialAddress] = useState('')
@@ -26,12 +29,12 @@ const BookAppointment = () => {
     const [checkup, setCheckup] = useState('')
     const [reason, setReason] = useState('');
     const [description, setDescription] = useState('');
-
     const [checkupDescription, setCheckupDescription] = useState('')
+    const [consultationFee, setConsultationFee] = useState(doctor?.consultationFee || 0)
+    const [pricing, setPricing] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [formValid, setFormValid] = useState(true);
 
-    const doctor = useSelector((state) => state.loadDoctor.doctor);
-    const appointmentState = useSelector((state) => state.appointment); // Access the appointment state
-    const patient = useSelector((state) => state.loadPatient.patient);
 
     useEffect(() => {
         if (id) {
@@ -43,11 +46,12 @@ const BookAppointment = () => {
         if (id) {
             dispatch(loadDoctor(id));
         }
-    }, [dispatch, id]);
+    }, [dispatch, id])
 
     useEffect(() => {
         if (doctor) {
             setSelectedDoctor(doctor);
+            setConsultationFee(doctor?.consultationFee);
         }
     }, [doctor]);
 
@@ -60,6 +64,26 @@ const BookAppointment = () => {
             setResidentialAddress(patient.addressLine1 || "");
         }
     }, [patient]);
+
+    useEffect(() => {
+        const maxNegotiableAmount = consultationFee * 0.05; // 5% of consultation fee
+        const negotiatedPrice = parseFloat(pricing);
+    
+        if (isNaN(negotiatedPrice)) {
+            setErrorMessage('Negotiated price must be a number.');
+            setFormValid(false);
+        } else if (negotiatedPrice < consultationFee) {
+            setErrorMessage(`Negotiated price must be at least equal to the consultation fee of ${consultationFee}.`);
+            setFormValid(false);
+        } else if (negotiatedPrice > consultationFee + maxNegotiableAmount) {
+            setErrorMessage(`You can only negotiate up to ${maxNegotiableAmount.toFixed(2)} more than the consultation fee.`);
+            setFormValid(false);
+        } else {
+            setErrorMessage('');
+            setFormValid(true);
+        }
+    }, [pricing, consultationFee]);
+
 
     const checkupOptions = [
         'General Checkup',
@@ -100,6 +124,16 @@ const BookAppointment = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        if (!formValid) {
+            toast.error(errorMessage || "Please fix the errors before submitting.");
+            return; // Prevent form submission if not valid
+        }
+
+        if (errorMessage) {
+            toast(errorMessage);
+            return; // Don't submit the form if there's an error
+        }
+
         if (!selectedDoctor) {
             toast("Please Select a doctor");
             return;
@@ -117,19 +151,18 @@ const BookAppointment = () => {
             city,
             zipCode,
             residentialAddress,
+            pricing,
             checkup,
             reason,
             description,
         };
-
-        console.log(appointmentData)
-
 
         // Ensure that appointmentData includes all required fields
         if (!appointmentData.patientId || !appointmentData.doctorId || !appointmentData.appointmentDate || !appointmentData.reason || !appointmentData.description || !appointmentData.phoneNumber || !appointmentData.state || !appointmentData.city || !appointmentData.zipCode || !appointmentData.residentialAddress || !appointmentData.checkup) {
             toast("All fields are required");
             return;
         }
+
         dispatch(bookAppointment(appointmentData, navigate));
     };
 
@@ -140,7 +173,7 @@ const BookAppointment = () => {
                 {/* <Navbar /> */}
                 <div className='mt-4 lg:mt-8 xs:px-2 lg:px-6 mb-8'>
                     <h2 className='text-2xl lg:text-3xl font-Mulish font-bold tracking-wide'>New Appointment</h2>
-                    <h2 className='text-sm lg:text-base font-Mulish font-normal mt-1'>Request a new appointment in 10 seconds</h2>
+                    <h2 className='text-sm lg:text-base font-Mulish font-normal mt-1'>Request a new appointment in a minute</h2>
                     <div className='mt-[3rem] lg:pr-24'>
                         <form onSubmit={handleSubmit} className='space-y-6'>
                             <label className="block text-sm lg:text-base font-Mulish font-bold">Doctor</label>
@@ -245,6 +278,27 @@ const BookAppointment = () => {
                             </div>
                             <div className='grid lg:grid-cols-2 gap-4'>
                                 <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">Consultation Price</label>
+                                    <div
+                                        className='text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] flex items-center justify-between mt-3'
+                                    >
+                                        <h2>NGN {doctor?.consultationFee}</h2>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label className="block text-sm lg:text-base font-Mulish font-bold">Negotiate price</label>
+                                    <input
+                                        type='text'
+                                        placeholder='negotiate price with doctor'
+                                        className='mt-3 text-sm lg:text-base font-Mulish font-normal bg-white py-3 px-2 w-full rounded-lg border border-[#ccc] outline-none'
+                                        value={pricing}
+                                        onChange={(e) => setPricing(e.target.value)}
+                                    />
+                                </div>
+                                {errorMessage && <p className='text-red-500 text-sm'>{errorMessage}</p>}
+                            </div>
+                            <div className='grid lg:grid-cols-2 gap-4'>
+                                <div>
                                     <label className="block text-sm lg:text-base font-Mulish font-bold">Appointment reason</label>
                                     <textarea
                                         rows={4}
@@ -267,7 +321,7 @@ const BookAppointment = () => {
                                     />
                                 </div>
                             </div>
-                            <button type='submit' className='bg-[#22cfeeb0] w-full p-3 rounded-lg font-Mulish font-bold text-sm lg:text-base text-white mt-5' disabled={appointmentState.loading }>
+                            <button type='submit' className='bg-[#22cfeeb0] w-full p-3 rounded-lg font-Mulish font-bold text-sm lg:text-base text-white mt-5' disabled={appointmentState.loading}>
                                 {appointmentState.loading ? 'Submitting...' : 'Submit Appointment'}
                             </button>
                         </form>

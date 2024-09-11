@@ -37,6 +37,7 @@ export const bookAppointment = (appointmentData, navigate) => async (dispatch) =
     }
 };
 
+
 // APPOINTMENT
 export const getAllAppointments = (doctorId) => {
     return async (dispatch) => {

@@ -9,12 +9,24 @@ const url = config.liveUrl;
 
 
 export const getUserRole = () => {
-    const token = localStorage.getItem("token"); // or wherever you store your JWT
-    if (token) {
-        const decoded = jwtDecode(token);
-        return decoded.role; // return role from token
-    }
-    return null;
+	const token = localStorage.getItem("token");
+	if (token) {
+		try {
+			const decoded = jwtDecode(token);
+			const now = Date.now() / 1000; // Current time in seconds
+			if (decoded.exp < now) {
+				// Token is expired
+				localStorage.removeItem("token"); // Clear the expired token
+				return null; // Return null if the token is expired
+			}
+			return decoded.role;
+		} catch (error) {
+			// Token is invalid or decoding failed
+			localStorage.removeItem("token"); // Clear invalid token
+			return null;
+		}
+	}
+	return null;
 };
 
 export const doctor_register = (body, navigate) => async (dispatch) => {
@@ -309,6 +321,47 @@ export const updateDoctorProfile = (id, body) => async (dispatch) => {
 			position: 'top-right',
 		});
 	}
+};
+
+export const getDoctorEarnings = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: types.GET_DOCTOR_EARNINGS_REQUEST });
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
+            }
+        };
+        const response = await fetch(`${url}/doctor/${id}/earnings`, config);
+        const data = await response.json();
+
+        dispatch({
+            type: types.GET_DOCTOR_EARNINGS_SUCCESS,
+            payload: data.data,
+        });
+    } catch (error) {
+        dispatch({ type: types.GET_DOCTOR_EARNINGS_FAIL, payload: error.message || error });
+        console.error('Failed to fetch doctor earnings:', error);
+    }
+};
+
+export const getDoctorDebts = (id) => async (dispatch) => {
+    try {
+		dispatch({ type: types.GET_DOCTOR_DEBTS_REQUEST });
+		const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
+            }
+        };
+		const { data } = await axios.get(`${url}/doctor/${id}/debts`, config);
+		dispatch({ type: types.GET_DOCTOR_DEBTS_SUCCESS, payload: data });
+    } catch (error) {
+		dispatch({ type: types.GET_DOCTOR_DEBTS_FAIL, payload: error.message || error });
+      console.error("Error fetching doctor debts", error);
+    }
 };
 
 export const searchContact = (searchTerm, options) => async (dispatch) => {

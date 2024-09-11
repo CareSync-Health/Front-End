@@ -34,31 +34,59 @@ const ViewAppointmentDetail = ({appointment, onClose}) => {
                 <div className='mt-[1.5rem]'>
                     <h2 className='text-[15px] font-Mulish font-medium'>Doctor</h2>
                     <div className='border-[#fff] mt-2 border w-full rounded-[10px] py-1 px-2 flex items-center gap-[10px]'>
-                        <img src={appointment.doctor?.profilePic || avatar} className='w-[40px] h-[40px] rounded-full object-cover' />
-                        <h2 className='text-[14px] font-Mulish font-normal capitalize'>{appointment.doctor?.title} {appointment.doctor?.firstName} {appointment.doctor?.lastName}</h2>
+                        <img src={appointment?.doctor?.profilePic || avatar} className='w-[40px] h-[40px] rounded-full object-cover' />
+                        <h2 className='text-[14px] font-Mulish font-normal capitalize'>{appointment?.doctor?.title} {appointment?.doctor?.firstName} {appointment?.doctor?.lastName}</h2>
                     </div>
                     <h2 className='text-[15px] font-Mulish font-medium mt-5'>Patient</h2>
                     <div className='border-[#fff] mt-2 border w-full rounded-[10px] py-1 px-2 flex items-center gap-[10px]'>
-                        <img src={appointment.patient?.profilePic || avatar} className='w-[40px] h-[40px] rounded-full object-cover' />
-                        <h2 className='text-[14px] font-Mulish font-normal capitalize'>{appointment.patient?.firstName} {appointment.patient?.lastName}</h2>
+                        <img src={appointment?.patient?.profilePic || avatar} className='w-[40px] h-[40px] rounded-full object-cover' />
+                        <h2 className='text-[14px] font-Mulish font-normal capitalize'>{appointment?.patient?.firstName} {appointment?.patient?.lastName}</h2>
                     </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Expected appointment date</h2>
                     <div className='border border-[#fff] mt-2 w-full py-2 px-2 flex items-center gap-[10px] rounded-[10px]'>
                         <CiCalendar className='text-[20px]' />
                         <h2 className='text-[14px] font-Mulish font-normal'>{moment(appointment?.appointmentDate).format('DD/MM/YYYY - h:mm A')}</h2>
                     </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Patient Phone Number</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.phoneNumber}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Patient State</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.state}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Patient City</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.city}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Patient Zip code</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.zipCode}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Patient Residential Address</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.residentialAddress}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Checkup</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.checkup}</h2>
+                    </div>
+                    <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Negotiated Price</h2>
+                    <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.pricing.toLocaleString()}</h2>
+                    </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Appointment reason</h2>
                     <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
-                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment.reason}</h2>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.reason}</h2>
                     </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Comments/notes</h2>
                     <div className='border border-[#fff] mt-2 w-full] py-2 px-2 rounded-[10px]'>
-                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment.description}</h2>
+                        <h2 className='text-[14px] font-Mulish font-normal'>{appointment?.description}</h2>
                     </div>
                     <h2 className='mt-5 text-[15px] font-Mulish font-medium'>Appointment Status</h2>
                     <span className={`bg-${bgColor} text-${textColor} border-${textColor} text-[14px] font-Mulish font-normal border py-1.5 px-[10px] rounded-full flex items-center gap-2 mt-2 uppercase`}>
                           {icon}
-                          {appointment.status}
+                          {appointment?.status}
                     </span>
                 </div>
             </div>

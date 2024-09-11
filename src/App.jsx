@@ -1,10 +1,10 @@
-import React, { Suspense, lazy } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { Suspense, lazy, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
-import { useSelector } from "react-redux";
 import { DoctorPrivateRoute, PatientPrivateRoute } from "./Components/ProtectedRoute";
+import { getUserRole } from "./Redux/Actions/DoctorActions";
 // import { TutorialProvider } from "./Components/TutorialContext";
 
 // LANDING PAGE IMPORTS
@@ -58,8 +58,21 @@ const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/Pa
 const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
 
 function App() {
-  const doctor = useSelector((state) => state.doctorAuth.doctor || state.doctorVerifyOtp.doctor);
-  const patient = useSelector((state) => state.patientAuth.patient || state.patientVerifyOtp.patient);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check the token expiration on initial render
+    const role = getUserRole();
+    if (role === null) {
+        // Redirect to the appropriate login page based on the role
+        const path = window.location.pathname;
+        if (path.startsWith('/doctor')) {
+            navigate("/login");
+        } else if (path.startsWith('/patient')) {
+            navigate("/auth");
+        }
+    }
+}, [navigate]);
 
   return (
     <ThemeProvider>
@@ -116,8 +129,8 @@ function App() {
                 <Route path="/view_doctor_profile/:id" element={<ViewDoctorProfile />} />
                 <Route path="/doctor_profile/:id" element={<DoctorProfile />} />
                 <Route path="/edit_doctor_profile/:id" element={<EditDoctorProfile />} />
-                <Route path="/doctor_payment_way" element={<DoctorPayment />} />
-                <Route path="/doctor_payment_online_withdrawal" element={<OnlineWithdrawal />} />
+                <Route path="/doctor_payment_way/:id" element={<DoctorPayment />} />
+                <Route path="/doctor_payment/:id" element={<OnlineWithdrawal />} />
                 <Route path="/payment_method" element={<PaymentMethod />} />
                 <Route path="/doctor_settings/*" element={<DoctorSetting />} />
                 <Route path="/verification_process" element={<Verification />} />
