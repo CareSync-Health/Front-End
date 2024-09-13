@@ -16,8 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { loadDoctor } from '../Redux/Actions/DoctorActions';
 import { getAllAppointments } from '../Redux/Actions/BookAppointmentAction';
-// import DoctorTutorialModal from './Components/DoctorTutorialModal'; // Import the tutorial modal
-// import { useTutorial } from '@/Components/TutorialContext';
+import DoctorTutorialModal from './Components/DoctorTutorialModal';
+import TutorialModal from './Components/DoctorTutorialModal';
 
 const DoctorDashboard = () => {
     const { theme, appearance } = useTheme();
@@ -58,13 +58,22 @@ const DoctorDashboard = () => {
 
     const totalEarnings = doctor?.earnings || 0;
 
-    // Tutorial Modal
-    // const { startTutorial } = useTutorial();
+    const [showTutorial, setShowTutorial] = useState(false);
 
-    // useEffect(() => {
-    //   startTutorial('doctor');
-    // }, [startTutorial]);
+    useEffect(() => {
+        const tutorialShown = localStorage.getItem('doctor_tutorial');
 
+        // Show tutorial only if the flag is set to false
+        if (tutorialShown === 'false') {
+            setShowTutorial(true);
+        }
+    }, []);
+
+    // Function to move to the next step of the tutorial
+    const handleTutorialComplete = () => {
+        setShowTutorial(false);
+        localStorage.setItem('doctor_tutorial', 'true');
+    };
 
     return (
         <>
@@ -73,7 +82,11 @@ const DoctorDashboard = () => {
                     <div className={`flex ${theme === 'dark' ? 'bg-gray-900' : theme === 'light' ? 'bg-[#E2F3F5]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                         <Sidebar />
                         <div className='flex-1 lg:h-[99.9vh] xs:h-[85vh] overflow-y-auto ' style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-                            {/* <DoctorTutorialModal isOpen={showTutorial} onClose={closeTutorial} /> */}
+                            {showTutorial && (
+                                <TutorialModal
+                                    onComplete={handleTutorialComplete}
+                                />
+                            )}
                             <Navbar messageCount={5} notificationCount={12} loadDoc={loadDoc} />
                             <div className='lg:px-[30px] xs:px-[10px] mb-[3rem]'>
                                 <div className='flex flex-wrap items-center mt-[1rem] lg:gap-[2rem] xs:gap-[1rem]'>

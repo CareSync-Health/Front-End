@@ -102,6 +102,7 @@ export const doctor_verification = (id, navigate, body) => async (dispatch) => {
 		const { data } = await axios.post(`${url}/doctor/verifydoctor/${id}`, body, { headers: header });
 		if (data.status === 'ok') {
 			dispatch({ type: types.DOCTOR_VERIFY_SUCCESS, payload: data.data });
+			localStorage.setItem('doctor_tutorial', 'false');
 			toast.success(data.message, {
 				position: 'top-right',
 			});
@@ -123,7 +124,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 
 		const { data } = await axios.post(`${url}/doctor/Signin`, body, header);
 		localStorage.setItem('token', data.token);
-
+		
 		// Check if 2SV is required
 		if (data.requires2SV) {
 			navigate(`/verify2SV/${data.data._id}`);

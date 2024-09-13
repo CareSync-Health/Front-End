@@ -5,7 +5,7 @@ import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
 import { DoctorPrivateRoute, PatientPrivateRoute } from "./Components/ProtectedRoute";
 import { getUserRole } from "./Redux/Actions/DoctorActions";
-// import { TutorialProvider } from "./Components/TutorialContext";
+import { TutorialProvider } from "./Components/TutorialContext";
 
 // LANDING PAGE IMPORTS
 const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
