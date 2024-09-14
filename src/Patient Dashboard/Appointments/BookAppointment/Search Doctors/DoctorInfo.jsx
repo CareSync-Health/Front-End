@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from './../../../Components/Sidebar';
 import Navbar from './../../../Components/Navbar';
 import avatar from '../../../../assets/avatar.png'
-import profilebg from '../../../../assets/profile-bg.png'
 import { Link, useParams } from 'react-router-dom';
 import { FaEnvelope, FaLocationDot, FaPencil, FaUser } from 'react-icons/fa6';
 import { FaPhoneAlt, FaShare } from "react-icons/fa";
@@ -79,7 +78,7 @@ const DoctorInfo = () => {
         <div className='mt-[1rem] xs:px-[10px] lg:px-[30px] mb-[2rem]'>
           <div className=''>
             <div className='pb-[2rem] rounded-[10px] bg-[#fff] shadow-lg'>
-              <div style={{ backgroundImage: `url(${doctor?.headerPic || profilebg})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='lg:h-[280px] w-full'>
+              <div style={{ backgroundImage: `url(${doctor?.headerPic || avatar})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} className='lg:h-[280px] w-full'>
                 <div className='flex items-center justify-between lg:px-[30px] xs:px-[10px] pt-[10rem]'>
                   <img src={doctor?.profilePic || avatar} className='rounded-[100px] object-cover w-[190px] h-[190px]' />
                 </div>

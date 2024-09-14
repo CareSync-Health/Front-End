@@ -315,6 +315,7 @@ const EditProfile = () => {
                 backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${headerPic || doctor?.headerPic || avatar})`,
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 height: 300,
                 maxWidth: 1200,
                 margin: '0 auto',

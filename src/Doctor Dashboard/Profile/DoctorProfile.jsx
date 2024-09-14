@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../Components/Sidebar';
 import Navbar from '../Components/Navbar';
-import profilebg from '../../assets/profile-bg.png';
-import profileavatar from '../../assets/profile_avatar.png';
+import avatar from '../../assets/avatar.png';
 import ProfilePost from './ProfilePost';
 import { FaPencil, FaShare } from 'react-icons/fa6';
 import { useTheme } from '../Components/ThemeContext';
@@ -61,9 +60,9 @@ const DcotorProfile = () => {
         <div>
             <div className='lg:px-[15px] lg:mt-[1rem]'>
               <div className={`pb-[2rem] rounded-[10px] ${theme === 'dark' ? 'bg-gray-800' : theme === 'light' ? 'bg-[#fff]' : ''} ${appearance === 'green' ? 'text-[#17B978]' : appearance === 'blue' ? 'text-[#22D1EE]' : appearance === 'accent' ? 'text-[#A6FFF2]' : theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-                <div style={{ backgroundImage: `url(${doctor?.headerPic})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }} className='lg:h-[280px] w-full'>
+                <div style={{ backgroundImage: `url(${doctor?.headerPic || avatar})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }} className='lg:h-[280px] w-full'>
                   <div className='flex items-center justify-start lg:block xs:relative lg:top-0 xs:top-[4rem] lg:px-[30px] xs:px-[10px] pt-[10rem]'>
-                    <img src={doctor?.profilePic || profileavatar} className='rounded-[100px] object-cover w-[200px] h-[200px]' />
+                    <img src={doctor?.profilePic || avatar} className='rounded-[100px] object-cover w-[200px] h-[200px]' />
                   </div>
                 </div>
                 <div className='lg:flex lg:items-center xs:items-start justify-between lg:px-[50px] xs:px-[15px] lg:pt-[0.5rem] xs:pt-[5rem] relative'>
