@@ -43,6 +43,9 @@ const PaymentMethod = lazy(() => import("./Doctor Dashboard/Payment/PaymentMetho
 const DoctorSetting = lazy(() => import("./Doctor Dashboard/Settings/SettingPage"));
 const Verification = lazy(() => import("./Doctor Dashboard/VerifyAccount/Verification"));
 const Confetti = lazy(() => import("./Doctor Dashboard/Components/Confetti"));
+const Blocked = lazy(() => import("./Doctor Dashboard/Components/Blocked"));
+const Terminated = lazy(() => import("./Doctor Dashboard/Components/Terminated"));
+const KYC_Security = lazy(() => import("./Doctor Dashboard/Components/KYC_Security"));
 
 // PATIENT IMPORTS
 const PatientDashboard = lazy(() => import("./Patient Dashboard/Dashboard/PatientDashboard"));
@@ -117,6 +120,9 @@ function App() {
               <Route path="doctor_verify_otp" element={<VerifyAccount2 />} />
               <Route path="terms&conditions" element={<Terms_Conditions />} />
               <Route path="privacy_policy" element={<Privacy_Policy />} />
+              <Route path='/blocked' element={ <Blocked /> } />
+              <Route path='/terminated' element={ <Terminated /> } />
+              <Route path='/KYC-Security' element={ <KYC_Security /> } />
 
               {/* DOCTOR ROUTE */}
               <Route element={<DoctorPrivateRoute />}>

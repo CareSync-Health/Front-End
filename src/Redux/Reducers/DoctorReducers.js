@@ -1,6 +1,7 @@
 import * as types from "../Types";
 
 const initialState = {
+  status: null,
   selectedChatType: undefined,
   selectedChatData: undefined,
   selectedChatMessages: [],
@@ -16,6 +17,36 @@ const initialState = {
   debts: {
     debt: 0,
     paymentsMade: 0
+  }
+};
+
+export const getDoctorStatusReducer = (state = {}, action) => {
+  switch (action.type) {
+      case types.GET_DOCTOR_STATUS_REQUEST:
+          return { ...state, loading: true };
+      case types.GET_DOCTOR_STATUS_SUCCESS:
+          return { ...state, loading: false, status: action.payload };
+      case types.GET_DOCTOR_STATUS_FAIL:
+          return { ...state, loading: false, error: action.payload };
+      case types.CLEAR_ERRORS:
+        return { ...state, error: null };
+      default:
+          return state;
+  }
+};
+
+export const doctorKYCStatusReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case types.GET_DOCTOR_KYC_STATUS_REQUEST:
+      return { ...state, loading: true };
+    case types.GET_DOCTOR_KYC_STATUS_SUCCESS:
+      return { ...state, loading: false, KYCStatus: action.payload };
+    case types.GET_DOCTOR_KYC_STATUS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case types.CLEAR_ERRORS:
+      return { ...state, error: null };
+    default:
+      return state;
   }
 };
 

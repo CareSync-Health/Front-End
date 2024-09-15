@@ -35,7 +35,7 @@ const Confetti = () => {
       setCountdown(prev => {
         if (prev === 1) {
           clearInterval(countdownTimer);
-          navigate(`/doctor_dashboard${doctor._id}`, { replace: true });
+          navigate(`/doctor_dashboard${doctor?._id}`, { replace: true });
         }
         return prev - 1;
       });
@@ -49,7 +49,7 @@ const Confetti = () => {
   }, [navigate]);
 
   const handleContinue = () => {
-    navigate(`/doctor_dashboard${doctor._id}`, { replace: true });
+    navigate(`/doctor_dashboard${doctor?._id}`, { replace: true });
   };
 
   return (

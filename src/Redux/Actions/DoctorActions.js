@@ -29,17 +29,52 @@ export const getUserRole = () => {
 	return null;
 };
 
+export const getDoctorStatus = (doctorId) => async (dispatch) => {
+	try {
+		dispatch({ type: types.GET_DOCTOR_STATUS_REQUEST });
+		const { data } = await axios.get(`${url}/doctor/status?doctorId=${doctorId}`, {
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('token')}`,
+			},
+		});
+
+		if (data) {
+			dispatch({ type: types.GET_DOCTOR_STATUS_SUCCESS, payload: data.status });
+		} else {
+			dispatch({ type: types.GET_DOCTOR_STATUS_FAIL, payload: data.message });
+		}
+	} catch (error) {
+		dispatch({ type: types.GET_DOCTOR_STATUS_FAIL, payload: error.message });
+	}
+};
+
+// Action to get the doctor's verification status
+export const getDoctorKYCStatus = (doctorId) => async (dispatch) => {
+	try {
+		dispatch({ type: types.GET_DOCTOR_KYC_STATUS_REQUEST });
+		const { data } = await axios.get(`${url}/doctor/KYC-status?doctorId=${doctorId}`, {
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('token')}`,
+			},
+		});
+
+		dispatch({ type: types.GET_DOCTOR_KYC_STATUS_SUCCESS, payload: data.KYCStatus });
+	} catch (error) {
+		dispatch({ type: types.GET_DOCTOR_KYC_STATUS_FAIL, payload: error.response?.data.message || 'Error loading doctor status' });
+	}
+};
+
 export const doctor_register = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.DOCTOR_AUTH_REQUEST });
 
-		const { data } = await axios.post(`${url}/doctor/Signup`, body, header); // Assuming the endpoint is /doctor/register
+		const { data } = await axios.post(`${url}/doctor/Signup`, body, header);
 		if (data) {
 			dispatch({ type: types.DOCTOR_AUTH_SUCCESS, payload: data.data });
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			navigate('/doctor_verify_otp'); // Navigate to the OTP verification page
+			navigate('/doctor_verify_otp');
 		} else {
 			throw new Error(data.error);
 		}
@@ -55,14 +90,14 @@ export const verify_otp = (otp, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.VERIFY_OTP_REQUEST });
 
-		const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header); // Assuming the endpoint is /doctor/verify-otp
+		const { data } = await axios.post(`${url}/doctor/Verifyotp`, { otp }, header);
 		if (data) {
 			dispatch({ type: types.VERIFY_OTP_SUCCESS, payload: data.data });
 			localStorage.setItem('token', data.data.token);
 			toast.success(data.message, {
 				position: 'top-right',
 			});
-			navigate('/verification_process'); // Navigate to the dashboard page
+			navigate('/verification_process');
 		} else {
 			throw new Error(data.error);
 		}
@@ -124,7 +159,7 @@ export const doctor_login = (body, navigate) => async (dispatch) => {
 
 		const { data } = await axios.post(`${url}/doctor/Signin`, body, header);
 		localStorage.setItem('token', data.token);
-		
+
 		// Check if 2SV is required
 		if (data.requires2SV) {
 			navigate(`/verify2SV/${data.data._id}`);
@@ -325,44 +360,42 @@ export const updateDoctorProfile = (id, body) => async (dispatch) => {
 };
 
 export const getDoctorEarnings = (id) => async (dispatch) => {
-    try {
-        dispatch({ type: types.GET_DOCTOR_EARNINGS_REQUEST });
-        const token = localStorage.getItem('token');
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
-            }
-        };
-        const response = await fetch(`${url}/doctor/${id}/earnings`, config);
-        const data = await response.json();
+	try {
+		dispatch({ type: types.GET_DOCTOR_EARNINGS_REQUEST });
+		const response = await fetch(`${url}/doctor/${id}/earnings`, {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${localStorage.getItem('token')}`, // Make sure to add Bearer token
+			}
+		});
+		const data = await response.json();
 
-        dispatch({
-            type: types.GET_DOCTOR_EARNINGS_SUCCESS,
-            payload: data.data,
-        });
-    } catch (error) {
-        dispatch({ type: types.GET_DOCTOR_EARNINGS_FAIL, payload: error.message || error });
-        console.error('Failed to fetch doctor earnings:', error);
-    }
+		dispatch({
+			type: types.GET_DOCTOR_EARNINGS_SUCCESS,
+			payload: data.data,
+		});
+	} catch (error) {
+		dispatch({ type: types.GET_DOCTOR_EARNINGS_FAIL, payload: error.message || error });
+		console.error('Failed to fetch doctor earnings:', error);
+	}
 };
 
 export const getDoctorDebts = (id) => async (dispatch) => {
-    try {
+	try {
 		dispatch({ type: types.GET_DOCTOR_DEBTS_REQUEST });
 		const token = localStorage.getItem('token');
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
-            }
-        };
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`, // Make sure to add Bearer token
+			}
+		};
 		const { data } = await axios.get(`${url}/doctor/${id}/debts`, config);
 		dispatch({ type: types.GET_DOCTOR_DEBTS_SUCCESS, payload: data });
-    } catch (error) {
+	} catch (error) {
 		dispatch({ type: types.GET_DOCTOR_DEBTS_FAIL, payload: error.message || error });
-      console.error("Error fetching doctor debts", error);
-    }
+		console.error("Error fetching doctor debts", error);
+	}
 };
 
 export const searchContact = (searchTerm, options) => async (dispatch) => {

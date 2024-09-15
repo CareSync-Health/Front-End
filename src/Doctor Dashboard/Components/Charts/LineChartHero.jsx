@@ -24,12 +24,8 @@ const LineChartHero = () => {
 
   useEffect(() => {
     if (appointments && appointments.length) {
-      try {
         const formattedData = formatDataForChart(appointments, earnings);
         setChartData(formattedData);
-      } catch (error) {
-        console.error('Error formatting chart data:', error);
-      }
     }
   }, [appointments, earnings]);
 
@@ -54,7 +50,6 @@ const LineChartHero = () => {
       };
     });
 
-    console.log('Formatted Chart Data:', data);
     return data;
   };
 

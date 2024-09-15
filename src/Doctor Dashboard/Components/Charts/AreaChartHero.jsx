@@ -24,14 +24,8 @@ const AreaChartHero = () => {
 
   useEffect(() => {
     if (appointments && appointments.length) {
-      console.log('Fetched Appointments:', appointments); // Log appointments data
-      try {
         const formattedData = formatDataForChart(appointments, earnings);
-        console.log('Formatted Chart Data:', formattedData); // Log formatted data
         setChartData(formattedData);
-      } catch (error) {
-        console.error('Error formatting chart data:', error);
-      }
     }
   }, [appointments, earnings]);
 
@@ -55,14 +49,12 @@ const AreaChartHero = () => {
       };
     });
 
-    console.log('Formatted Chart Data:', data);
     return data;
   };
 
   return (
     <div>
       <h2 className="text-[20px] font-bold font-Inter mr-4 g-[5rem] ms-[0.6rem] mb-3">Hospital Survey</h2>
-      {/* {chartData.length > 0 ? ( */}
         <AreaChart
           className="h-80"
           data={chartData}
@@ -73,9 +65,6 @@ const AreaChartHero = () => {
           yAxisWidth={58}
           onValueChange={(v) => console.log(v)}
         />
-      {/* ) : ( */}
-        {/* <p>No data available</p> */}
-      {/* )} */}
     </div>
   );
 };
