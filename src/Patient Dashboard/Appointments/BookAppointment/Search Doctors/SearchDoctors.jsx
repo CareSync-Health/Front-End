@@ -152,22 +152,22 @@ const SearchDoctors = () => {
         <div className='mt-[3rem] xs:px-[10px] lg:px-[30px]'>
           <form>
             <div className='flex items-center justify-between mt-[1.5rem]'>
-            <div>
-              <input
-                type='text'
-                placeholder='Search for a doctor'
-                className='border border-[#eee] rounded-[100px] py-[7px] px-4 lg:w-[600px] xs:w-full bg-[#fff] shadow-sm outline-none'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
+              <div>
+                <input
+                  type='text'
+                  placeholder='Search for a doctor'
+                  className='border border-[#eee] rounded-[100px] py-[7px] px-4 lg:w-[600px] xs:w-full bg-[#fff] shadow-sm outline-none'
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
               <h2
                 className='lg:flex xs:hidden items-center gap-[1.5rem] bg-[#22cfeeb0] p-[7px] text-[14px] text-[#fff] font-normal font-Mulish rounded-[10px] cursor-pointer'
                 onClick={() => setShowFilter(true)}
               >
                 Filter Results <IoIosArrowForward />
               </h2>
-              <FaSliders className='lg:hidden xs:flex text-[22px] text-[#22cfeeb0]' onClick={() => setShowFilter(true)}/>
+              <FaSliders className='lg:hidden xs:flex text-[22px] text-[#22cfeeb0]' onClick={() => setShowFilter(true)} />
             </div>
             {showFilter && (
               <div className='absolute lg:right-[2rem] xs:right-[0] lg:top-[13rem] xs:top-0 bg-[#fff] py-3 px-3 lg:w-[400px] xs:h-screen lg:h-[65vh] shadow-lg rounded-[10px]'>
@@ -256,16 +256,21 @@ const SearchDoctors = () => {
                   </div>
                 </div>
                 <div className='mt-[1rem]'>
-                  <p className={`text-[13px] ${expandedDescriptions[doctor?._id] ? 'text-gray-700' : 'text-gray-500'} line-clamp-3`}>
-                    {(doctor?.aboutText || 'No description available').length > 100 ? (doctor?.aboutText || 'No description available').slice(0, 100) + '...' : doctor?.aboutText || 'No description available'}
+                  <p className={`text-[13px] font-Nunito font-normal whitespace-pre-wrap ${expandedDescriptions[doctor?._id] ? 'text-gray-700' : 'text-gray-500'}`}>
+                    {expandedDescriptions[doctor?._id]
+                      ? doctor?.aboutText || 'No description available'
+                      : (doctor?.aboutText || 'No description available').slice(0, 150) + '...'}
                   </p>
                   <button
                     onClick={() => toggleDescription(doctor?._id)}
-                    className='text-[#22D1EE] text-[14px] mt-1'
+                    className='text-[#22D1EE] text-[13px] mt-1 font-Nunito font-normal'
                   >
-                    {expandedDescriptions[doctor?._id] ? 'Read Less' : 'Read More'}
+                    {expandedDescriptions[doctor?._id] ? 'Read less' : 'Read more'}
                   </button>
                 </div>
+                <button className='w-[100%] p-2.5 mt-5 rounded-[8px] text-white bg-[#22D1EE] text-[15px] font-Nunito font-medium'>
+                  <Link to={`/doctorInfo/${doctor?._id}`}>Book now</Link>
+                </button>
               </div>
             ))}
           </div>
