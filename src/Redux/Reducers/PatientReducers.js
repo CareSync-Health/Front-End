@@ -1,5 +1,20 @@
 import * as types from "../Types"
 
+export const getPatientStatusReducer = (state = {}, action) => {
+	switch (action.type) {
+		case types.GET_PATIENT_STATUS_REQUEST:
+			return { ...state, loading: true };
+		case types.GET_PATIENT_STATUS_SUCCESS:
+			return { ...state, loading: false, status: action.payload };
+		case types.GET_PATIENT_STATUS_FAIL:
+			return { ...state, loading: false, error: action.payload };
+		case types.CLEAR_ERRORS:
+			return { ...state, error: null };
+		default:
+			return state;
+	}
+};
+
 export const patientAuthReducer = (state = {}, action) => {
 	switch (action.type) {
 		case types.PATIENT_AUTH_REQUEST:
@@ -84,18 +99,18 @@ export const loadPatientReducer = (state = {}, action) => {
 
 export const loadPatientDoctorReducer = (state = {}, action) => {
 	switch (action.type) {
-	  case types.LOAD_DOCTOR_REQUEST:
-		return { ...state, loading: true };
-	  case types.LOAD_DOCTOR_SUCCESS:
-		return { ...state, loading: false, doctor: action.payload };
-	  case types.LOAD_DOCTOR_FAIL:
-		return { ...state, loading: false, error: action.payload };
-	  case types.CLEAR_ERRORS:
-		return { ...state, error: null };
-	  default:
-		return state;
+		case types.LOAD_DOCTOR_REQUEST:
+			return { ...state, loading: true };
+		case types.LOAD_DOCTOR_SUCCESS:
+			return { ...state, loading: false, doctor: action.payload };
+		case types.LOAD_DOCTOR_FAIL:
+			return { ...state, loading: false, error: action.payload };
+		case types.CLEAR_ERRORS:
+			return { ...state, error: null };
+		default:
+			return state;
 	}
-  };
+};
 
 export const updatePatientReducer = (state = {}, action) => {
 	switch (action.type) {

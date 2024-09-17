@@ -28,6 +28,25 @@ export const getUserRole = () => {
 	return null;
 };
 
+export const getPatientStatus = (patientId) => async (dispatch) => {
+	try {
+		dispatch({ type: types.GET_PATIENT_STATUS_REQUEST });
+		const { data } = await axios.get(`${url}/patient/status?patientId=${patientId}`, {
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('token')}`,
+			},
+		});
+
+		if (data) {
+			dispatch({ type: types.GET_PATIENT_STATUS_SUCCESS, payload: data.status });
+		} else {
+			dispatch({ type: types.GET_PATIENT_STATUS_FAIL, payload: data.message });
+		}
+	} catch (error) {
+		dispatch({ type: types.GET_PATIENT_STATUS_FAIL, payload: error.message });
+	}
+};
+
 export const patient_register = (body, navigate) => async (dispatch) => {
 	try {
 		dispatch({ type: types.PATIENT_AUTH_REQUEST })

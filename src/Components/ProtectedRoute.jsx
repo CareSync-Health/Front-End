@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { getDoctorKYCStatus, getDoctorStatus, getUserRole, loadDoctor } from "@/Redux/Actions/DoctorActions";
 import { useDispatch, useSelector } from "react-redux";
+import { getPatientStatus, loadPatient } from "@/Redux/Actions/PatientActions";
 
 // For doctors
 const DoctorPrivateRoute = () => {
@@ -43,8 +44,34 @@ const DoctorPrivateRoute = () => {
 
 // For patients
 const PatientPrivateRoute = () => {
+    const dispatch = useDispatch();
     const role = getUserRole();
-    return role === "patient" ? <Outlet /> : <Navigate to="/unauthorized" />;
+    const { status } = useSelector((state) => state.getPatientStatus);
+    const patient = useSelector((state) => state.loadPatient.patient);
+    const patientId = patient?._id;
+
+    useEffect(() => {
+        if (role === "patient") {
+            dispatch(loadPatient());
+            if (patientId) {
+                dispatch(getPatientStatus(patientId))
+            }
+        }
+    }, [dispatch, role, patientId]);
+
+    if (role !== "patient") {
+        return <Navigate to="/unauthorized" />;
+    }
+
+    if (status === "Blocked") {
+        return <Navigate to="/Block" />;
+    }
+
+    if (status === "Terminated") {
+        return <Navigate to="/Terminate" />;
+    }
+
+    return <Outlet />;
 };
 
 export { DoctorPrivateRoute, PatientPrivateRoute };

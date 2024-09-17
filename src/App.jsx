@@ -5,7 +5,6 @@ import ErrorBoundary from "./Components/ErrorBoundary";
 import { ThemeProvider } from "./Doctor Dashboard/Components/ThemeContext";
 import { DoctorPrivateRoute, PatientPrivateRoute } from "./Components/ProtectedRoute";
 import { getUserRole } from "./Redux/Actions/DoctorActions";
-import { TutorialProvider } from "./Components/TutorialContext";
 
 // LANDING PAGE IMPORTS
 const Homepage = lazy(() => import("./Landing Page/HomePage/Homepage"));
@@ -59,6 +58,9 @@ const PatientMessage = lazy(() => import("./Patient Dashboard/Message/Chat"));
 const PatientCalendar = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendar"));
 const PatientCalendarFilter = lazy(() => import("./Patient Dashboard/Calendar/PatientCalendarFilter"));
 const PatientSettings = lazy(() => import("./Patient Dashboard/Settings/PatientSettings"));
+const PatientBlocked = lazy(() => import("./Patient Dashboard/Components/Blocked"));
+const PatientTerminated = lazy(() => import("./Patient Dashboard/Components/Terminated"));
+
 
 function App() {
   const navigate = useNavigate();
@@ -123,6 +125,8 @@ function App() {
               <Route path='/blocked' element={ <Blocked /> } />
               <Route path='/terminated' element={ <Terminated /> } />
               <Route path='/KYC-Security' element={ <KYC_Security /> } />
+              <Route path='/Block' element={  <PatientBlocked />} />
+              <Route path='/Terminate' element={ <PatientTerminated /> } />
 
               {/* DOCTOR ROUTE */}
               <Route element={<DoctorPrivateRoute />}>

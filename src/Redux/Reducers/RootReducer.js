@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { getAllPatientsReducer, loadPatientDoctorReducer, loadPatientReducer, patientAuthReducer, patientForgetPasswordReducer, patientVerifyOtpReducer, updatePatientReducer } from "./PatientReducers";
+import { getAllPatientsReducer, getPatientStatusReducer, loadPatientDoctorReducer, loadPatientReducer, patientAuthReducer, patientForgetPasswordReducer, patientVerifyOtpReducer, updatePatientReducer } from "./PatientReducers";
 import { chatReducer, doctorAuthReducer, doctorDebtReducer, doctorForgetPasswordReducer, doctorKYCStatusReducer, doctorVerificationReducer, doctorVerifyOtpReducer, getAllDoctorsReducer, getDoctorStatusReducer, getTotalEarningReducer, loadDoctorReducer, searchContactsReducer, searchDoctorsReducer, updateDoctorReducer } from "./DoctorReducers";
 import { appointmentReducer, getAllAppointmentReducer, getAllPatientAppointmentReducer, getSingleAppointmentReducer, updateAppointmentStatusReducer } from "./BookAppointmentReducer";
 
@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
     createChat: chatReducer, 
 
     // PATIENT
+    getPatientStatus: getPatientStatusReducer,
     patientAuth: patientAuthReducer,
     patientVerifyOtp: patientVerifyOtpReducer,
     patientForgetPassword: patientForgetPasswordReducer,
